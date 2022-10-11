@@ -10,12 +10,14 @@
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.6",
     "bcryptjs": "^2.4.3",
     "mongoose": "^6.6.5",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "react-redux": "^8.0.4"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
