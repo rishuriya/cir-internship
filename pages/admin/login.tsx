@@ -1,10 +1,12 @@
 import React from "react";
+import Head from 'next/head'
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+
 
 
 function login() {
@@ -39,7 +41,11 @@ function login() {
 
   return (
     <div className="bg-secondary h-screen w-full relative p-2">
-
+        <Head>
+        <title>Admin Login - CIR</title>
+        <meta name="description" content="Amrita Students can submit their Internship detail and get approval from CIR online" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <form
       action="#"
       method="POST"
