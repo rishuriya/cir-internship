@@ -50,14 +50,14 @@ function login() {
           {/* <Image src={} height="55" width="210"></Image> */}
         </a>
         
-          <h1 className="text-3xl my-5 font-bold ">Login</h1>
+          <h1 className="text-3xl my-5 font-bold ">Admin Login</h1>
 
           <div className="my-3 mx-3">
             <div className="mx-2 font-medium">Email</div>
             <input
               className=" border-2 border-primaryDark rounded-xl px-3 py-2 invalid:border-red-500"
               name="email"
-              placeholder="abc@am.students.amrita.edu"
+              placeholder="Email"
               onChange={(e) => setEmailInput(e.target.value)}
               type="email"
               required
@@ -85,23 +85,24 @@ function login() {
             </div>
           </div>
 
-          <button
-            onClick={() => alert("Help comming soon!!")}
+          {/* <button
+            onClick={() => alert("Nope!,We are not gonna help 👿")}
             className="text-blue-500 my-1 hover:underline">
             Forgot password?
-          </button>
+          </button> */}
 
-          <div className="my-3 mx-10">
+          {/* <div className="my-3 mx-10">
             New here?{" "}
             <Link href="/signup">
               <span className="text-blue-500 hover:underline cursor-pointer">
                 Signup
               </span>
             </Link>
-          </div>
+          </div> */}
 
           {!loading ? (
             <button
+              // className={error===""?"text-white px-5 py-3 my-2 bg-slate-600 font-semibold text-lg hover:bg-slate-800 active:scale-95 rounded-lg":"text-white px-5 py-3 my-2 bg-slate-600 font-semibold text-lg cursor-not-allowed"}
               className=" px-5 py-3 my-2 bg-primary font-semibold text-lg hover:bg-pink-900 active:scale-95 rounded-lg text-white"
               type="submit">
               Login
@@ -123,13 +124,6 @@ function login() {
           ) : (
             <></>
           )}
-
-         <Link href={"admin/login"}>
-            <div className="hover:underline text-blue-500 cursor-pointer font-medium mt-6">
-            Admin ? 
-            </div>
-        </Link> 
-
       </div>
       </form>
     </div>

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-
+import Link from 'next/link'
 
 
 const Home: NextPage = () => {
@@ -13,7 +13,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="">
-       Home page should be redirected to <span>Login</span>
+       Home page should be redirected to <Link href="/login" ><span className='hover:underline text-blue-500 cursor-pointer'>login</span></Link>
       </main>
 
       <footer className="">
