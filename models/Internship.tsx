@@ -92,6 +92,6 @@ const internshipSchema =new mongoose.Schema({
     }
 })
 
-const studentForm=mongoose.models.studentForm || mongoose.model("studentForm",internshipSchema)
+const internshipDataRecords=mongoose.models.studentForm || mongoose.model("internshipDataRecords",internshipSchema)
 
-export default studentForm;
+export default internshipDataRecords;
