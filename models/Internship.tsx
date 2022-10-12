@@ -1,17 +1,10 @@
 import mongoose from "mongoose";
 
-const formSchema =new mongoose.Schema({
-    userid:{
-        type:String,
+const internshipSchema =new mongoose.Schema({
+    user:{
         required:true,
-    },
-    email:{
-        type:String,
-        required:true
-    },
-    name:{
-        type:String,
-        required:true,
+        ref:'User',
+        type:mongoose.Schema.Types.ObjectId,
     },
     gender:{
         type:String,
@@ -91,6 +84,6 @@ const formSchema =new mongoose.Schema({
     }
 })
 
-const studentForm=mongoose.models.studentForm || mongoose.model("studentForm",formSchema)
+const studentForm=mongoose.models.studentForm || mongoose.model("studentForm",internshipSchema)
 
 export default studentForm;

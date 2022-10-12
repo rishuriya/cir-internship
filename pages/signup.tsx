@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Head from 'next/head';
 import Image from "next/image";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
@@ -12,6 +11,7 @@ function login() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [emailInput, setEmailInput] = useState("");
+  const [nameInput, setNameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState("");
 
@@ -27,11 +27,15 @@ function login() {
       if (passwordInput.length < 6) {
         throw "Password should be atleast 6 characters long!";
       }
-      setTimeout(() => {
-        setLoading(false);
-        const data = Object.fromEntries(new FormData(e.target).entries());
-        console.log(data);
-      }, 3000);
+      
+
+      // setTimeout(() => {
+      //   setLoading(false);
+      //   // var data = new FormData(e.target);
+      //   const data = Object.fromEntries(new FormData(e.target).entries());
+      //   console.log(data);
+      // }, 3000);
+      setLoading(false);
     } catch (e) {
       setError(e);
       setLoading(false);
@@ -40,29 +44,36 @@ function login() {
 
   return (
     <div className="bg-secondary h-screen w-full relative p-2">
-       <Head>
-        <title>Login - Amrita Internship - CIR</title>
-        <meta name="description" content="Amrita Students can submit their Internship detail and get approval from CIR online" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head> 
+
       <form
-      action="#"
+      action="/api/auth/signup"
       method="POST"
-      onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
         <a href="/" className="mx-3 my-auto text-primary ">
           {/* <Image src={} height="55" width="210"></Image> */}
         </a>
         
-          <h1 className="text-3xl my-5 font-bold ">Login</h1>
+          <h1 className="text-3xl my-5 font-bold ">Signup</h1>
+
+          <div className="my-3 mx-3">
+            <div className="mx-2 font-medium">Full Name</div>
+            <input
+              className=" border-2 border-primaryDark rounded-xl px-3 py-2 invalid:border-red-500"
+              name="name"
+              placeholder="Full Name"
+              onChange={(e) => setNameInput(e.target.value)}
+              type="text"
+              required
+            />
+          </div>
 
           <div className="my-3 mx-3">
             <div className="mx-2 font-medium">Email</div>
             <input
               className=" border-2 border-primaryDark rounded-xl px-3 py-2 invalid:border-red-500"
               name="email"
-              placeholder="abc@am.students.amrita.edu"
+              placeholder="Email"
               onChange={(e) => setEmailInput(e.target.value)}
               type="email"
               required
@@ -79,6 +90,7 @@ function login() {
               onChange={(e) => setPasswordInput(e.target.value)}
               required
             />
+            
             <div
               className="absolute peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:top-8 top-8 right-4 z-20 cursor-pointer"
               onClick={showPasswordHandler}>
@@ -89,18 +101,13 @@ function login() {
               )}
             </div>
           </div>
-
-          <button
-            onClick={() => alert("Help comming soon!!")}
-            className="text-blue-500 my-1 hover:underline">
-            Forgot password?
-          </button>
+          <input type="hidden" name="role" value="Student"/>
 
           <div className="my-3 mx-10">
-            New here?{" "}
-            <Link href="/register">
+            Already have an account?{" "}
+            <Link href="/login">
               <span className="text-blue-500 hover:underline cursor-pointer">
-                Signup
+                Login
               </span>
             </Link>
           </div>
@@ -109,7 +116,7 @@ function login() {
             <button
               className=" px-5 py-3 my-2 bg-primary font-semibold text-lg hover:bg-pink-900 active:scale-95 rounded-lg text-white"
               type="submit">
-              Login
+              Signup
             </button>
           ) : (
             <>
@@ -128,13 +135,6 @@ function login() {
           ) : (
             <></>
           )}
-
-         <Link href={"admin/login"}>
-            <div className="hover:underline text-blue-500 cursor-pointer font-medium mt-6">
-            Admin Login
-            </div>
-        </Link> 
-
       </div>
       </form>
     </div>
