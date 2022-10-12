@@ -7,13 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "server" : "sudo systemctl start mongod && next dev",
+    "server": "sudo systemctl start mongod && next dev",
     "rv1": "brew services start mongodb-community@6.0 && next dev",
     "rv2": "brew services stop mongodb-community@6.0",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.6",
+    "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "mongoose": "^6.6.5",
     "next": "12.3.1",
@@ -23,6 +24,7 @@
     "react-redux": "^8.0.4"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/node": "18.8.3",
     "@types/react": "18.0.21",

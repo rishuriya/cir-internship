@@ -1,7 +1,7 @@
 import db_connect from "../../../utils/db_connect";
 import User from "../../../models/User"
-import bcryptjs from "bcryptjs"
-const  { hash, genSaltSync } = bcryptjs;
+import bcrypt from "bcrypt"
+const  { hash, genSaltSync } = bcrypt;
 
 
 export default async function handeler(req,res) {
@@ -20,7 +20,7 @@ export default async function handeler(req,res) {
         if(!user){
             return res.status(400).json({success:false,message:'user not created'})
         }
-        res.status(200).json({success:true,message:'user created',user:user})
+        //res.status(200).json({success:true,message:'user created',user:user})
         res.redirect("/")
     }
     catch(error){

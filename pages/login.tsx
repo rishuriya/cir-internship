@@ -43,9 +43,8 @@ function login() {
     <div className="bg-secondary h-screen w-full relative p-2 " style={{backgroundImage: "url('/img/register_bg_2.png')",}}>
 
       <form
-      action="#"
+      action="/api/auth/login"
       method="POST"
-      onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-gray-300 z-10 shadow-xl rounded-lg items-center">
         <a href="/" className="mx-3 my-auto text-primary ">

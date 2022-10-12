@@ -43,7 +43,7 @@ function login() {
     <div className="bg-secondary h-screen w-full relative p-2">
 
       <form
-      action="../api/datatransfer/register"
+      action="../api/auth/signup"
       method="POST"
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
