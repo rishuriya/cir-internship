@@ -1,19 +1,28 @@
 import db_connect from "../../../utils/db_connect";
 import User from "../../../models/User"
-import bcrypt from "bcryptjs"
+import bcryptjs from "bcryptjs"
+const  { hash, genSaltSync } = bcryptjs;
 
 
 export default async function handeler(req,res) {
     const {method}=req;
     db_connect();
     try{
-        const Password=req.body["password"];
-        const hashpassword= await bcrypt.hash(Password,12)
-        //console.log()
+        let {email,password} = req.body;
+        console.log(email,password);
+        // let user= await User.findOne({email});
+        // if (user) {
+        //     throw ("User already exists");
+        // }
+
+        const salt = genSaltSync(10);
+        const hashpassword= await hash(password,salt)
+    
         req.body["password"]=hashpassword
-        const user = await User.create(req.body);
-         res.redirect("/")
-         if(!user){
+        let user = new User(email,password);
+        await user.save();
+        res.redirect("/")
+        if(!user){
             return res.json({code:'user not created'})
         }
     }

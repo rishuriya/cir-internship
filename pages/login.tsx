@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Head from 'next/head';
 import Image from "next/image";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
@@ -39,7 +40,11 @@ function login() {
 
   return (
     <div className="bg-secondary h-screen w-full relative p-2">
-
+       <Head>
+        <title>Login - Amrita Internship - CIR</title>
+        <meta name="description" content="Amrita Students can submit their Internship detail and get approval from CIR online" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head> 
       <form
       action="#"
       method="POST"
@@ -126,7 +131,7 @@ function login() {
 
          <Link href={"admin/login"}>
             <div className="hover:underline text-blue-500 cursor-pointer font-medium mt-6">
-            Admin ? 
+            Admin Login
             </div>
         </Link> 
 
