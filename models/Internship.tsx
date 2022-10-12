@@ -23,12 +23,16 @@ const internshipSchema =new mongoose.Schema({
         required:true
     },
     
-    specialization:{
+    branch:{
+        type:String,
+        required:true
+    },
+    department:{
         type:String,
         required:true
     },
     semester:{
-        type:String,
+        type:Number,
         required:true
     },
     batch:{
@@ -47,15 +51,19 @@ const internshipSchema =new mongoose.Schema({
         type:String,
         required:true
     },
+    company_website:{
+        type:String,
+        required:false
+    },
     company_person_name:{
         type:String,
         required:true
     },
-    for_whoesever_concern:{
+    for_whomsoever_concern:{
         type:Boolean,
-        required:true
+        required:false
     },
-    company_Address:{
+    company_address:{
         type:String,
         required:true
     },
@@ -67,11 +75,11 @@ const internshipSchema =new mongoose.Schema({
         type:String,
         required:true
     },
-    company_start:{
+    internship_start:{
         type:Date,
         required:true
     },
-    company_end:{
+    internship_end:{
         type:Date,
         required:true
     },
