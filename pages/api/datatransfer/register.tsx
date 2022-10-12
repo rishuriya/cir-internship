@@ -8,23 +8,19 @@ export default async function handeler(req,res) {
     const {method}=req;
     db_connect();
     try{
-        let {email,password} = req.body;
-        console.log(email,password);
-        // let user= await User.findOne({email});
-        // if (user) {
-        //     throw ("User already exists");
-        // }
+        let {name,email,password} = req.body;
+        console.log(req.body);
 
         const salt = genSaltSync(10);
         const hashpassword= await hash(password,salt)
     
         req.body["password"]=hashpassword
-        let user = new User(email,password);
+        let user = new User(req.body);
         await user.save();
-        res.redirect("/")
         if(!user){
             return res.json({code:'user not created'})
         }
+        res.redirect("/")
     }
     catch(error){
         res.status(400).json({status:'not able to do'})

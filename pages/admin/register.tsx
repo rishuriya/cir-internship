@@ -43,7 +43,7 @@ function login() {
     <div className="bg-secondary h-screen w-full relative p-2">
 
       <form
-      action="/api/datatransfer/register"
+      action="../api/datatransfer/register"
       method="POST"
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
@@ -51,7 +51,7 @@ function login() {
           {/* <Image src={} height="55" width="210"></Image> */}
         </a>
         
-          <h1 className="text-3xl my-5 font-bold ">Student Signup</h1>
+          <h1 className="text-3xl my-5 font-bold ">Admin Signup</h1>
 
           <div className="my-3 mx-3">
             <div className="mx-2 font-medium">Email</div>
@@ -98,7 +98,7 @@ function login() {
               )}
             </div>
           </div>
-          <input type="hidden" name="role" value="Student"/>
+          <input type="hidden" name="role" value="Admin"/>
 
           <div className="my-3 mx-10">
             Already have a account?{" "}
