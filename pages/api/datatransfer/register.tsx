@@ -1,5 +1,5 @@
-import db_connect from "../../utils/db_connect";
-import User from "../../models/User"
+import db_connect from "../../../utils/db_connect";
+import User from "../../../models/User"
 import bcrypt from "bcryptjs"
 
 

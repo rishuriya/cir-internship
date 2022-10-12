@@ -93,7 +93,7 @@ function login() {
 
           <div className="my-3 mx-10">
             New here?{" "}
-            <Link href="/signup">
+            <Link href="/register">
               <span className="text-blue-500 hover:underline cursor-pointer">
                 Signup
               </span>
