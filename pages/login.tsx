@@ -39,18 +39,15 @@ function login() {
   };
 
   return (
-    <div className="bg-secondary h-screen w-full relative p-2">
-       <Head>
-        <title>Login - Amrita Internship - CIR</title>
-        <meta name="description" content="Amrita Students can submit their Internship detail and get approval from CIR online" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head> 
+
+    <div className="bg-secondary h-screen w-full relative p-2 " style={{backgroundImage: "url('/img/register_bg_2.png')",}}>
+
       <form
       action="#"
       method="POST"
       onSubmit={handleOnSubmit}
       >
-      <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
+      <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-gray-300 z-10 shadow-xl rounded-lg items-center">
         <a href="/" className="mx-3 my-auto text-primary ">
           {/* <Image src={} height="55" width="210"></Image> */}
         </a>
