@@ -1,0 +1,96 @@
+import mongoose from "mongoose";
+
+const formSchema =new mongoose.Schema({
+    userid:{
+        type:String,
+        required:true,
+    },
+    email:{
+        type:String,
+        required:true
+    },
+    name:{
+        type:String,
+        required:true,
+    },
+    gender:{
+        type:String,
+        required:true
+    },
+    school:{
+        type:String,
+        required:true
+    },
+    rollno:{
+        type:String,
+        required:true
+    },
+    course:{
+        type:String,
+        required:true
+    },
+    
+    specialization:{
+        type:String,
+        required:true
+    },
+    semester:{
+        type:String,
+        required:true
+    },
+    batch:{
+        type:String,
+        required:true
+    },
+    phone:{
+        type:String,
+        required:true
+    },
+    company_name:{
+        type:String,
+        required:true
+    },
+    company_location:{
+        type:String,
+        required:true
+    },
+    company_person_name:{
+        type:String,
+        required:true
+    },
+    for_whoesever_concern:{
+        type:Boolean,
+        required:true
+    },
+    company_Address:{
+        type:String,
+        required:true
+    },
+    company_email:{
+        type:String,
+        required:true
+    },
+    company_mobile:{
+        type:String,
+        required:true
+    },
+    company_start:{
+        type:Date,
+        required:true
+    },
+    company_end:{
+        type:Date,
+        required:true
+    },
+    approved:{
+        type:Boolean,
+        default:false,
+    },
+    certificate:{
+        type:String,
+    }
+})
+
+const studentForm=mongoose.models.studentForm || mongoose.model("studentForm",formSchema)
+
+export default studentForm;
