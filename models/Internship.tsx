@@ -6,43 +6,6 @@ const internshipSchema =new mongoose.Schema({
        ref:'User',
        type:mongoose.Schema.Types.ObjectId,
    },
-   gender:{
-       type:String,
-       required:true
-   },
-   school:{
-       type:String,
-       required:true
-   },
-   rollno:{
-       type:String,
-       required:true
-   },
-   course:{
-       type:String,
-       required:true
-   },
-  
-   branch:{
-       type:String,
-       required:true
-   },
-   department:{
-       type:String,
-       required:true
-   },
-   semester:{
-       type:Number,
-       required:true
-   },
-   batch:{
-       type:String,
-       required:true
-   },
-   phone:{
-       type:String,
-       required:true
-   },
    company_name:{
        type:String,
        required:true
@@ -83,6 +46,10 @@ const internshipSchema =new mongoose.Schema({
        type:Date,
        required:true
    },
+   internship_mode:{
+    type:String,
+    required:true
+},
    approved:{
        type:Boolean,
        default:false,

@@ -32,7 +32,7 @@ export default function Navbar(prop) {
 
   const [auth, setAuth] = useState(true)
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState("amenu4cse21115@am.students.amrita.edu");
+  const [user, setUser] = useState("AM.EN.U4CSE21115");
 
   useEffect(() => {
     if (!auth) {
@@ -73,7 +73,7 @@ export default function Navbar(prop) {
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
             {auth?
               <>
-              <div className='truncate w-72 py-2 px-3 bg-slate-200/30 rounded-xl'>
+              <div className='truncate w-62 py-2 px-3 bg-slate-200/30 rounded-xl'>
                 {user}
               </div>
              <a
