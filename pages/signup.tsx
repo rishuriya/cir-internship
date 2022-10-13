@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import Router from "next/router";
 import { ImSpinner2 } from "react-icons/im";
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -19,7 +20,7 @@ function login() {
     setShowPassword(!showPassword);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
       setError("");
@@ -35,6 +36,23 @@ function login() {
       //   const data = Object.fromEntries(new FormData(e.target).entries());
       //   console.log(data);
       // }, 3000);
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+      console.log(res)
+      if (res.status === 200) {
+        Router.push("/");
+      } else {
+        throw "Something went wrong!";
+      }
       setLoading(false);
     } catch (e) {
       setError(e);
@@ -46,8 +64,9 @@ function login() {
     <div className="bg-secondary h-screen w-full relative p-2">
 
       <form
-      action="/api/auth/signup"
+      // action="/api/auth/signup"
       method="POST"
+      onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
         <a href="/" className="mx-3 my-auto text-primary ">
