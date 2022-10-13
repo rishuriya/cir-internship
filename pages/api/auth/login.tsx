@@ -11,7 +11,7 @@ export default async function handeler(req,res) {
         let {email,password} = req.body;
         let query={email:email}
         let user = await User.find(query)
-        //console.log(user[0]['password'])
+        
         const match = await bcrypt.compare(password, user[0]['password']);
         if(!match){
             return res.json({success:false,message:'Incorrect Password'})

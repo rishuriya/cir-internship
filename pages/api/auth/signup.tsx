@@ -21,7 +21,7 @@ export default async function handeler(req,res) {
             return res.status(400).json({success:false,message:'user not created'})
         }
         //res.status(200).json({success:true,message:'user created',user:user})
-        res.redirect("/")
+        res.redirect("/user-form")
     }
     catch(error){
         res.status(400).json({success:false,message:error.message})
