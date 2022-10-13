@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import Router from "next/router";
 
 
 function login() {
@@ -27,11 +28,28 @@ function login() {
       if (passwordInput.length < 6) {
         throw "Password should be atleast 6 characters long!";
       }
-      setTimeout(() => {
+      setTimeout(async () => {
         setLoading(false);
         const data = Object.fromEntries(new FormData(e.target).entries());
-        console.log(data);
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+          }),
+        });
+        const res2=await res.json();
+        if(res2.error){
+          
+        }
+        else{
+          Router.push("/");
+        }
       }, 3000);
+      
     } catch (e) {
       setError(e);
       setLoading(false);
@@ -43,8 +61,7 @@ function login() {
     <div className="bg-secondary h-screen w-full relative p-2 " style={{backgroundImage: "url('/img/register_bg_2.png')",}}>
 
       <form
-      action="/api/auth/login"
-      method="POST"
+      onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
         <a href="/" className="mx-3 my-auto text-primary ">
