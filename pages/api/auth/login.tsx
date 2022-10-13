@@ -9,12 +9,6 @@ export default async function handeler(req,res) {
     db_connect();
     try{
         let {email,password} = req.body;
-        //console.log(req.body);
-        
-        const salt = genSaltSync(10);
-        const hashpassword=await hash(password, salt);
-        //const hashpassword= await hash(password,salt)
-    
         let query={email:email}
         let user = await User.find(query)
         //console.log(user[0]['password'])

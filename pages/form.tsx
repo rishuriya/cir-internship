@@ -48,7 +48,7 @@ function studentForm() {
           <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
             Phone No.
           </label>
-          <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="pnone-number" type="text" placeholder=""/>
+          <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="phone-number" type="text" placeholder=""/>
         </div>
         </div>
 
@@ -184,12 +184,11 @@ function studentForm() {
           <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-mentor-contact" type="text" placeholder="Mentor Contact"/>
         </div>
         <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-nature-training">
+          <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-nature">
             Nature of training
           </label>
           <div className="relative">
             <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-internship-nature">
-              {/* <option>Select Course</option> */}
               <option>Internship</option>
               <option>In-plant training</option>
               <option>Industrial training</option>
@@ -226,7 +225,7 @@ function studentForm() {
             Internship Mode
           </label>
           <div className="relative">
-            <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-sem">
+            <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-internship-mode">
               <option>Offline</option>
               <option>Online</option>
             </select>
@@ -236,16 +235,6 @@ function studentForm() {
           </div>
         </div>
       </div>
-
-      <div className="flex flex-wrap -mx-3 mb-2">
-        <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-          <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-certificate">
-            Internship Certificate
-          </label>
-          <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-mentor-email" type="file" placeholder="Mentor Email"/>
-        </div>
-      </div>
-
     </form>
     </div>
     </div>
