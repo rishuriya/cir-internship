@@ -66,7 +66,7 @@ function login() {
       <form
       // action="/api/auth/signup"
       method="POST"
-      onSubmit={handleOnSubmit}
+      onSubmit={() => handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
         <a href="/" className="mx-3 my-auto text-primary ">
