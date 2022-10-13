@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
       <Navbar />
 
-      <main className="">
+      <main className="mx-auto max-w-7xl px-4 sm:px-6">
        Home page should be redirected to <Link href="/login" ><span className='hover:underline text-blue-500 cursor-pointer'>login</span></Link>
       </main>
 
