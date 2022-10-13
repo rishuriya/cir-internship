@@ -2,7 +2,7 @@ import db_connect from "../../../utils/db_connect";
 import User from "../../../models/User"
 import bcrypt from "bcrypt"
 import router from "next/router";
-const  { hash, genSaltSync } = bcrypt;
+const  { compare } = bcrypt;
 
 
 export default async function handeler(req,res) {
@@ -13,7 +13,7 @@ export default async function handeler(req,res) {
         let query={email:email}
         let user = await User.find(query);
         console.log(user[0]['password'])
-        const match = await bcrypt.compare(password, user[0]['password']);
+        const match = await compare(password, user[0]['password']);
         if(!match){
             return res.json({success:false,message:'Incorrect Password'})
         }
