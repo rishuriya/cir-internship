@@ -10,7 +10,7 @@ export default async function handeler(req,res) {
     db_connect();
     try{
         let {name,email,password} = req.body;
-        console.log(req.body);
+        //console.log(req.body);
 
         const salt = genSaltSync(10);
         const hashpassword= await hash(password,salt)
