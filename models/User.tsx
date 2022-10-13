@@ -70,6 +70,10 @@ const userSchema =new mongoose.Schema({
     phone:{
         type:String,
         required:false
+    },
+    year_of_joining:{
+        type:Number,
+        required:false
     }
 })
 

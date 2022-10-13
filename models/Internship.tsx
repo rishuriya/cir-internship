@@ -46,6 +46,10 @@ const internshipSchema =new mongoose.Schema({
        type:Date,
        required:true
    },
+   internship_mode:{
+    type:String,
+    required:true
+},
    approved:{
        type:Boolean,
        default:false,
