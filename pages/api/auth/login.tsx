@@ -2,7 +2,7 @@ import db_connect from "../../../utils/db_connect";
 import User from "../../../models/User"
 import bcrypt from "bcrypt"
 import router from "next/router";
-const  { hash, genSaltSync } = bcrypt;
+const  { compare } = bcrypt;
 
 
 export default async function handeler(req,res) {
@@ -11,6 +11,7 @@ export default async function handeler(req,res) {
     try{
         let {email,password} = req.body;
         let query={email:email}
+
 
         let user = await User.find(query)
         

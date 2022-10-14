@@ -17,6 +17,8 @@
     "@reduxjs/toolkit": "^1.8.6",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "mongoose": "^6.6.5",
     "next": "12.3.1",
     "react": "18.2.0",
@@ -27,6 +29,8 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/bcryptjs": "^2.4.2",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/lodash": "^4.14.186",
     "@types/node": "18.8.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
