@@ -55,16 +55,8 @@ const userSchema =new mongoose.Schema({
         type:String,
         required:false
     },
-    department:{
-        type:String,
-        required:false
-    },
     semester:{
         type:Number,
-        required:false
-    },
-    batch:{
-        type:String,
         required:false
     },
     phone:{
