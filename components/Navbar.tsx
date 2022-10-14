@@ -1,6 +1,8 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import Router from "next/router";
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
 import {AiOutlineFileAdd,AiOutlineCheck, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
 
 
@@ -27,18 +29,18 @@ const navOptions = [
 ]
 
 
-export default function Navbar(prop) {
+export default function Navbar() {
 
+  const userState = useSelector((state: RootState) => state.user.value)
 
   const [auth, setAuth] = useState(true)
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState("AM.EN.U4CSE21115");
 
-  useEffect(() => {
-    if (!auth) {
-      Router.push("/login");
-    }
-  }, [auth])
+  // useEffect(() => {
+  //   if (!auth) {
+  //     Router.push("/login");
+  //   }
+  // }, [auth])
 
   return (
     <Popover className="relative bg-white">
@@ -74,7 +76,7 @@ export default function Navbar(prop) {
             {auth?
               <>
               <div className='truncate w-62 py-2 px-3 bg-slate-200/30 rounded-xl'>
-                {user}
+                {userState["email"]}
               </div>
              <a
               href="#"
@@ -130,7 +132,7 @@ export default function Navbar(prop) {
                 </div>
               </div>
               <div className='truncate py-2 px-3 my-5 bg-slate-200/30 rounded-xl'>
-                  {user}
+                  {userState["email"]}
               </div>
               <div className="mt-6">
                 <nav className="grid gap-y-8">
@@ -152,8 +154,7 @@ export default function Navbar(prop) {
               <div>
                 <a
                   href="#"
-                  className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900"
-                >
+                  className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
                   Sign out
                 </a>
                 
