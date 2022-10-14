@@ -38,7 +38,7 @@ function studentForm() {
               <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="name">
                 Full name
               </label>
-              <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="name" type="text" placeholder="Full Name" />
+              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="name" type="text" placeholder="Full Name" />
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-gender">
@@ -63,13 +63,13 @@ function studentForm() {
               <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="email">
                 Email
               </label>
-              <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="email" type="email" placeholder="abc@am.students.amrita.edu" />
+              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="email" type="email" placeholder="abc@am.students.amrita.edu" />
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
                 Phone No.
               </label>
-              <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="phone-number" type="text" placeholder="Phone number" />
+              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="phone-number" type="text" placeholder="Phone number" />
             </div>
           </div>
 
@@ -92,7 +92,7 @@ function studentForm() {
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll">
                 Roll Number
               </label>
-              <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="roll" type="text" placeholder="AM.XX.XXXXXXX" />
+              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="roll" type="text" placeholder="AM.XX.XXXXXXX" />
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-2">
