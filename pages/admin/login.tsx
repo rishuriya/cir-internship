@@ -57,14 +57,18 @@ function login() {
         const userObj={
           name: resData.user.name,
           email: resData.user.email,
-          isAdmin: false,
+          isAdmin: resData.user.isAdmin,
           token: resData.token,
         }
         dispatch(update(userObj));
         cookie.set("token", resData.token);
         cookie.set("id", resData.user._id);
         cookie.set("email", resData.user.email);
+        if(resData.user.isAdmin){
+          Router.push("/admin");
+        }else{
         Router.push("/");
+        }
       } 
       
     } catch (e) {
