@@ -14,7 +14,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     console.log(user)
-      if(user===null){
+      if(user===undefined){
         Router.push("/login");
       }
    },[user]

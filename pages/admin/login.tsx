@@ -1,13 +1,15 @@
 import React from "react";
-import Head from 'next/head'
 import Link from "next/link";
+import Head from 'next/head';
 import Image from "next/image";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-
-
+import Router from "next/router";
+import { useSelector, useDispatch } from 'react-redux';
+import { update } from '../../slices/userSlice';
+import cookie from "js-cookie";
 
 function login() {
   const [loading, setLoading] = useState(false);
@@ -19,8 +21,17 @@ function login() {
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
+  const dispatch = useDispatch()
+  const user = cookie.get("token");
 
-  const handleOnSubmit = (e) => {
+  React.useEffect(() => {
+    console.log(user)
+      if(user!=null){
+        Router.push("/admin");
+      }
+   },[user]
+  )
+  const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
       setError("");
@@ -28,11 +39,34 @@ function login() {
       if (passwordInput.length < 6) {
         throw "Password should be atleast 6 characters long!";
       }
-      setTimeout(() => {
-        setLoading(false);
+      setLoading(false);
         const data = Object.fromEntries(new FormData(e.target).entries());
-        console.log(data);
-      }, 3000);
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: data.email,
+            password: data.password,
+          }),
+        });
+        const resData = await res.json();
+        console.log(resData);
+      if (res.status === 200 && resData.success) {
+        const userObj={
+          name: resData.user.name,
+          email: resData.user.email,
+          isAdmin: false,
+          token: resData.token,
+        }
+        dispatch(update(userObj));
+        cookie.set("token", resData.token);
+        cookie.set("id", resData.user._id);
+        cookie.set("email", resData.user.email);
+        Router.push("/");
+      } 
+      
     } catch (e) {
       setError(e);
       setLoading(false);
@@ -40,15 +74,10 @@ function login() {
   };
 
   return (
-    <div className="bg-secondary h-screen w-full relative p-2">
-        <Head>
-        <title>Admin Login - CIR</title>
-        <meta name="description" content="Amrita Students can submit their Internship detail and get approval from CIR online" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+
+    <div className="bg-secondary h-screen w-full relative p-2 " style={{backgroundImage: "url('/img/register_bg_2.png')",}}>
+
       <form
-      action="#"
-      method="POST"
       onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
@@ -56,14 +85,14 @@ function login() {
           {/* <Image src={} height="55" width="210"></Image> */}
         </a>
         
-          <h1 className="text-3xl my-5 font-bold ">Admin Login</h1>
+          <h1 className="text-3xl my-5 font-bold ">Login</h1>
 
           <div className="my-3 mx-3">
             <div className="mx-2 font-medium">Email</div>
             <input
               className=" border-2 border-primaryDark rounded-xl px-3 py-2 invalid:border-red-500"
               name="email"
-              placeholder="Email"
+              placeholder="abc@am.students.amrita.edu"
               onChange={(e) => setEmailInput(e.target.value)}
               type="email"
               required
@@ -91,24 +120,23 @@ function login() {
             </div>
           </div>
 
-          {/* <button
-            onClick={() => alert("Nope!,We are not gonna help 👿")}
+          <button
+            onClick={() => alert("Help comming soon!!")}
             className="text-blue-500 my-1 hover:underline">
             Forgot password?
-          </button> */}
+          </button>
 
-          {/* <div className="my-3 mx-10">
+          <div className="my-3 mx-10">
             New here?{" "}
-            <Link href="/signup">
+            <Link href="/admin/signup">
               <span className="text-blue-500 hover:underline cursor-pointer">
                 Signup
               </span>
             </Link>
-          </div> */}
+          </div>
 
           {!loading ? (
             <button
-              // className={error===""?"text-white px-5 py-3 my-2 bg-slate-600 font-semibold text-lg hover:bg-slate-800 active:scale-95 rounded-lg":"text-white px-5 py-3 my-2 bg-slate-600 font-semibold text-lg cursor-not-allowed"}
               className=" px-5 py-3 my-2 bg-primary font-semibold text-lg hover:bg-pink-900 active:scale-95 rounded-lg text-white"
               type="submit">
               Login
@@ -130,6 +158,13 @@ function login() {
           ) : (
             <></>
           )}
+
+         <Link href={"../login"}>
+            <div className="hover:underline text-blue-500 cursor-pointer font-medium mt-6">
+            Student Login
+            </div>
+        </Link> 
+
       </div>
       </form>
     </div>
