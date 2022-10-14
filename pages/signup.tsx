@@ -3,18 +3,22 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import Router from "next/router";
+import { useSelector, useDispatch } from 'react-redux'
+import { update } from '../slices/userSlice'
 import { ImSpinner2 } from "react-icons/im";
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 
-function login() {
+function signup() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [emailInput, setEmailInput] = useState("");
   const [nameInput, setNameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState("");
+
+  const dispatch = useDispatch()
 
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
@@ -46,9 +50,15 @@ function login() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-      console.log(resData);
 
-      if (res.status === 200) {
+      if (res.status === 200 && resData.success) {
+        const userObj={
+          name: resData.user.name,
+          email: resData.user.email,
+          isAdmin: false,
+          token: resData.token,
+        }
+        dispatch(update(userObj));
         Router.push("/user-form");
       } else {
         throw "Something went wrong!";
@@ -160,4 +170,4 @@ function login() {
   );
 }
 
-export default login;
+export default signup;
