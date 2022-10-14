@@ -65,7 +65,7 @@ export default function Navbar(prop) {
             <a href="/" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
               Home
             </a>
-            <a href="/form" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
+            <a href="/internship-form" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
               Add Internship
             </a>         
           </Popover.Group>

@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { decrement, increment } from '../slices/counterSlice'
 import { RootState } from '../store'
 
-
 const Home: NextPage = () => {
 
   const count = useSelector((state: RootState) => state.counter.value)
@@ -20,11 +19,13 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Navbar />
+
       <main className="mx-auto max-w-7xl px-4 sm:px-6">
         Home page should be redirected to <Link href="/login" ><span className='hover:underline text-blue-500 cursor-pointer'>login</span></Link>
       </main>
 
-      <br />
+      {/* <br />
 
       <h3 className='ml-20'>Redux role testing buttons</h3>
 
@@ -40,7 +41,7 @@ const Home: NextPage = () => {
         className='ml-20 p-2 bg-red-600'
         onClick={() => dispatch(decrement())}>
         Student
-      </button>
+      </button> */}
 
       <footer className="">
 

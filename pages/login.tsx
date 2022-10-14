@@ -20,7 +20,7 @@ function login() {
     setShowPassword(!showPassword);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
       setError("");
@@ -28,8 +28,7 @@ function login() {
       if (passwordInput.length < 6) {
         throw "Password should be atleast 6 characters long!";
       }
-      setTimeout(async () => {
-        setLoading(false);
+      setLoading(false);
         const data = Object.fromEntries(new FormData(e.target).entries());
         const res = await fetch("/api/auth/login", {
           method: "POST",
@@ -48,7 +47,6 @@ function login() {
         else{
           Router.push("/");
         }
-      }, 3000);
       
     } catch (e) {
       setError(e);

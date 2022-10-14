@@ -4,33 +4,39 @@ This project is made by students of Amrita Vishwa Vidyapeetham, Amritapuri. We h
 
 # Instructions to run this project locally
 
-Firstly, you have to install Node js v16+
+First, you have to install Nodejs v16+
 <br>
 Then install MongoDB Compass.
 
 Clone this repository, then do <br>
 
-```ruby
+```bash
 cd cir-internship/
 npm install
 ```
 
-Then add your MongoDB's link in a .env file
-```ruby
-MONGODB_URL = 'your-link'
+Then add your MongoDB's link and hash secret in a .env file
+```bash
+MONGODB_URL = '<your-link>'
+SECRET = '<your secret>'
+```
+<b>Run the application using</b>
+```bash
+npm run dev
 ```
 
+<!-- 
 <b>Mac</b>
-```ruby
+```bash
 npm run mac
 ```
 
 <b>Linux</b>
-```ruby
+```basg
 npm run linux
 ```
 
 <b>Windows</b>
 ```ruby
 npm run win
-```
+``` -->
