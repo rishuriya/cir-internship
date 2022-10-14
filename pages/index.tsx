@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
@@ -6,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../store'
 import { useEffect } from 'react'
 import Router from "next/router";
+import NoInternship from '../components/NoInternship'
 
 
 const Home: NextPage = () => {
@@ -13,10 +13,11 @@ const Home: NextPage = () => {
   const user = useSelector((state: RootState) => state.user.value)
 
   useEffect(() => {
-    if(user===null){
-      Router.push("/login");
-    }
-  },[]
+    console.log(user)
+      if(user===null){
+        Router.push("/login");
+      }
+   },[user]
   )
 
   return (
@@ -30,6 +31,7 @@ const Home: NextPage = () => {
       <Navbar />
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6">
+        <NoInternship/>
       </main>
 
 

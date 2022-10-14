@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useSelector } from 'react-redux'
+import { RootState } from '../store'
 
 function studentForm() {
   let date_ob = new Date();
   var year = date_ob.getFullYear()
   const router = useRouter()
+
+  const user = useSelector((state: RootState) => state.user.value)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,11 +22,23 @@ function studentForm() {
   }
 
   const [course, setCourse] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const handleCourseChange = (e) => {
     setCourse(e.target.value);
     console.log(e.target.value);
   }
+
+  useEffect(() => {
+      if(user===null){
+        router.push("/login");
+      }else{
+        setUserName(user["name"]);
+        setUserEmail(user["email"]);
+      }
+    }
+  )
 
   return (
     <div className="bg-secondary h-screen w-full relative p-2">
@@ -38,7 +54,7 @@ function studentForm() {
               <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="name">
                 Full name
               </label>
-              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="name" type="text" placeholder="Full Name" />
+              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="name" type="text" placeholder="Full Name" value={userName}/>
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-gender">
@@ -63,7 +79,7 @@ function studentForm() {
               <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="email">
                 Email
               </label>
-              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="email" type="email" placeholder="abc@am.students.amrita.edu" />
+              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="email" type="email" placeholder="abc@am.students.amrita.edu" value={userEmail}/>
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
