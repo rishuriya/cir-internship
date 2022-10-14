@@ -7,7 +7,9 @@ import { ImSpinner2 } from "react-icons/im";
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Router from "next/router";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { update } from '../slices/userSlice';
+import cookie from "js-cookie";
 
 function login() {
   const [loading, setLoading] = useState(false);
@@ -19,7 +21,16 @@ function login() {
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
+  const dispatch = useDispatch()
+  const user = cookie.get("token");
 
+  React.useEffect(() => {
+    console.log(user)
+      if(user!=null){
+        Router.push("/");
+      }
+   },[user]
+  )
   const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
@@ -40,10 +51,21 @@ function login() {
             password: data.password,
           }),
         });
-        const res2=await res.json();
-        if(res2.error){
-          
+        const resData = await res.json();
+        console.log(resData);
+      if (res.status === 200 && resData.success) {
+        const userObj={
+          name: resData.user.name,
+          email: resData.user.email,
+          isAdmin: false,
+          token: resData.token,
         }
+        dispatch(update(userObj));
+        cookie.set("token", resData.token);
+        cookie.set("id", resData.user._id);
+        cookie.set("email", resData.user.email);
+        Router.push("/user-form");
+      } 
         else{
           Router.push("/");
         }

@@ -2,8 +2,7 @@ import db_connect from "../../../utils/db_connect";
 import User from "../../../models/User"
 import bcrypt from "bcrypt"
 const  { hash, genSaltSync } = bcrypt;
-const {serializeUser,issueToken} = require('../../../utils/functions');
-
+const {serializeUser,issueToken} = require('../../../utils/functions');;
 
 export default async function handeler(req,res) {
     

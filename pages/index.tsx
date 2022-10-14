@@ -6,11 +6,11 @@ import { RootState } from '../store'
 import { useEffect } from 'react'
 import Router from "next/router";
 import NoInternship from '../components/NoInternship'
-
+import cookie from 'js-cookie';
 
 const Home: NextPage = () => {
 
-  const user = useSelector((state: RootState) => state.user.value)
+  const user = cookie.get("token");
 
   useEffect(() => {
     console.log(user)

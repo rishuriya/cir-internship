@@ -4,7 +4,9 @@ import Router from "next/router";
 import { useSelector } from 'react-redux'
 import { RootState } from '../store'
 import {AiOutlineFileAdd,AiOutlineCheck, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
-
+import cookie from 'js-cookie';
+import db_connect from "../utils/db_connect";
+import User from "../models/User"
 
 const navOptions = [
   {
@@ -32,17 +34,22 @@ const navOptions = [
 export default function Navbar() {
 
   const userState = useSelector((state: RootState) => state.user.value)
-
   const [auth, setAuth] = useState("")
   const [loading, setLoading] = useState(false);
-
+ const signout = () => {
+    cookie.remove("token");
+    cookie.remove("id");
+    cookie.remove("email");
+    Router.push("/login");
+  }
   useEffect(() => {
     // if (!auth) {
     //   Router.push("/login");
     // }
-    if(userState!==null){
-      setAuth(userState["email"]);
-    }
+    const id=cookie.get("email");
+    console.log(id);
+    if(id!=null)
+      setAuth(id);
   }, [])
 
   return (
@@ -81,11 +88,11 @@ export default function Navbar() {
               <div className='truncate w-62 py-2 px-3 bg-slate-200/30 rounded-xl'>
                 {auth}
               </div>
-             <a
-              href="#"
+             <button
+              onClick={signout}
               className="ml-2 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
               Sign Out
-             </a>
+             </button>
             </>
             :<div className='space-x-5'>
               <a
