@@ -1,13 +1,42 @@
-import React from "react";
+import React,{useState} from "react";
 
 
 function studentForm() {
+  const [formValues, setFormValues] = useState([{ name_member: "", email_member : "", roll_member: ""}])
+  const handleChange = (i, e) => {
+    console.log(i);
+    let data = [...formValues];
+    data[i][e.target.name] = e.target.value;
+      setFormValues(data);
+      
+    }
+  
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
         console.log(data);
     }
+
+    let addFormFields = () => {
+      setFormValues([...formValues, { name_member: "", email_member: "", roll_member: ""}]);
+    }
+  
+  let removeFormFields = (i) => {
+      let newFormValues = [...formValues];
+      newFormValues.splice(i, 1);
+      setFormValues(newFormValues)
+  }
+
+  const [status, setStatus] = React.useState(false)
+
+  const radioHandler=() => {
+    if(status === false){
+      setStatus(true)
+    }else{
+      setStatus(false)
+    }
+  };
 
 
   return (
@@ -124,12 +153,51 @@ function studentForm() {
           </label>
           <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-mentor-email" type="file" placeholder="Mentor Email"/>
         </div>
-        <div className="w-full md:w-1/5 px-3 mb-6 md:mb-0 mt-2">
+      </div>
+
+      {/* for adding group members for internship */}
+      <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="release">
+            Add Member for Internship
+      </label>
+      <input type="radio" id="release" onClick={radioHandler} />
+      <div style={{ display: status ? 'block' : 'none'}}>
+      {formValues.map((element, index) => (
+            <div className="flex flex-wrap -mx-3 mb-6" key={index}>
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="name_member">
+                Name
+              </label>
+              <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="name_member" type="input" placeholder="" onChange={e => handleChange(index, e)}/>
+            </div>
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="email_member">
+                Email Id
+              </label>
+              <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="email_member" type="email" placeholder="" onChange={e => handleChange(index, e)}/>
+            </div>
+            <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll_member">
+                Roll No.
+              </label>
+              <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="roll_member" type="input" placeholder="" onChange={e => handleChange(index, e)}/>
+            </div>
+            {
+                index ? 
+                  <button type="button"  className="button remove py-2 px-2 text-white bg-primary rounded-lg font-base" onClick={() => removeFormFields(index)}>Remove</button> 
+                : null
+              }
+            </div>
+          ))}
+      <button className="button add py-2 px-2 text-white bg-primary rounded-lg font-base" type="button" onClick={() => addFormFields()}>Add</button>
+      </div>
+
+      {/* form submit button */}
+      <div className=" flex justify-end  px-3 mb-6 md:mb-0 mt-2">
          <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit">
           Submit
          </button>
         </div>
-      </div>
+
     </form>
     </div>
     </div>

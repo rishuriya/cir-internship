@@ -29,27 +29,27 @@ function login() {
         throw "Password should be atleast 6 characters long!";
       }
       
-
-      // setTimeout(() => {
-      //   setLoading(false);
-      //   // var data = new FormData(e.target);
-      //   const data = Object.fromEntries(new FormData(e.target).entries());
-      //   console.log(data);
-      // }, 3000);
       const data = Object.fromEntries(new FormData(e.target).entries());
+      
+      const bodyObject={
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        role: "Student",
+      };
+
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json; charset=utf8 ",
         },
-        body: JSON.stringify({
-          email: data.email,
-          password: data.password,
-        }),
+        body: JSON.stringify(bodyObject),
       });
-      console.log(res)
+      const resData = await res.json();
+      console.log(resData);
+
       if (res.status === 200) {
-        Router.push("/");
+        Router.push("/user-form");
       } else {
         throw "Something went wrong!";
       }
@@ -66,7 +66,7 @@ function login() {
       <form
       // action="/api/auth/signup"
       method="POST"
-      onSubmit={() => handleOnSubmit}
+      onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
         <a href="/" className="mx-3 my-auto text-primary ">

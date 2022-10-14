@@ -63,7 +63,7 @@ function studentForm() {
               <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="email">
                 Email
               </label>
-              <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="email" type="email" placeholder="abcdef@am.students.amrita.edu" />
+              <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="email" type="email" placeholder="abc@am.students.amrita.edu" />
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
@@ -209,7 +209,7 @@ function studentForm() {
           </div>
 
           <div className="flex justify-end">
-            <button type="submit" className="px-3 py-2 bg-primary text-white rounded-md my-5">
+            <button type="submit" className="px-5 py-3 bg-primary text-white rounded-md text-lg font-medium my-5">
               Submit
             </button>
           </div>
