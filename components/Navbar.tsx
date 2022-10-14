@@ -22,7 +22,7 @@ const navOptions = [
   {
     name: 'Approved Internships',
     description: "Connect with third-party tools that you're already using.",
-    href: '#',
+    href: '/',
     icon: AiOutlineCheck,
   },
  
@@ -33,14 +33,17 @@ export default function Navbar() {
 
   const userState = useSelector((state: RootState) => state.user.value)
 
-  const [auth, setAuth] = useState(true)
+  const [auth, setAuth] = useState("")
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   if (!auth) {
-  //     Router.push("/login");
-  //   }
-  // }, [auth])
+  useEffect(() => {
+    // if (!auth) {
+    //   Router.push("/login");
+    // }
+    if(userState!==null){
+      setAuth(userState["email"]);
+    }
+  }, [])
 
   return (
     <Popover className="relative bg-white">
@@ -76,7 +79,7 @@ export default function Navbar() {
             {auth?
               <>
               <div className='truncate w-62 py-2 px-3 bg-slate-200/30 rounded-xl'>
-                {userState["email"]}
+                {auth}
               </div>
              <a
               href="#"
@@ -132,7 +135,7 @@ export default function Navbar() {
                 </div>
               </div>
               <div className='truncate py-2 px-3 my-5 bg-slate-200/30 rounded-xl'>
-                  {userState["email"]}
+                  {auth}
               </div>
               <div className="mt-6">
                 <nav className="grid gap-y-8">
