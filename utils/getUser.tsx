@@ -1,7 +1,6 @@
 const verify = require("jsonwebtoken").verify;
 import User from "../models/User";
 
-
 export const getUser = async (token) => {
 
     const response = {
@@ -12,7 +11,6 @@ export const getUser = async (token) => {
     try {
         let decodedToken;
         const secret = process.env.JWT_SECRET;
-        console.log(secret);
 
         token = token.split(" ")[1];
         decodedToken = verify(token, secret);

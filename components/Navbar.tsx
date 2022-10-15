@@ -2,7 +2,7 @@ import cookie from 'js-cookie';
 import Router from "next/router";
 import User from "../models/User"
 import { RootState } from '../store'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { signout } from '../utils/signout';
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
@@ -42,10 +42,6 @@ export default function Navbar() {
     //   Router.push("/login");
     // }
     setAuth(authUser);
-    const id=cookie.get("email");
-    console.log(id);
-    if(id!=null)
-      setAuth(id);
   }, [])
 
   return (
