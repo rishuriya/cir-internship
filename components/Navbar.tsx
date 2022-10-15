@@ -1,9 +1,7 @@
-import cookie from 'js-cookie';
-import Router from "next/router";
-import User from "../models/User"
 import { RootState } from '../store'
 import { useSelector,useDispatch } from 'react-redux'
 import { signout } from '../utils/signout';
+import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import {AiOutlineFileAdd,AiOutlineCheck, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
@@ -38,11 +36,8 @@ export default function Navbar() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // if (!auth) {
-    //   Router.push("/login");
-    // }
     setAuth(authUser);
-  }, [])
+  })
 
   return (
     <Popover className="relative bg-white">
@@ -66,12 +61,12 @@ export default function Navbar() {
           </div>
 
           <Popover.Group as="nav" className="hidden space-x-5 md:space-x-10 md:flex">
-            <a href="/" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
+            <Link href="/" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
               Home
-            </a>
-            <a href="/internship-form" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
+            </Link>
+            <Link href="/internship-form" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
               Add Internship
-            </a>         
+            </Link>         
           </Popover.Group>
 
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
@@ -87,16 +82,16 @@ export default function Navbar() {
              </button>
             </>
             :<div className='space-x-5'>
-              <a
+              <Link
               href="/login"
               className="inline-flex items-center justify-center whitespace-nowrap text-primary px-4 py-2 text-base font-medium hover:text-pink-900 hover:underline">
                Login
-              </a>
-             <a
+              </Link>
+             <Link
               href="/signup"
               className="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
                 Signup
-              </a>
+              </Link>
                </div>
             }
             

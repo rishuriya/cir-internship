@@ -3,6 +3,7 @@ import cookie from 'js-cookie';
 import { useEffect } from 'react'
 import Router from "next/router";
 import type { NextPage } from 'next'
+import { RootState } from '../store'
 import { update } from '../slices/userSlice'
 import { getUser } from '../utils/getUser'
 import HomePage from '../components/Home';
@@ -12,12 +13,14 @@ const Home: NextPage = () => {
 
 
   const dispatch = useDispatch();
-
+  const authUser = useSelector((state: RootState) => state.user.value);
+  
   useEffect(() => {
+    if(authUser===null){
     try {
       const token = cookie.get("token");
       getUser(token).then((response) => {
-        console.log(response)
+        //console.log(response)
         if (!response.isAuth) {
           Router.push("/login");
           return;
@@ -41,7 +44,7 @@ const Home: NextPage = () => {
       console.log(err);
       Router.push('/signup');
     }
-
+  }
   }, []
   )
 

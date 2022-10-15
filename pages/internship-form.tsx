@@ -40,7 +40,7 @@ function internshipForm() {
   return (
     <>
 
-      <Navbar />
+      <Navbar/>
 
       <div className="bg-secondary h-screen w-full relative p-2 md:text-lg">
 
@@ -151,37 +151,39 @@ function internshipForm() {
             <div className="flex flex-wrap -mx-3 mb-2 items-center justify-between">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-certificate">
-                  Internship Offer Letter
+                  Internship Offer Letter (optional)
                 </label>
-                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-mentor-email" type="file" placeholder="Mentor Email" />
+                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-internship-certificate" type="file" />
               </div>
             </div>
 
             {/* for adding group members for internship */}
-            <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="release">
+            <div className="flex my-2">
+            <input type="checkbox" className="mx-3" id="release" onClick={radioHandler} />
+            <label className="block uppercase tracking-wide text-white text-xs font-bold" htmlFor="release">
               Add Member for Internship
             </label>
-            <input type="radio" id="release" onClick={radioHandler} />
+            </div>
             <div style={{ display: status ? 'block' : 'none' }}>
               {formValues.map((element, index) => (
                 <div className="flex flex-wrap -mx-3 mb-6" key={index}>
                   <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                    <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="name_member">
+                    <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="name_member" >
                       Name
                     </label>
-                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="name_member" id="name_member" type="input" placeholder="" onChange={e => handleChange(index, e)} />
+                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="name_member" id="name_member" type="input" placeholder="Student Name" onChange={e => handleChange(index, e)} />
                   </div>
                   <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="email_member">
                       Email Id
                     </label>
-                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email_member" id="email_member" type="email" placeholder="" onChange={e => handleChange(index, e)} />
+                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email_member" id="email_member" type="email" placeholder="abc@am.students.amrita.edu" onChange={e => handleChange(index, e)} />
                   </div>
                   <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll_member">
                       Roll No.
                     </label>
-                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll_members" id="roll_member" type="input" placeholder="" onChange={e => handleChange(index, e)} />
+                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll_members" id="roll_member" type="input" placeholder="AM.XX.XX.XXXXX" onChange={e => handleChange(index, e)} />
                   </div>
                   {
                     index ?

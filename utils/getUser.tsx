@@ -1,4 +1,5 @@
 const verify = require("jsonwebtoken").verify;
+import Router  from "next/router";
 import User from "../models/User";
 
 export const getUser = async (token) => {
@@ -10,8 +11,7 @@ export const getUser = async (token) => {
 
     try {
         let decodedToken;
-        const secret = process.env.JWT_SECRET;
-
+        const secret = process.env.SECRET;
         token = token.split(" ")[1];
         decodedToken = verify(token, secret);
 

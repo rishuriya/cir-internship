@@ -4,4 +4,7 @@ const nextConfig = {
   swcMinify: true,
 }
 
-module.exports = nextConfig
+module.exports = {nextConfig, env: {
+  SECRET:process.env.SECRET
+},
+}

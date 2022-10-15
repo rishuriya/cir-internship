@@ -26,8 +26,7 @@ function login() {
   const user = cookie.get("token");
 
   React.useEffect(() => {
-    console.log(user)
-      if(user!=null){
+      if(user!=undefined){
         Router.push("/");
       }
    },[]

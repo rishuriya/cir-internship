@@ -23,7 +23,14 @@ function signup() {
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
+  const user = cookie.get("token");
 
+  React.useEffect(() => {
+      if(user!=undefined){
+        Router.push("/");
+      }
+   },[]
+  )
   const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
