@@ -22,14 +22,6 @@ const internshipSchema =new mongoose.Schema({
        type:String,
        required:false
    },
-   for_whomsoever_concern:{
-       type:Boolean,
-       required:false
-   },
-   company_address:{
-       type:String,
-       required:true
-   },
    company_email:{
        type:String,
        required:true
@@ -37,6 +29,10 @@ const internshipSchema =new mongoose.Schema({
    company_mobile:{
        type:String,
        required:true
+   },
+   training_type:{
+    type:String,
+    required:true
    },
    internship_start_date:{
        type:Date,
@@ -53,7 +49,23 @@ const internshipSchema =new mongoose.Schema({
    approved:{
        type:Boolean,
        default:false,
-   }
+   },
+   certificate:{
+        type:String,
+        required:false
+    },
+    request_letter:{
+        type:String,
+        required:false
+    },
+   admin_remarks:{
+    type:String,
+    required:false
+    },
+    member:{
+        type:String,
+        required:false,
+    },
 })
  
 const internshipDataRecords=mongoose.models.internshipDataRecords
