@@ -138,7 +138,7 @@ export default function Navbar() {
                 </div>
               </div>
               <div className='truncate py-2 px-3 my-5 bg-slate-200/30 rounded-xl'>
-                  {auth.name}
+                  {auth ? auth.name : ''}
               </div>
               <div className="mt-6">
                 <nav className="grid gap-y-8">

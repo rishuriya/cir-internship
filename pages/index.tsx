@@ -14,33 +14,33 @@ const Home: NextPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    try{
+    try {
       const token = cookie.get("token");
-    getUser(token).then((response)=>{
-      if(!response.isAuth){
+      getUser(token).then((response) => {
+        if (!response.isAuth) {
 
-        Router.push("/login");
-      }
-      console.log("welcome ",response.user.name)
-      const userObj={
-        id:response.user.id,
-        name: response.user.name,
-        email: response.user.email,
-        isAdmin: response.user.role==="Admin"?true:false,
-        token: token,
-      }
-      dispatch(update(userObj));
-      if(response.user.role==="admin"){
-        Router.push("/admin");
-      }
-    });
+          Router.push("/login");
+        }
+        // console.log("welcome ",response.user.name)
+        const userObj = {
+          id: response.user.id,
+          name: response.user.name,
+          email: response.user.email,
+          isAdmin: response.user.role === "Admin" ? true : false,
+          token: token,
+        }
+        dispatch(update(userObj));
+        if (response.user.role === "admin") {
+          Router.push("/admin");
+        }
+      });
 
-    }catch(err){
+    } catch (err) {
       console.log(err);
       Router.push('/signup');
     }
-    
-   },[]
+
+  }, []
   )
 
 
@@ -52,9 +52,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <HomePage/>
+        <HomePage />
       </div>
-     
+
     </div>
   )
 }
