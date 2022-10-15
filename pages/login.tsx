@@ -52,7 +52,7 @@ function login() {
         }),
       });
       const resData = await res.json();
-      console.log(resData);
+      
       if (res.status === 200 && resData.success) {
         const userObj={
           name: resData.user.name,
@@ -60,11 +60,11 @@ function login() {
           isAdmin: false,
           token: resData.token,
         }
-        setLoading(false);
         dispatch(update(userObj));
         cookie.set("token", resData.token);
         // cookie.set("id", resData.user._id);
         // cookie.set("email", resData.user.email);
+        setLoading(false);
         Router.push("/");
       } 
       else{

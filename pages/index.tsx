@@ -17,9 +17,10 @@ const Home: NextPage = () => {
     try {
       const token = cookie.get("token");
       getUser(token).then((response) => {
+        console.log(response)
         if (!response.isAuth) {
-
           Router.push("/login");
+          return;
         }
         // console.log("welcome ",response.user.name)
         const userObj = {
@@ -32,6 +33,7 @@ const Home: NextPage = () => {
         dispatch(update(userObj));
         if (response.user.role === "admin") {
           Router.push("/admin");
+          return;
         }
       });
 

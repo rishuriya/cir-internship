@@ -12,7 +12,7 @@ function index() {
   useEffect(() => {
     console.log(user)
       if(user===undefined){
-        Router.push("/login");
+        Router.push("admin/login");
       }
    },[user]
   )

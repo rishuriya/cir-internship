@@ -62,7 +62,7 @@ function signup() {
         cookie.set("token", resData.token);
         // cookie.set("id", resData.user._id);
         // cookie.set("email", resData.user.email);
-        Router.push("/");
+        Router.push("/admin");
       } else {
         throw "Something went wrong!";
       }

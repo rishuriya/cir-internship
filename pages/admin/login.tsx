@@ -1,14 +1,13 @@
 import React from "react";
 import Link from "next/link";
-
+import cookie from "js-cookie";
+import Router from "next/router";
 import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
+import { update } from '../../slices/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import Router from "next/router";
-import { useSelector, useDispatch } from 'react-redux';
-import { update } from '../../slices/userSlice';
-import cookie from "js-cookie";
 
 function login() {
   const [loading, setLoading] = useState(false);
@@ -38,20 +37,19 @@ function login() {
       if (passwordInput.length < 6) {
         throw "Password should be atleast 6 characters long!";
       }
-      setLoading(false);
-        const data = Object.fromEntries(new FormData(e.target).entries());
-        const res = await fetch("/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: data.email,
-            password: data.password,
-          }),
-        });
-        const resData = await res.json();
-        console.log(resData);
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+      const resData = await res.json();
+      console.log(resData);
       if (res.status === 200 && resData.success) {
         const userObj={
           name: resData.user.name,
@@ -66,9 +64,10 @@ function login() {
         if(resData.user.isAdmin){
           Router.push("/admin");
         }else{
-        Router.push("/");
+          Router.push("/");
         }
       } 
+      setLoading(false);
       
     } catch (e) {
       setError(e);
