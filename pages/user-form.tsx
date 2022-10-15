@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
 import { useState } from "react";
-import { useSelector } from 'react-redux'
 import { RootState } from '../store'
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useSelector } from 'react-redux';
 
 function studentForm() {
   let date_ob = new Date();
@@ -14,11 +14,11 @@ function studentForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Submitted");
-    setTimeout(() => {
-      console.log("Submitted");
-      router.push("/");
-    }
-      , 2000)
+    router.push("/");
+    // setTimeout(() => {
+    //   console.log("Submitted");
+      
+    // }, 2000)
   }
 
   const [course, setCourse] = useState("");

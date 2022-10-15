@@ -10,7 +10,10 @@ module.exports = {
         primary: '#B90E50',
         secondary: '#f8f9fc',
         bkg: '#f8f9fc',
-      }
+      },
+      fontFamily: {
+        fuzzyBubble: ['Fuzzy Bubble', 'cursive'],
+      },
     },
   },
   plugins: [],

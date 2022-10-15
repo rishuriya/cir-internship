@@ -1,10 +1,12 @@
+import cookie from 'js-cookie';
+import Router from "next/router";
+import User from "../models/User"
+import { RootState } from '../store'
+import { useSelector,useDispatch } from 'react-redux'
+import { signout } from '../utils/signout';
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import Router from "next/router";
-import { useSelector } from 'react-redux'
-import { RootState } from '../store'
 import {AiOutlineFileAdd,AiOutlineCheck, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
-
 
 const navOptions = [
   {
@@ -31,18 +33,15 @@ const navOptions = [
 
 export default function Navbar() {
 
-  const userState = useSelector((state: RootState) => state.user.value)
-
-  const [auth, setAuth] = useState("")
+  const authUser = useSelector((state: RootState) => state.user.value)
+  const [auth, setAuth] = useState(null)
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // if (!auth) {
     //   Router.push("/login");
     // }
-    if(userState!==null){
-      setAuth(userState["email"]);
-    }
+    setAuth(authUser);
   }, [])
 
   return (
@@ -79,13 +78,13 @@ export default function Navbar() {
             {auth?
               <>
               <div className='truncate w-62 py-2 px-3 bg-slate-200/30 rounded-xl'>
-                {auth}
+                {auth.name}
               </div>
-             <a
-              href="#"
+             <button
+              onClick={signout}
               className="ml-2 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
               Sign Out
-             </a>
+             </button>
             </>
             :<div className='space-x-5'>
               <a
@@ -135,7 +134,7 @@ export default function Navbar() {
                 </div>
               </div>
               <div className='truncate py-2 px-3 my-5 bg-slate-200/30 rounded-xl'>
-                  {auth}
+                  {auth ? auth.name : ''}
               </div>
               <div className="mt-6">
                 <nav className="grid gap-y-8">
@@ -155,11 +154,11 @@ export default function Navbar() {
             <div className="space-y-6 py-6 px-5">
              
               <div>
-                <a
-                  href="#"
+                <button
+                  onClick={signout}
                   className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
                   Sign out
-                </a>
+                </button>
                 
               </div>
             </div>

@@ -33,6 +33,8 @@ const userSchema =new mongoose.Schema({
     },
     role:{
         type:String,
+        enum:["Student","Admin"],
+        default:"Student",
         required:true
     },
     gender:{

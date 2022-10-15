@@ -2,8 +2,7 @@ import db_connect from "../../../utils/db_connect";
 import User from "../../../models/User"
 import bcrypt from "bcrypt"
 const  { hash, genSaltSync } = bcrypt;
-const {serializeUser,issueToken} = require('../../../utils/functions');
-
+const {serializeUser,issueToken} = require('../../../utils/functions');;
 
 export default async function handeler(req,res) {
     
@@ -32,7 +31,7 @@ export default async function handeler(req,res) {
         let token = await issueToken(result);
         // console.log({success:true,message:'user created',user:result,token:token})
         return await res.status(200).json({success:true,message:'user created',user:result,token:token})
-        
+            
     }
     catch(error){
         return res.status(400).json({success:false,message:error.message})

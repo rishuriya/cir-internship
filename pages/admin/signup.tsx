@@ -2,12 +2,15 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import Router from "next/router";
+import { useSelector, useDispatch } from 'react-redux'
+import { update } from '../../slices/userSlice'
 import { ImSpinner2 } from "react-icons/im";
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import cookie from "js-cookie";
 
-
-function login() {
+function signup() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [emailInput, setEmailInput] = useState("");
@@ -15,11 +18,13 @@ function login() {
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState("");
 
+  const dispatch = useDispatch()
+
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
       setError("");
@@ -27,12 +32,41 @@ function login() {
       if (passwordInput.length < 6) {
         throw "Password should be atleast 6 characters long!";
       }
-      setTimeout(() => {
-        setLoading(false);
-        // var data = new FormData(e.target);
-        const data = Object.fromEntries(new FormData(e.target).entries());
-        console.log(data);
-      }, 3000);
+      
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      
+      const bodyObject={
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        role: "Admin",
+      };
+
+      const res = await fetch("../api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf8 ",
+        },
+        body: JSON.stringify(bodyObject),
+      });
+      const resData = await res.json();
+
+      if (res.status === 200 && resData.success) {
+        const userObj={
+          name: resData.user.name,
+          email: resData.user.email,
+          isAdmin: true,
+          token: resData.token,
+        }
+        dispatch(update(userObj));
+        cookie.set("token", resData.token);
+        // cookie.set("id", resData.user._id);
+        // cookie.set("email", resData.user.email);
+        Router.push("/admin");
+      } else {
+        throw "Something went wrong!";
+      }
+      setLoading(false);
     } catch (e) {
       setError(e);
       setLoading(false);
@@ -43,18 +77,19 @@ function login() {
     <div className="bg-secondary h-screen w-full relative p-2">
 
       <form
-      action="../api/auth/signup"
+      // action="/api/auth/signup"
       method="POST"
+      onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
         <a href="/" className="mx-3 my-auto text-primary ">
           {/* <Image src={} height="55" width="210"></Image> */}
         </a>
         
-          <h1 className="text-3xl my-5 font-bold ">Admin Signup</h1>
+          <h1 className="text-3xl my-5 font-bold ">Signup</h1>
 
           <div className="my-3 mx-3">
-            <div className="mx-2 font-medium">Email</div>
+            <div className="mx-2 font-medium">Full Name</div>
             <input
               className=" border-2 border-primaryDark rounded-xl px-3 py-2 invalid:border-red-500"
               name="name"
@@ -101,7 +136,7 @@ function login() {
           <input type="hidden" name="role" value="Admin"/>
 
           <div className="my-3 mx-10">
-            Already have a account?{" "}
+            Already have an account?{" "}
             <Link href="/login">
               <span className="text-blue-500 hover:underline cursor-pointer">
                 Login
@@ -111,10 +146,9 @@ function login() {
 
           {!loading ? (
             <button
-              // className={error===""?"text-white px-5 py-3 my-2 bg-slate-600 font-semibold text-lg hover:bg-slate-800 active:scale-95 rounded-lg":"text-white px-5 py-3 my-2 bg-slate-600 font-semibold text-lg cursor-not-allowed"}
               className=" px-5 py-3 my-2 bg-primary font-semibold text-lg hover:bg-pink-900 active:scale-95 rounded-lg text-white"
               type="submit">
-              Login
+              Signup
             </button>
           ) : (
             <>
@@ -139,4 +173,4 @@ function login() {
   );
 }
 
-export default login;
+export default signup;

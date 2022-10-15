@@ -23,6 +23,7 @@ export const userSlice = createSlice({
 
     update:(state, actions)=>{
       state.value = {
+            id: actions.payload.id,
             name: actions.payload.name,
             email: actions.payload.email,
             isAdmin: actions.payload.isAdmin, 
