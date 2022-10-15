@@ -18,6 +18,7 @@ const Home: NextPage = () => {
       const token = cookie.get("token");
     getUser(token).then((response)=>{
       if(!response.isAuth){
+
         Router.push("/login");
       }
       console.log("welcome ",response.user.name)
