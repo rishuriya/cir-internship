@@ -60,8 +60,8 @@ function signup() {
         }
         dispatch(update(userObj));
         cookie.set("token", resData.token);
-        cookie.set("id", resData.user._id);
-        cookie.set("email", resData.user.email);
+        // cookie.set("id", resData.user._id);
+        // cookie.set("email", resData.user.email);
         Router.push("/user-form");
       } else {
         throw "Something went wrong!";

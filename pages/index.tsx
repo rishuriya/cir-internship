@@ -1,24 +1,47 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
-import Navbar from '../components/Navbar'
-import { useSelector } from 'react-redux'
-import { RootState } from '../store'
+import cookie from 'js-cookie';
 import { useEffect } from 'react'
 import Router from "next/router";
-import NoInternship from '../components/NoInternship'
-import cookie from 'js-cookie';
+import type { NextPage } from 'next'
+import { update } from '../slices/userSlice'
+import { getUser } from '../utils/getUser'
+import HomePage from '../components/Home';
+import { useSelector, useDispatch } from 'react-redux'
 
 const Home: NextPage = () => {
 
-  const user = cookie.get("token");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(user)
-      if(user===null){
+    try{
+      const token = cookie.get("token");
+    getUser(token).then((response)=>{
+      if(!response.isAuth){
         Router.push("/login");
       }
-   },[user]
+      console.log("welcome ",response.user.name)
+      const userObj={
+        id:response.user.id,
+        name: response.user.name,
+        email: response.user.email,
+        isAdmin: response.user.role==="Admin"?true:false,
+        token: token,
+      }
+      dispatch(update(userObj));
+      if(response.user.role==="admin"){
+        Router.push("/admin");
+      }
+    });
+
+    }catch(err){
+      console.log(err);
+      Router.push('/signup');
+    }
+    
+   },[]
   )
+
 
   return (
     <div className="">
@@ -27,17 +50,10 @@ const Home: NextPage = () => {
         <meta name="description" content="Amrita Students can submit their Internship detail and get approval from CIR online" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Navbar />
-
-      <main className="mx-auto max-w-7xl px-4 sm:px-6">
-        <NoInternship/>
-      </main>
-
-
-      <footer className="">
-
-      </footer>
+      <div>
+        <HomePage/>
+      </div>
+     
     </div>
   )
 }

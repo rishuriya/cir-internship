@@ -21,6 +21,7 @@ function login() {
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
+
   const dispatch = useDispatch()
   const user = cookie.get("token");
 
@@ -29,7 +30,7 @@ function login() {
       if(user!=null){
         Router.push("/");
       }
-   },[user]
+   },[]
   )
   const handleOnSubmit = async(e) => {
     e.preventDefault();
@@ -39,20 +40,19 @@ function login() {
       if (passwordInput.length < 6) {
         throw "Password should be atleast 6 characters long!";
       }
-      setLoading(false);
-        const data = Object.fromEntries(new FormData(e.target).entries());
-        const res = await fetch("/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: data.email,
-            password: data.password,
-          }),
-        });
-        const resData = await res.json();
-        console.log(resData);
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
+      const resData = await res.json();
+      console.log(resData);
       if (res.status === 200 && resData.success) {
         const userObj={
           name: resData.user.name,
@@ -60,14 +60,16 @@ function login() {
           isAdmin: false,
           token: resData.token,
         }
+        setLoading(false);
         dispatch(update(userObj));
         cookie.set("token", resData.token);
-        cookie.set("id", resData.user._id);
-        cookie.set("email", resData.user.email);
-        Router.push("/user-form");
+        // cookie.set("id", resData.user._id);
+        // cookie.set("email", resData.user.email);
+        Router.push("/");
       } 
-        else{
-          Router.push("/");
+      else{
+          // Router.push("/signup");
+          throw "Something went wrong!";
         }
       
     } catch (e) {

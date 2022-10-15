@@ -31,7 +31,7 @@ export default async function handeler(req,res) {
         let token = await issueToken(result);
         // console.log({success:true,message:'user created',user:result,token:token})
         return await res.status(200).json({success:true,message:'user created',user:result,token:token})
-        
+            
     }
     catch(error){
         return res.status(400).json({success:false,message:error.message})
