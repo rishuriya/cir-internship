@@ -40,7 +40,7 @@ function internshipForm() {
   return (
     <>
 
-      <Navbar />
+      <Navbar/>
 
       <div className="bg-secondary h-screen w-full relative p-2 md:text-lg">
 

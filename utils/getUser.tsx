@@ -1,4 +1,5 @@
 const verify = require("jsonwebtoken").verify;
+import Router  from "next/router";
 import User from "../models/User";
 
 export const getUser = async (token) => {
@@ -10,7 +11,12 @@ export const getUser = async (token) => {
 
     try {
         let decodedToken;
-        const secret = process.env.JWT_SECRET;
+        const secret = "secret@123"; //process.env.JWT_SECRET; tobe used un production
+        // if(secret===undefined || secret===null){
+        //     console.log("Something went wrong with the secret key");
+        //     Router.push("/404");
+        //     // return response;
+        // }
 
         token = token.split(" ")[1];
         decodedToken = verify(token, secret);

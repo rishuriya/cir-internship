@@ -1,6 +1,3 @@
-import cookie from 'js-cookie';
-import Router from "next/router";
-import User from "../models/User"
 import { RootState } from '../store'
 import { useSelector,useDispatch } from 'react-redux'
 import { signout } from '../utils/signout';
@@ -38,11 +35,8 @@ export default function Navbar() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // if (!auth) {
-    //   Router.push("/login");
-    // }
     setAuth(authUser);
-  }, [])
+  })
 
   return (
     <Popover className="relative bg-white">
