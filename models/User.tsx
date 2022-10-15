@@ -15,6 +15,7 @@ export interface User {
     semester:string;
     batch:string;
     phone:string;
+    year_of_joining:number;
   }
 
 const userSchema =new mongoose.Schema({

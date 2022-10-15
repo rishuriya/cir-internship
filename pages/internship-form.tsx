@@ -153,7 +153,7 @@ function internshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-certificate">
                   Internship Offer Letter (optional)
                 </label>
-                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-mentor-email" type="file" placeholder="Mentor Email" />
+                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-internship-certificate" type="file" />
               </div>
             </div>
 
