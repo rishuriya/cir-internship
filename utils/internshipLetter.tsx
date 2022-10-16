@@ -1,7 +1,7 @@
 import React from 'react'
 
 function internshipLetter(props) {
-  // const {name}=props.user;
+//   const {name}=props.user;
   return (
     <div className='mx-auto max-w-5xl px-4 sm:px-8 my-10'>
         <div>
