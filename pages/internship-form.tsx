@@ -13,6 +13,7 @@ function internshipForm() {
   const [image, setImage] = useState(null);
   let member_data
   let id
+  let fileres
   const router = useRouter()
 
   const uploadToClient = (event) => {
@@ -42,6 +43,7 @@ function internshipForm() {
       setLoading(true);
             
       const data = Object.fromEntries(new FormData(e.target).entries());
+      if(image!=null){
       const body = new FormData();
       body.append("file", image);
       body.append("id", id);
@@ -49,14 +51,15 @@ function internshipForm() {
       method: "POST",
       body
     });
-    const fileres = await response.json();
+    
+     fileres = await response.json();
       if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member==""){
         member_data=null
       }
       else{
         member_data=JSON.stringify(formValues)
       }
-      if(fileres.sucess){
+    }
       const bodyObject={
         user: id,
         company_name: data.company_name,
@@ -85,9 +88,7 @@ function internshipForm() {
       if(resData.success){
         router.push("/");
       }
-    }else{
-      setError("File not uploaded");
-    }
+
       setLoading(false);
     } catch (e) {
       setError(e);
