@@ -6,7 +6,7 @@ import type { NextPage } from 'next'
 import { RootState } from '../store'
 import { update } from '../slices/userSlice'
 import { getUser } from '../utils/getUser'
-import HomePage from '../components/Home';
+import HomePage from '../components/user/Home';
 import { useSelector, useDispatch } from 'react-redux'
 
 

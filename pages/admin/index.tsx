@@ -5,6 +5,7 @@ import cookie from 'js-cookie';
 import { useEffect } from 'react'
 import { update } from '../../slices/userSlice'
 import Router from "next/router";
+import TableOne from '../../components/admin/TableOne';
 import { getUser } from '../../utils/getUser'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store';
@@ -69,8 +70,10 @@ function index() {
         <meta name="description" content="Amrita Students can submit their Internship detail and get approval from CIR online" />
         <link rel="icon" href="/favicon.ico" />
       </Head> 
+
       <main>
         Admin
+        <TableOne/>
       </main>
     </div>
   )

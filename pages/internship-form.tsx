@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/user/Navbar";
 import { useRouter } from "next/router";
 import cookie from 'js-cookie';
 import { getUser } from '../utils/getUser'
 import { useEffect } from 'react'
+
 
 function internshipForm() {
   const [formValues, setFormValues] = useState([{ name_member: "", email_member: "", roll_member: "" }])
