@@ -1,21 +1,84 @@
 import React, { useState } from "react";
 import Navbar from "../components/user/Navbar";
+import { useRouter } from "next/router";
+import cookie from 'js-cookie';
+import { getUser } from '../utils/getUser'
+import { useEffect } from 'react'
+
 
 function internshipForm() {
   const [formValues, setFormValues] = useState([{ name_member: "", email_member: "", roll_member: "" }])
-  const handleChange = (i, e) => {
-    
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const router = useRouter()
+  const handleChange = (i, e) => { 
     let data = [...formValues];
     data[i][e.target.name] = e.target.value;
     setFormValues(data);
-    console.log(e.target.name);
   }
-
-  const handleSubmit = (e) => {
+  let id
+  useEffect(() => {
+    const token = cookie.get("token");
+    getUser(token).then((response) => {
+      
+      id=response.user["id"];
+      //console.log(id)
+    });
+  });
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    const data = Object.fromEntries(new FormData(e.target).entries());
-    console.log(data);
-  }
+    try {
+      setError("");
+      setLoading(true);
+            
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      
+      
+      const bodyObject={
+        user: id,
+        company_name: data.company_name,
+        company_location: data.company_location,
+        company_person_name: data.company_person_name,
+        company_email: data.company_email,
+        company_mobile: data.company_mobile,
+        training_type: data.training_type,
+        internship_start_date: data.internship_start_date,
+        internship_end_date: data.internship_end_date,
+        internship_mode: data.internship_mode,
+        company_website:data.company_website,
+        certificate:JSON.stringify(data.certificate),
+        member:JSON.stringify(formValues)
+      };
+      //console.log(bodyObject);
+      console.log(data.certificate);
+      const res = await fetch("/api/internship-form", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf8 ",
+        },
+        body: JSON.stringify(bodyObject),
+      });
+      // const memberobj={
+      //   member:formValues
+      // }
+      // // const res1 = await fetch("/api/internship-form", {
+      // //   method: "POST",
+      // //   headers: {
+      // //     "Content-Type": "application/json; charset=utf8 ",
+      // //   },
+      // //   body: JSON.stringify(memberobj),
+      // // });
+      const resData = await res.json();
+      // //const resData1 = await res1.json();
+      if(resData.success){
+        router.push("/");
+      }
+      setLoading(false);
+    } catch (e) {
+      setError(e);
+      setLoading(false);
+    }
+  };
 
   let addFormFields = () => {
     setFormValues([...formValues, { name_member: "", email_member: "", roll_member: "" }]);
@@ -57,13 +120,13 @@ function internshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-company-name">
                   Company Name
                 </label>
-                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-company-name" type="text" placeholder="Company Name" />
+                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_name" id="grid-company-name" type="text" placeholder="Company Name" />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-company-location">
                   Company Location
                 </label>
-                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-company-location" type="text" placeholder="Company Location" />
+                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_location" id="grid-company-location" type="text" placeholder="Company Location" />
               </div>
             </div>
 
@@ -73,13 +136,13 @@ function internshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-mentor-name">
                   Mentor Name
                 </label>
-                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-mentor-name" type="text" placeholder="Mentor Name" />
+                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_person_name" id="grid-mentor-name" type="text" placeholder="Mentor Name" />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-mentor-email">
-                  Mentor email
+                  Company email
                 </label>
-                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-mentor-email" type="email" placeholder="Mentor Email" />
+                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_email" id="grid-mentor-email" type="email" placeholder="Company Email" />
               </div>
             </div>
 
@@ -87,16 +150,16 @@ function internshipForm() {
             <div className="flex flex-wrap -mx-3 mb-2">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-mentor-contact">
-                  Mentor Contact
+                  Company Contact
                 </label>
-                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-mentor-contact" type="text" placeholder="Mentor Contact" />
+                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_mobile" id="grid-mentor-contact" type="text" placeholder="Company Contact" />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-nature">
                   Nature of training
                 </label>
                 <div className="relative">
-                  <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-internship-nature" defaultValue={"Select Option"}>
+                  <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="training_type" id="grid-internship-nature" defaultValue={"Select Option"}>
                     <option disabled >Select Option</option>
                     <option>Internship</option>
                     <option>In-plant training</option>
@@ -121,20 +184,20 @@ function internshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-start-date">
                   Start Date
                 </label>
-                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-start-date" type="date" placeholder="Start Date" />
+                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="internship_start_date" id="grid-start-date" type="date" placeholder="Start Date" />
               </div>
               <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-end-date">
                   End Date
                 </label>
-                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-end-date" type="date" placeholder="End Date" />
+                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="internship_end_date" id="grid-end-date" type="date" placeholder="End Date" />
               </div>
               <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-mode">
                   Internship Mode
                 </label>
                 <div className="relative">
-                  <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-internship-mode" defaultValue={"Select Option"}>
+                  <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="internship_mode" id="grid-internship-mode" defaultValue={"Select Option"}>
                     <option disabled>Select Option</option>
                     <option>Offline</option>
                     <option>Online</option>
@@ -153,7 +216,13 @@ function internshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-certificate">
                   Internship Offer Letter (optional)
                 </label>
-                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-internship-certificate" type="file" />
+                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="certificate" id="grid-internship-certificate" type="file" />
+              </div>
+            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-company-website">
+                  Company Website
+                </label>
+                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_website" id="grid-company-website" type="url" placeholder="Company Website" />
               </div>
             </div>
 
@@ -183,7 +252,7 @@ function internshipForm() {
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll_member">
                       Roll No.
                     </label>
-                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll_members" id="roll_member" type="input" placeholder="AM.XX.XX.XXXXX" onChange={e => handleChange(index, e)} />
+                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll_member" id="roll_member" type="input" placeholder="AM.XX.XX.XXXXX" onChange={e => handleChange(index, e)} />
                   </div>
                   {
                     index ?
