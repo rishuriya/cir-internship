@@ -42,7 +42,7 @@ function studentForm() {
         year_of_joining: data.year_of_joining,
       };
       //console.log(bodyObject);
-      const res = await fetch("/api/userdetails", {
+      const res = await fetch("/api/student/userdetails", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf8 ",

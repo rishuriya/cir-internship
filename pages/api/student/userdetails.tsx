@@ -1,5 +1,5 @@
-import db_connect from "../../utils/db_connect";
-import User from "../../models/User"
+import db_connect from "../../../utils/db_connect";
+import User from "../../../models/User"
 
 export default async function handeler(req,res) {
     db_connect();

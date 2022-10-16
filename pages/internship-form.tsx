@@ -47,7 +47,7 @@ function internshipForm() {
       const body = new FormData();
       body.append("file", image);
       body.append("id", id);
-      const response = await fetch("/api/file", {
+      const response = await fetch("/api/student/file", {
       method: "POST",
       body
     });
@@ -77,7 +77,7 @@ function internshipForm() {
       };
       //console.log(bodyObject);
       //console.log(data.certificate);
-      const res = await fetch("/api/internship-form", {
+      const res = await fetch("/api/student/internship-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf8 ",
