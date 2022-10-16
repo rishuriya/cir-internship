@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 
 export interface User {
     name:string;
-    username: string;
     password: string;
     role:string;
     gender:string;

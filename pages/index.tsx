@@ -6,14 +6,14 @@ import type { NextPage } from 'next'
 import { RootState } from '../store'
 import { update } from '../slices/userSlice'
 import { getUser } from '../utils/getUser'
-import HomePage from '../components/Home';
+import HomePage from '../components/user/Home';
 import { useSelector, useDispatch } from 'react-redux'
+
 
 const Home: NextPage = () => {
 
-
   const dispatch = useDispatch();
-  const authUser = useSelector((state: RootState) => state.user.value);
+  const authUser:any = useSelector((state: RootState) => state.user.value);
   
   useEffect(() => {
     if(authUser===null){
@@ -34,6 +34,10 @@ const Home: NextPage = () => {
           token: token,
         }
         dispatch(update(userObj));
+        if(userObj.isAdmin){
+          Router.push("/admin");
+          return;
+        }
         if (response.user.role === "admin") {
           Router.push("/admin");
           return;
@@ -43,6 +47,12 @@ const Home: NextPage = () => {
     } catch (err) {
       console.log(err);
       Router.push('/signup');
+    }
+  }
+  else{
+    if(authUser.isAdmin){
+      Router.push('/admin');
+      return;
     }
   }
   }, []
