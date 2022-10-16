@@ -5,10 +5,10 @@ import cookie from 'js-cookie';
 import { useEffect } from 'react'
 import { update } from '../../slices/userSlice'
 import Router from "next/router";
-import TableOne from '../../components/admin/TableOne';
 import { getUser } from '../../utils/getUser'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store';
+import AdminHome from '../../components/admin/Home';
 
 
 function index() {
@@ -72,8 +72,7 @@ function index() {
       </Head> 
 
       <main>
-        Admin
-        <TableOne/>
+        <AdminHome/>
       </main>
     </div>
   )

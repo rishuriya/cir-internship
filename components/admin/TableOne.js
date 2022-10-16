@@ -1,10 +1,10 @@
-import React, { useState } from "react";
 import Modal from "react-modal";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
+// import Container from "react-bootstrap/Container";
 import {AiOutlineCheck, AiOutlineUp,AiOutlineDown, AiOutlineClose} from "react-icons/ai";
 
 import data from "./Users.json";
@@ -127,7 +127,8 @@ export default function TableOne() {
                 </Modal>
             </div> */}
 
-      <Container>
+      {/* <> had container */}
+      <>
         {/* <Row>
                 <Col>
                     <h1> Users({data.length})</h1>
@@ -194,7 +195,7 @@ export default function TableOne() {
                     </tr>
                     <>
                       {expandedRows.includes(user.id) ? (
-                        <>
+                        <tr>
                         <td></td>
                           <td colspan="4">
                             <div
@@ -239,7 +240,7 @@ export default function TableOne() {
                               </ul>
                             </div>
                           </td>
-                        </>
+                        </tr>
                       ) : null}
                     </>
                   </>
@@ -248,7 +249,7 @@ export default function TableOne() {
             </Table>
           </Col>
         </Row>
-      </Container>
+      </>
     </>
   );
 }
