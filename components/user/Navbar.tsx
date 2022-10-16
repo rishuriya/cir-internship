@@ -1,6 +1,6 @@
-import { RootState } from '../store'
+import { RootState } from '../../store'
 import { useSelector,useDispatch } from 'react-redux'
-import { signout } from '../utils/signout';
+import { signout } from '../../utils/signout';
 import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'

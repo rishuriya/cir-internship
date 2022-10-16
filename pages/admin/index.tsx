@@ -4,17 +4,18 @@ import Head from 'next/head'
 import cookie from 'js-cookie';
 import { useEffect } from 'react'
 import Router from "next/router";
+import TableOne from '../../components/admin/TableOne';
 
 function index() {
 
-  const user = cookie.get("token");
+  const admin = cookie.get("token");
 
   useEffect(() => {
-    console.log(user)
-      if(user===undefined){
+    console.log(admin)
+      if(admin===undefined){
         Router.push("admin/login");
       }
-   },[user]
+   },[admin]
   )
   return (
     <div>
@@ -28,6 +29,7 @@ function index() {
         <span className='hover:underline text-blue-500 cursor-pointer'>admin login</span>
       </Link>
       , should have restricted access only after admin login!
+      <TableOne/>
     </div>
   )
 }
