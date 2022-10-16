@@ -1,24 +1,22 @@
 import data from './Users.json';
-import MemberCard from "./MemberCard.js";
+import MemberCard from "./MemberCard";
 
-export default function CardMap() {
-
-  console.log(data);
-
+function CardMap() {
   return (
     <>
       {
         data.map((user) => {
           return (
-            <>
+            <div  key={user.id}>
               <MemberCard
-                key={user.id}
                 user={user}
               />
-            </>
+            </div>
           )
         })
       }
     </>
   )
 }
+
+export default CardMap;

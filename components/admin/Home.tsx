@@ -1,7 +1,8 @@
 import React from 'react'
 import Navbar from './Navbar'
 // import TableOne from './TableOne'
-import MemberCard from './MemberCard.js'
+import MemberCard from './MemberCard'
+import CardMap from './CardMap'
 
 function AdminHome() {
   return (
@@ -12,7 +13,7 @@ function AdminHome() {
                 Admin Portal
             </div>
             {/* <TableOne/> */}
-            <MemberCard />
+            <CardMap/>
         </div>
     </div>
   )
