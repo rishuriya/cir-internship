@@ -10,17 +10,27 @@ function internshipForm() {
   const [formValues, setFormValues] = useState([{ name_member: "", email_member: "", roll_member: "" }])
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
+  let member_data
+  let id
   const router = useRouter()
+
+  const uploadToClient = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const i = event.target.files[0];
+
+      setImage(i);
+    }
+  };
+
   const handleChange = (i, e) => { 
     let data = [...formValues];
     data[i][e.target.name] = e.target.value;
     setFormValues(data);
   }
-  let id
   useEffect(() => {
     const token = cookie.get("token");
-    getUser(token).then((response) => {
-      
+    getUser(token).then(async(response) => {
       id=response.user["id"];
       //console.log(id)
     });
@@ -32,8 +42,21 @@ function internshipForm() {
       setLoading(true);
             
       const data = Object.fromEntries(new FormData(e.target).entries());
-      
-      
+      const body = new FormData();
+      body.append("file", image);
+      body.append("id", id);
+      const response = await fetch("/api/file", {
+      method: "POST",
+      body
+    });
+    const fileres = await response.json();
+      if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member==""){
+        member_data=null
+      }
+      else{
+        member_data=JSON.stringify(formValues)
+      }
+      if(fileres.sucess){
       const bodyObject={
         user: id,
         company_name: data.company_name,
@@ -46,11 +69,11 @@ function internshipForm() {
         internship_end_date: data.internship_end_date,
         internship_mode: data.internship_mode,
         company_website:data.company_website,
-        certificate:JSON.stringify(data.certificate),
-        member:JSON.stringify(formValues)
+        request_letter:fileres.url,
+        member:member_data
       };
       //console.log(bodyObject);
-      console.log(data.certificate);
+      //console.log(data.certificate);
       const res = await fetch("/api/internship-form", {
         method: "POST",
         headers: {
@@ -58,21 +81,13 @@ function internshipForm() {
         },
         body: JSON.stringify(bodyObject),
       });
-      // const memberobj={
-      //   member:formValues
-      // }
-      // // const res1 = await fetch("/api/internship-form", {
-      // //   method: "POST",
-      // //   headers: {
-      // //     "Content-Type": "application/json; charset=utf8 ",
-      // //   },
-      // //   body: JSON.stringify(memberobj),
-      // // });
       const resData = await res.json();
-      // //const resData1 = await res1.json();
       if(resData.success){
         router.push("/");
       }
+    }else{
+      setError("File not uploaded");
+    }
       setLoading(false);
     } catch (e) {
       setError(e);
@@ -216,7 +231,7 @@ function internshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-certificate">
                   Internship Offer Letter (optional)
                 </label>
-                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="certificate" id="grid-internship-certificate" type="file" />
+                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="certificate" onChange={uploadToClient} id="grid-internship-certificate" type="file" />
               </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-company-website">
