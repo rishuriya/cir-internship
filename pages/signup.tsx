@@ -174,6 +174,12 @@ function signup() {
           ) : (
             <></>
           )}
+
+        <Link href={"admin/signup"}>
+            <div className="hover:underline text-blue-500 cursor-pointer font-medium mt-6">
+            Admin SignUp
+            </div>
+        </Link> 
       </div>
       </form>
     </div>
