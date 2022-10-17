@@ -23,8 +23,8 @@ function Login() {
   const user = cookie.get("token");
 
   React.useEffect(() => {
-    console.log(user)
-      if(user!=null){
+    //console.log(user)
+      if(user!=undefined){
         Router.push("/admin");
       }
    },[user]
@@ -48,25 +48,32 @@ function Login() {
           password: data.password,
         }),
       });
-      const resData = await res.json();
+      await res.json().then((resData)=>{
       console.log(resData);
       if (res.status === 200 && resData.success) {
         const userObj={
           name: resData.user.name,
           email: resData.user.email,
-          isAdmin: resData.user.isAdmin,
+          isAdmin: resData.user.role === "Admin" ? true : false,
           token: resData.token,
         }
         dispatch(update(userObj));
-        cookie.set("token", resData.token);
+        
         // cookie.set("id", resData.user._id);
         // cookie.set("email", resData.user.email);
-        if(resData.user.isAdmin){
+        //console.log(resData.user.role);
+        if(resData.user.role=="Admin"){
+          cookie.set("token", resData.token);
           Router.push("/admin");
         }else{
+          //console.log("hello");
           Router.push("/");
         }
-      } 
+      }
+      });
+    
+    
+      
       setLoading(false);
       
     } catch (e) {
