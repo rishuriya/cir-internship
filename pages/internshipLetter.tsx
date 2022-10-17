@@ -9,57 +9,70 @@ function internshipLetter() {
     let internship_id=router.query.id;
     let user;
     let user_name
-    let internshipdata
+    let internship_data
+    const [isDataRecieved, setIsDataRecieved] = useState(false);
     const [data, setData] = useState(false);
+    const [username,setUserName]=useState([]);
+    const [internshipdata,setInternshipData]=useState([]);
     useEffect(() => {
       try{
         const token = cookie.get("token");
-        if(data==false){
         getUser(token).then(async(response) => {
             user=response.user["id"];
-            user_name= response.user
-            if(user_name!=undefined)
-            setData(true);
-            const bodyObject={
-              user: user,
-              _id: internship_id
-          };
+            user_name= response.user 
+            if(user_name)
+            {
+              //console.log(user_name)
+              setUserName(user_name)
+              setData(true)
+            }       
+          });
+          console.log(username);
+          const bodyObject={
+            user: username["id"],
+            _id: internship_id
+          }
           console.log(bodyObject);
-            const res = await fetch("/api/student/internship", {
+            fetch("/api/student/internship", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json; charset=utf8 ",
               },
               body: JSON.stringify(bodyObject),
+            }).then(async (res) => {
+              const resData=await res.json()
+            internship_data=resData.data;
+            if(internship_data)
+            {
+            setInternshipData(internship_data);
+            setIsDataRecieved(true);
+            }
             });
 
-            await res.json().then((resData)=>{
-            internshipdata=resData.data;
       
             //console.log(internshipdata._id);
-
-            });
-            console.log(user)
-            console.log("useEffect")
-        });
-      }
-        
-      }catch(err){
-        console.log("hello");
-      }
-      },[data]);
+            
       
-      if(data==true){
+            // if(resData.success){
+            //   setIsDataRecieved(true);
+            //   router.push("/")
+            // }
+      }catch(err){
+        console.log(err);
+      }
+      },[isDataRecieved, data]);
+  if(isDataRecieved && data){
+    console.log(internshipdata);
   return (
     
-    
-    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-10' style={{ display: data ? 'block' : 'none' }}>
+    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-10'>
         <div>
             <p>To,</p>
             <p>The Principle,</p>
         </div>
         <div className='my-5'>
-            <p>Amrita Vishwa Vidyapeetham</p>
+            <p>{username["school"]},</p>
+            <p>Amrita Vishwa Vidyapeetham,</p>
             <p>Amritapuri, Kollam, Kerala</p>
         </div>
         <div className='my-5'>
@@ -69,15 +82,16 @@ function internshipLetter() {
             <p>Respected Sir/Madam,</p>
         </div>
         <div className='my-5'>
-            <p className='indent-8'>I am  {user!=null?user["branch"]:""} student of {user!=null?user["year_of_joining"]:""} batch currently studying in {user!=null?user["semester"]:""}.
-             I applied for the Internship program in the resdata.Incompany_Name for internship_type and I got selected for program.</p>
-             <p className='my-3'>I request you to give me permission to join the internship which is starting on start_date and ending on End_date.</p>
+            <p className='indent-8'>I am {username["name"]} of {username["course"]} {username["branch"]} student of {username["year_of_joining"]} batch currently studying in {username["semester"]} semester.
+             I applied for the Internship program in the {internshipdata["company_name"]} for {internshipdata["training_type"]} and I got selected for program.</p>
+             <p className='my-3'>I request you to give me permission to join the internship which is starting on {internshipdata["internship_start_date"].substring(0,9)} and ending on {internshipdata["internship_end_date"].substring(0,9)}.</p>
         </div>
         <div className='flex flex-row justify-between mx-3 items-end'>
             <div>
                 <p>Thanking You,</p>
                 <p>Yours truly,</p>
-                <p>name</p>
+                <p>{username["name"]}</p>
+                <p>{username["rollno"]}</p>
                 <p>Signature</p>
             </div>
             <div>
@@ -94,6 +108,6 @@ function internshipLetter() {
   
 
   )
-      }
+  }
 }
 export default internshipLetter

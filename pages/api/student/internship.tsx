@@ -10,8 +10,9 @@ export default async function handeler(req,res) {
        }
        
         let Internship_data = await Internship.find(query);
+        console.log(Internship_data.length);
         if (Internship_data.length>0){
-            return res.status(200).json({success:true,message:'data found',data:Internship_data[0]})
+            return await res.status(200).json({success:true,message:'data found',data:Internship_data[0]})
         }
         else
             {
