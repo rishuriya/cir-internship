@@ -94,7 +94,7 @@ function login() {
             <input
               className=" border-2 border-primaryDark rounded-xl px-3 py-2 invalid:border-red-500"
               name="email"
-              placeholder="abc@am.students.amrita.edu"
+              placeholder="Email"
               onChange={(e) => setEmailInput(e.target.value)}
               type="email"
               required

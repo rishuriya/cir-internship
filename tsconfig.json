@@ -16,7 +16,7 @@
     "incremental": true
   },
 
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/functions.js", "pages/signup.tsx", "utils/getUser.js", "pages/internshipLetter.tsx","components/admin/InternshipCard.tsx", "components/admin/InternshipList.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/functions.js", "pages/signup.tsx", "utils/getUser.js", "pages/internshipLetter.tsx","components/admin/InternshipCard.tsx", "components/admin/InternshipList.tsx", "pages/api/auth/login.js"],
 
   "exclude": ["node_modules"]
 }
