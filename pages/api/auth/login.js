@@ -25,7 +25,7 @@ export default async function handeler(req,res) {
         result=await serializeUser(result);
         let token = await issueToken(result);
         // console.log({success:true,message:'user created',user:result,token:token})
-        return await res.status(200).json({success:true,message:'user created',user:result,token:token})
+        return await res.status(200).json({success:true,message:'user found',user:result,token:token})
     }
     catch(error){
         res.status(400).json({success:false,message:error.message})
