@@ -7,7 +7,7 @@ const {serializeUser,issueToken} = require('../../../utils/functions');
 
 export default async function handeler(req,res) {
     const {method}=req;
-    db_connect();
+    await db_connect();
     try{
         let {email,password} = req.body;
         let query={email:email}

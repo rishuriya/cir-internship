@@ -81,7 +81,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
     //console.log(internshipdata);
   return (
     <div>
-    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-10' ref={ref}>
+    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-16' ref={ref}>
         <div>
             <p>To,</p>
             <p>The Principal,</p>
