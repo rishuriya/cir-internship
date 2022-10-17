@@ -11,7 +11,7 @@ import { RootState } from '../../store';
 import AdminHome from '../../components/admin/Home';
 
 
-function index() {
+function Index() {
 
   const dispatch = useDispatch();
   const authUser:any = useSelector((state: RootState) => state.user.value);
@@ -78,6 +78,4 @@ function index() {
   )
 }
 
-export default index
-
-
+export default Index

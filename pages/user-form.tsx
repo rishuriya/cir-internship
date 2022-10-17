@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { RootState } from '../store'
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 
-function studentForm() {
+function StudentForm() {
   let date_ob = new Date();
   var year = date_ob.getFullYear()
   const router = useRouter()
@@ -265,4 +264,4 @@ function studentForm() {
   );
 }
 
-export default studentForm;
+export default StudentForm;

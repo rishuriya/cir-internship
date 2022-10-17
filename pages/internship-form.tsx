@@ -6,8 +6,7 @@ import { getUser } from '../utils/getUser'
 import { useEffect } from 'react'
 
 
-
-function internshipForm() {
+function InternshipForm() {
   const [formValues, setFormValues] = useState([{ name_member: "", email_member: "", roll_member: "" }])
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -304,4 +303,4 @@ function internshipForm() {
   );
 }
 
-export default internshipForm;
+export default InternshipForm;

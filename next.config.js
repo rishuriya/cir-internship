@@ -4,7 +4,9 @@ const nextConfig = {
   swcMinify: true,
 }
 
-module.exports = {nextConfig, env: {
-  SECRET:process.env.SECRET
-},
+module.exports = {
+  nextConfig, env: {
+    SECRET: process.env.SECRET,
+    MONGODB_URL: process.env.MONGODB_URL
+  },
 }
