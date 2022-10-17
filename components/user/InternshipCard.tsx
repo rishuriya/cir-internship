@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function InternshipCard(props) {
 
     return (
@@ -10,7 +12,7 @@ export default function InternshipCard(props) {
                         {props.status ? props.status === "Pending" ? <p id="status" className="px-3 py-1 text-sm font-bold text-yellow-500 bg-yellow-100 rounded">{props.status}</p> : props.status === "Approved" ? <p id="status" className="px-3 py-1 text-sm font-bold text-green-500 bg-green-100 rounded">{props.status}</p> : <p id="status" className="px-3 py-1 text-sm font-bold text-red-500 bg-red-100 rounded">{props.status}</p> : <p id="status" className="px-3 py-1 text-sm font-bold text-yellow-500 bg-yellow-100 rounded">Pending</p>}
                     </div>
                     <div className="mt-1">
-                        <a href="/" className="text-2xl font-bold text-gray-700 hover:underline">{props.company}</a>
+                        <Link href="/" className="text-2xl font-bold text-gray-700 hover:underline">{props.company}</Link>
                         <p className="mt-1">Internship : {props.duration}</p>
                         <p className="mt-1">{props.mode} - {props.place}</p>
                     </div>

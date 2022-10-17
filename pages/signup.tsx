@@ -10,7 +10,7 @@ import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import cookie from "js-cookie";
 
-function signup() {
+function Signup() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [emailInput, setEmailInput] = useState("");
@@ -89,9 +89,9 @@ function signup() {
       onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
-        <a href="/" className="mx-3 my-auto text-primary ">
+        <Link href="/" className="mx-3 my-auto text-primary ">
           {/* <Image src={} height="55" width="210"></Image> */}
-        </a>
+        </Link>
         
           <h1 className="text-3xl my-5 font-bold ">Signup</h1>
 
@@ -186,4 +186,4 @@ function signup() {
   );
 }
 
-export default signup;
+export default Signup;
