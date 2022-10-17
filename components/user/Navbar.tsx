@@ -45,7 +45,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link href="/">
-              <span className="sr-only">Amrita Vishwa Vidyapeetham</span>
+              {/* <span className="sr-only">Amrita Vishwa Vidyapeetham</span> */}
               <img
                 className="h-10 w-auto sm:h-16"
                 src="https://upload.wikimedia.org/wikipedia/en/f/f8/Amrita-vishwa-vidyapeetham-color-logo.png"
@@ -140,7 +140,7 @@ export default function Navbar() {
                       className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
                     >
                       <item.icon className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
-                      <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
+                      {/* <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span> */}
                     </Link>
                   ))} 
                 </nav>
