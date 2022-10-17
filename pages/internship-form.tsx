@@ -6,7 +6,7 @@ import { getUser } from '../utils/getUser'
 import { useEffect } from 'react'
 
 
-function internshipForm() {
+function InternshipForm() {
   const [formValues, setFormValues] = useState([{ name_member: "", email_member: "", roll_member: "" }])
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,6 +14,7 @@ function internshipForm() {
   let member_data
   let id
   let fileres
+  let user;
   const router = useRouter()
 
   const uploadToClient = (event) => {
@@ -33,7 +34,7 @@ function internshipForm() {
     const token = cookie.get("token");
     getUser(token).then(async(response) => {
       id=response.user["id"];
-      //console.log(id)
+      user=response.user;
     });
   });
   const handleSubmit = async(e) => {
@@ -43,11 +44,13 @@ function internshipForm() {
       setLoading(true);
             
       const data = Object.fromEntries(new FormData(e.target).entries());
+
+
       if(image!=null){
       const body = new FormData();
       body.append("file", image);
       body.append("id", id);
-      const response = await fetch("/api/file", {
+      const response = await fetch("/api/student/file", {
       method: "POST",
       body
     });
@@ -72,12 +75,12 @@ function internshipForm() {
         internship_end_date: data.internship_end_date,
         internship_mode: data.internship_mode,
         company_website:data.company_website,
-        request_letter:fileres.url,
+        request_letter:image!=null?fileres.url:null,
         member:member_data
       };
-      //console.log(bodyObject);
+      
       //console.log(data.certificate);
-      const res = await fetch("/api/internship-form", {
+      const res = await fetch("/api/student/internship-form", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf8 ",
@@ -85,13 +88,19 @@ function internshipForm() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
+      //console.log(resData);
       if(resData.success){
-        router.push("/");
+        
+        router.push({
+          pathname: '/internshipLetter',
+          query: { id: resData.user._id },
+      },"/internshipLetter")
       }
 
       setLoading(false);
     } catch (e) {
       setError(e);
+      console.log(e);
       setLoading(false);
     }
   };
@@ -294,4 +303,4 @@ function internshipForm() {
   );
 }
 
-export default internshipForm;
+export default InternshipForm;

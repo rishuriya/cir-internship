@@ -14,7 +14,7 @@ const navOptions = [
     icon: AiFillHome,
   },
   {
-    name: 'Add Internship',
+    name: 'Approved internships',
     description: 'Speak directly to your customers in a more meaningful way.',
     href: '/form',
     icon: AiOutlineFileAdd,
@@ -44,7 +44,7 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <Link href="/">
+            <Link href="/admin">
               {/* <span className="sr-only">Amrita Vishwa Vidyapeetham</span> */}
               <img
                 className="h-10 w-auto sm:h-16"
@@ -61,11 +61,11 @@ export default function Navbar() {
           </div>
 
           <Popover.Group as="nav" className="hidden space-x-5 md:space-x-10 md:flex">
-            <Link href="/" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
+            <Link href="/admin" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
               Home
             </Link>
-            <Link href="/internship-form" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
-              Add Internship
+            <Link href="/admin" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
+            Approved Internships
             </Link>         
           </Popover.Group>
 

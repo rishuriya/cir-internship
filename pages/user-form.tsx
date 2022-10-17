@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { RootState } from '../store'
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 
-function studentForm() {
+function StudentForm() {
   let date_ob = new Date();
   var year = date_ob.getFullYear()
   const router = useRouter()
@@ -42,7 +41,7 @@ function studentForm() {
         year_of_joining: data.year_of_joining,
       };
       //console.log(bodyObject);
-      const res = await fetch("/api/userdetails", {
+      const res = await fetch("/api/student/userdetails", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf8 ",
@@ -90,7 +89,7 @@ function studentForm() {
                 Gender
               </label>
               <div className="relative">
-                <select className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="gender" id="grid-gender" defaultValue={"Select Gender"}>
+                <select className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="gender" id="grid-gender" defaultValue={"Select Gender"} required>
                   <option disabled>Select Gender</option>
                   <option>Male</option>
                   <option>Female</option>
@@ -114,7 +113,7 @@ function studentForm() {
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
                 Phone No.
               </label>
-              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" />
+              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number"/>
             </div>
           </div>
 
@@ -124,7 +123,7 @@ function studentForm() {
                 School
               </label>
               <div className="relative">
-                <select className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="school" id="grid-school">
+                <select className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="school" id="grid-school" required>
                   <option value="Amrita School Of Engineering">Amrita School Of Engineering</option>
                   <option value="Amrita School Of Arts and Science">Amrita School Of Arts and Science</option>
                 </select>
@@ -146,7 +145,7 @@ function studentForm() {
                 Course
               </label>
               <div className="relative">
-                <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="course" id="grid-course" defaultValue={"Select Course"}
+                <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="course" id="grid-course" required defaultValue={"Select Course"}
                   onChange={handleCourseChange} >
                   <option disabled >Select Course</option>
                   <option>B.Tech</option>
@@ -162,7 +161,7 @@ function studentForm() {
                 Branch
               </label>
               <div className="relative">
-                <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="branch" id="grid-branch" defaultValue={"Select Specialization"}>
+                <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="branch" id="grid-branch" required defaultValue={"Select Specialization"}>
                   {course === "B.Tech" || course === "M.Tech" ? (
                     course === "B.Tech" ? (
                       <React.Fragment>
@@ -200,7 +199,7 @@ function studentForm() {
                 Present Semester
               </label>
               <div className="relative">
-                <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={"Select Semster"}>
+                <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={"Select Semster"}>
                   <option disabled>Select Semster</option>
                   {course === "B.Tech" || course === "M.Tech" ? (
                     course === "B.Tech" ? (
@@ -238,7 +237,7 @@ function studentForm() {
                 Year Of Joining
               </label>
               <div className="relative">
-                <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="year_of_joining" id="grid-joining-year">
+                <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="year_of_joining" id="grid-joining-year">
                   <option>Select Year</option>
                   <option>{year}</option>
                   <option>{year - 1}</option>
@@ -265,4 +264,4 @@ function studentForm() {
   );
 }
 
-export default studentForm;
+export default StudentForm;

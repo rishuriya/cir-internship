@@ -1,5 +1,5 @@
-import db_connect from "../../utils/db_connect";
-import Internship from "../../models/Internship"
+import db_connect from "../../../utils/db_connect";
+import Internship from "../../../models/Internship"
 
 export default async function handeler(req,res) {
     db_connect();
@@ -16,7 +16,7 @@ export default async function handeler(req,res) {
         //     return res.status(400).json({success:false,message:'user not created'})
         // }
         // console.log({success:true,message:'user created',user:result,token:token})
-        return await res.status(200).json({success:true,message:'user created'})
+        return await res.status(200).json({success:true,message:'user created',user:result})
             
     }
     catch(error){

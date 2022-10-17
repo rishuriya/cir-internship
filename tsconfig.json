@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -15,6 +19,8 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/functions.js", "pages/signup.tsx", "utils/getUser.js", "components/admin/TableOne.js"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/functions.js", "pages/signup.tsx", "utils/getUser.js", "components/admin/TableOne.js", "components/admin/InternshipCard.tsx", "components/admin/InternshipList.tsx", "pages/api/userdetails.js", "pages/api/internship-form.js", "pages/api/auth/signup.js", "pages/api/auth/login.js"],
+  "exclude": [
+    "node_modules"
+  ],
 }
