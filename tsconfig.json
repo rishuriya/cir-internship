@@ -15,6 +15,8 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/functions.js", "pages/signup.tsx", "utils/getUser.js", "components/admin/TableOne.js", "pages/internshipLetter.tsx"],
+
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/functions.js", "pages/signup.tsx", "utils/getUser.js", "pages/internshipLetter.tsx","components/admin/InternshipCard.tsx", "components/admin/InternshipList.tsx"],
+
   "exclude": ["node_modules"]
 }
