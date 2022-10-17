@@ -5,7 +5,7 @@ import cookie from 'js-cookie';
 import { getUser } from '../utils/getUser'
 import { useEffect } from 'react'
 import ReactToPrint from "react-to-print";
-const InternshipLetter= React.forwardRef<HTMLDivElement>((prop,ref)=> {
+const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLetter(prop,ref){
   const router = useRouter()
   //console.log(ref)
   let internship_id=router.query.id;
