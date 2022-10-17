@@ -4,7 +4,7 @@ import Internship from "../../../models/Internship"
 export default async function handeler(req,res) {
     db_connect();
     try{
-        console.log(req.body);
+        //console.log(req.body);
         let user = new Internship(req.body);
         if(!user){
             return res.status(400).json({success:false,message:'user not created'})

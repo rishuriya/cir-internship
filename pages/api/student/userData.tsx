@@ -1,18 +1,17 @@
 import db_connect from "../../../utils/db_connect";
-import Internship from "../../../models/Internship"
+import User from "../../../models/User"
 
 export default async function handeler(req,res) {
     db_connect();
     try{
        const query={
-              user:req.body.user,
               _id:req.body._id
        }
        
-        let Internship_data = await Internship.find(query);
-        //console.log(Internship_data.length);
-        if (Internship_data.length>0){
-            return await res.status(200).json({success:true,message:'data found',data:Internship_data[0]})
+        let user_data = await User.find(query);
+        //console.log(user_data.length);
+        if (user_data.length>0){
+            return await res.status(200).json({success:true,message:'data found',data:user_data[0]})
         }
         else
             {

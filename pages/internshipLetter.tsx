@@ -1,12 +1,14 @@
-import React from 'react'
+import React,{useRef} from 'react'
 import { useState } from 'react';
 import { useRouter } from "next/router";
 import cookie from 'js-cookie';
 import { getUser } from '../utils/getUser'
 import { useEffect } from 'react'
-function internshipLetter() {
-    const router = useRouter()
-    let internship_id=router.query.id;
+import ReactToPrint from "react-to-print";
+const InternshipLetter= React.forwardRef<HTMLDivElement>((prop,ref)=> {
+  const router = useRouter()
+  //console.log(ref)
+  let internship_id=router.query.id;
     let user;
     let user_name
     let internship_data
@@ -14,25 +16,41 @@ function internshipLetter() {
     const [data, setData] = useState(false);
     const [username,setUserName]=useState([]);
     const [internshipdata,setInternshipData]=useState([]);
+    //const [componentRef,setComponentRef]=useState(null);
     useEffect(() => {
       try{
         const token = cookie.get("token");
         getUser(token).then(async(response) => {
             user=response.user["id"];
-            user_name= response.user 
+            const userObject={
+              _id:user
+            }
+            fetch("/api/student/userData", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json; charset=utf8 ",
+              },
+              body: JSON.stringify(userObject),
+            }).then(async (res) => {
+              const resData=await res.json()
+            user_name= resData.data 
+            //console.log(user_name)
             if(user_name)
             {
-              //console.log(user_name)
+              
               setUserName(user_name)
+              
               setData(true)
             }       
           });
-          console.log(username);
-          const bodyObject={
-            user: username["id"],
-            _id: internship_id
-          }
-          console.log(bodyObject);
+        });
+        //console.log(username["id"]);        
+          if(username){
+            const bodyObject={
+              user: username["_id"],
+              _id: internship_id
+            }
+            //console.log(bodyObject);
             fetch("/api/student/internship", {
               method: "POST",
               headers: {
@@ -49,7 +67,7 @@ function internshipLetter() {
             }
             });
 
-      
+          }
             //console.log(internshipdata._id);
             
       
@@ -62,10 +80,10 @@ function internshipLetter() {
       }
       },[isDataRecieved, data]);
   if(isDataRecieved && data){
-    console.log(internshipdata);
+    //console.log(internshipdata);
   return (
-    
-    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-10'>
+    <div>
+    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-10' ref={ref}>
         <div>
             <p>To,</p>
             <p>The Principle,</p>
@@ -103,11 +121,33 @@ function internshipLetter() {
             </div>
 
         </div>
-      
-    </div>
-  
+  </div>
+
+</div>
 
   )
   }
+
+
+})
+
+function Example() {
+    let componentRef;
+  
+      componentRef = useRef();
+      //console.log(componentRef.current);
+
+    return (
+      <div>
+        <InternshipLetter ref={el => (componentRef = el)} />
+        <div className="mx-auto max-w-5xl px-4 sm:px-8 my-10">
+        <ReactToPrint
+          trigger={() => <a className="px-6 py-3 text-blue-100 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200" href="#">Print this out!</a>}
+          content={() => componentRef}
+        />
+        </div>
+      </div>
+    );
+  
 }
-export default internshipLetter
+export default Example
