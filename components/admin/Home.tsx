@@ -1,8 +1,7 @@
 import React from 'react'
 import Navbar from './Navbar'
 // import TableOne from './TableOne'
-import MemberCard from './MemberCard'
-import CardMap from './CardMap'
+import InternshipList from './InternshipList'
 
 function AdminHome() {
   return (
@@ -12,8 +11,7 @@ function AdminHome() {
             <div className='my-3 mx-2 font-semibold text-lg text-center'>
                 Admin Portal
             </div>
-            {/* <TableOne/> */}
-            <CardMap/>
+            <InternshipList/>
         </div>
     </div>
   )

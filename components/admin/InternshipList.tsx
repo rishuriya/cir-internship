@@ -1,14 +1,14 @@
 import data from './Users.json';
-import MemberCard from "./MemberCard";
+import InternshipCard from "./InternshipCard";
 
-function CardMap() {
+function InternshipList() {
   return (
     <>
       {
         data.map((user) => {
           return (
             <div  key={user.id}>
-              <MemberCard
+              <InternshipCard
                 user={user}
               />
             </div>
@@ -19,4 +19,4 @@ function CardMap() {
   )
 }
 
-export default CardMap;
+export default InternshipList;
