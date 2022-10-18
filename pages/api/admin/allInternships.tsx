@@ -8,13 +8,12 @@ export default async function allInternships(req,res) {
        let Internship_data = await Internship.find({});
        
        if (Internship_data.length>0){
-
-            await Internship_data.forEach(async(internship,index)=>{
-                const id=await internship.user;
-                const student =await User.findById(id); 
-                Internship_data[index]=await internship;
-                Internship_data[index].user=await student;
-            });
+            // await Internship_data.forEach(async(internship,index)=>{
+            //     const id=await internship.user;
+            //     const student =await User.findById(id); 
+            //     Internship_data[index]=await internship;
+            //     Internship_data[index].user=await student;
+            // });
 
            return await res.status(200).json({success:true,message:'Internship Fetched',data:Internship_data})
        }

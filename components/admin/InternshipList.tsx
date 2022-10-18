@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import  {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import InternshipCard from "./InternshipCard";
 import { useEffect } from 'react';
 
@@ -35,19 +35,48 @@ function InternshipList() {
   return (
     <>
       {(!loading )?(
-        internships.map((user) => {
+        <div className='table max-w-5xl md:max-w-7xl '>
+       <thead className=''>
+       <tr>
+          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                
+          </th>
+          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Name
+          </th>
+          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Roll No.
+          </th>
+          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Duration
+          </th>
+          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Company
+          </th>
+          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Mode/Type
+          </th>
+          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                Approval
+          </th>
+        </tr>
+        </thead>
+        <tbody className='divide-y-2'>
+        {internships.map((user) => {
           if(!user.approved){
             return (
-              <div  key={user.id}>
                 <InternshipCard
+                key={user.id}
                   internship={user}
                 />
-              </div>
             )
           }
-        })
+        })}
+
+        </tbody>
+        </div>
       ):(<>
-      Loading...
+      <AiOutlineLoading3Quarters className='fill-primary my-10 mx-auto animate-spin' size={42}/>
       </>)
         
       }
