@@ -2,7 +2,7 @@ import db_connect from "../../../utils/db_connect";
 import User from "../../../models/User"
 
 export default async function handeler(req,res) {
-    db_connect();
+    await db_connect();
     try{
        const query={
               _id:req.body._id
