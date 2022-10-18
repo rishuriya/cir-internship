@@ -3,7 +3,7 @@ import cookie from 'js-cookie';
 import { useEffect } from 'react'
 import Router from "next/router";
 import type { NextPage } from 'next'
-import { RootState } from '../store'
+  import { RootState } from '../store'
 import { update } from '../slices/userSlice'
 import { getUser } from '../utils/getUser'
 import HomePage from '../components/user/Home';
@@ -14,6 +14,8 @@ const Home: NextPage = () => {
 
   const dispatch = useDispatch();
   const authUser: any = useSelector((state: RootState) => state.user.value);
+
+  // let id=authUser.id;
 
   useEffect(() => {
     if (authUser === null) {

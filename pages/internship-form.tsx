@@ -89,11 +89,11 @@ function InternshipForm() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-      //console.log(resData);
+      console.log(resData);
       if(resData.success){
         router.push({
           pathname: '/internshipLetter',
-          query: { id: resData.user._id },
+          query: { id: resData.internship._id },
        },"/internshipLetter")
       }
 
