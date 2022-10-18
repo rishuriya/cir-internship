@@ -15,6 +15,7 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [emailInput, setEmailInput] = useState("");
   const [nameInput, setNameInput] = useState("");
+  const [rollInput, setRollInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState("");
 
@@ -47,6 +48,7 @@ function Signup() {
         email: data.email,
         password: data.password,
         role: "Student",
+        rollno: data.roll,
       };
 
       const res = await fetch("/api/auth/signup", {
@@ -57,14 +59,16 @@ function Signup() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-
+      console.log(resData);
       if (res.status === 200 && resData.success) {
         const userObj={
           name: resData.user.name,
           email: resData.user.email,
           isAdmin: false,
           token: resData.token,
+          roll:resData.user.rollno
         }
+        console.log(userObj);
         dispatch(update(userObj));
         cookie.set("token", resData.token);
         // cookie.set("id", resData.user._id);
@@ -91,7 +95,6 @@ function Signup() {
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
 
           <h1 className="text-3xl my-5 font-bold ">Signup</h1>
-
           <div className="my-3 mx-3">
             <div className="mx-2 font-medium">Full Name</div>
             <input
@@ -99,6 +102,18 @@ function Signup() {
               name="name"
               placeholder="Full Name"
               onChange={(e) => setNameInput(e.target.value)}
+              type="text"
+              required
+            />
+          </div>
+
+          <div className="my-3 mx-3">
+            <div className="mx-2 font-medium">Roll Number</div>
+            <input
+              className=" border-2 border-primaryDark rounded-xl px-3 py-2 invalid:border-red-500"
+              name="roll"
+              placeholder="AM.XX.XXXXX"
+              onChange={(e) => setRollInput(e.target.value)}
               type="text"
               required
             />

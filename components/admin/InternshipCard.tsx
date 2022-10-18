@@ -56,7 +56,6 @@ export default function InternshipCard({ internship }) {
     }, [student])
     let member = internship.member == null ? null : JSON.parse(internship.member);
 
-    console.log(internship)
     const fromDateJs = new Date(internship.internship_start_date);
     const toDateJs = new Date(internship.internship_end_date);
     const fromDate = (fromDateJs.getDate() + "/" + (fromDateJs.getMonth() + 1) + "/" + fromDateJs.getFullYear());

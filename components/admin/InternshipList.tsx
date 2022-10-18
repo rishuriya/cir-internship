@@ -63,7 +63,7 @@ function InternshipList() {
         </thead>
         <tbody className='divide-y-2'>
         {internships.map((user) => {
-          if(!user.approved){
+          if(user.approved==="Pending"){
             return (
                 <InternshipCard
                 key={user.id}
