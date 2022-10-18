@@ -83,10 +83,16 @@ export default function InternshipCard({internship}) {
             </tr>
             <tr className={showDetails?"h-28 border-b-4":"hidden"}>
                 <td ></td>
-                <td colspan={4}> 
+                <td colSpan={4}> 
                     <div>
-                        <p className='font-light'>Internship Description</p>
-                        
+                    <p className='font-light'>{student.email}</p>
+                    <p className='font-light'>{student.course}</p>
+                    
+                        <p className='my-4'><span className='font-medium pr-2'>Mentor Name:</span>{internship.company_person_name}</p>
+                        <div className='flex flex-row'>
+                            <AiOutlineDownload className='fill-primary' size={28}/>
+                            <p className='mx-2'>Offer Letter</p>
+                        </div>
                     </div>
                 </td>
             </tr>

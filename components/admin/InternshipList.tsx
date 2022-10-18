@@ -35,14 +35,14 @@ function InternshipList() {
   return (
     <>
       {(!loading )?(
-        <div className='table max-w-5xl md:max-w-7xl '>
+      <div className='table max-w-5xl md:max-w-7xl '>
        <thead className=''>
        <tr>
           <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 
           </th>
           <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                Name
+                Student Name
           </th>
           <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Roll No.
