@@ -27,12 +27,57 @@ export default function InternshipCard({ internship }) {
     function closeModal() {
         setIsOpen(false)
     }
+    function approved() {
+        const userObject = {
+            _id: internship._id,
+            approved:"Approved"
+        }
+        fetch("/api/admin/admin_decision", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userObject),
+        }).then(async (res) => {
+            const resData = await res.json();
+            console.log(resData);
+            if (resData.success) {
+                setIsOpen(false)
+                window.location.reload();
+            }
+        });
+    }
+
+    const handleDecline=(e)=>{ 
+
+        const data = Object.fromEntries(new FormData(e.target).entries());
+        const userObject = {
+            _id: internship._id,
+            approved:"Disapproved",
+            admin_remarks:data.remark
+        }
+        fetch("/api/admin/admin_decision", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userObject),
+        }).then(async (res) => {
+            const resData = await res.json();
+            console.log(resData);
+            if (resData.success) {
+                setIsOpen(false)
+                window.location.reload();
+            }
+        });
+    }
 
     function openModal() {
         setIsOpen(true)
     }
 
     useEffect(() => {
+        // console.log(internship);
         const userObject = {
             _id: internship.user
         }
@@ -44,7 +89,7 @@ export default function InternshipCard({ internship }) {
             body: JSON.stringify(userObject),
         }).then(async (res) => {
             const resData = await res.json();
-            console.log(resData);
+            // console.log(resData);
             setStudent(resData.data);
         });
     }, [])
@@ -56,11 +101,13 @@ export default function InternshipCard({ internship }) {
     }, [student])
     let member = internship.member == null ? null : JSON.parse(internship.member);
 
-    console.log(internship)
     const fromDateJs = new Date(internship.internship_start_date);
     const toDateJs = new Date(internship.internship_end_date);
     const fromDate = (fromDateJs.getDate() + "/" + (fromDateJs.getMonth() + 1) + "/" + fromDateJs.getFullYear());
     const toDate = (toDateJs.getDate() + "/" + (toDateJs.getMonth() + 1) + "/" + toDateJs.getFullYear());
+
+
+    console.log(internship, student);
 
     return (
         <>
@@ -110,7 +157,7 @@ export default function InternshipCard({ internship }) {
                                                     <>
                                                         <div className='flex justify-around'>
                                                             <button
-                                                                onClick={closeModal}
+                                                                onClick={approved}
                                                                 className='bg-green-400 border rounded-lg p-3'>
                                                                 Yes
                                                             </button>
@@ -124,11 +171,11 @@ export default function InternshipCard({ internship }) {
                                                 ) : (
                                                     <>
                                                         <div className='flex justify-around'>
-                                                            <form>
+                                                            <form onSubmit={handleDecline}>
                                                                 <label>
                                                                     {/* Remarks: */}
                                                                     {/* <input type="text" name="name" className='border border-black' placeholder='Remarks' /> */}
-                                                                    <textarea className='border border-black p-2' id="story" name="story"
+                                                                    <textarea className='border border-black p-2' id="story" name="remark"
                                                                         rows={3} cols={33}>
                                                                     </textarea>
                                                                 </label>
@@ -136,7 +183,7 @@ export default function InternshipCard({ internship }) {
                                                                 <br />
                                                                 <div className='flex justify-center bg-primary text-white border rounded-lg'>
                                                                     <label>
-                                                                        <input type="submit" value="Submit" />
+                                                                        <input type="submit" value="Submit"  />
                                                                     </label>
                                                                 </div>
                                                             </form>

@@ -2,18 +2,19 @@ import { RootState } from '../store'
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
+import cookie from "js-cookie";
+import { getUser } from '../utils/getUser'
 
 function StudentForm() {
   let date_ob = new Date();
   var year = date_ob.getFullYear()
   const router = useRouter()
 
-  const user = useSelector((state: RootState) => state.user.value)
-
-
+  const user = cookie.get("token");
   const [course, setCourse] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [userRoll, setUserRoll] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const handleCourseChange = (e) => {
@@ -62,8 +63,11 @@ function StudentForm() {
       if(user===null){
         router.push("/login");
       }else{
-        setUserName(user["name"]);
-        setUserEmail(user["email"]);
+        getUser(user).then(async(response) => {
+          setUserEmail(response.user["email"]);
+          setUserName(response.user["name"]);
+          setUserRoll(response.user["rollno"]);
+        });
       }
     }
   )
@@ -136,7 +140,7 @@ function StudentForm() {
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll">
                 Roll Number
               </label>
-              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll" id="roll" type="text" placeholder="AM.XX.XXXXXXX" />
+              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll" id="roll" type="text" placeholder="AM.XX.XXXXXXX" value={userRoll} />
             </div>
           </div>
           <div className="flex flex-wrap -mx-3 mb-2">

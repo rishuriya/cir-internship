@@ -12,8 +12,10 @@ function InternshipForm() {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   let member_data
-  let id
-  let fileres
+  let id;
+  let name;
+  let roll;
+  let fileres;
   let user;
   const router = useRouter()
 
@@ -34,6 +36,8 @@ function InternshipForm() {
     const token = cookie.get("token");
     getUser(token).then(async(response) => {
       id=response.user["id"];
+      name=response.user["name"];
+      roll=response.user["rollno"];
       user=response.user;
     });
   });
@@ -66,6 +70,8 @@ function InternshipForm() {
       }
       const bodyObject={
         user: id,
+        name: name,
+        roll: roll,
         company_name: data.company_name,
         company_location: data.company_location,
         company_person_name: data.company_person_name,
