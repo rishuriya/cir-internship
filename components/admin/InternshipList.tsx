@@ -41,22 +41,22 @@ function InternshipList() {
           <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 
           </th>
-          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+          <th scope="col" className="text-sm text-center font-medium text-gray-900 px-6 py-4">
                 Student Name
           </th>
-          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+          <th scope="col" className="text-sm text-center font-medium text-gray-900 px-6 py-4">
                 Roll No.
           </th>
-          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+          <th scope="col" className="text-sm text-center font-medium text-gray-900 px-6 py-4">
                 Duration
           </th>
-          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+          <th scope="col" className="text-sm text-center font-medium text-gray-900 px-6 py-4">
                 Company
           </th>
-          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+          <th scope="col" className="text-sm text-center font-medium text-gray-900 px-6 py-4">
                 Mode/Type
           </th>
-          <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+          <th scope="col" className="text-sm text-center font-medium text-gray-900 px-6 py-4">
                 Approval
           </th>
         </tr>
