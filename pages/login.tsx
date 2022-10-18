@@ -56,15 +56,23 @@ function Login() {
         const userObj={
           name: resData.user.name,
           email: resData.user.email,
-          isAdmin: false,
+          isAdmin: resData.user.role === "Admin" ? true : false,
           token: resData.token,
         }
         dispatch(update(userObj));
-        cookie.set("token", resData.token);
+        
         // cookie.set("id", resData.user._id);
         // cookie.set("email", resData.user.email);
         setLoading(false);
-        Router.push("/");
+        if(resData.user.role=="Student"){
+          cookie.set("token", resData.token);
+          //console.log("Admin bduub");
+          Router.push("/");
+        }
+        else{
+          // Router.push("/signup");
+          throw "Something went wrong!";
+        }
       } 
       else{
           // Router.push("/signup");

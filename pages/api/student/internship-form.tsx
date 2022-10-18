@@ -7,7 +7,7 @@ export default async function handeler(req,res) {
         //console.log(req.body);
         let user = new Internship(req.body);
         if(!user){
-            return res.status(400).json({success:false,message:'user not created'})
+            return res.status(400).json({success:false,message:'Internship form not created'})
         }
         //console.log(req.body)
         let result = await user.save();
@@ -16,7 +16,7 @@ export default async function handeler(req,res) {
         //     return res.status(400).json({success:false,message:'user not created'})
         // }
         // console.log({success:true,message:'user created',user:result,token:token})
-        return await res.status(200).json({success:true,message:'user created',user:result})
+        return await res.status(200).json({success:true,message:'Form created',user:result})
             
     }
     catch(error){

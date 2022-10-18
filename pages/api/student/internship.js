@@ -2,7 +2,7 @@ import db_connect from "../../../utils/db_connect";
 import Internship from "../../../models/Internship"
 
 export default async function handeler(req,res) {
-    db_connect();
+    await db_connect();
     try{
        const query={
               user:req.body.user,
