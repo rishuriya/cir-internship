@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import data from './Users.json';
+
 import InternshipCard from "./InternshipCard";
 import { useEffect } from 'react';
 
 function InternshipList() {
 
-  const [internships, setInternships] = useState(null);
-  // const [student,setStudent]=useState(null);
-
+  const [internships, setInternships] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(()=>{
       fetch("/api/admin/allInternships",{
@@ -17,48 +16,38 @@ function InternshipList() {
         }
       }).then(async(res)=>{
         const resData=await res.json();
-    
-        setInternships(resData.data);
-        console.log("ok",internships);
+
+        if(resData.success){
+          setInternships([...resData.data]);
+          console.log("ok",internships);
+        } 
+        
       });
   },[])
 
+  useEffect(()=>{
+    if(internships.length>0){
+      setLoading(false);
+    }
+  },[internships])
 
-  // const fetchUser=(id)=>{
-  //   const userObject={
-  //     _id:id
-  //   }
-  //   fetch("/api/student/userData",{
-  //     method:"GET",
-  //     headers:{
-  //       "Content-Type":"application/json"
-  //     },
-  //     body: JSON.stringify(userObject),
-  //   }).then(async (res)=>{
-  //     const resData=await res.json();
-  //     console.log(resData);
-  //     return resData.data
-  //   });
-  // }
 
   return (
     <>
-        {console.log(internships)}
-      {(internships!==null )?(
-        data.map((user) => {
+      {(!loading )?(
+        internships.map((user) => {
           if(!user.approved){
             return (
               <div  key={user.id}>
                 <InternshipCard
-                  internships={internships}
-                  // student={fetchUser(user.user)}
+                  internship={user}
                 />
               </div>
             )
           }
         })
       ):(<>
-      no idea
+      Loading...
       </>)
         
       }

@@ -9,13 +9,11 @@ export default async function allInternships(req,res) {
        
        if (Internship_data.length>0){
 
-            Internship_data.forEach(async(internship,index)=>{
-                // console.log(index)
+            await Internship_data.forEach(async(internship,index)=>{
                 const id=await internship.user;
-                // console.log(internship.user);
                 const student =await User.findById(id); 
-                // console.log("student: ",student);
-                Internship_data[index].user=student;
+                Internship_data[index]=await internship;
+                Internship_data[index].user=await student;
             });
 
            return await res.status(200).json({success:true,message:'Internship Fetched',data:Internship_data})
