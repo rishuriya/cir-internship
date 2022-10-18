@@ -19,12 +19,12 @@ const navOptions = [
     href: '/form',
     icon: AiOutlineFileAdd,
   },
-  {
-    name: 'Approved Internships',
-    description: "Connect with third-party tools that you're already using.",
-    href: '/',
-    icon: AiOutlineCheck,
-  },
+  // {
+  //   name: 'Approved Internships',
+  //   description: "Connect with third-party tools that you're already using.",
+  //   href: '/',
+  //   icon: AiOutlineCheck,
+  // },
  
 ]
 

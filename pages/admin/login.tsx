@@ -61,9 +61,8 @@ function Login() {
         
         // cookie.set("id", resData.user._id);
         // cookie.set("email", resData.user.email);
-        //console.log(resData.user.role);
+        cookie.set("token", resData.token);
         if(resData.user.role=="Admin"){
-          cookie.set("token", resData.token);
           Router.push("/admin");
         }else{
           //console.log("hello");
@@ -91,14 +90,14 @@ function Login() {
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
 
-          <h1 className="text-3xl my-5 font-bold ">Login</h1>
+          <h1 className="text-3xl my-5 font-bold ">Admin Login</h1>
 
           <div className="my-3 mx-3">
             <div className="mx-2 font-medium">Email</div>
             <input
               className=" border-2 border-primaryDark rounded-xl px-3 py-2 invalid:border-red-500"
               name="email"
-              placeholder="abc@am.students.amrita.edu"
+              placeholder="Email"
               onChange={(e) => setEmailInput(e.target.value)}
               type="email"
               required

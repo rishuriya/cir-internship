@@ -1,9 +1,10 @@
-import React,{useRef} from 'react'
-import { useState } from 'react';
-import { useRouter } from "next/router";
+import Link from 'next/link';
 import cookie from 'js-cookie';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import React,{useRef} from 'react';
+import { useRouter } from "next/router";
 import { getUser } from '../utils/getUser'
-import { useEffect } from 'react'
 import ReactToPrint from "react-to-print";
 const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLetter(prop,ref){
   const router = useRouter()
@@ -16,7 +17,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
     const [data, setData] = useState(false);
     const [username,setUserName]=useState([]);
     const [internshipdata,setInternshipData]=useState([]);
-    //const [componentRef,setComponentRef]=useState(null);
+
     useEffect(() => {
       try{
         const token = cookie.get("token");
@@ -37,14 +38,11 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
             //console.log(user_name)
             if(user_name)
             {
-              
-              setUserName(user_name)
-              
-              setData(true)
+              setUserName(user_name);
+              setData(true);
             }       
           });
         });
-        //console.log(username["id"]);        
           if(username){
             const bodyObject={
               user: username["_id"],
@@ -83,10 +81,10 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
     //console.log(internshipdata);
   return (
     <div>
-    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-10' ref={ref}>
+    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-16' ref={ref}>
         <div>
             <p>To,</p>
-            <p>The Principle,</p>
+            <p>The Principal,</p>
         </div>
         <div className='my-5'>
             <p>{username["school"]},</p>
@@ -99,12 +97,12 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
         <div className='my-5'>
             <p>Respected Sir/Madam,</p>
         </div>
-        <div className='my-5'>
+        <div className='my-5 mx-2'>
             <p className='indent-8'>I am {username["name"]} of {username["course"]} {username["branch"]} student of {username["year_of_joining"]} batch currently studying in {username["semester"]} semester.
              I applied for the Internship program in the {internshipdata["company_name"]} for {internshipdata["training_type"]} and I got selected for program.</p>
              <p className='my-3'>I request you to give me permission to join the internship which is starting on {internshipdata["internship_start_date"].substring(0,9)} and ending on {internshipdata["internship_end_date"].substring(0,9)}.</p>
         </div>
-        <div className='flex flex-row justify-between mx-3 items-end'>
+        <div className='flex flex-row justify-between mx-3 items-end my-10'>
             <div>
                 <p>Thanking You,</p>
                 <p>Yours truly,</p>
@@ -117,37 +115,35 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
                 <p className='mb-2'>Advisor signature</p>
             </div>
             <div>
-                <p className='mb-2'>HOD signature</p>
+                <p className='mb-2 mr-10'>HOD signature</p>
             </div>
-
         </div>
   </div>
-
 </div>
 
-  )
-  }
-
-
+  );}
 })
 
-function Example() {
+
+function PrintLetter() {
     let componentRef;
   
       componentRef = useRef();
       //console.log(componentRef.current);
-
     return (
       <div>
         <InternshipLetter ref={el => (componentRef = el)} />
         <div className="mx-auto max-w-5xl px-4 sm:px-8 my-10">
         <ReactToPrint
-          trigger={() => <a className="px-6 py-3 text-blue-100 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200" href="#">Print this out!</a>}
+          trigger={() => <a className="px-6 py-3 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200" href="#">Print</a>}
           content={() => componentRef}
         />
+        <button className='px-6 py-2 mx-4 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200'>
+          <Link href="/">Back</Link>
+        </button>
         </div>
       </div>
     );
   
 }
-export default Example
+export default PrintLetter

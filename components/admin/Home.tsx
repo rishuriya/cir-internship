@@ -11,6 +11,9 @@ function AdminHome() {
             <div className='my-3 mx-2 font-semibold text-lg text-center'>
                 Admin Portal
             </div>
+            <div className='font-medium mx-5 my-5 text-xl'>
+            Internships
+            </div>
             <InternshipList/>
         </div>
     </div>
