@@ -1,6 +1,6 @@
 import { useEffect, useState, Fragment } from 'react';
 import { AiOutlineCheck, AiOutlineDown, AiOutlineUp, AiOutlineClose, AiOutlineDownload, AiOutlineLoading3Quarters } from 'react-icons/ai';
-
+import Link from 'next/link';
 // modal
 import { Dialog, Transition } from '@headlessui/react'
 
@@ -54,7 +54,7 @@ export default function InternshipCard({ internship }) {
             setLoading(false);
         }
     }, [student])
-
+    let member = internship.member == null ? null : JSON.parse(internship.member);
 
     console.log(internship)
     const fromDateJs = new Date(internship.internship_start_date);
@@ -203,52 +203,59 @@ export default function InternshipCard({ internship }) {
 
                                 <div className='flex flex-row'>
                                     <span className=''>Attachments - Offer Letter</span>
-                                    <span className='cursor-pointer'><AiOutlineDownload className='fill-primary' size={28} /></span>
+                                    <Link href={internship.request_letter != null ? internship.request_letter : ""}><AiOutlineDownload className='fill-primary cursor-pointer' size={28} /></Link>
                                 </div>
 
                                 {/* table for showing team members with their details */}
 
                                 <div className='my-6'>
-                                    <p>Team members : <span className='bg-gray-200 m-2 p-2 border rounded-lg'>None</span></p>
-                                    <table className='mt-3'>
-                                        <thead>
-                                            <tr>
-                                                <th className='px-6 py-4 whitespace-nowrap'>
-                                                    <div className='text-sm text-gray-900'>Name</div>
-                                                </th>
-                                                <th className='px-6 py-4 whitespace-nowrap'>
-                                                    <div className='text-sm text-gray-900'>Roll No</div>
-                                                </th>
-                                                <th className='px-6 py-4 whitespace-nowrap'>
-                                                    <div className='text-sm text-gray-900'>Email</div>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td className='px-6 py-4 whitespace-nowrap'>
-                                                    <div className='text-sm text-gray-900'>Team member 1</div>
-                                                </td>
-                                                <td className='px-6 py-4 whitespace-nowrap'>
-                                                    <div className='text-sm text-gray-900'>AM.EN.U4ELC21167</div>
-                                                </td>
-                                                <td className='px-6 py-4 whitespace-nowrap'>
-                                                    <div className='text-sm text-gray-900'>testmail@mail.co.in</div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td className='px-6 py-4 whitespace-nowrap'>
-                                                    <div className='text-sm text-gray-900'>Team member 2</div>
-                                                </td>
-                                                <td className='px-6 py-4 whitespace-nowrap'>
-                                                    <div className='text-sm text-gray-900'>AM.EN.U4EAC21257</div>
-                                                </td>
-                                                <td className='px-6 py-4 whitespace-nowrap'>
-                                                    <div className='text-sm text-gray-900'>testmail@mail.co.in</div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    {internship.member != null ? (
+                                        <>
+                                            <p>Team members : <span className='bg-gray-200 m-2 p-2 border rounded-lg'>{member.length}</span></p>
+                                            <table className='mt-3'>
+                                                <thead>
+                                                    <tr>
+                                                        <th className='px-6 py-4 whitespace-nowrap'>
+                                                            <div className='text-sm text-gray-900'>Name</div>
+                                                        </th>
+                                                        <th className='px-6 py-4 whitespace-nowrap'>
+                                                            <div className='text-sm text-gray-900'>Roll No</div>
+                                                        </th>
+                                                        <th className='px-6 py-4 whitespace-nowrap'>
+                                                            <div className='text-sm text-gray-900'>Email</div>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    {member.map((members) => {
+                                                        //console.log(member)
+                                                        return (
+                                                            <>
+                                                                <tr>
+                                                                    <td className='px-6 py-4 whitespace-nowrap'>
+                                                                        <div className='text-sm text-gray-900'>{members.name_member}</div>
+                                                                    </td>
+                                                                    <td className='px-6 py-4 whitespace-nowrap'>
+                                                                        <div className='text-sm text-gray-900'>{members.roll_member}</div>
+                                                                    </td>
+                                                                    <td className='px-6 py-4 whitespace-nowrap'>
+                                                                        <div className='text-sm text-gray-900'>{members.email_member}</div>
+                                                                    </td>
+                                                                </tr>
+                                                            </>
+                                                        )
+                                                    })}
+                                                </tbody>
+
+                                            </table>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p>Team members : <span className='bg-gray-200 m-2 p-2 border rounded-lg'>None</span></p>
+                                        </>
+                                    )
+                                    }
                                 </div>
 
                             </div>

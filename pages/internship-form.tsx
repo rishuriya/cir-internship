@@ -54,15 +54,16 @@ function InternshipForm() {
       method: "POST",
       body
     });
-    
+  
      fileres = await response.json();
+  }
       if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member==""){
         member_data=null
       }
       else{
         member_data=JSON.stringify(formValues)
+        console.log(member_data)
       }
-    }
       const bodyObject={
         user: id,
         company_name: data.company_name,
@@ -79,7 +80,7 @@ function InternshipForm() {
         member:member_data
       };
       
-      //console.log(data.certificate);
+      console.log(bodyObject);
       const res = await fetch("/api/student/internship-form", {
         method: "POST",
         headers: {
