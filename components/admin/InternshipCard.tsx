@@ -77,6 +77,7 @@ export default function InternshipCard({ internship }) {
     }
 
     useEffect(() => {
+        // console.log(internship);
         const userObject = {
             _id: internship.user
         }
@@ -88,7 +89,7 @@ export default function InternshipCard({ internship }) {
             body: JSON.stringify(userObject),
         }).then(async (res) => {
             const resData = await res.json();
-            console.log(resData);
+            // console.log(resData);
             setStudent(resData.data);
         });
     }, [])
@@ -104,6 +105,9 @@ export default function InternshipCard({ internship }) {
     const toDateJs = new Date(internship.internship_end_date);
     const fromDate = (fromDateJs.getDate() + "/" + (fromDateJs.getMonth() + 1) + "/" + fromDateJs.getFullYear());
     const toDate = (toDateJs.getDate() + "/" + (toDateJs.getMonth() + 1) + "/" + toDateJs.getFullYear());
+
+
+    console.log(internship, student);
 
     return (
         <>
