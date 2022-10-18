@@ -49,7 +49,8 @@ function Home() {
       : internship_id.map((id)=>{
         return(
         <InternshipCard key={id} id={id} />
-      )}
+      )
+    }
       )}
      {/* <NoInternship/> */}
 
