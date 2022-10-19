@@ -154,12 +154,12 @@ export default function InternshipCard({ internship }) {
                                                         <div className='flex justify-around'>
                                                             <button
                                                                 onClick={approved}
-                                                                className='bg-green-400 border rounded-lg p-3'>
+                                                                className='bg-green-400 border rounded-lg py-3 px-5'>
                                                                 Yes
                                                             </button>
                                                             <button
                                                                 onClick={closeModal}
-                                                                className='bg-red-300 border rounded-lg p-3'>
+                                                                className='bg-red-300 border rounded-lg py-3 px-5'>
                                                                 No
                                                             </button>
                                                         </div>
@@ -168,20 +168,12 @@ export default function InternshipCard({ internship }) {
                                                     <>
                                                         <div className='flex justify-around'>
                                                             <form onSubmit={handleDecline}>
-                                                                <label>
-                                                                    {/* Remarks: */}
-                                                                    {/* <input type="text" name="name" className='border border-black' placeholder='Remarks' /> */}
-                                                                    <textarea className='border border-black p-2' id="story" name="remark"
-                                                                        rows={3} cols={33}>
-                                                                    </textarea>
-                                                                </label>
-                                                                <br />
-                                                                <br />
-                                                                <div className='flex justify-center bg-primary text-white border rounded-lg'>
-                                                                    <label>
-                                                                        <input type="submit" value="Submit"  />
-                                                                    </label>
-                                                                </div>
+                                                                <label className='flex flex-col'>
+                                                                  <textarea className='border border-black p-2 mb-4 w-full' id="story" name="remark"
+                                                                        rows={3} cols={30}>
+                                                                  </textarea>
+                                                                 <button type="submit" className=' bg-primary text-white ml-auto py-2 px-3 text-lg rounded-lg font-medium'>Submit</button>
+                                                                 </label>
                                                             </form>
                                                         </div>
                                                     </>
@@ -238,23 +230,22 @@ export default function InternshipCard({ internship }) {
                         <td ></td>
                         <td colSpan={4}>
                             <div className='m-6'>
-                                <p className='font-light'>Email : <span className='bg-gray-200 p-2 m-2 border rounded-lg'>{student.email}</span></p>
-                                <br />
-                                <p className='font-light'>Course :<span className='bg-gray-200 p-2 m-2 border rounded-lg'>{student.course}</span></p>
+                                <p className='font-light my-5'>Email : <span className='bg-gray-100/70 p-2 mx-2 rounded-lg'>{student.email}</span></p>
 
-                                <p className='my-6'><span className='font-medium pr-2'>Mentor Name:</span><span className='bg-gray-200 p-2 m-2 border rounded-lg'>{internship.company_person_name}</span></p>
+                                <p className='font-light my-5'>Course :<span className='bg-gray-100/70 p-2 mx-2 rounded-lg'>{student.course}</span></p>
 
-                                <div className='flex flex-row'>
-                                    <span className=''>Attachments - Offer Letter</span>
+                                <p className='my-5'><span className='font-medium pr-2'>Mentor Name:</span><span className='bg-gray-100/70 p-2 mx-2 rounded-lg'>{internship.company_person_name}</span></p>
+
+                                {internship.request_letter != null?<div className='flex flex-row'>
+                                    <span className='pr-2'> Offer Letter</span>
                                     <Link href={internship.request_letter != null ? internship.request_letter : ""}><AiOutlineDownload className='fill-primary cursor-pointer' size={28} /></Link>
-                                </div>
+                                </div>:<></>}
 
                                 {/* table for showing team members with their details */}
-
                                 <div className='my-6'>
                                     {internship.member != null ? (
                                         <>
-                                            <p>Team members : <span className='bg-gray-200 m-2 p-2 border rounded-lg'>{member.length}</span></p>
+                                            <p>Team members : <span className='bg-gray-100/70 p-2 mx-2 my-1 rounded-lg'>{member.length}</span></p>
                                             <table className='mt-3'>
                                                 <thead>
                                                     <tr>
@@ -272,7 +263,6 @@ export default function InternshipCard({ internship }) {
 
                                                 <tbody>
                                                     {member.map((members) => {
-                                                        //console.log(member)
                                                         return (
                                                             <>
                                                                 <tr>
@@ -295,7 +285,7 @@ export default function InternshipCard({ internship }) {
                                         </>
                                     ) : (
                                         <>
-                                            <p>Team members : <span className='bg-gray-200 m-2 p-2 border rounded-lg'>None</span></p>
+                                            <p>Team members : <span className='bg-gray-100/70 p-2 mx-2 my-1 rounded-lg'>None</span></p>
                                         </>
                                     )
                                     }

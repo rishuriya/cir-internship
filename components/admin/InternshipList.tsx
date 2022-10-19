@@ -42,7 +42,7 @@ function InternshipList() {
           value={searchTerm}
           type="search" name="search" placeholder="Search" />
       </div>
-      {(!loading) ? (
+      {(!loading && internships.find(i=>i.approved==="Pending")) ? (
         <div className='table max-w-5xl md:max-w-7xl '>
           <thead className=''>
             <tr>

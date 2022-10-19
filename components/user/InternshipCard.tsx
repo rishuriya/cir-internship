@@ -84,7 +84,7 @@ export default function InternshipCard({id}) {
                         <p className="mt-1">{internship["internship_mode"]} - {internship["training_type"]}</p>
                     </div>
                     <div className="flex justify-between">
-                        {internship["approved"] === "Disapproved"?<div>
+                        {internship["approved"] === "Disapproved"?<div className="my-3">
                             <p className="mr-5 bg-red-200/60 px-2 py-1 rounded-xl"><span className="underline text-lg">Remarks</span> : {internship["admin_remarks"]}</p>
                         </div>
                         :<div></div>}
