@@ -6,6 +6,7 @@ export default function InternshipCard({id}) {
 
     const [internship, setInternship] = useState([]);
     const router = useRouter();
+
     useEffect(()=>{
         fetch("/api/student/fetch-Internship", {
             method: "POST",
@@ -36,41 +37,70 @@ export default function InternshipCard({id}) {
         return;
     }
 
+    const handleStatus=(status)=>{
+        if(status=="Approved"){
+            return (
+                <p id="status" className="px-3 py-1 text-sm font-bold text-green-500 bg-green-100 rounded">Approved</p> 
+            )
+        }
+        else if(status=="Disapproved"){
+            return (
+                <p id="status" className="px-3 py-1 text-sm font-bold text-red-500 bg-red-100 rounded">Disapproved</p>
+            )
+        }
+        else{
+            return (
+                <p id="status" className="px-3 py-1 text-sm font-bold text-yellow-500 bg-yellow-100 rounded">Pending</p>
+            )
+        }
+    }
+
+    const handleDate=(fromDate,toDate)=>{
+        var from = new Date(fromDate);
+        var to = new Date(toDate);
+        var fromYear = from.getFullYear();
+        var toYear = to.getFullYear();
+        var fromMonth = from.getMonth()+1;
+        var toMonth = to.getMonth()+1;
+        var fromDay = from.getDate();
+        var toDay = to.getDate();
+        return fromDay+"/"+fromMonth+"/"+fromYear+" - "+toDay+"/"+toMonth+"/"+toYear
+    }
+
+
     return (
         <>
-            <div>
+            {(internship!==null)?<div>
                 <div className="max-w-2xl px-8 py-4 mx-auto rounded-lg shadow-lg" style={{ cursor: "auto" }}>
                     <div className="flex items-center justify-between">
-                        <div className="font-medium text-lg">{internship["company_name"]}</div>
+                        <div className="font-medium text-lg my-2">{internship["company_name"]}</div>
                         {/* <span className="text-sm font-light text-gray-800">Posted on {internship["company_name"]}</span> */}
                         {/* <p id="status" className={`px-3 py-1 text-sm font-bold transition-colors duration-200 transform rounded`}>{props.status}</p> */}
-                        {internship["approved"] ? internship["approved"] === "Pending" ? <p id="status" className="px-3 py-1 text-sm font-bold text-yellow-500 bg-yellow-100 rounded">{internship["approved"]}</p> 
-                        : internship["approved"] === "Approved" ? <p id="status" className="px-3 py-1 text-sm font-bold text-green-500 bg-green-100 rounded">{internship["approved"]}</p> 
-                        : <p id="status" className="px-3 py-1 text-sm font-bold text-red-500 bg-red-100 rounded">{internship["approved"]}</p> 
-                        : <p id="status" className="px-3 py-1 text-sm font-bold text-yellow-500 bg-yellow-100 rounded">Pending</p>}
+                        {handleStatus(internship["status"])}
                     </div>
                     <div className="mt-1">
                         <Link href="/" className="text-2xl font-bold text-gray-700 hover:underline"><>{internship["company_website"]}</></Link>
-                        {/* <p className="mt-1">Internship : {new Date(internship["internship_start_date"])}</p> */}
-                        <p className="mt-1">{internship["internship_mode"]} - {internship["company_location"]}</p>
+                        <p className="mt-1">Dates : {handleDate(internship["internship_start_date"],internship["internship_end_date"])}</p>
+                        <p className="mt-1">{internship["internship_mode"]} - {internship["training_type"]}</p>
                     </div>
-                    <br />
                     <div className="flex justify-between">
-                        {internship["approved"] === "Approved"?<div>
-                            <p>Remarks : {internship["admin_remark"]}</p>
+                        {internship["approved"] === "Disapproved"?<div>
+                            <p className="mr-5 bg-red-200/60 px-2 py-1 rounded-xl"><span className="underline text-lg">Remarks</span> :{internship["admin_remark"]}</p>
                         </div>
                         :<div></div>}
                         <div>
                             {internship["approved"] === "Approved"?<button onClick={(e)=> handleletter(e,internship["_id"],internship["approved"])}>
-                                <AiOutlineDownload className="fill-black " size={26}/>
+                                <div className="flex flex-row">
+                                    <p className="text-sm mx-2 mt-1">Download Letter</p>
+                                    <AiOutlineDownload className="fill-black " size={28}/>
+                                </div>
                             </button>:
                              <AiOutlineDownload className="fill-gray-300 " size={26}/>
                             }
                         </div>
                     </div>
                 </div>
-            </div>
-            <br />
+            </div>:<></>}
         </>
     )
 }
