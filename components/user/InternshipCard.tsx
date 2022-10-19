@@ -70,7 +70,7 @@ export default function InternshipCard({id}) {
 
     return (
         <>
-            {(internship!==[] ||internship!==null)?<div>
+            {(internship!==null)?<div>
                 <div className="max-w-2xl px-8 py-4 mx-auto rounded-lg shadow-lg" style={{ cursor: "auto" }}>
                     <div className="flex items-center justify-between">
                         <div className="font-medium text-lg my-2">{internship["company_name"]}</div>
@@ -81,7 +81,7 @@ export default function InternshipCard({id}) {
                     <div className="mt-1">
                         <Link href="/" className="text-2xl font-bold text-gray-700 hover:underline"><>{internship["company_website"]}</></Link>
                         <p className="mt-1">Dates : {handleDate(internship["internship_start_date"],internship["internship_end_date"])}</p>
-                        <p className="mt-1">{internship["internship_mode"]} - {internship["company_location"]}</p>
+                        <p className="mt-1">{internship["internship_mode"]} - {internship["training_type"]}</p>
                     </div>
                     <div className="flex justify-between">
                         {internship["approved"] === "Disapproved"?<div>
