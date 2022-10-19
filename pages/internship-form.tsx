@@ -12,8 +12,10 @@ function InternshipForm() {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   let member_data
-  let id
-  let fileres
+  let id;
+  let name;
+  let roll;
+  let fileres;
   let user;
   const router = useRouter()
 
@@ -34,6 +36,8 @@ function InternshipForm() {
     const token = cookie.get("token");
     getUser(token).then(async(response) => {
       id=response.user["id"];
+      name=response.user["name"];
+      roll=response.user["rollno"];
       user=response.user;
     });
   });
@@ -54,17 +58,20 @@ function InternshipForm() {
       method: "POST",
       body
     });
-    
+  
      fileres = await response.json();
+  }
       if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member==""){
         member_data=null
       }
       else{
         member_data=JSON.stringify(formValues)
+        console.log(member_data)
       }
-    }
       const bodyObject={
         user: id,
+        name: name,
+        roll: roll,
         company_name: data.company_name,
         company_location: data.company_location,
         company_person_name: data.company_person_name,
@@ -79,7 +86,7 @@ function InternshipForm() {
         member:member_data
       };
       
-      //console.log(data.certificate);
+      console.log(bodyObject);
       const res = await fetch("/api/student/internship-form", {
         method: "POST",
         headers: {
@@ -88,12 +95,10 @@ function InternshipForm() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-      //console.log(resData);
+      console.log(resData);
       if(resData.success){
-        router.push({
-          pathname: '/internshipLetter',
-          query: { id: resData.user._id },
-       },"/internshipLetter")
+        router.push("/"
+        );
       }
 
       setLoading(false);

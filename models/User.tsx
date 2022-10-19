@@ -68,7 +68,11 @@ const userSchema =new mongoose.Schema({
     year_of_joining:{
         type:Number,
         required:false
-    }
+    },
+    internships:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"internshipDataRecords"
+    }]
 })
 
 export default (mongoose.models.User as mongoose.Model<User>) || mongoose.model('User', userSchema);
