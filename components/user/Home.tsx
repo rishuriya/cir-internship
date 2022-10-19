@@ -14,7 +14,6 @@ function Home() {
 
   useEffect(() => {
     if (authUser !== null) {
-      console.log(authUser);
       const userObject = {
         _id: authUser.id,
       };
@@ -28,11 +27,9 @@ function Home() {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log(data);
             setInternship_id(data.data.internships);
-            setLoading(false);
-            console.log("internship_id", internship_id);
           }
+          setLoading(false);
         });
     }
   }, [authUser]);
