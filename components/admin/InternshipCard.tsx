@@ -91,14 +91,12 @@ export default function InternshipCard({ internship }) {
             const resData = await res.json();
             //console.log(resData.data.name,internship.name);
             setStudent(resData.data);
+            if (student) {
+                setLoading(false);
+            }
         });
     }, [student])
 
-    useEffect(() => {
-        if (student) {
-            setLoading(false);
-        }
-    }, [student])
     let member = internship.member == null ? null : JSON.parse(internship.member);
 
     const fromDateJs = new Date(internship.internship_start_date);
