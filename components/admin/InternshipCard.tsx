@@ -107,8 +107,6 @@ export default function InternshipCard({ internship }) {
     const toDate = (toDateJs.getDate() + "/" + (toDateJs.getMonth() + 1) + "/" + toDateJs.getFullYear());
 
 
-    console.log(internship, student);
-
     return (
         <>
             {(!loading) ? (

@@ -71,7 +71,9 @@ function InternshipList() {
               .filter((internship) => {
                 if (searchTerm == "") {
                   return internship
-                } else if (typeof internship.roll === 'string' && internship.roll.toLowerCase().includes(searchTerm.toLowerCase())) {
+                } else if ((typeof internship.roll === 'string' && internship.roll.toLowerCase().includes(searchTerm.toLowerCase())) || 
+                (typeof internship.name === 'string' && internship.name.toLowerCase().includes(searchTerm.toLowerCase())) || 
+                (typeof internship.company_name === 'string' && internship.company_name.toLowerCase().includes(searchTerm.toLowerCase()))) {
                   return internship
                 }
               })
