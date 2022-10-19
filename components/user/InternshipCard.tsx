@@ -39,7 +39,7 @@ export default function InternshipCard({id}) {
     return (
         <>
             <div>
-                <div className="max-w-2xl px-8 py-4 mx-auto rounded-lg shadow-md" style={{ cursor: "auto" }}>
+                <div className="max-w-2xl px-8 py-4 mx-auto rounded-lg shadow-lg" style={{ cursor: "auto" }}>
                     <div className="flex items-center justify-between">
                         <div className="font-medium text-lg">{internship["company_name"]}</div>
                         {/* <span className="text-sm font-light text-gray-800">Posted on {internship["company_name"]}</span> */}
@@ -56,13 +56,16 @@ export default function InternshipCard({id}) {
                     </div>
                     <br />
                     <div className="flex justify-between">
-                        <div>
+                        {internship["approved"] === "Approved"?<div>
                             <p>Remarks : {internship["admin_remark"]}</p>
                         </div>
+                        :<div></div>}
                         <div>
-                            <button onClick={(e)=> handleletter(e,internship["_id"],internship["approved"])}>
+                            {internship["approved"] === "Approved"?<button onClick={(e)=> handleletter(e,internship["_id"],internship["approved"])}>
                                 <AiOutlineDownload className="fill-black " size={26}/>
-                            </button>
+                            </button>:
+                             <AiOutlineDownload className="fill-gray-300 " size={26}/>
+                            }
                         </div>
                     </div>
                 </div>
