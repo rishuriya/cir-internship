@@ -94,7 +94,7 @@ function InternshipList() {
           </tbody>
         </div>
       ) : (<>
-        <AiOutlineLoading3Quarters className='fill-primary my-10 mx-auto animate-spin' size={42} />
+        <span className='fill-primary my-10 mx-auto animate-spin' >No Internship Record</span>
       </>)
 
       }
