@@ -54,6 +54,7 @@ function Login() {
       
       if (res.status === 200 && resData.success) {
         const userObj={
+          id:resData.user._id,
           name: resData.user.name,
           email: resData.user.email,
           isAdmin: resData.user.role === "Admin" ? true : false,

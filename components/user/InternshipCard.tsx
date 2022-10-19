@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { useEffect,useState } from "react";
 import {AiOutlineDownload} from 'react-icons/ai'
-
+import { useRouter } from "next/router";
 export default function InternshipCard({id}) {
 
     const [internship, setInternship] = useState([]);
-
+    const router = useRouter();
     useEffect(()=>{
         fetch("/api/student/fetch-Internship", {
             method: "POST",
@@ -21,6 +21,20 @@ export default function InternshipCard({id}) {
                 }
             });
     },[])
+
+    function handleletter(e, uid,approve){
+        console.log(approve)
+        if(approve=="Approved"){
+                router.push({
+                    pathname: '/internshipLetter',
+                    query: { id: uid },
+                 },"/internshipLetter")
+                }
+                else{
+                    throw "Not Approved"
+                }
+        return;
+    }
 
     return (
         <>
@@ -46,7 +60,7 @@ export default function InternshipCard({id}) {
                             <p>Remarks : {internship["admin_remark"]}</p>
                         </div>
                         <div>
-                            <button>
+                            <button onClick={(e)=> handleletter(e,internship["_id"],internship["approved"])}>
                                 <AiOutlineDownload className="fill-black " size={26}/>
                             </button>
                         </div>

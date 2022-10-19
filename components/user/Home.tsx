@@ -16,7 +16,7 @@ function Home() {
   
   useEffect(()=>{
     if(authUser!==null){
-
+      console.log(authUser);
       const userObject={
         _id:authUser.id
       }
