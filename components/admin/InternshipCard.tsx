@@ -89,10 +89,10 @@ export default function InternshipCard({ internship }) {
             body: JSON.stringify(userObject),
         }).then(async (res) => {
             const resData = await res.json();
-            // console.log(resData);
+            //console.log(resData.data.name,internship.name);
             setStudent(resData.data);
         });
-    }, [])
+    }, [student])
 
     useEffect(() => {
         if (student) {
