@@ -22,7 +22,6 @@ function InternshipList() {
 
       if (resData.success) {
         setInternships(resData.data);
-        // console.log("ok", internships);
       }
 
     });
@@ -37,8 +36,12 @@ function InternshipList() {
 
   return (
     <>
-      <input type="text" placeholder='Search'
-        onChange={(event) => { setSearchTerm(event.target.value) }} />
+      <div className="pt-2 flex justify-center m-10 text-gray-600">
+        <input className="border-2 border-gray-300 bg-white h-10 rounded-lg text-sm focus:outline-none text-center w-96"
+          onChange={(event) => { setSearchTerm(event.target.value) }}
+          value={searchTerm}
+          type="search" name="search" placeholder="Search" />
+      </div>
       {(!loading) ? (
         <div className='table max-w-5xl md:max-w-7xl '>
           <thead className=''>
@@ -71,15 +74,14 @@ function InternshipList() {
               .filter((internship) => {
                 if (searchTerm == "") {
                   return internship
-                } else if ((typeof internship.roll === 'string' && internship.roll.toLowerCase().includes(searchTerm.toLowerCase())) || 
-                (typeof internship.name === 'string' && internship.name.toLowerCase().includes(searchTerm.toLowerCase())) || 
-                (typeof internship.company_name === 'string' && internship.company_name.toLowerCase().includes(searchTerm.toLowerCase()))) {
+                } else if ((typeof internship.roll === 'string' && internship.roll.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                  (typeof internship.name === 'string' && internship.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                  (typeof internship.company_name === 'string' && internship.company_name.toLowerCase().includes(searchTerm.toLowerCase()))) {
                   return internship
                 }
               })
               .map((user) => {
                 if (user.approved === "Pending") {
-                  // console.log(user);
                   return (
                     <InternshipCard
                       key={user.id}
