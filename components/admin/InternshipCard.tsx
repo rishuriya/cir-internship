@@ -49,7 +49,7 @@ export default function InternshipCard({ internship }) {
     }
 
     const handleDecline=(e)=>{ 
-
+        e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target).entries());
         const userObject = {
             _id: internship._id,

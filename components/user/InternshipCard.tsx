@@ -76,7 +76,7 @@ export default function InternshipCard({id}) {
                         <div className="font-medium text-lg my-2">{internship["company_name"]}</div>
                         {/* <span className="text-sm font-light text-gray-800">Posted on {internship["company_name"]}</span> */}
                         {/* <p id="status" className={`px-3 py-1 text-sm font-bold transition-colors duration-200 transform rounded`}>{props.status}</p> */}
-                        {handleStatus(internship["status"])}
+                        {handleStatus(internship["approved"])}
                     </div>
                     <div className="mt-1">
                         <Link href="/" className="text-2xl font-bold text-gray-700 hover:underline"><>{internship["company_website"]}</></Link>
