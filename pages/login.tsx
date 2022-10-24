@@ -1,15 +1,14 @@
 import React from "react";
 import Link from "next/link";
-import Head from 'next/head';
-import Image from "next/image";
-import { useState } from "react";
-import { ImSpinner2 } from "react-icons/im";
-import { MdReportGmailerrorred } from "react-icons/md";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import Router from "next/router";
-import { useSelector, useDispatch } from 'react-redux';
-import { update } from '../slices/userSlice';
 import cookie from "js-cookie";
+import { useState } from "react";
+import Router from "next/router";
+import { RootState } from '../store'
+import { ImSpinner2 } from "react-icons/im";
+import { update } from '../slices/userSlice';
+import { MdReportGmailerrorred } from "react-icons/md";
+import { useSelector, useDispatch } from 'react-redux';
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 function Login() {
   const [loading, setLoading] = useState(false);
@@ -23,10 +22,10 @@ function Login() {
   };
 
   const dispatch = useDispatch()
-  const user = cookie.get("token");
+  const authUser: any = useSelector((state: RootState) => state.user.value);
 
   React.useEffect(() => {
-      if(user!=undefined){
+      if(authUser!=null){
         Router.push("/");
       }
    },[]
@@ -61,9 +60,6 @@ function Login() {
           token: resData.token,
         }
         dispatch(update(userObj));
-        
-        // cookie.set("id", resData.user._id);
-        // cookie.set("email", resData.user.email);
         setLoading(false);
         if(resData.user.role=="Student"){
           cookie.set("token", resData.token);

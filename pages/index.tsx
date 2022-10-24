@@ -3,7 +3,7 @@ import cookie from 'js-cookie';
 import { useEffect } from 'react'
 import Router from "next/router";
 import type { NextPage } from 'next'
-  import { RootState } from '../store'
+import { RootState } from '../store'
 import { update } from '../slices/userSlice'
 import { getUser } from '../utils/getUser'
 import HomePage from '../components/user/Home';
@@ -27,7 +27,6 @@ const Home: NextPage = () => {
             Router.push("/login");
             return;
           }
-          // console.log("welcome ",response.user.name)
           const userObj = {
             id: response.user.id,
             name: response.user.name,

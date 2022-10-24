@@ -1,10 +1,10 @@
+import Navbar from "./Navbar";
+import { RootState } from "../../store";
 import React, { useEffect } from "react";
 import NoInternship from "./NoInternship";
-import Navbar from "./Navbar";
+import { useSelector } from "react-redux";
 import InternshipCard from "./InternshipCard";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store";
 
 function Home() {
   const [loading, setLoading] = React.useState(true);
@@ -17,12 +17,12 @@ function Home() {
       const userObject = {
         _id: authUser.id,
       };
-      fetch(`/api/student/userData`, {
-        method: "POST",
+      fetch(`/api/student/${JSON.stringify(userObject)}`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json; charset=utf8 ",
         },
-        body: JSON.stringify(userObject),
+        // body: JSON.stringify(userObject),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -57,7 +57,6 @@ function Home() {
       </main>
 
       <footer className="">
-
       </footer>
     </div>
   );

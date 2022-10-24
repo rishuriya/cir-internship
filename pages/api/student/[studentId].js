@@ -1,7 +1,7 @@
 import db_connect from "../../../utils/db_connect";
 import User from "../../../models/User";
 
-export default async function Student(req, res) {
+export default async function handeler(req, res) {
 
     await db_connect();
     try{
