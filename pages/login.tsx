@@ -25,9 +25,9 @@ function Login() {
   const authUser: any = useSelector((state: RootState) => state.user.value);
 
   React.useEffect(() => {
-      if(authUser!=null){
-        Router.push("/");
-      }
+      // if(authUser!=null){
+      //   Router.push("/");
+      // }
    },[]
   )
   const handleOnSubmit = async(e) => {

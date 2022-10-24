@@ -27,7 +27,7 @@ function Home() {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            setInternship_id(data.data.internships);
+            setInternship_id(data.data.internships.reverse());
           }
           setLoading(false);
         });

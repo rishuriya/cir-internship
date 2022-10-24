@@ -1,10 +1,18 @@
 import Router from "next/router";
 import cookie from 'js-cookie';
+import { useDispatch } from 'react-redux'
+import { unsetUser } from '../slices/userSlice'
 
-export const signout=()=>{
+
+const signout=()=>{
+    
     cookie.remove("token");
-    cookie.remove("id");
-    cookie.remove("email");
+    // const dispatch = useDispatch();
+    // dispatch(unsetUser());
     Router.push("/login");
+     
+
+
 }
 
+export default signout;
