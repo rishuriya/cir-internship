@@ -6,7 +6,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors:{
+      colors: {
         primary: '#B90E50',
         secondary: '#f8f9fc',
         bkg: '#f8f9fc',
@@ -14,6 +14,9 @@ module.exports = {
       fontFamily: {
         fuzzyBubble: ['Fuzzy Bubble', 'cursive'],
       },
+      backgroundImage: {
+        'landingPageBg': "url('http://vidya.amrita.ac.in/temp/registration/css/images/sethu.jpg')"
+      }
     },
   },
   plugins: [],
