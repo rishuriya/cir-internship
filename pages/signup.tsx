@@ -68,13 +68,13 @@ function Signup() {
           token: resData.token,
           roll:resData.user.rollno
         }
-        console.log(userObj);
         dispatch(update(userObj));
         cookie.set("token", resData.token);
-        // cookie.set("id", resData.user._id);
-        // cookie.set("email", resData.user.email);
         Router.push("/user-form");
       } else {
+        if(res.status===400){
+          throw resData.message;
+        }
         throw "Something went wrong!";
       }
       setLoading(false);

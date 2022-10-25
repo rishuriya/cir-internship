@@ -65,14 +65,16 @@ function Login() {
           cookie.set("token", resData.token);
           //console.log("Admin bduub");
           Router.push("/");
-        }
-        else{
+        }else{
           // Router.push("/signup");
           throw "Something went wrong!";
         }
       } 
       else{
           // Router.push("/signup");
+          if(res.status===400){
+            throw resData.message;
+          }
           throw "Something went wrong!";
         }
       

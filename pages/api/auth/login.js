@@ -13,10 +13,14 @@ export default async function handeler(req,res) {
         let query={email:email}
 
         let user = await User.find(query)
+
+        if(user.length===0){
+            return res.status(400).json({success:false,message:'User not found with this email'})
+        }
         
         const match = await bcrypt.compare(password, user[0]['password']);
         if(!match){
-            return res.status(200).json({success:false,message:'Incorrect Password'})
+            return res.status(400).json({success:false,message:'Incorrect Password'})
         }
         let result= user[0].toObject();
         result.id=result._id;
@@ -26,6 +30,6 @@ export default async function handeler(req,res) {
         return await res.status(200).json({success:true,message:'user found',user:result,token:token})
     }
     catch(error){
-        res.status(400).json({success:false,message:error.message})
+        return res.status(500).json({success:false,message:error.message})
     }
 }
