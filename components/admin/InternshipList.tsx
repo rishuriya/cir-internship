@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import InternshipCard from "./InternshipCard";
 import { useEffect } from 'react';
-import { type } from 'os';
 
 function InternshipList() {
 

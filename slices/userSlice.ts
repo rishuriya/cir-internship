@@ -30,8 +30,11 @@ export const userSlice = createSlice({
             token: actions.payload.token
     }
     },
+    unsetUser: (state) => {
+      state.value = null
+    }
 }})
 
-export const { update } = userSlice.actions
+export const { update,unsetUser } = userSlice.actions
 
 export default userSlice.reducer

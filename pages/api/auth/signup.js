@@ -15,7 +15,12 @@ export default async function handeler(req,res) {
     
         req.body.password=hashpassword;
 
-        let user = new User(req.body);
+        let user = await User.find({email:email})
+        if(user.length>0){
+            return res.status(400).json({success:false,message:'User already exists with this email'})
+        }
+
+        user = new User(req.body);
         if(!user){
             return res.status(400).json({success:false,message:'user not created'})
         }
@@ -29,11 +34,10 @@ export default async function handeler(req,res) {
         result.id=result._id;
         result=await serializeUser(result);
         let token = await issueToken(result);
-        // console.log({success:true,message:'user created',user:result,token:token})
         return await res.status(200).json({success:true,message:'user created',user:result,token:token})
             
     }
     catch(error){
-        return res.status(400).json({success:false,message:error.message})
+        return res.status(500).json({success:false,message:error.message})
     }
 }

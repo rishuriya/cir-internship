@@ -26,12 +26,11 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
             const userObject={
               _id:user
             }
-            fetch("/api/student/userData", {
-              method: "POST",
+            fetch(`/api/student/${JSON.stringify(userObject)}`, {
+              method: "GET",
               headers: {
                 "Content-Type": "application/json; charset=utf8 ",
               },
-              body: JSON.stringify(userObject),
             }).then(async (res) => {
               const resData=await res.json()
             user_name= resData.data 

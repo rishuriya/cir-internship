@@ -49,7 +49,6 @@ function InternshipForm() {
             
       const data = Object.fromEntries(new FormData(e.target).entries());
 
-
       if(image!=null){
       const body = new FormData();
       body.append("file", image);
@@ -95,7 +94,6 @@ function InternshipForm() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-      console.log(resData);
       if(resData.success){
         router.push("/"
         );

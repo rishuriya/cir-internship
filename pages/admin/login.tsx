@@ -49,7 +49,7 @@ function Login() {
         }),
       });
       await res.json().then((resData)=>{
-      console.log(resData);
+      // console.log(resData);
       if (res.status === 200 && resData.success) {
         const userObj={
           name: resData.user.name,
