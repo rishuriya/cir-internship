@@ -14,18 +14,18 @@ function Home() {
 
   useEffect(() => {
     if (authUser !== null) {
-      const userObject = {
-        _id: authUser.id,
-      };
-      fetch(`/api/student/${JSON.stringify(userObject)}`, {
+      // const userObject = {
+      //   _id: authUser.id,
+      // };
+      fetch(`/api/student/${authUser.id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json; charset=utf8 ",
         },
-        // body: JSON.stringify(userObject),
-      })
-        .then((res) => res.json())
+      }).then((res) => res.json())
         .then((data) => {
+          console.log(data);
+          
           if (data.success) {
             setInternship_id(data.data.internships.reverse());
           }

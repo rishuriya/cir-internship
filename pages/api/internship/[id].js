@@ -1,21 +1,25 @@
+import Internship from "../../../models/Internship";
 import db_connect from "../../../utils/db_connect";
-import Internship from "../../../models/Internship"
+
 
 export default async function handeler(req,res) {
     await db_connect();
     try{
-        const { slug } = req.query;
-       
-        let Internship_data = await Internship.find(slug);
+        let id = req.query.id;
+        // console.log(id);
+        // let Internship_data = await Internship.find({"_id":id});
+        let Internship_data = await Internship.findById(id);
 
-        if (Internship_data.length>0){
-            return await res.status(200).json({success:true,message:'Internship data found',data:Internship_data[0]})
+        // console.log("Internship:",Internship_data);
+        if (Internship_data){
+            return await res.status(200).json({success:true,message:'Internship data found',data:Internship_data})
         }
         else{
             return await res.status(400).json({success:false,message:'data not found'})
         }        
     }
     catch(error){
+        console.log(error)
         return res.status(500).json({success:false,message:error.message})
     }
 }

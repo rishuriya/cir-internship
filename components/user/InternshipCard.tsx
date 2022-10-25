@@ -10,13 +10,12 @@ export default function InternshipCard({id}) {
     const router = useRouter();
 
     useEffect(()=>{
-        fetch("/api/student/fetch-Internship", {
-            method: "POST",
+        fetch(`/api/internship/${id}`, {
+            method: "GET",
             headers: {
               "Content-Type": "application/json; charset=utf8 ",
-              },
-              body: JSON.stringify({id}),
-              }).then(async (res) => {
+              }              
+            }).then(async (res) => {
                 const resData=await res.json()
                 let internship_data=resData.data;
                 if(internship_data){
