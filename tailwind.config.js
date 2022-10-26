@@ -14,9 +14,6 @@ module.exports = {
       fontFamily: {
         fuzzyBubble: ['Fuzzy Bubble', 'cursive'],
       },
-      backgroundImage: {
-        'landingPageBg': "url('http://vidya.amrita.ac.in/temp/registration/css/images/sethu.jpg')"
-      }
     },
   },
   plugins: [],
