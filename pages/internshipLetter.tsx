@@ -8,8 +8,8 @@ import { getUser } from '../utils/getUser'
 import ReactToPrint from "react-to-print";
 const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLetter(prop,ref){
   const router = useRouter()
-  //console.log(ref)
   let internship_id=router.query.id;
+  console.log(internship_id);
     let user;
     let user_name
     let internship_data
@@ -26,12 +26,11 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
             const userObject={
               _id:user
             }
-            fetch("/api/student/userData", {
-              method: "POST",
+            fetch(`/api/student/${JSON.stringify(userObject)}`, {
+              method: "GET",
               headers: {
                 "Content-Type": "application/json; charset=utf8 ",
               },
-              body: JSON.stringify(userObject),
             }).then(async (res) => {
               const resData=await res.json()
             user_name= resData.data 
@@ -100,7 +99,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
         <div className='my-5 mx-2'>
             <p className='indent-8'>I am {username["name"]} of {username["course"]} {username["branch"]} student of {username["year_of_joining"]} batch currently studying in {username["semester"]} semester.
              I applied for the Internship program in the {internshipdata["company_name"]} for {internshipdata["training_type"]} and I got selected for program.</p>
-             <p className='my-3'>I request you to give me permission to join the internship which is starting on {internshipdata["internship_start_date"].substring(0,9)} and ending on {internshipdata["internship_end_date"].substring(0,9)}.</p>
+             <p className='my-3'>I request you to give me permission to join the internship which is starting on {internshipdata["internship_start_date"].substring(0,10)} and ending on {internshipdata["internship_end_date"].substring(0,10)}.</p>
         </div>
         <div className='flex flex-row justify-between mx-3 items-end my-10'>
             <div>

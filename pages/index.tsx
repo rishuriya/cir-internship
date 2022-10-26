@@ -15,6 +15,8 @@ const Home: NextPage = () => {
   const dispatch = useDispatch();
   const authUser: any = useSelector((state: RootState) => state.user.value);
 
+  // let id=authUser.id;
+
   useEffect(() => {
     if (authUser === null) {
       try {
@@ -25,7 +27,6 @@ const Home: NextPage = () => {
             Router.push("/login");
             return;
           }
-          // console.log("welcome ",response.user.name)
           const userObj = {
             id: response.user.id,
             name: response.user.name,

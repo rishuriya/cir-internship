@@ -6,6 +6,14 @@ const internshipSchema = new mongoose.Schema({
     ref: "User",
     type: mongoose.Schema.Types.ObjectId,
   },
+  name: {
+    type: String,
+    required: true,
+  },
+  roll: {
+    type: String,
+    required: true,
+  },
   company_name: {
     type: String,
     required: true,
@@ -47,8 +55,10 @@ const internshipSchema = new mongoose.Schema({
     required: true,
   },
   approved: {
-    type: Boolean,
-    default: false,
+    type:String,
+    enum:["Pending","Approved","Disapproved"],
+    default:"Pending",
+    required:true
   },
   certificate: {
     type: String,
