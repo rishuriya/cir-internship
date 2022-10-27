@@ -11,7 +11,7 @@ import Navbar from '../../components/admin/Navbar'
 import InternshipApprovedList from '../../components/admin/InternshipApprovedList'
 
 
-function approvedInternships() {
+function ApprovedInternships() {
 
   const dispatch = useDispatch();
   const authUser:any = useSelector((state: RootState) => state.user.value);
@@ -85,4 +85,4 @@ function approvedInternships() {
   )
 }
 
-export default approvedInternships
+export default ApprovedInternships
