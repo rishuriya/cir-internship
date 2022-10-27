@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Navbar from "../components/user/Navbar";
+import Navbar from "../../components/user/Navbar";
 import { useRouter } from "next/router";
 import cookie from 'js-cookie';
-import { getUser } from '../utils/getUser'
+import { getUser } from '../../utils/getUser'
 import { useEffect } from 'react'
 
 
@@ -95,7 +95,7 @@ function InternshipForm() {
       });
       const resData = await res.json();
       if(resData.success){
-        router.push("/"
+        router.push("/user"
         );
       }
 

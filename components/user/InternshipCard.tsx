@@ -10,7 +10,7 @@ export default function InternshipCard({id}) {
     const router = useRouter();
 
     useEffect(()=>{
-        fetch(`/api/internship/${id}`, {
+        fetch(`../api/internship/${id}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json; charset=utf8 ",
@@ -29,9 +29,9 @@ export default function InternshipCard({id}) {
         console.log(approve)
         if(approve=="Approved"){
                 router.push({
-                    pathname: '/internshipLetter',
+                    pathname: '/user/internshipLetter',
                     query: { id: uid },
-                 },"/internshipLetter")
+                 },"/user/internshipLetter")
                 }
                 else{
                     throw "Not Approved"

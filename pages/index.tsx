@@ -1,77 +1,20 @@
-import Head from 'next/head'
-import cookie from 'js-cookie';
-import { useEffect } from 'react'
-import Router from "next/router";
-import type { NextPage } from 'next'
-import { RootState } from '../store'
-import { update } from '../slices/userSlice'
-import { getUser } from '../utils/getUser'
-import HomePage from '../components/user/Home';
-import { useSelector, useDispatch } from 'react-redux'
+import Image from "next/image";
+import logo from '../public/img/amritaLogo.png'
+import Link from "next/link";
 
-
-const Home: NextPage = () => {
-
-  const dispatch = useDispatch();
-  const authUser: any = useSelector((state: RootState) => state.user.value);
-
-  // let id=authUser.id;
-
-  useEffect(() => {
-    if (authUser === null) {
-      try {
-        const token = cookie.get("token");
-        getUser(token).then((response) => {
-          //console.log(response)
-          if (!response.isAuth) {
-            Router.push("/login");
-            return;
-          }
-          const userObj = {
-            id: response.user.id,
-            name: response.user.name,
-            email: response.user.email,
-            isAdmin: response.user.role === "Admin" ? true : false,
-            token: token,
-          }
-          dispatch(update(userObj));
-          if (userObj.isAdmin) {
-            Router.push("/admin");
-            return;
-          }
-          if (response.user.role === "admin") {
-            Router.push("/admin");
-            return;
-          }
-        });
-
-      } catch (err) {
-        console.log(err);
-        Router.push('/signup');
-      }
-    }
-    else {
-      if (authUser.isAdmin) {
-        Router.push('/admin');
-        return;
-      }
-    }
-  }, [])
-
-
-  return (
-    <div className="">
-      <Head>
-        <title>Amrita Internship - CIR</title>
-        <meta name="description" content="Amrita Students can submit their Internship detail and get approval from CIR online" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <div>
-        <HomePage />
-      </div>
-
-    </div>
-  )
+export default function landingPage() {
+    return (
+        <div className="w-[100vw] h-[100vh] bg-no-repeat bg-[url('../public/img/setu-bg.jpg')] bg-cover">
+            <div className="flex justify-between flex-col md:flex-row">
+                <div className="m-5">
+                    <Image src={logo} height={"140px"} width={"374px"} />
+                </div>
+                <div className="flex space-x-8 m-5 items-start p-4 sm:justify-center  text-lg font-medium">
+                    <Link href={"/"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer">Home</div></Link>
+                    <Link href={"/login"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer">Login</div></Link>
+                    <Link href={"/signup"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer">Sign up</div></Link>
+                </div>
+            </div>
+        </div>
+    )
 }
-
-export default Home

@@ -61,10 +61,10 @@ export default function Navbar() {
           </div>
 
           <Popover.Group as="nav" className="hidden space-x-5 md:space-x-10 md:flex">
-            <Link href="/" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
+            <Link href="/user" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
               Home
             </Link>
-            <Link href="/internship-form" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
+            <Link href="/user/internship-form" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
               Add Internship
             </Link>         
           </Popover.Group>
