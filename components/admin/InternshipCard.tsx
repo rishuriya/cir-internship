@@ -307,9 +307,7 @@ export default function InternshipCard({ internship, isApproved }) {
                     <span className="pr-2"> Offer Letter</span>
                     <Link
                       href={
-                        internship.request_letter != null
-                          ? internship.request_letter
-                          : ""
+                         internship.request_letter
                       }
                     >
                       <AiOutlineDownload
@@ -321,7 +319,19 @@ export default function InternshipCard({ internship, isApproved }) {
                 ) : (
                   <></>
                 )}
-
+                <div className="flex flex-row">
+                    <span className="pr-2"> HOD Approval Letter</span>
+                    <Link
+                      href={
+                         internship.hod_letter
+                      }
+                    >
+                      <AiOutlineDownload
+                        className="fill-primary cursor-pointer"
+                        size={28}
+                      />
+                    </Link>
+                  </div>
                 {/* table for showing team members with their details */}
                 <div className="my-6">
                   {internship.member != null ? (
