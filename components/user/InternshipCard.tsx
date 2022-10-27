@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { useEffect,useState } from "react";
-import {AiOutlineDownload} from 'react-icons/ai'
+import {AiOutlineDownload, AiOutlineUpload} from 'react-icons/ai'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useRouter } from "next/router";
 export default function InternshipCard({id}) {
 
     const [internship, setInternship] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [image, setImage] = useState(null);
     const router = useRouter();
-
+    let fileimg
     useEffect(()=>{
         fetch(`../api/internship/${id}`, {
             method: "GET",
@@ -27,7 +28,7 @@ export default function InternshipCard({id}) {
 
     function handleletter(e, uid,approve){
         console.log(approve)
-        if(approve=="Approved"){
+        if(approve!="Disapproved"){
                 router.push({
                     pathname: '/user/internshipLetter',
                     query: { id: uid },
@@ -38,9 +39,56 @@ export default function InternshipCard({id}) {
                 }
         return;
     }
+    const handleUpload= async(e)=>{
+        //console.log(e.target.files)
+        if (e.target.files && e.target.files[0]) {
+            const i = e.target.files[0];
+            fileimg=i;
+            setImage(e.target.files[0]);
+            //console.log(fileimg)
+          }
+        if(fileimg!=undefined){
+            console.log(fileimg)
+            const body = new FormData();
+            body.append("file", fileimg);
+            body.append("id", id);
+            fetch("/api/student/hod_file", {
+            method: "POST",
+            body
+          }).then(async (response) => {
+           const fileres = await response.json();
+           const bodyObject={
+            _id:internship["_id"],
+            hod_letter: fileres.url,
+            approved:"Pending"
+           }
+           fetch("/api/admin/admin_decision", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json; charset=utf8 ",
+            },
+            body: JSON.stringify(bodyObject),
+          }).then(async (res) => {
+          const resData = await res.json();
+          if(resData.success){
+            window.location.reload();
+          }
+          else{
+            console.log(resData.error);
+          }
+        });
+        });
+    }
+        
+    }
 
     const handleStatus=(status)=>{
-        if(status=="Approved"){
+        if(status=="Incomplete"){
+            return (
+                <p id="status" className="px-3 py-1 text-sm font-bold text-blue-500 bg-blue-100 rounded">Incomplete</p> 
+            )
+        }
+        else if(status=="Approved"){
             return (
                 <p id="status" className="px-3 py-1 text-sm font-bold text-green-500 bg-green-100 rounded">Approved</p> 
             )
@@ -93,16 +141,33 @@ export default function InternshipCard({id}) {
                     {internship["approved"] === "Disapproved"?<div className="my-3">
                         <p className="mr-5 bg-red-200/60 px-2 py-1 rounded-xl"><span className="underline text-lg">Remarks</span> : {internship["admin_remarks"]}</p>
                     </div>
-                    :<div></div>}
+                    :internship["approved"] === "Incomplete"?<div className="my-3">
+                    <p className="mr-5 bg-red-200/60 px-2 py-1 rounded-xl"><span className="underline text-lg">Upload the signed Letter to Complete Registration</span> </p>
+                </div>:
+                <div></div>}
                     <div>
-                        {internship["approved"] === "Approved"?<button onClick={(e)=> handleletter(e,internship["_id"],internship["approved"])}>
-                            <div className="flex flex-row">
+                        <div className="Absolute right-0">
+                    {internship["approved"] === "Incomplete"?
+                    <form>
+                            <label className="flex flex-row right-0" htmlFor="file-input">
+                                <p className="text-sm mx-2 mt-1">Upload Letter</p>
+                                <AiOutlineUpload className="fill-black " size={28}/>
+                            </label>
+                        <input id="file-input" type="file" onChange={(e)=> handleUpload(e)} style={{display:'none'}}/>
+                        </form>:
+                         <div></div>
+                        }
+                        </div>
+                        <div>
+                        {internship["approved"] !== "Disapproved"?<button onClick={(e)=> handleletter(e,internship["_id"],internship["approved"])}>
+                            <div className="flex flex-row right-0">
                                 <p className="text-sm mx-2 mt-1">Download Letter</p>
                                 <AiOutlineDownload className="fill-black " size={28}/>
                             </div>
                         </button>:
                          <AiOutlineDownload className="fill-gray-300 " size={26}/>
                         }
+                        </div>
                     </div>
                 </div>
             </div>

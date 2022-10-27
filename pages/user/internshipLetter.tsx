@@ -137,7 +137,7 @@ function PrintLetter() {
           content={() => componentRef}
         />
         <button className='px-6 py-2 mx-4 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200'>
-          <Link href="/">Back</Link>
+          <Link href="/user">Back</Link>
         </button>
         </div>
       </div>
