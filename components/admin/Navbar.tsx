@@ -1,30 +1,30 @@
-import { RootState } from '../../store'
-import { useSelector,useDispatch } from 'react-redux'
-import signout from '../../utils/signout';
 import Link from 'next/link';
+import { RootState } from '../../store'
+import signout from '../../utils/signout';
+import { useSelector,useDispatch } from 'react-redux'
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import {AiOutlineFileAdd,AiOutlineCheck, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
+import {AiOutlineFileAdd,AiFillHome,AiOutlineMenu,AiOutlineClose,AiOutlineUserAdd} from 'react-icons/ai';
 
 const navOptions = [
   {
     name: 'Home',
     description: 'Get a better understanding of where your traffic is coming from.',
-    href: '/',
+    href: '/admin',
     icon: AiFillHome,
   },
   {
     name: 'Approved internships',
     description: 'Speak directly to your customers in a more meaningful way.',
-    href: '/form',
+    href: '/admin/approved-internships',
     icon: AiOutlineFileAdd,
   },
-  // {
-  //   name: 'Approved Internships',
-  //   description: "Connect with third-party tools that you're already using.",
-  //   href: '/',
-  //   icon: AiOutlineCheck,
-  // },
+  {
+    name: 'Add Admin',
+    description: "Connect with third-party tools that you're already using.",
+    href: '/admin/add-admin',
+    icon: AiOutlineUserAdd,
+  },
  
 ]
 
@@ -137,10 +137,11 @@ export default function Navbar() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
-                    >
+                      className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
+                      <div className='flex flex-row cursor-pointer'>
                       <item.icon className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
-                      {/* <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span> */}
+                      <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
+                      </div>
                     </Link>
                   ))} 
                 </nav>

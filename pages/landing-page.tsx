@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function landingPage() {
     return (
-        <div className="w-[100vw] h-[100vh] bg-no-repeat bg-[url('http://vidya.amrita.ac.in/temp/registration/css/images/sethu.jpg')] bg-cover">
+        <div className="w-[100vw] h-[100vh] bg-no-repeat bg-[url('../public/img/setu-bg.jpg')] bg-cover">
             <div className="flex justify-between flex-col md:flex-row">
                 <div className="m-5">
                     <Image src={logo} height={"140px"} width={"374px"} />

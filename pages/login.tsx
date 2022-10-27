@@ -86,7 +86,7 @@ function Login() {
 
   return (
 
-    <div className="bg-secondary h-screen w-full relative p-2 " style={{backgroundImage: "url('/img/register_bg_2.png')",}}>
+    <div className="bg-secondary h-screen w-full relative p-2 bg-[url('/img/register_bg_2.png')]">
 
       <form
       onSubmit={handleOnSubmit}

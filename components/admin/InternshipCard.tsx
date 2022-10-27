@@ -77,22 +77,27 @@ export default function InternshipCard({ internship }) {
     });
   };
 
-  function openModal() {
-    setIsOpen(true);
-  }
+  // function openModal() {
+  //   setIsOpen(true);
+  // }
 
   useEffect(() => {
-    const userObject = {
-      _id: internship.user,
-    };
-    fetch(`/api/student/${JSON.stringify(userObject)}`, {
+
+    fetch(`/api/student/${internship.user}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     }).then(async (res) => {
-      const resData = await res.json();
-      await setStudent(resData.data);
+      if(res.status==200){
+        console.log(res);
+        const resData = await res.json();
+        console.log(resData);
+        await setStudent(resData.data);
+        setLoading(false);
+      }else{
+        await setStudent("");
+      }
       setLoading(false);
     });
   }, []);
@@ -116,7 +121,9 @@ export default function InternshipCard({ internship }) {
 
   return (
     <>
-      {!loading ? (
+      {student===""?
+      <></>
+      :(!loading ? (
         <>
           {/* modal */}
           <Transition appear show={isOpen} as={Fragment}>
@@ -385,7 +392,7 @@ export default function InternshipCard({ internship }) {
             size={32}
           />
         </>
-      )}
+      ))}
     </>
   );
 }
