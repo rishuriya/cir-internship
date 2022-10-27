@@ -10,7 +10,7 @@ import {
   AiOutlineLoading3Quarters,
 } from "react-icons/ai";
 
-export default function InternshipCard({ internship }) {
+export default function InternshipCard({ internship, isApproved }) {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
@@ -252,7 +252,13 @@ export default function InternshipCard({ internship }) {
               </p>
             </td>
 
-            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            { isApproved?
+            <td className="text-center py-6">
+              {internship.approved==="Approved"?
+              <p className="text-green-500">Approved</p>:
+              <p className="text-red-500">Declined</p>}
+            </td>
+            :<td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
               <div className="flex flex-row justify-center flex-nowrap ml-auto mr-5 mt-3 sm:mt-5 text-center">
                 <button
                   onClick={handleApprove}
@@ -269,7 +275,7 @@ export default function InternshipCard({ internship }) {
                   <span>Decline</span>
                 </button>
               </div>
-            </td>
+            </td> }
           </tr>
           <tr className={showDetails ? "h-28 border-b-4" : "hidden"}>
             <td></td>

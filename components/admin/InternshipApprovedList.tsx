@@ -3,7 +3,7 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import InternshipCard from "./InternshipCard";
 import { useEffect } from 'react';
 
-function InternshipList() {
+function InternshipApprovedList() {
 
   const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -41,8 +41,8 @@ function InternshipList() {
           value={searchTerm}
           type="search" name="search" placeholder="Search" />
       </div>
-      {(!loading && internships.find(i=>i.approved==="Pending")) ? (
-        <div className='table max-w-5xl md:max-w-7xl mx-auto'>
+      {(!loading) ? (
+        <div className='table max-w-5xl md:max-w-7xl mx-auto '>
           <thead className=''>
             <tr>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -64,7 +64,7 @@ function InternshipList() {
                 Mode/Type
               </th>
               <th scope="col" className="text-sm text-center font-medium text-gray-900 px-6 py-4">
-                Approval
+                Finished
               </th>
             </tr>
           </thead>
@@ -80,12 +80,12 @@ function InternshipList() {
                 }
               })
               .map((user) => {
-                if (user.approved === "Pending") {
+                if (user.approved === "Approved") {
                   return (
                     <InternshipCard
                       key={user.id}
                       internship={user}
-                      isApproved={false}
+                      isApproved={true}
                     />
                   )
                 }
@@ -102,4 +102,4 @@ function InternshipList() {
   )
 }
 
-export default InternshipList;
+export default InternshipApprovedList;

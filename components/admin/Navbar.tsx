@@ -64,7 +64,7 @@ export default function Navbar() {
             <Link href="/admin" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
               Home
             </Link>
-            <Link href="/admin" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
+            <Link href="/admin/approved-internships" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
             Approved Internships
             </Link>         
           </Popover.Group>
