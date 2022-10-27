@@ -19,7 +19,6 @@ function StudentForm() {
   const [loading, setLoading] = useState(false);
   const handleCourseChange = (e) => {
     setCourse(e.target.value);
-    console.log(e.target.value);
   }
   const handleSubmit = async(e) => {
     e.preventDefault();
