@@ -68,6 +68,10 @@ const internshipSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  hod_letter: {
+    type: String,
+    required: false,
+  },
   admin_remarks: {
     type: String,
     required: false,
