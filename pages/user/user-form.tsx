@@ -1,9 +1,9 @@
-import { RootState } from '../store'
+import { RootState } from '../../store'
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useSelector } from 'react-redux';
 import cookie from "js-cookie";
-import { getUser } from '../utils/getUser'
+import { getUser } from '../../utils/getUser'
 
 function StudentForm() {
   let date_ob = new Date();
@@ -50,7 +50,7 @@ function StudentForm() {
       });
       const resData = await res.json();
       if(resData.success){
-        router.push("/");
+        router.push("/user");
       }
       setLoading(false);
     } catch (e) {

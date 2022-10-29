@@ -22,12 +22,11 @@ function Login() {
   };
 
   const dispatch = useDispatch()
-  const authUser: any = useSelector((state: RootState) => state.user.value);
-
+  const user = cookie.get("token");
   React.useEffect(() => {
-      // if(authUser!=null){
-      //   Router.push("/");
-      // }
+    if(user!=undefined){
+      Router.push("/user");
+    }
    },[]
   )
   const handleOnSubmit = async(e) => {
@@ -64,7 +63,7 @@ function Login() {
         if(resData.user.role=="Student"){
           cookie.set("token", resData.token);
           //console.log("Admin bduub");
-          Router.push("/");
+          Router.push("/user");
         }else{
           // Router.push("/signup");
           throw "Something went wrong!";

@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import React,{useRef} from 'react';
 import { useRouter } from "next/router";
-import { getUser } from '../utils/getUser'
+import { getUser } from '../../utils/getUser'
 import ReactToPrint from "react-to-print";
 const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLetter(prop,ref){
   const router = useRouter()
   let internship_id=router.query.id;
-  console.log(internship_id);
+  //console.log(internship_id);
     let user;
     let user_name
     let internship_data
@@ -26,7 +26,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
             const userObject={
               _id:user
             }
-            fetch(`/api/student/${JSON.stringify(userObject)}`, {
+            fetch(`../api/student/${user}`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json; charset=utf8 ",
@@ -34,7 +34,6 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
             }).then(async (res) => {
               const resData=await res.json()
             user_name= resData.data 
-            //console.log(user_name)
             if(user_name)
             {
               setUserName(user_name);
@@ -48,7 +47,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
               _id: internship_id
             }
             //console.log(bodyObject);
-            fetch("/api/student/internship", {
+            fetch("../api/student/internship", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json; charset=utf8 ",
@@ -138,7 +137,7 @@ function PrintLetter() {
           content={() => componentRef}
         />
         <button className='px-6 py-2 mx-4 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200'>
-          <Link href="/">Back</Link>
+          <Link href="/user">Back</Link>
         </button>
         </div>
       </div>

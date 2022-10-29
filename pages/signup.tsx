@@ -28,7 +28,7 @@ function Signup() {
 
   React.useEffect(() => {
       if(user!=undefined){
-        Router.push("/");
+        Router.push("/user");
       }
    },[]
   )
@@ -70,7 +70,7 @@ function Signup() {
         }
         dispatch(update(userObj));
         cookie.set("token", resData.token);
-        Router.push("/user-form");
+        Router.push("/user/user-form");
       } else {
         if(res.status===400){
           throw resData.message;
