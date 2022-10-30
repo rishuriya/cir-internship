@@ -1,6 +1,8 @@
 import Link from 'next/link';
+import cookie from 'js-cookie'; 
+import Router from "next/router";
 import { RootState } from '../../store'
-import signout from '../../utils/signout';
+import { unsetUser } from '../../slices/userSlice'
 import { useSelector,useDispatch } from 'react-redux'
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
@@ -39,6 +41,13 @@ export default function Navbar() {
     setAuth(authUser);
   })
 
+  const dispatch = useDispatch();
+  const signOut=()=>{
+    cookie.remove("token");
+    dispatch(unsetUser());
+    Router.push("/login");
+  }
+
   return (
     <Popover className="relative bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -76,7 +85,7 @@ export default function Navbar() {
                 {auth.name}
               </div>
              <button
-              onClick={signout}
+              onClick={signOut}
               className="ml-2 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
               Sign Out
              </button>
@@ -151,7 +160,7 @@ export default function Navbar() {
              
               <div>
                 <button
-                  onClick={signout}
+                  onClick={signOut}
                   className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
                   Sign out
                 </button>

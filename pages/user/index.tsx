@@ -24,7 +24,7 @@ const Home: NextPage = () => {
         getUser(token).then((response) => {
           //console.log(response)
           if (!response.isAuth) {
-            Router.push("../login");
+            Router.push("/login");
             return;
           }
           const userObj = {
@@ -40,19 +40,19 @@ const Home: NextPage = () => {
             return;
           }
           if (response.user.role === "admin") {
-            Router.push("../admin");
+            Router.push("/admin");
             return;
           }
         });
 
       } catch (err) {
         console.log(err);
-        Router.push('../signup');
+        Router.push('/signup');
       }
     }
     else {
       if (authUser.isAdmin) {
-        Router.push('../admin');
+        Router.push('/admin');
         return;
       }
     }

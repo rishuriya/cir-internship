@@ -6,6 +6,7 @@ import Router from "next/router";
 import { RootState } from '../store'
 import { ImSpinner2 } from "react-icons/im";
 import { update } from '../slices/userSlice';
+import { getUser } from '../utils/getUser'
 import { MdReportGmailerrorred } from "react-icons/md";
 import { useSelector, useDispatch } from 'react-redux';
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -22,13 +23,48 @@ function Login() {
   };
 
   const dispatch = useDispatch()
-  const user = cookie.get("token");
+  const token = cookie.get("token");
+  const authUser: any = useSelector((state: RootState) => state.user.value);
+
   React.useEffect(() => {
-    if(user!=undefined){
-      Router.push("/user");
+     if (authUser === null) {
+      try {
+        const token = cookie.get("token");
+        getUser(token).then((response) => {
+          //console.log(response)
+          if (!response.isAuth) {
+            return;
+          }
+          const userObj = {
+            id: response.user.id,
+            name: response.user.name,
+            email: response.user.email,
+            isAdmin: response.user.role === "Admin" ? true : false,
+            token: token,
+          }
+          dispatch(update(userObj));
+          if (userObj.isAdmin) {
+            Router.push("/admin");
+            return;
+          }
+        });
+
+      } catch (err) {
+        console.log(err);
+        Router.push('/signup');
+      }
+    }
+    else if(authUser.isAdmin){
+      Router.push('/admin');
+      return;
+    }
+    else{
+      Router.push('/user');
+      return;
     }
    },[]
   )
+
   const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
