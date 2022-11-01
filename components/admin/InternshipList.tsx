@@ -18,11 +18,9 @@ function InternshipList() {
       }
     }).then(async (res) => {
       const resData = await res.json();
-
       if (resData.success) {
         setInternships(resData.data);
       }
-
     });
   }, [])
 
@@ -41,7 +39,7 @@ function InternshipList() {
           value={searchTerm}
           type="search" name="search" placeholder="Search" />
       </div>
-      {(!loading && internships.find(i=>i.approved==="Pending")) ? (
+      {(!loading && internships.find(i=>i.approved==="Incomplete")) ? (
         <div className='table max-w-5xl md:max-w-7xl mx-auto'>
           <thead className=''>
             <tr>
@@ -80,7 +78,9 @@ function InternshipList() {
                 }
               })
               .map((user) => {
-                if (user.approved === "Pending") {
+                if (user.approved === "Incomplete" || user.approved === "") {
+                  console.log(user);
+
                   return (
                     <InternshipCard
                       key={user.id}

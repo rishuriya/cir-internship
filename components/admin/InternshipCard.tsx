@@ -77,9 +77,6 @@ export default function InternshipCard({ internship, isApproved }) {
     });
   };
 
-  // function openModal() {
-  //   setIsOpen(true);
-  // }
 
   useEffect(() => {
 
@@ -87,10 +84,10 @@ export default function InternshipCard({ internship, isApproved }) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-      },
+      }
     }).then(async (res) => {
+      console.log(res);
       if(res.status==200){
-        console.log(res);
         const resData = await res.json();
         console.log(resData);
         await setStudent(resData.data);
@@ -306,9 +303,10 @@ export default function InternshipCard({ internship, isApproved }) {
                   <div className="flex flex-row">
                     <span className="pr-2"> Offer Letter</span>
                     <Link
-                      href={
-                         internship.request_letter
-                      }
+                      // href={
+                      //    internship.request_letter
+                      // }
+                      href="/"
                     >
                       <AiOutlineDownload
                         className="fill-primary cursor-pointer"
@@ -321,16 +319,20 @@ export default function InternshipCard({ internship, isApproved }) {
                 )}
                 <div className="flex flex-row">
                     <span className="pr-2"> HOD Approval Letter</span>
-                    <Link
+                    {internship.hod_letter!==undefined?<Link
                       href={
                          internship.hod_letter
-                      }
-                    >
+                      }>
                       <AiOutlineDownload
                         className="fill-primary cursor-pointer"
                         size={28}
                       />
-                    </Link>
+                    </Link>:
+                     <AiOutlineDownload
+                     className="fill-primary/30"
+                     size={28}
+                   />
+                    }
                   </div>
                 {/* table for showing team members with their details */}
                 <div className="my-6">
