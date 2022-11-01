@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import cookie from "js-cookie";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Router from "next/router";
 import { RootState } from '../store'
 import { ImSpinner2 } from "react-icons/im";
@@ -26,7 +26,7 @@ function Login() {
   const token = cookie.get("token");
   const authUser: any = useSelector((state: RootState) => state.user.value);
 
-  React.useEffect(() => {
+  useEffect(() => {
      if (authUser === null) {
       try {
         const token = cookie.get("token");
@@ -54,10 +54,10 @@ function Login() {
         Router.push('/signup');
       }
     }
-    else if(authUser.isAdmin){
-      Router.push('/admin');
-      return;
-    }
+    // else if(authUser.isAdmin){
+    //   Router.push('/admin');
+    //   return;
+    // }
     else{
       Router.push('/user');
       return;
