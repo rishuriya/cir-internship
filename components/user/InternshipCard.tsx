@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useEffect,useState } from "react";
 import {AiOutlineDownload, AiOutlineUpload} from 'react-icons/ai'
+import {FiAlertTriangle} from 'react-icons/fi'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useRouter } from "next/router";
 export default function InternshipCard({id}) {
@@ -138,21 +139,24 @@ export default function InternshipCard({id}) {
                     <p className="mt-1">{internship["internship_mode"]} - {internship["training_type"]}</p>
                 </div>
                 <div className="flex justify-between">
-                    {internship["approved"] === "Disapproved"?<div className="my-3">
+                    {internship["approved"] === "Disapproved"?<div className="my-3 ">
                         <p className="mr-5 bg-red-200/60 px-2 py-1 rounded-xl"><span className="underline text-lg">Remarks</span> : {internship["admin_remarks"]}</p>
                     </div>
                     :internship["approved"] === "Incomplete"?<div className="my-3">
-                    <p className="mr-5 bg-red-200/60 px-2 py-1 rounded-xl"><span className="underline text-lg">Upload the signed Letter to Complete Registration</span> </p>
+                    <div className="mr-5 bg-yellow-300/70 px-2 py-1 rounded-xl flex flex-row items-center">
+                        <FiAlertTriangle className="mx-1" size ={22}/>
+                        <span className="underline">Upload the signed Letter to Complete Registration</span>
+                    </div>
                 </div>:
                 <div></div>}
                     <div>
-                        <div className="Absolute right-0">
+                        <div className="Absolute right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
                     {internship["approved"] === "Incomplete"?
                     <form>
-                            <label className="flex flex-row right-0" htmlFor="file-input">
-                                <p className="text-sm mx-2 mt-1">Upload Letter</p>
-                                <AiOutlineUpload className="fill-black " size={28}/>
-                            </label>
+                        <label className="flex flex-row right-0 cursor-pointer" htmlFor="file-input">
+                            <AiOutlineUpload className="fill-black " size={28}/>
+                            <p className="text-sm mx-2 mt-1">Upload Letter</p>
+                        </label>
                         <input id="file-input" type="file" onChange={(e)=> handleUpload(e)} style={{display:'none'}}/>
                         </form>:
                          <div></div>
@@ -160,9 +164,9 @@ export default function InternshipCard({id}) {
                         </div>
                         <div>
                         {internship["approved"] !== "Disapproved"?<button onClick={(e)=> handleletter(e,internship["_id"],internship["approved"])}>
-                            <div className="flex flex-row right-0">
-                                <p className="text-sm mx-2 mt-1">Download Letter</p>
+                            <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2">
                                 <AiOutlineDownload className="fill-black " size={28}/>
+                                <p className="text-sm mx-2 mt-1">Download Letter</p>
                             </div>
                         </button>:
                          <AiOutlineDownload className="fill-gray-300 " size={26}/>

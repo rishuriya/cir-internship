@@ -194,11 +194,10 @@ function InternshipForm() {
               {/* Personal Details  */}
           <div className="my-3 mx-2 text-white font-semibold uppercase flex flex-row">
             Personal Details
-            <div onClick={()=>setEditDetail(!editDetail)} className=" mx-3">
-              {
+            <div onClick={()=>setEditDetail(!editDetail)} className=" mx-3">{
                 editDetail?
-                <MdOutlineEditOff size={24}/>:
-                <MdOutlineModeEditOutline size={24}/>
+                <MdOutlineModeEditOutline size={24}/>:
+                <MdOutlineEditOff size={24}/>
               }
             </div>
             </div>
