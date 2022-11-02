@@ -29,7 +29,6 @@ function Login() {
   useEffect(() => {
      if (authUser === null) {
       try {
-        const token = cookie.get("token");
         getUser(token).then((response) => {
           //console.log(response)
           if (!response.isAuth) {
@@ -45,6 +44,10 @@ function Login() {
           dispatch(update(userObj));
           if (userObj.isAdmin) {
             Router.push("/admin");
+            return;
+          }
+          else {
+            Router.push("/user");
             return;
           }
         });
