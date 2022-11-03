@@ -29,7 +29,6 @@ function Login() {
   useEffect(() => {
      if (authUser === null) {
       try {
-        const token = cookie.get("token");
         getUser(token).then((response) => {
           //console.log(response)
           if (!response.isAuth) {
@@ -47,6 +46,10 @@ function Login() {
             Router.push("/admin");
             return;
           }
+          else {
+            Router.push("/user");
+            return;
+          }
         });
 
       } catch (err) {
@@ -54,10 +57,10 @@ function Login() {
         Router.push('/signup');
       }
     }
-    // else if(authUser.isAdmin){
-    //   Router.push('/admin');
-    //   return;
-    // }
+    else if(authUser.isAdmin){
+      Router.push('/admin');
+      return;
+    }
     else{
       Router.push('/user');
       return;
@@ -98,10 +101,8 @@ function Login() {
         setLoading(false);
         if(resData.user.role=="Student"){
           cookie.set("token", resData.token);
-          //console.log("Admin bduub");
           Router.push("/user");
         }else{
-          // Router.push("/signup");
           throw "Something went wrong!";
         }
       } 

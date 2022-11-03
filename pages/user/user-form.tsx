@@ -1,9 +1,8 @@
-import { RootState } from '../../store'
-import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { useSelector } from 'react-redux';
 import cookie from "js-cookie";
+import { useRouter } from "next/router";
+import { ImSpinner2 } from "react-icons/im";
 import { getUser } from '../../utils/getUser'
+import React, { useEffect, useState } from "react";
 
 function StudentForm() {
   let date_ob = new Date();
@@ -256,9 +255,14 @@ function StudentForm() {
           </div>
 
           <div className="flex justify-end">
-            <button type="submit" className="px-5 py-3 bg-primary text-white rounded-md text-lg font-medium my-5">
+            {!loading?<button type="submit" className="px-5 py-3 bg-primary text-white rounded-md text-lg font-medium my-5">
               Submit
-            </button>
+            </button>:
+            <div className="bg-slate-400/50 px-6 mt-3 ">
+              <ImSpinner2  className="animate-spin my-3 fill-primary " size={30}/>
+            </div>
+            }
+          
           </div>
 
         </form>

@@ -178,6 +178,16 @@ function InternshipForm() {
     }
   };
 
+  let validatingContacs = (text) => {
+      var contact =  /^\d{1}|\+{1}? ?\d+$/;
+      if(text.value.match(contact)){
+        return true;
+      }
+      else{
+        return false;
+      }
+  }
+
   return (
     <>
 
