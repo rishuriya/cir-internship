@@ -83,7 +83,7 @@ function InternshipForm() {
       if(image!=null){
       const body = new FormData();
       body.append("file", image);
-      body.append("id", id);
+      body.append("id",user[0]["id"]);
       const response = await fetch("/api/student/file", {
       method: "POST",
       body
@@ -96,7 +96,6 @@ function InternshipForm() {
       }
       else{
         member_data=JSON.stringify(formValues)
-        console.log(member_data)
       }
       const bodyObject={
         user: user[0]["id"],
@@ -144,7 +143,6 @@ function InternshipForm() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-      console.log(user[0]["id"]);
       if(resData.success && resUserData.success){
         router.push("/user"
         );
