@@ -57,10 +57,10 @@ function Login() {
         Router.push('/signup');
       }
     }
-    // else if(authUser.isAdmin){
-    //   Router.push('/admin');
-    //   return;
-    // }
+    else if(authUser.isAdmin){
+      Router.push('/admin');
+      return;
+    }
     else{
       Router.push('/user');
       return;
@@ -101,10 +101,8 @@ function Login() {
         setLoading(false);
         if(resData.user.role=="Student"){
           cookie.set("token", resData.token);
-          //console.log("Admin bduub");
           Router.push("/user");
         }else{
-          // Router.push("/signup");
           throw "Something went wrong!";
         }
       } 
