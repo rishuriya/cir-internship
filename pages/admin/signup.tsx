@@ -64,6 +64,9 @@ function Signup() {
         // cookie.set("email", resData.user.email);
         Router.push("/admin");
       } else {
+        if(res.status===400){
+          throw resData.message;
+        }
         throw "Something went wrong!";
       }
       setLoading(false);
@@ -136,14 +139,14 @@ function Signup() {
           </div>
           <input type="hidden" name="role" value="Admin"/>
 
-          <div className="my-3 mx-10">
+          {/* <div className="my-3 mx-10">
             Already have an account?{" "}
             <Link href="/login">
               <span className="text-blue-500 hover:underline cursor-pointer">
                 Login
               </span>
             </Link>
-          </div>
+          </div> */}
 
           {!loading ? (
             <button

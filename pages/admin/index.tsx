@@ -16,8 +16,6 @@ function Index() {
   const dispatch = useDispatch();
   const authUser:any = useSelector((state: RootState) => state.user.value);
 
-  // const admin = cookie.get("token");
-
   useEffect(() => {
     if (authUser === null) {
       try {
@@ -28,7 +26,6 @@ function Index() {
             Router.push("/login");
             return;
           }
-          // console.log("welcome ",response.user.name)
           const userObj = {
             id: response.user.id,
             name: response.user.name,

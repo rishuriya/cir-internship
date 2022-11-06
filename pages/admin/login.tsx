@@ -49,7 +49,7 @@ function Login() {
         }),
       });
       await res.json().then((resData)=>{
-      // console.log(resData);
+      console.log(resData);
       if (res.status === 200 && resData.success) {
         const userObj={
           name: resData.user.name,
@@ -58,21 +58,20 @@ function Login() {
           token: resData.token,
         }
         dispatch(update(userObj));
-        
-        // cookie.set("id", resData.user._id);
-        // cookie.set("email", resData.user.email);
         cookie.set("token", resData.token);
         if(resData.user.role=="Admin"){
           Router.push("/admin");
         }else{
-          //console.log("hello");
           Router.push("/");
         }
       }
+      else {
+        if(res.status===400){
+          throw resData.message;
+        }
+        throw "Something went wrong!";
+      }
       });
-    
-    
-      
       setLoading(false);
       
     } catch (e) {
@@ -104,7 +103,7 @@ function Login() {
             />
           </div>
 
-          <div className="relative my-3 mx-3">
+          <div className="relative my-3 mx-3 mb-7">
             <div className=" mx-2 font-medium ">Password</div>
             <input
               type={showPassword ? "text" : "password"}
@@ -131,14 +130,14 @@ function Login() {
             Forgot password?
           </button>
 
-          <div className="my-3 mx-10">
+          {/* <div className="my-3 mx-10">
             New here?{" "}
             <Link href="/admin/signup">
               <span className="text-blue-500 hover:underline cursor-pointer">
                 Signup
               </span>
             </Link>
-          </div>
+          </div> */}
 
           {!loading ? (
             <button
