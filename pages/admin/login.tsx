@@ -62,7 +62,7 @@ function Login() {
         if(resData.user.role=="Admin"){
           Router.push("/admin");
         }else{
-          Router.push("/");
+          Router.push("/user");
         }
       }
       else {

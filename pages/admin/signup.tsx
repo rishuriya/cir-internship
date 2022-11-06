@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import Router from "next/router";
 import { useSelector, useDispatch } from 'react-redux'
 import { update } from '../../slices/userSlice'
 import { ImSpinner2 } from "react-icons/im";
+import { RootState } from '../../store'
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import cookie from "js-cookie";
@@ -18,15 +19,25 @@ function Signup() {
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState("");
 
+  const authUser: any = useSelector((state: RootState) => state.user.value);
   const dispatch = useDispatch()
 
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
 
+  useEffect(() => {
+    // console.log(authUser)
+    if (authUser === null || !authUser.isAdmin) {
+      Router.push("/admin/login");
+      return;
+    }
+  },[])
+
   const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
+      alert("Admin being created by " + authUser.name);
       setError("");
       setLoading(true);
       if (passwordInput.length < 6) {

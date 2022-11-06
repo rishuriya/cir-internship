@@ -28,7 +28,7 @@ export default function InternshipCard({id}) {
     },[])
 
     function handleletter(e, uid,approve){
-        console.log(approve)
+        // console.log(approve)
         if(approve!="Disapproved"){
                 router.push({
                     pathname: '/user/internshipLetter',
@@ -49,7 +49,7 @@ export default function InternshipCard({id}) {
             //console.log(fileimg)
           }
         if(fileimg!=undefined){
-            console.log(fileimg)
+            // console.log(fileimg)
             const body = new FormData();
             body.append("file", fileimg);
             body.append("id", id);
