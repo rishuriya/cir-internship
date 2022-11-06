@@ -64,6 +64,9 @@ function Signup() {
         // cookie.set("email", resData.user.email);
         Router.push("/admin");
       } else {
+        if(res.status===400){
+          throw resData.message;
+        }
         throw "Something went wrong!";
       }
       setLoading(false);

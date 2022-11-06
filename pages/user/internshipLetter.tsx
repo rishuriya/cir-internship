@@ -133,7 +133,7 @@ function PrintLetter() {
         <InternshipLetter ref={el => (componentRef = el)} />
         <div className="mx-auto max-w-5xl px-4 sm:px-8 my-10">
         <ReactToPrint
-          trigger={() => <a className="px-6 py-3 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200" href="#">Print</a>}
+          trigger={() => <a className="px-6 py-3 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200" href="#">Download</a>}
           content={() => componentRef}
         />
         <button className='px-6 py-2 mx-4 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200'>

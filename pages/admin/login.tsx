@@ -58,21 +58,20 @@ function Login() {
           token: resData.token,
         }
         dispatch(update(userObj));
-        
-        // cookie.set("id", resData.user._id);
-        // cookie.set("email", resData.user.email);
         cookie.set("token", resData.token);
         if(resData.user.role=="Admin"){
           Router.push("/admin");
         }else{
-          //console.log("hello");
           Router.push("/");
         }
       }
+      else {
+        if(res.status===400){
+          throw resData.message;
+        }
+        throw "Something went wrong!";
+      }
       });
-    
-    
-      
       setLoading(false);
       
     } catch (e) {

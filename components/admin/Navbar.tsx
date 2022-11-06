@@ -75,6 +75,9 @@ export default function Navbar() {
             </Link>
             <Link href="/admin/approved-internships" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
             Approved Internships
+            </Link>
+            <Link href="/admin/approved-internships" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
+              Add Admin
             </Link>         
           </Popover.Group>
 

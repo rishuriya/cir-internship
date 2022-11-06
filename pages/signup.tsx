@@ -26,12 +26,12 @@ function Signup() {
   };
   const user = cookie.get("token");
 
-  React.useEffect(() => {
-      if(user!=undefined){
-        Router.push("/user");
-      }
-   },[]
-  )
+  // React.useEffect(() => {
+  //     if(user!=undefined){
+  //       Router.push("/user");
+  //     }
+  //  },[]
+  // )
   const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
