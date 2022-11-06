@@ -3,7 +3,7 @@ import pick  from 'lodash';
 
 export const issueToken=async (user)=> {
     const secret=process.env.SECRET;
-    let token = await jwt.sign({user},secret,{expiresIn: 20 });
+    let token = await jwt.sign({user},secret,{expiresIn: 60 * 60 * 24 * 30});
     return `Bearer ${token}`;
 };
 

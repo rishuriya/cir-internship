@@ -139,14 +139,14 @@ function Signup() {
           </div>
           <input type="hidden" name="role" value="Admin"/>
 
-          <div className="my-3 mx-10">
+          {/* <div className="my-3 mx-10">
             Already have an account?{" "}
             <Link href="/login">
               <span className="text-blue-500 hover:underline cursor-pointer">
                 Login
               </span>
             </Link>
-          </div>
+          </div> */}
 
           {!loading ? (
             <button

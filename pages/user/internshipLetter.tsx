@@ -6,6 +6,8 @@ import React,{useRef} from 'react';
 import { useRouter } from "next/router";
 import { getUser } from '../../utils/getUser'
 import ReactToPrint from "react-to-print";
+
+
 const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLetter(prop,ref){
   const router = useRouter()
   let internship_id=router.query.id;
@@ -79,7 +81,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
     //console.log(internshipdata);
   return (
     <div>
-    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-16' ref={ref}>
+    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-32' ref={ref}>
         <div>
             <p>To,</p>
             <p>The Principal,</p>
@@ -96,7 +98,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
             <p>Respected Sir/Madam,</p>
         </div>
         <div className='my-5 mx-2'>
-            <p className='indent-8'>I am {username["name"]} of {username["course"]} {username["branch"]} student of {username["year_of_joining"]} batch currently studying in {username["semester"]} semester.
+            <p className='indent-8'>I am {username["name"]} of {username["course"]} {username["branch"]} student of {username["year_of_joining"]} batch currently studying in S{username["semester"]} .
              I applied for the Internship program in the {internshipdata["company_name"]} for {internshipdata["training_type"]} and I got selected for program.</p>
              <p className='my-3'>I request you to give me permission to join the internship which is starting on {internshipdata["internship_start_date"].substring(0,10)} and ending on {internshipdata["internship_end_date"].substring(0,10)}.</p>
         </div>
@@ -110,10 +112,10 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
             </div>
             <div>
                
-                <p className='mb-2'>Advisor signature</p>
+                <p className=''>Advisor signature</p>
             </div>
             <div>
-                <p className='mb-2 mr-10'>HOD signature</p>
+                <p className=' mr-10'>HOD signature</p>
             </div>
         </div>
   </div>
