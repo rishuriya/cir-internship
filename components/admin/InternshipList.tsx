@@ -58,7 +58,7 @@ function InternshipList() {
   const columns = useMemo(() => tableColumns, []);
   const data = useMemo(() => internships, []);
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({columns, data})
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data })
 
   useEffect(() => {
     fetch("/api/admin/allInternships", {
@@ -152,36 +152,45 @@ function InternshipList() {
 
       } */}
 
-      <table {...getTableProps()}>
-        <thead>
-          {
-            headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {
-                  headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                  ))
-                }
-              </tr>
-            ))
-          }
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {
-            rows.map((row, i) => {
-              prepareRow(row)
-              return <tr {...row.getRowProps()}>
-                {
-                  row.cells.map((cell) => {
-                    return <td {...cell.getCellProps()}>{cell.render('Cell')}
-                    </td>
-                  })
-                }
-              </tr>
-          }
-          )}
-        </tbody>
-      </table>
+      <div className='table max-w-5xl md:max-w-7xl mx-auto'>
+        <table {...getTableProps()}>
+          <thead>
+            {
+              headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {
+                    headerGroup.headers.map((column) => (
+                      <th
+                      scope="col" 
+                      className="text-sm text-center font-medium text-gray-900 px-6 py-4" 
+                      {...column.getHeaderProps()}>{column.render('Header')}</th>
+                    ))
+                  }
+                </tr>
+              ))
+            }
+          </thead>
+          <tbody 
+          className='divide-y-2'
+          {...getTableBodyProps()}>
+            {
+              rows.map((row, i) => {
+                prepareRow(row)
+                return <tr {...row.getRowProps()}>
+                  {
+                    row.cells.map((cell) => {
+                      return <td 
+                      className='p-4 text-center'
+                      {...cell.getCellProps()}>{cell.render('Cell')}
+                      </td>
+                    })
+                  }
+                </tr>
+              }
+              )}
+          </tbody>
+        </table>
+      </div>
     </>
   )
 }
