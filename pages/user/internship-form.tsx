@@ -487,7 +487,7 @@ function InternshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-certificate">
                   Internship Offer Letter (optional)
                 </label>
-                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="certificate" onChange={uploadToClient} id="grid-internship-certificate" type="file" />
+                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="certificate" onChange={uploadToClient} id="grid-internship-certificate" type="file" accept="application/pdf" />
               </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-company-website">
@@ -517,7 +517,7 @@ function InternshipForm() {
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="email_member">
                       Email Id
                     </label>
-                    <input pattern=".*@am\.students\.amrita\.edu" title="Invalid roll number" className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email_member" id="email_member" type="email" placeholder="abc@am.students.amrita.edu" onChange={e => handleChange(index, e)} />
+                    <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid student Email-id" className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email_member" id="email_member" type="email" placeholder="abc@am.students.amrita.edu" onChange={e => handleChange(index, e)} />
                   </div>
                   <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll_member">
@@ -537,7 +537,7 @@ function InternshipForm() {
 
             {/* form submit button */}
             <div className=" flex justify-end  px-3 mb-6 md:mb-0 mt-2">
-              <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit">
+              <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit"> 
                 Submit
               </button>
             </div>
