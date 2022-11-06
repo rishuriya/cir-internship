@@ -157,7 +157,7 @@ export default function InternshipCard({id}) {
                             <AiOutlineUpload className="fill-black " size={28}/>
                             <p className="text-sm mx-2 mt-1">Upload Letter</p>
                         </label>
-                        <input id="file-input" type="file" onChange={(e)=> handleUpload(e)} style={{display:'none'}}/>
+                        <input id="file-input" type="file" onChange={(e)=> handleUpload(e)} style={{display:'none'}} accept="application/pdf"/>
                         </form>:
                          <div></div>
                         }
