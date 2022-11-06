@@ -128,6 +128,7 @@ function Signup() {
               onChange={(e) => setEmailInput(e.target.value)}
               type="email"
               required
+              pattern=".*@am\.students\.amrita\.edu" title="Enter valid student Email-id"
             />
           </div>
 
