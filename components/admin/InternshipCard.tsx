@@ -45,7 +45,7 @@ export default function InternshipCard({ internship, isApproved }) {
       body: JSON.stringify(userObject),
     }).then(async (res) => {
       const resData = await res.json();
-      console.log(resData);
+      // console.log(resData);
       if (resData.success) {
         setIsOpen(false);
         window.location.reload();
@@ -69,7 +69,7 @@ export default function InternshipCard({ internship, isApproved }) {
       body: JSON.stringify(userObject),
     }).then(async (res) => {
       const resData = await res.json();
-      console.log(resData);
+      // console.log(resData);
       if (resData.success) {
         setIsOpen(false);
         window.location.reload();
@@ -86,10 +86,10 @@ export default function InternshipCard({ internship, isApproved }) {
         "Content-Type": "application/json",
       }
     }).then(async (res) => {
-      console.log(res);
+      // console.log(res);
       if(res.status==200){
         const resData = await res.json();
-        console.log(resData);
+        // console.log(resData);
         await setStudent(resData.data);
         setLoading(false);
       }else{
@@ -192,6 +192,7 @@ export default function InternshipCard({ internship, isApproved }) {
                                     name="remark"
                                     rows={3}
                                     cols={30}
+                                    required
                                   ></textarea>
                                   <button
                                     type="submit"
@@ -303,10 +304,10 @@ export default function InternshipCard({ internship, isApproved }) {
                   <div className="flex flex-row">
                     <span className="pr-2"> Offer Letter</span>
                     <Link
-                      // href={
-                      //    internship.request_letter
-                      // }
-                      href="/"
+                      href={
+                         internship.request_letter
+                      }
+                      // href="/"
                     >
                       <AiOutlineDownload
                         className="fill-primary cursor-pointer"

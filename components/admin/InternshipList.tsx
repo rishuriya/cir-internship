@@ -66,7 +66,7 @@ function InternshipList() {
               </th>
             </tr>
           </thead>
-          <tbody className='divide-y-2'>
+          <tbody className=''>
             {internships
               .filter((internship) => {
                 if (searchTerm == "") {
@@ -79,7 +79,7 @@ function InternshipList() {
               })
               .map((user) => {
                 if (user.approved === "Incomplete" || user.approved === "") {
-                  console.log(user);
+                  // console.log(user);
 
                   return (
                     <InternshipCard

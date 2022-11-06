@@ -59,7 +59,7 @@ function Signup() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-      console.log(resData);
+      // console.log(resData);
       if (res.status === 200 && resData.success) {
         const userObj={
           name: resData.user.name,

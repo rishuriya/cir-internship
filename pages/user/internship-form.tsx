@@ -54,7 +54,7 @@ function InternshipForm() {
       name=response.user["name"];
       roll=response.user["rollno"];
       setUserToken([response.user]);
-      console.log(user);
+      // console.log(user);
       fetch(`../api/student/${id}`, {
         method: "GET",
         headers: {
@@ -79,7 +79,7 @@ function InternshipForm() {
       setLoading(true);
             
       const data = Object.fromEntries(new FormData(e.target).entries());
-      console.log(data)
+      // console.log(data)
       if(image!=null){
       const body = new FormData();
       body.append("file", image);
