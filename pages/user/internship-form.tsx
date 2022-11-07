@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Navbar from "../../components/user/Navbar";
 import { useRouter } from "next/router";
 import cookie from 'js-cookie';
+import { ImSpinner2 } from "react-icons/im";
 import { getUser } from '../../utils/getUser'
 import { useEffect } from 'react'
 import setUser from "../../utils/setUser";
+import { MdReportGmailerrorred } from "react-icons/md";
 import {MdOutlineEditOff, MdOutlineModeEditOutline} from 'react-icons/md'
 
 
@@ -146,6 +148,15 @@ function InternshipForm() {
       if(resData.success && resUserData.success){
         router.push("/user"
         );
+        setLoading(false);
+        return;
+      }else{
+        if(resData.error){
+          setError(resData.error);
+        }
+        setError("Something went wrong");
+        setLoading(false);
+        return;
       }
 
       setLoading(false);
@@ -423,7 +434,7 @@ function InternshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-mentor-contact">
                   Company Contact
                 </label>
-                <input pattern="[0-9,+]{10,15}" title="Number Invalid/Enter number without spaces" className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_mobile" id="grid-mentor-contact" type="text" placeholder="Company Contact" />
+                <input required pattern="[0-9,+]{10,15}" title="Number Invalid/Enter number without spaces" className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_mobile" id="grid-mentor-contact" type="text" placeholder="Company Contact" />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-nature">
@@ -537,9 +548,23 @@ function InternshipForm() {
 
             {/* form submit button */}
             <div className=" flex justify-end  px-3 mb-6 md:mb-0 mt-2">
+            {error !== "" ? (
+            <div className="flex bg-red-300/40  border-l-2 border-red-700 my-1 flex-row items-center mx-5">
+              <MdReportGmailerrorred size={28} className="fill-red-700" />
+              <p className="text-red-700 mx-3 my-2 font-medium">{error}</p>
+            </div>
+          ) : (
+            <></>
+          )}
               <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit"> 
-                Submit
+               {loading?
+                <ImSpinner2
+                className="animate-spin my-3 fill-primary"
+                size={30}
+              />
+               :"Submit"} 
               </button>
+              
             </div>
 
           </form>
