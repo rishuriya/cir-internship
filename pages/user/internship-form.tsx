@@ -523,7 +523,16 @@ function InternshipForm() {
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll_member">
                       Roll No.
                     </label>
-                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll_member" id="roll_member" type="input" placeholder="AM.XX.XX.XXXXX" onChange={e => handleChange(index, e)} />
+                    <input 
+                    className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight
+                    focus:outline-none focus:bg-white" 
+                    name="roll_member" 
+                    id="roll_member" 
+                    pattern="[AM]{0,2}\.[A-Za-z]{0,2}\.[A-Z].{0,9}"
+                    title="Enter valid Student Roll number" 
+                    type="input" 
+                    placeholder="AM.XX.XX.XXXXX" 
+                    onChange={e => handleChange(index, e)} />
                   </div>
                   {
                     index ?
