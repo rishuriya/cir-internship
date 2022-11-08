@@ -81,7 +81,6 @@ function InternshipForm() {
       setLoading(true);
       
       const data = Object.fromEntries(new FormData(e.target).entries());
-      // console.log(data)
       if(image!=null){
       const body = new FormData();
       body.append("file", image);
@@ -92,9 +91,14 @@ function InternshipForm() {
     });
   
      fileres = await response.json();
-  }
-      if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member==""){
+    }
+      if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member=="" ){
         member_data=null;
+      }
+      if(!((data.internship_end_date)>(data.internship_start_date)) ){
+        setError("Please enter valid start and end dates");
+        setLoading(false);
+        return;
       }
       else{
         member_data=JSON.stringify(formValues)
@@ -153,6 +157,8 @@ function InternshipForm() {
       }else{
         if(resData.error){
           setError(resData.error);
+          setLoading(false);
+          return;
         }
         setError("Something went wrong");
         setLoading(false);
@@ -480,7 +486,7 @@ function InternshipForm() {
                 </label>
                 <div className="relative">
                   <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="internship_mode" id="grid-internship-mode" defaultValue={"Select Option"}>
-                    <option value="" disabled>Select Option</option>
+                    <option disabled value="" >Select Option</option>
                     <option>Offline</option>
                     <option>Online</option>
                     <option>Hybrid</option>
@@ -568,7 +574,7 @@ function InternshipForm() {
               <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit"> 
                {loading?
                 <ImSpinner2
-                className="animate-spin my-3 fill-primary"
+                className="animate-spin my-3 fill-white"
                 size={30}
               />
                :"Submit"} 

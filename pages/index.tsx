@@ -10,7 +10,7 @@ export default function landingPage() {
             
             <div className="flex justify-between flex-col md:flex-row">
                 <div className="m-5">
-                    <Image src={logo} height={"140px"} width={"374px"} />
+                    <Image src={logo} height={"100px"} width={"268px"} />
                     
                 </div>
                 <div className="flex space-x-8 m-5 items-start p-4 sm:justify-center text-lg font-medium">
