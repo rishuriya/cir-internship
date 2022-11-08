@@ -13,7 +13,8 @@
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.3",
+    "@headlessui/react": "^1.7.4",
+    "@heroicons/react": "^2.0.13",
     "@reduxjs/toolkit": "^1.8.6",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
