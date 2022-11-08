@@ -81,7 +81,7 @@ export default function Navbar() {
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
             {auth?
               <>
-              <div className='truncate w-62 py-2 px-3 bg-slate-200/30 rounded-xl'>
+              <div className='truncate w-62 py-2 px-3 bg-slate-200/30 text-lg rounded-xl'>
                 {auth.name}
               </div>
              <button
@@ -137,8 +137,8 @@ export default function Navbar() {
                   </Popover.Button>
                 </div>
               </div>
-              <div className='truncate py-2 px-3 my-5 bg-slate-200/30 rounded-xl'>
-                  {auth ? auth.name : ''}
+              <div className='truncate py-2 px-3 my-5 text-lg bg-slate-200/30 rounded-xl'>
+                 {auth ? auth.name : ''}
               </div>
               <div className="mt-6">
                 <nav className="grid gap-y-8">
