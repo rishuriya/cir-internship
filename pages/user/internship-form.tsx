@@ -54,7 +54,7 @@ function InternshipForm() {
       name=response.user["name"];
       roll=response.user["rollno"];
       setUserToken([response.user]);
-      console.log(user);
+      // console.log(user);
       fetch(`../api/student/${id}`, {
         method: "GET",
         headers: {
@@ -79,7 +79,7 @@ function InternshipForm() {
       setLoading(true);
             
       const data = Object.fromEntries(new FormData(e.target).entries());
-      console.log(data)
+      // console.log(data)
       if(image!=null){
       const body = new FormData();
       body.append("file", image);
@@ -177,13 +177,14 @@ function InternshipForm() {
   };
 
   let validatingContacs = (text) => {
-      var contact =  /^\d{1}|\+{1}? ?\d+$/;
-      if(text.value.match(contact)){
-        return true;
-      }
-      else{
-        return false;
-      }
+      // var contact =  /^\d{1}|\+{1}? ?\d+$/;
+      // if(text.value.match(contact)){
+      //   return true;
+      // }
+      // else{
+      //   return false;
+      // }
+      const regex = new RegExp('^\d{1}|\+{1}? ?\d+$');   
   }
 
   return (
@@ -243,10 +244,10 @@ function InternshipForm() {
               <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/>
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
+              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number" >
                 Phone No.
               </label>
-              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/>
+              <input pattern="[0-9,+]{10,15}" title="Number Invalid/Enter number without spaces" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/>
             </div>
           </div>
 
@@ -422,7 +423,7 @@ function InternshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-mentor-contact">
                   Company Contact
                 </label>
-                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_mobile" id="grid-mentor-contact" type="text" placeholder="Company Contact" />
+                <input pattern="[0-9,+]{10,15}" title="Number Invalid/Enter number without spaces" className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_mobile" id="grid-mentor-contact" type="text" placeholder="Company Contact" />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-nature">
@@ -486,7 +487,7 @@ function InternshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-certificate">
                   Internship Offer Letter (optional)
                 </label>
-                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="certificate" onChange={uploadToClient} id="grid-internship-certificate" type="file" />
+                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="certificate" onChange={uploadToClient} id="grid-internship-certificate" type="file" accept="application/pdf" />
               </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-company-website">
@@ -516,13 +517,22 @@ function InternshipForm() {
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="email_member">
                       Email Id
                     </label>
-                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email_member" id="email_member" type="email" placeholder="abc@am.students.amrita.edu" onChange={e => handleChange(index, e)} />
+                    <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid student Email-id" className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email_member" id="email_member" type="email" placeholder="abc@am.students.amrita.edu" onChange={e => handleChange(index, e)} />
                   </div>
                   <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll_member">
                       Roll No.
                     </label>
-                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll_member" id="roll_member" type="input" placeholder="AM.XX.XX.XXXXX" onChange={e => handleChange(index, e)} />
+                    <input 
+                    className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight
+                    focus:outline-none focus:bg-white" 
+                    name="roll_member" 
+                    id="roll_member" 
+                    pattern="[AM]{0,2}\.[A-Za-z]{0,2}\.[A-Z].{0,9}"
+                    title="Enter valid Student Roll number" 
+                    type="input" 
+                    placeholder="AM.XX.XX.XXXXX" 
+                    onChange={e => handleChange(index, e)} />
                   </div>
                   {
                     index ?
@@ -536,7 +546,7 @@ function InternshipForm() {
 
             {/* form submit button */}
             <div className=" flex justify-end  px-3 mb-6 md:mb-0 mt-2">
-              <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit">
+              <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit"> 
                 Submit
               </button>
             </div>

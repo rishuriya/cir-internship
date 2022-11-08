@@ -26,12 +26,12 @@ function Signup() {
   };
   const user = cookie.get("token");
 
-  React.useEffect(() => {
-      if(user!=undefined){
-        Router.push("/user");
-      }
-   },[]
-  )
+  // React.useEffect(() => {
+  //     if(user!=undefined){
+  //       Router.push("/user");
+  //     }
+  //  },[]
+  // )
   const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
@@ -59,7 +59,7 @@ function Signup() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-      console.log(resData);
+      // console.log(resData);
       if (res.status === 200 && resData.success) {
         const userObj={
           name: resData.user.name,
@@ -116,6 +116,8 @@ function Signup() {
               onChange={(e) => setRollInput(e.target.value)}
               type="text"
               required
+              pattern="[AM]{0,2}\.[A-Za-z]{0,2}\.[A-Z].{0,9}"
+              title="Enter valid Student Roll number" 
             />
           </div>
 
@@ -128,6 +130,7 @@ function Signup() {
               onChange={(e) => setEmailInput(e.target.value)}
               type="email"
               required
+              pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student Email-id"
             />
           </div>
 
@@ -187,11 +190,11 @@ function Signup() {
             <></>
           )}
 
-        <Link href={"admin/signup"}>
+        {/* <Link href={"admin/signup"}>
             <div className="hover:underline text-blue-500 cursor-pointer font-medium mt-6">
             Admin SignUp
             </div>
-        </Link> 
+        </Link>  */}
       </div>
       </form>
     </div>

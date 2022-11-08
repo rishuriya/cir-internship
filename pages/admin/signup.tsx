@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import Router from "next/router";
 import { useSelector, useDispatch } from 'react-redux'
 import { update } from '../../slices/userSlice'
 import { ImSpinner2 } from "react-icons/im";
+import { RootState } from '../../store'
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import cookie from "js-cookie";
@@ -18,15 +19,25 @@ function Signup() {
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState("");
 
+  const authUser: any = useSelector((state: RootState) => state.user.value);
   const dispatch = useDispatch()
 
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
 
+  useEffect(() => {
+    // console.log(authUser)
+    if (authUser === null || !authUser.isAdmin) {
+      Router.push("/admin/login");
+      return;
+    }
+  },[])
+
   const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
+      alert("Admin being created by " + authUser.name);
       setError("");
       setLoading(true);
       if (passwordInput.length < 6) {
@@ -64,6 +75,9 @@ function Signup() {
         // cookie.set("email", resData.user.email);
         Router.push("/admin");
       } else {
+        if(res.status===400){
+          throw resData.message;
+        }
         throw "Something went wrong!";
       }
       setLoading(false);
@@ -136,14 +150,14 @@ function Signup() {
           </div>
           <input type="hidden" name="role" value="Admin"/>
 
-          <div className="my-3 mx-10">
+          {/* <div className="my-3 mx-10">
             Already have an account?{" "}
             <Link href="/login">
               <span className="text-blue-500 hover:underline cursor-pointer">
                 Login
               </span>
             </Link>
-          </div>
+          </div> */}
 
           {!loading ? (
             <button

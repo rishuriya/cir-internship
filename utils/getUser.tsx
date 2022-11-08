@@ -1,6 +1,8 @@
 const verify = require("jsonwebtoken").verify;
 import Router  from "next/router";
 import User from "../models/User";
+import cookie from 'js-cookie';
+
 
 export const getUser = async (token) => {
 
@@ -25,7 +27,7 @@ export const getUser = async (token) => {
 
         return response;
     } catch (error) {
-        console.log(error);
+        cookie.remove("token");
         return response;
     }
 }

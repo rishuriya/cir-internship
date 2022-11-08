@@ -7,16 +7,24 @@ export default function landingPage() {
 
     return (
         <div className="w-[100vw] h-[100vh] bg-no-repeat bg-[url('../public/img/setu-bg.jpg')] bg-cover">
+            
             <div className="flex justify-between flex-col md:flex-row">
                 <div className="m-5">
                     <Image src={logo} height={"140px"} width={"374px"} />
+                    
                 </div>
-                <div className="flex space-x-8 m-5 items-start p-4 sm:justify-center  text-lg font-medium">
-                    <Link href={"/"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer">Home</div></Link>
-                    <Link href={"/login"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer">Login</div></Link>
-                    <Link href={"/signup"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer">Sign up</div></Link>
+                <div className="flex space-x-8 m-5 items-start p-4 sm:justify-center text-lg font-medium">
+                    <Link href={"/"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer truncate">Home</div></Link>
+                    <Link href={"/login"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer truncate">Login</div></Link>
+                    <Link href={"/signup"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer truncate">Sign up</div></Link>
+
                 </div>
             </div>
+            <div className="border border-white py-4 px-3 max-w-6xl bg-slate-100/50 hover:shadow-lg rounded-md text-center mx-auto my-12  ">
+                    <h1 className="font-medium leading-text text-6xl tracking-wider text-primary" >Online Internship Registration Portal</h1>
+                    <p className="my-5 text-lg font-medium" >Corporate & Industry Relations(CIR),Amritapuri</p>
+
+                </div>
         </div>
     )
 }

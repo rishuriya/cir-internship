@@ -17,7 +17,7 @@ export default async function handeler(req,res) {
 
         let user = await User.find({email:email})
         if(user.length>0){
-            return res.status(400).json({success:false,message:'User already exists with this email'})
+            return res.status(400).json({success:false,message:'User already exists with this email, try login'})
         }
 
         user = new User(req.body);

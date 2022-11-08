@@ -28,7 +28,7 @@ export default function InternshipCard({id}) {
     },[])
 
     function handleletter(e, uid,approve){
-        console.log(approve)
+        // console.log(approve)
         if(approve!="Disapproved"){
                 router.push({
                     pathname: '/user/internshipLetter',
@@ -49,7 +49,7 @@ export default function InternshipCard({id}) {
             //console.log(fileimg)
           }
         if(fileimg!=undefined){
-            console.log(fileimg)
+            // console.log(fileimg)
             const body = new FormData();
             body.append("file", fileimg);
             body.append("id", id);
@@ -157,7 +157,7 @@ export default function InternshipCard({id}) {
                             <AiOutlineUpload className="fill-black " size={28}/>
                             <p className="text-sm mx-2 mt-1">Upload Letter</p>
                         </label>
-                        <input id="file-input" type="file" onChange={(e)=> handleUpload(e)} style={{display:'none'}}/>
+                        <input id="file-input" type="file" onChange={(e)=> handleUpload(e)} style={{display:'none'}} accept="application/pdf"/>
                         </form>:
                          <div></div>
                         }
