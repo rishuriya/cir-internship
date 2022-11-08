@@ -1,4 +1,5 @@
 import Navbar from "./Navbar";
+import cookie from 'js-cookie';
 import { RootState } from "../../store";
 import React, { useEffect } from "react";
 import NoInternship from "./NoInternship";
@@ -13,6 +14,8 @@ function Home() {
   const authUser: any = useSelector((state: RootState) => state.user.value);
 
   useEffect(() => {
+    const token = cookie.get("token");
+
     if (authUser !== null) {
       // const userObject = {
       //   _id: authUser.id,
@@ -20,7 +23,7 @@ function Home() {
       fetch(`/api/student/${authUser.id}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ",
+          "Content-Type": "application/json; charset=utf8 ","authorisation":token
         },
       }).then((res) => res.json())
         .then((data) => {

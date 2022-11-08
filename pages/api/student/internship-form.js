@@ -7,6 +7,7 @@ export default async function handeler(req,res) {
     try{
         //console.log(req.body);
         let internship = new Internship(req.body);
+        
         if(!internship){
             return res.status(400).json({success:false,message:'Internship form not created'})
         }
