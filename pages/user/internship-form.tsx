@@ -58,7 +58,7 @@ function InternshipForm() {
       fetch(`../api/student/${id}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ",
+          "Content-Type": "application/json; charset=utf8 ","authorisation":token
         },
       }).then(async (res) => {
         const resData=await res.json()
@@ -77,7 +77,7 @@ function InternshipForm() {
     try {
       setError("");
       setLoading(true);
-            
+      
       const data = Object.fromEntries(new FormData(e.target).entries());
       // console.log(data)
       if(image!=null){
@@ -423,7 +423,7 @@ function InternshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-mentor-contact">
                   Company Contact
                 </label>
-                <input pattern="[0-9,+]{10,15}" title="Number Invalid/Enter number without spaces" className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_mobile" id="grid-mentor-contact" type="text" placeholder="Company Contact" />
+                <input required pattern="[0-9,+]{10,15}" title="Number Invalid/Enter number without spaces" className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_mobile" id="grid-mentor-contact" type="text" placeholder="Company Contact" />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-internship-nature">
@@ -431,7 +431,7 @@ function InternshipForm() {
                 </label>
                 <div className="relative">
                   <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="training_type" id="grid-internship-nature" defaultValue={"Select Option"}>
-                    <option disabled >Select Option</option>
+                    <option value="" disabled >Select Option</option>
                     <option>Internship</option>
                     <option>In-plant training</option>
                     <option>Industrial training</option>
@@ -469,7 +469,7 @@ function InternshipForm() {
                 </label>
                 <div className="relative">
                   <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="internship_mode" id="grid-internship-mode" defaultValue={"Select Option"}>
-                    <option disabled>Select Option</option>
+                    <option value="" disabled>Select Option</option>
                     <option>Offline</option>
                     <option>Online</option>
                     <option>Hybrid</option>

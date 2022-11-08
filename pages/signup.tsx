@@ -75,6 +75,9 @@ function Signup() {
         if(res.status===400){
           throw resData.message;
         }
+        if(res.status===500){
+          throw resData.message;
+        }
         throw "Something went wrong!";
       }
       setLoading(false);
