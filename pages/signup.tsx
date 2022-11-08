@@ -75,6 +75,9 @@ function Signup() {
         if(res.status===400){
           throw resData.message;
         }
+        if(res.status===500){
+          throw resData.message;
+        }
         throw "Something went wrong!";
       }
       setLoading(false);
@@ -116,6 +119,8 @@ function Signup() {
               onChange={(e) => setRollInput(e.target.value)}
               type="text"
               required
+              pattern="[AM]{0,2}\.[A-Za-z]{0,2}\.[A-Z].{0,9}"
+              title="Enter valid Student Roll number" 
             />
           </div>
 
@@ -128,7 +133,7 @@ function Signup() {
               onChange={(e) => setEmailInput(e.target.value)}
               type="email"
               required
-              pattern=".*@am\.students\.amrita\.edu" title="Enter valid student Email-id"
+              pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student Email-id"
             />
           </div>
 
@@ -188,11 +193,11 @@ function Signup() {
             <></>
           )}
 
-        <Link href={"admin/signup"}>
+        {/* <Link href={"admin/signup"}>
             <div className="hover:underline text-blue-500 cursor-pointer font-medium mt-6">
             Admin SignUp
             </div>
-        </Link> 
+        </Link>  */}
       </div>
       </form>
     </div>
