@@ -58,11 +58,10 @@ function InternshipList() {
       setLoading(false);
     }
   }, [internships])
-  
-  function StudentDetails(){
-    console.log("Hello world these are the students applied for Internship")
-    console.log()
 
+  function StudentDetails(row) {
+    // console.log("Hello world these are the students applied for Internship")
+    console.log(row.original);
   }
 
 
@@ -104,7 +103,7 @@ function InternshipList() {
                   {
                     row.cells.map((cell) => {
                       return (
-                        
+
                         <>
                           <td
                             key={i}
@@ -116,18 +115,19 @@ function InternshipList() {
                       )
                     })
                   }
-                  <button 
-                  className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
-                  rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900" 
-                  onClick={StudentDetails}>
+                  <button
+                    className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
+                  rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900"
+                    onClick={() => StudentDetails(row)}
+                    >
                     Details
-                    </button>
+                  </button>
 
                 </tr>
               }
               )
-              }
-              
+            }
+
           </tbody>
         </table>
       </div>
