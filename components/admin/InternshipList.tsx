@@ -4,6 +4,7 @@ import InternshipCard from "./InternshipCard";
 import { useEffect } from 'react';
 import { CSVLink, CSVDownload } from 'react-csv'
 import { useTable, usePagination } from 'react-table'
+import StudentDetailsModal from './StudentDetailsModal'
 
 const tableColumns = [
   {
@@ -30,6 +31,8 @@ function InternshipList() {
   const [loading, setLoading] = useState(true);
   const [csvData, setCsvData] = useState([]);
   const [data, setData] = useState([]);
+
+  const [modal, setModal] = useState(false);
 
   const columns = useMemo(() => tableColumns, []);
   // const data = useMemo(() => internships, []);
@@ -62,11 +65,13 @@ function InternshipList() {
   function StudentDetails(row) {
     // console.log("Hello world these are the students applied for Internship")
     console.log(row.original);
+    setModal(true);
   }
 
 
   return (
     <>
+    <StudentDetailsModal />
       <div className='table max-w-5xl md:max-w-7xl mx-auto'>
         <table {...getTableProps()}>
           <thead>
@@ -119,7 +124,7 @@ function InternshipList() {
                     className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
                   rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900"
                     onClick={() => StudentDetails(row)}
-                    >
+                  >
                     Details
                   </button>
 
