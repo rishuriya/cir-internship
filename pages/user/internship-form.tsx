@@ -78,9 +78,10 @@ function InternshipForm() {
     e.preventDefault();
     try {
       setError("");
-      setLoading(true);
+      setLoading(true);      
       
       const data = Object.fromEntries(new FormData(e.target).entries());
+      
       if(image!=null){
       const body = new FormData();
       body.append("file", image);
@@ -97,6 +98,11 @@ function InternshipForm() {
       }
       if(!((data.internship_end_date)>(data.internship_start_date)) ){
         setError("Please enter valid start and end dates");
+        setLoading(false);
+        return;
+      }
+      if(data.training_type===undefined || data.training_type==="" || data.internship_mode===undefined){
+        setError("Please fill/select all the fields");
         setLoading(false);
         return;
       }
@@ -448,7 +454,7 @@ function InternshipForm() {
                 </label>
                 <div className="relative">
                   <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="training_type" id="grid-internship-nature" defaultValue={"Select Option"}>
-                    <option value="" disabled >Select Option</option>
+                    <option disabled >Select Option</option>
                     <option>Internship</option>
                     <option>In-plant training</option>
                     <option>Industrial training</option>
@@ -486,7 +492,7 @@ function InternshipForm() {
                 </label>
                 <div className="relative">
                   <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="internship_mode" id="grid-internship-mode" defaultValue={"Select Option"}>
-                    <option disabled value="" >Select Option</option>
+                    <option disabled >Select Option</option>
                     <option>Offline</option>
                     <option>Online</option>
                     <option>Hybrid</option>
@@ -589,4 +595,4 @@ function InternshipForm() {
   );
 }
 
-export default InternshipForm;
+export default InternshipForm;670961
