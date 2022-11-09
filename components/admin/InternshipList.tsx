@@ -3,8 +3,10 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import InternshipCard from "./InternshipCard";
 import { useEffect } from 'react';
 import { CSVLink, CSVDownload } from 'react-csv'
-import { useTable, usePagination } from 'react-table'
+import { useTable, usePagination, useRowState } from 'react-table'
 import StudentDetailsModal from './StudentDetailsModal'
+import React from 'react';
+import Modal from './Modal';
 
 const tableColumns = [
   {
@@ -31,11 +33,21 @@ function InternshipList() {
   const [loading, setLoading] = useState(true);
   const [csvData, setCsvData] = useState([]);
   const [data, setData] = useState([]);
-
+  const [show, setShow] = React.useState(false)
   const [modal, setModal] = useState(false);
+  const [openModal,setOpenModal] = useState(false);
+  const [StudentDetail,setStudentDetail] = useState({})
 
   const columns = useMemo(() => tableColumns, []);
   // const data = useMemo(() => internships, []);
+  const close = () => {
+    setShow(false);
+  }
+  
+  // Function to close Modal
+  const open = () => {
+    setShow(true);
+  }
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data })
 
@@ -62,16 +74,22 @@ function InternshipList() {
     }
   }, [internships])
 
-  function StudentDetails(row) {
-    // console.log("Hello world these are the students applied for Internship")
+  function  StudentDetails(row) {
+    console.log("Hello world these are the students applied for Internship")
     console.log(row.original);
-    setModal(true);
+    let a=row.original;
+    setStudentDetail(a)
+    // {setOpenModal(true);}
+    // {openModal && <StudentDetailsModal closeModal={setOpenModal} row={row}/> }
+    // <Modal show={show}></Modal>
+    setOpenModal(true);
   }
 
 
   return (
     <>
-    <StudentDetailsModal />
+    {/* <StudentDetailsModal /> */}
+    {openModal && <StudentDetailsModal closeModal={setOpenModal} info={StudentDetail} />}
       <div className='table max-w-5xl md:max-w-7xl mx-auto'>
         <table {...getTableProps()}>
           <thead>
