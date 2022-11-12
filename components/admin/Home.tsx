@@ -1,7 +1,8 @@
 import React from 'react'
 import Navbar from './Navbar'
+import TableDashboard from './TableDashboard'
 // import TableOne from './TableOne'
-import InternshipList from './InternshipList'
+// import InternshipList from './InternshipList'
 
 function AdminHome() {
   return (
@@ -14,7 +15,8 @@ function AdminHome() {
             <div className='font-medium mx-5 my-5 text-xl'>
             Internships
             </div>
-            <InternshipList/>
+            <TableDashboard/>
+            {/* <InternshipList/> */}
         </div>
     </div>
   )
