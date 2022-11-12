@@ -6,8 +6,10 @@ import { CSVLink, CSVDownload } from 'react-csv'
 import { useTable, usePagination, useRowState } from 'react-table'
 import StudentDetailsModal from './StudentDetailsModal'
 import React from 'react';
-import ApprovalDisapproval from './ApprovalDisapproval'
 import Modal from './Modal';
+import ApprovalDisapproval from './ApprovalDisapproval'
+import { MdApproval } from 'react-icons/md';
+import ApprovedInternships from '../../pages/admin/approved-internships';
 
 const tableColumns = [
   {
@@ -28,7 +30,7 @@ const tableColumns = [
   },
   {
     Header: 'Approval',
-    accessor: 'approval' 
+    accessor: 'approval'
   }
 ]
 
@@ -113,9 +115,8 @@ function InternshipList() {
                       ))
                     }
                     {(i === headerGroups.length - 1) && <th className="text-sm text-center font-medium text-gray-900 px-6 py-4">Details</th>}
-                    
                   </tr>
-                </>
+                </React.Fragment>
               ))
             }
           </thead>
@@ -123,34 +124,32 @@ function InternshipList() {
             className='divide-y-2'
             {...getTableBodyProps()}>
             {
-              
               rows.map((row, i) => {
                 prepareRow(row)
                 return <tr
                   key={i}
-                  {...row.getRowProps()} >
+                  {...row.getRowProps()}>
                   {
                     row.cells.map((cell) => {
                       return (
+
                         <>
                           <td
                             key={i}
                             className='p-4 text-center'
                             {...cell.getCellProps()}>{cell.render('Cell')}
-                            {/* {(i===headerGroups.)} */}
                           </td>
-                          {/* {(i === rows.length - 1) && <tdz className='p-4 text-center'>l</td>} */}
+                          {/* {(i === rows.length - 1) && <td className='p-4 text-center'>l</td>} */}
                         </>
                       )
                     })
                   }
                   <ApprovalDisapproval
-                          
-                          internship={row.original}
-                          isApproved={false}
-                          />
+                  internship={row.original}
+                  isApproved={false}
+                  />
                   <button
-                    className="ml-2 inline-flex items-center justify-center wh itespace-nowrap 
+                    className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
                   rounded-md border border-transparent bg-primary my-2 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900"
                     onClick={() => StudentDetails(row)}
                   >
