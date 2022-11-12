@@ -3,28 +3,33 @@ import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import InternshipCard from "./InternshipCard";
 import { useEffect } from 'react';
 import { CSVLink, CSVDownload } from 'react-csv'
-import { useTable, useGlobalFilter } from 'react-table'
+import { useTable, useGlobalFilter, useFilters } from 'react-table'
 import StudentDetailsModal from './StudentDetailsModal'
 import React from 'react';
 import Modal from './Modal';
 import GlobalFilter from './GlobalFilter';
+import { ColumnFilter } from './ColumnFilter';
 
 const tableColumns = [
     {
         Header: 'Name',
-        accessor: 'name'
+        accessor: 'name',
+        Filter: ColumnFilter
     },
     {
         Header: 'Roll Number',
-        accessor: 'roll'
+        accessor: 'roll',
+        Filter: ColumnFilter
     },
     {
         Header: 'Duration',
-        accessor: 'internship_start_date'
+        accessor: 'internship_start_date',
+        Filter: ColumnFilter
     },
     {
         Header: 'Company Name',
-        accessor: 'company_name'
+        accessor: 'company_name',
+        Filter: ColumnFilter
     },
 ]
 
@@ -51,7 +56,7 @@ export default function FilteringTable() {
     }
 
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, state, setGlobalFilter } = 
-    useTable({ columns, data }, useGlobalFilter)
+    useTable({ columns, data }, useFilters, useGlobalFilter)
 
     const { globalFilter } = state
 
@@ -110,7 +115,9 @@ export default function FilteringTable() {
                                                     key={i}
                                                     scope="col"
                                                     className="text-sm text-center font-medium text-gray-900 px-6 py-4"
-                                                    {...column.getHeaderProps()}>{column.render('Header')}</th>
+                                                    {...column.getHeaderProps()}>{column.render('Header')}
+                                                    <div>{column.canFilter ? column.render('Filter'): null}</div>
+                                                    </th>
                                             ))
                                         }
                                         {(i === headerGroups.length - 1) && <th className="text-sm text-center font-medium text-gray-900 px-6 py-4">Details</th>}
