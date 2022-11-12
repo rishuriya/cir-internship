@@ -140,7 +140,7 @@ function InternshipList() {
                   }
                   <button
                     className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
-                  rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900"
+                  rounded-md border border-transparent bg-primary my-2 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900"
                     onClick={() => StudentDetails(row)}
                   >
                     Details

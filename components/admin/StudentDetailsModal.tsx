@@ -1,23 +1,19 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
-import InternshipCard from './InternshipCard'
-import user from '../../pages/user'
-import internshipDataRecords from '../../models/Internship'
+import { Dialog, Transition } from '@headlessui/react';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
-export default function Example({closeModal, info} ) {
+export default function DetailModal({closeModal, info} ) {
   const [open, setOpen] = useState(true)
   const [loading, setLoading] = useState(true);
   const [showStudenDetails,StudentDetailss] = useState(false);
 
   const cancelButtonRef = useRef(null)
-  const [internships,setInternships] = useState([])
+  const [user,setUser] = useState<any>("")
   const [ShowStudentDetailss,DetailsOftheStuent] = useState([])
 
   useEffect(() => {
-    // console.log(info);
     
-    fetch("/api/admin/allInternships", {
+    fetch(`/api/student/${info.user}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -25,16 +21,22 @@ export default function Example({closeModal, info} ) {
     }).then(async (res) => {
       const resData = await res.json();
       if (resData.success) {
-        setInternships(resData.data);
+        setUser(resData.data);
       }
+      console.log(resData.data);
     });
   }, [])
 
-  useEffect(() => {
-    if (internships.length > 0) {
-      setLoading(false);
-    }
-  }, [internships])
+  // useEffect(() => {
+  //   if (internships.length > 0) {
+  //     setLoading(false);
+  //   }
+  // }, [internships])
+
+  const toDate=(date)=>{
+    const d = new Date(date);
+    return d.toDateString();
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -69,34 +71,57 @@ export default function Example({closeModal, info} ) {
                       <ExclamationTriangleIcon className="h-6 w-6 text-red-600" aria-hidden="true" />
                     </div> */}
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                      <Dialog.Title as="h3" className="text-lg font-medium leading-10 text-gray-900">
-                        Student details:
+                      <Dialog.Title as="h3" className="text-lg font-medium leading-5 text-gray-900">
+                        Details:
                       </Dialog.Title>
-                      <div className="mt-2">
+                      <div className="mt-1 ml-2">
+                        <div>
+                        <p className='text-lg'>
+                          Student Details
+                        </p>
+                        {user!==""?<>
                         <p className="text-sm text-gray-500">
-                          Name : {info.name} 
+                          Name : {info.name} <span>( {user.rollno} )</span>
+                        </p>
+                        <p>
+
                         </p>
                         <p className='text-sm text-gray-500'>
-                          Company name : {info.company_name}
+                          Course/Branch: {user.course} - {user.branch}
+                        </p>
+                        <p className='text-sm text-gray-500'>
+                          School: {user.school}
+                        </p>
+                        </>:
+                        <AiOutlineLoading3Quarters className="fill-primary animate-spin my-4 ml-4"
+                        size={36}/>}
+                        </div>
+                        <div className='mt-1'>
+                        <p className='text-lg'>
+                          Internship Details
+                        </p>
+                        <p className='text-sm text-gray-500'>
+                          Company : {info.company_name} <span>( <a  className='text-blue-500' href={`${info.company_website}`}> {info.company_website} </a>)
+                          </span>
                         </p>
                         <p className='text-sm text-gray-500'>
                           Company location : {info.company_location}
                         </p>
                         <p className='text-sm text-gray-500'>
-                          Company website : {info.company_website}
+                          contact : {info.company_mobile}
                         </p>
+                        <div className='flex flex-row justify-between'>
                         <p className='text-sm text-gray-500'>
-                          Company mobile : {info.company_mobile}
+                          Mode : {info.internship_mode}
                         </p>
-                        <p className='text-sm text-gray-500'>
-                          Internship mode : {info.internship_mode}
-                        </p>
-                        <p className='text-sm text-gray-500'>
+                        <p className='text-sm text-gray-500 ml-5'>
                           Training Type : {info.training_type}
                         </p>
-                        {/* <p className='text-sm text-gray-500'>
-                          Memeber name : {info.memeber}
-                        </p> */}
+                        </div>
+                        <p className='text-sm text-gray-500'>
+                          Dates : {toDate(info.internship_start_date)} - {toDate(info.internship_end_date)}
+                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -105,8 +130,7 @@ export default function Example({closeModal, info} ) {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => closeModal(false)}
-                  >
+                    onClick={() => closeModal(false)}>
                     Ok
                   </button>
                 </div>
