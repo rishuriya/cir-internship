@@ -95,9 +95,8 @@ function InternshipList() {
           <thead>
             {
               headerGroups.map((headerGroup, i) => (
-                <>
+                <React.Fragment  key={i}>
                   <tr
-                    key={i}
                     {...headerGroup.getHeaderGroupProps()}>
                     {
                       headerGroup.headers.map((column) => (
@@ -110,7 +109,7 @@ function InternshipList() {
                     }
                     {(i === headerGroups.length - 1) && <th className="text-sm text-center font-medium text-gray-900 px-6 py-4">Details</th>}
                   </tr>
-                </>
+                </React.Fragment>
               ))
             }
           </thead>
