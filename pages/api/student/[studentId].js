@@ -5,6 +5,7 @@ export default async function handeler(req, res) {
 
     await db_connect();
     try{
+        console.log("walla",req.isAuth);
         const id = req.query.studentId;
         let user_data = await User.findById(id);
         if (user_data){
