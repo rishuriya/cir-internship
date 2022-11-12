@@ -3,8 +3,6 @@ import { useEffect, useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
   AiOutlineCheck,
-  AiOutlineDown,
-  AiOutlineUp,
   AiOutlineClose,
   AiOutlineDownload,
   AiOutlineLoading3Quarters,
@@ -45,7 +43,6 @@ export default function InternshipCard({ internship, isApproved }) {
       body: JSON.stringify(userObject),
     }).then(async (res) => {
       const resData = await res.json();
-      // console.log(resData);
       if (resData.success) {
         setIsOpen(false);
         window.location.reload();
@@ -98,11 +95,6 @@ export default function InternshipCard({ internship, isApproved }) {
       setLoading(false);
     });
   }, []);
-
-  let member = internship.member == null ? null : JSON.parse(internship.member);
-
-  const fromDateJs = new Date(internship.internship_start_date);
-  const toDateJs = new Date(internship.internship_end_date);
 
   return (
     <>
@@ -200,7 +192,7 @@ export default function InternshipCard({ internship, isApproved }) {
               </div>
             </Dialog>
           </Transition>
-          <tr className=" mx-auto my-8 max-w-md md:max-w-7xl rounded-xl shadow-md border-gray-600 border-0  p-10 ">
+          <tr className=" mx-auto my-8 max-w-md md:max-w-7xl rounded-xl border-gray-600 border-0  p-10 ">
             { isApproved?
             <td className="text-center py-6">
               {internship.approved==="Approved"?
@@ -208,11 +200,10 @@ export default function InternshipCard({ internship, isApproved }) {
               <p className="text-red-500">Declined</p>}
             </td>
             :<td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-              <div className="flex flex-row justify-center flex-nowrap ml-auto mr-5 mt-3 sm:mt-5 text-center">
+              <div className="flex flex-row justify-center flex-nowrap ml-auto mr-5 mt-1 sm:mt-3 text-center">
                 <button
                   onClick={handleApprove}
-                  className="flex bg-green-400 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"
-                >
+                  className="flex bg-green-400 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"> 
                   <AiOutlineCheck className="fill-green-700" size={26} />
                   <span>Approve</span>
                 </button>
@@ -257,9 +248,7 @@ export default function InternshipCard({ internship, isApproved }) {
                     <Link
                       href={
                          internship.request_letter
-                      }
-                      // href="/"
-                    >
+                      }>
                       <AiOutlineDownload
                         className="fill-primary cursor-pointer"
                         size={28}

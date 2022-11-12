@@ -4,9 +4,11 @@ import InternshipCard from "./InternshipCard";
 import { useEffect } from 'react';
 import { CSVLink, CSVDownload } from 'react-csv'
 import { useTable, usePagination, useRowState } from 'react-table'
-import StudentDetailsModal from './StudentDetailsModal'
+import StudentDetailsModal from '.InternshipDetailsModal'
 import React from 'react';
 import Modal from './Modal';
+import ApprovalDisapproval from './ApprovalDisapproval'
+
 
 const tableColumns = [
   {
@@ -25,10 +27,10 @@ const tableColumns = [
     Header: 'Company Name',
     accessor: 'company_name'
   },
-  {
-    Header: 'Approval',
-    accessor: 'approval'
-  }
+  // {
+  //   Header: 'Approval',
+  //   accessor: 'approval'
+  // }
 ]
 
 function InternshipList() {
@@ -79,8 +81,8 @@ function InternshipList() {
   }, [internships])
 
   function StudentDetails(row) {
-    console.log("Hello world these are the students applied for Internship")
-    console.log(row.original);
+    // console.log("Hello world these are the students applied for Internship")
+    // console.log(row.original);
     let a = row.original;
     setStudentDetail(a);
     setOpenModal(true);
@@ -89,7 +91,7 @@ function InternshipList() {
 
   return (
     <>
-    {/* <StudentDetailsModal /> */}
+    <StudentDetailsModal />
     {openModal && <StudentDetailsModal closeModal={setOpenModal} info={StudentDetail} />}
       <div className='table max-w-5xl md:max-w-7xl mx-auto'>
         <table {...getTableProps()}>
@@ -99,7 +101,8 @@ function InternshipList() {
                 <>
                   <tr
                     key={i}
-                    {...headerGroup.getHeaderGroupProps()}>
+                    {...headerGroup.getHeaderGroupProps()}
+                    >
                     {
                       headerGroup.headers.map((column) => (
                         <th
@@ -109,7 +112,8 @@ function InternshipList() {
                           {...column.getHeaderProps()}>{column.render('Header')}</th>
                       ))
                     }
-                    {(i === headerGroups.length - 1) && <th className="text-sm text-center font-medium text-gray-900 px-6 py-4">Details</th>}
+                    {(i === headerGroups.length-1 ) && <th className="text-sm text-center font-medium text-gray-900 px-6 py-4 " scope="col">Details</th>}
+                    {<th id='4' className='text-sm text-center font-medium text-gray-900 px-6 py-4' scope="col">Approval</th>}
                   </tr>
                 </>
               ))
@@ -139,14 +143,19 @@ function InternshipList() {
                       )
                     })
                   }
+                   <td>
                   <button
                     className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
-                  rounded-md border border-transparent bg-primary my-2 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900"
+                  rounded-md border border-transparent bg-primary my-2 px-3 py-1 text-base font-medium text-white shadow-sm hover:bg-pink-900"
                     onClick={() => StudentDetails(row)}
                   >
                     Details
                   </button>
-
+                  </td>
+                  <ApprovalDisapproval
+                  internship={row.original}
+                  isApproved={false}
+                  />
                 </tr>
               }
               )

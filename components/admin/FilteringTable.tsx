@@ -4,9 +4,11 @@ import InternshipCard from "./InternshipCard";
 import { useEffect } from 'react';
 import { CSVLink, CSVDownload } from 'react-csv'
 import { useTable, useGlobalFilter, useFilters } from 'react-table'
-import StudentDetailsModal from './StudentDetailsModal'
+import StudentDetailsModal from './InternshipDetailsModal'
 import React from 'react';
 import Modal from './Modal';
+import ApprovalDisapproval from './ApprovalDisapproval'
+
 import GlobalFilter from './GlobalFilter';
 import { ColumnFilter } from './ColumnFilter';
 
@@ -84,8 +86,8 @@ export default function FilteringTable() {
     }, [internships])
 
     function StudentDetails(row) {
-        console.log("Hello world these are the students applied for Internship")
-        console.log(row.original);
+        // console.log("Hello world these are the students applied for Internship")
+        // console.log(row.original);
         let a = row.original;
         setStudentDetail(a)
         // {setOpenModal(true);}
@@ -120,8 +122,9 @@ export default function FilteringTable() {
                                                     </th>
                                             ))
                                         }
-                                        {(i === headerGroups.length - 1) && <th className="text-sm text-center font-medium text-gray-900 px-6 py-4">Details</th>}
-                                    </tr>
+                                    {(i === headerGroups.length-1 ) && <th className="text-sm text-center font-medium text-gray-900 px-6 py-4 " scope="col">Details</th>}
+                                    {<th id='4' className='text-sm text-center font-medium text-gray-900 px-6 py-4' scope="col">Approval</th>}
+                                </tr>
                                 </>
                             ))
                         }
@@ -150,14 +153,19 @@ export default function FilteringTable() {
                                             )
                                         })
                                     }
+                                    <td>
                                     <button
                                         className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
-                  rounded-md border border-transparent bg-primary my-2 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900"
+                                    rounded-md border border-transparent bg-primary my-2 px-3 py-1 text-base font-medium text-white shadow-sm hover:bg-pink-900"
                                         onClick={() => StudentDetails(row)}
                                     >
                                         Details
                                     </button>
-
+                                    </td>
+                                    <ApprovalDisapproval
+                                    internship={row.original}
+                                    isApproved={false}
+                                    />
                                 </tr>
                             }
                             )
