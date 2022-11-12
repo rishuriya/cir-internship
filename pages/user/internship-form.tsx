@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import Navbar from "../../components/user/Navbar";
 import { useRouter } from "next/router";
 import cookie from 'js-cookie';
-import { useEffect } from 'react'
-import { MdOutlineEditOff, MdOutlineModeEditOutline } from 'react-icons/md'
-import { RootState } from '../../store'
-import { update } from '../../slices/userSlice'
+import { ImSpinner2 } from "react-icons/im";
 import { getUser } from '../../utils/getUser'
-import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import setUser from "../../utils/setUser";
+import { MdReportGmailerrorred } from "react-icons/md";
+import {MdOutlineEditOff, MdOutlineModeEditOutline} from 'react-icons/md'
+
 
 function InternshipForm() {
   const [formValues, setFormValues] = useState([{ name_member: "", email_member: "", roll_member: "" }])
@@ -83,10 +84,10 @@ function InternshipForm() {
     e.preventDefault();
     try {
       setError("");
-      setLoading(true);
-
+      setLoading(true);      
+      
       const data = Object.fromEntries(new FormData(e.target).entries());
-      console.log(data)
+      
       if(image!=null){
       const body = new FormData();
       body.append("file", image);
@@ -97,12 +98,22 @@ function InternshipForm() {
     });
   
      fileres = await response.json();
-  }
-      if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member==""){
+    }
+      if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member=="" ){
         member_data=null;
       }
-      else {
-        member_data = JSON.stringify(formValues)
+      if(!((data.internship_end_date)>(data.internship_start_date)) ){
+        setError("Please enter valid start and end dates");
+        setLoading(false);
+        return;
+      }
+      if(data.training_type===undefined || data.training_type==="" || data.internship_mode===undefined){
+        setError("Please fill/select all the fields");
+        setLoading(false);
+        return;
+      }
+      else{
+        member_data=JSON.stringify(formValues)
       }
       const bodyObject = {
         user: user[0]["id"],
@@ -153,6 +164,17 @@ function InternshipForm() {
       if (resData.success && resUserData.success) {
         router.push("/user"
         );
+        setLoading(false);
+        return;
+      }else{
+        if(resData.error){
+          setError(resData.error);
+          setLoading(false);
+          return;
+        }
+        setError("Something went wrong");
+        setLoading(false);
+        return;
       }
 
       setLoading(false);
@@ -368,7 +390,7 @@ function InternshipForm() {
                 </label>
                 <div className="relative">
                   <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="training_type" id="grid-internship-nature" defaultValue={"Select Option"}>
-                    <option value="" disabled >Select Option</option>
+                    <option disabled >Select Option</option>
                     <option>Internship</option>
                     <option>In-plant training</option>
                     <option>Industrial training</option>
@@ -406,7 +428,7 @@ function InternshipForm() {
                 </label>
                 <div className="relative">
                   <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="internship_mode" id="grid-internship-mode" defaultValue={"Select Option"}>
-                    <option value="" disabled>Select Option</option>
+                    <option disabled >Select Option</option>
                     <option>Offline</option>
                     <option>Online</option>
                     <option>Hybrid</option>
@@ -483,9 +505,23 @@ function InternshipForm() {
 
             {/* form submit button */}
             <div className=" flex justify-end  px-3 mb-6 md:mb-0 mt-2">
+            {error !== "" ? (
+            <div className="flex bg-red-300/40  border-l-2 border-red-700 my-1 flex-row items-center mx-5">
+              <MdReportGmailerrorred size={28} className="fill-red-700" />
+              <p className="text-red-700 mx-3 my-2 font-medium">{error}</p>
+            </div>
+          ) : (
+            <></>
+          )}
               <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit"> 
-                Submit
+               {loading?
+                <ImSpinner2
+                className="animate-spin my-3 fill-white"
+                size={30}
+              />
+               :"Submit"} 
               </button>
+              
             </div>
 
           </form>
@@ -495,4 +531,4 @@ function InternshipForm() {
   );
 }
 
-export default InternshipForm;
+export default InternshipForm;670961
