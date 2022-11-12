@@ -1,12 +1,10 @@
 import { useMemo, useState } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-import InternshipCard from "./InternshipCard";
 import { useEffect } from 'react';
 import { CSVLink, CSVDownload } from 'react-csv'
 import { useTable, usePagination, useRowState } from 'react-table'
-import StudentDetailsModal from '.InternshipDetailsModal'
+import InternshipDetailsModal from '.InternshipDetailsModal'
 import React from 'react';
-import Modal from './Modal';
 import ApprovalDisapproval from './ApprovalDisapproval'
 
 
@@ -81,8 +79,6 @@ function InternshipList() {
   }, [internships])
 
   function StudentDetails(row) {
-    // console.log("Hello world these are the students applied for Internship")
-    // console.log(row.original);
     let a = row.original;
     setStudentDetail(a);
     setOpenModal(true);
@@ -91,8 +87,8 @@ function InternshipList() {
 
   return (
     <>
-    <StudentDetailsModal />
-    {openModal && <StudentDetailsModal closeModal={setOpenModal} info={StudentDetail} />}
+    <InternshipDetailsModal />
+    {openModal && <InternshipDetailsModal closeModal={setOpenModal} info={StudentDetail} />}
       <div className='table max-w-5xl md:max-w-7xl mx-auto'>
         <table {...getTableProps()}>
           <thead>
@@ -138,7 +134,6 @@ function InternshipList() {
                             className='p-4 text-center'
                             {...cell.getCellProps()}>{cell.render('Cell')}
                           </td>
-                          {/* {(i === rows.length - 1) && <td className='p-4 text-center'>l</td>} */}
                         </>
                       )
                     })
