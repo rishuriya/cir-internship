@@ -7,9 +7,6 @@ import { useTable, usePagination, useRowState } from 'react-table'
 import StudentDetailsModal from './StudentDetailsModal'
 import React from 'react';
 import Modal from './Modal';
-import ApprovalDisapproval from './ApprovalDisapproval'
-import { MdApproval } from 'react-icons/md';
-import ApprovedInternships from '../../pages/admin/approved-internships';
 
 const tableColumns = [
   {
@@ -42,15 +39,15 @@ function InternshipList() {
   const [data, setData] = useState([]);
   const [show, setShow] = React.useState(false)
   const [modal, setModal] = useState(false);
-  const [openModal,setOpenModal] = useState(false);
-  const [StudentDetail,setStudentDetail] = useState({})
+  const [openModal, setOpenModal] = useState(false);
+  const [StudentDetail, setStudentDetail] = useState({})
 
   const columns = useMemo(() => tableColumns, []);
   // const data = useMemo(() => internships, []);
   const close = () => {
     setShow(false);
   }
-  
+
   // Function to close Modal
   const open = () => {
     setShow(true);
@@ -81,14 +78,11 @@ function InternshipList() {
     }
   }, [internships])
 
-  function  StudentDetails(row) {
+  function StudentDetails(row) {
     console.log("Hello world these are the students applied for Internship")
     console.log(row.original);
-    let a=row.original;
-    setStudentDetail(a)
-    // {setOpenModal(true);}
-    // {openModal && <StudentDetailsModal closeModal={setOpenModal} row={row}/> }
-    // <Modal show={show}></Modal>
+    let a = row.original;
+    setStudentDetail(a);
     setOpenModal(true);
   }
 
@@ -102,8 +96,9 @@ function InternshipList() {
           <thead>
             {
               headerGroups.map((headerGroup, i) => (
-                <React.Fragment  key={i}>
+                <>
                   <tr
+                    key={i}
                     {...headerGroup.getHeaderGroupProps()}>
                     {
                       headerGroup.headers.map((column) => (
@@ -116,7 +111,7 @@ function InternshipList() {
                     }
                     {(i === headerGroups.length - 1) && <th className="text-sm text-center font-medium text-gray-900 px-6 py-4">Details</th>}
                   </tr>
-                </React.Fragment>
+                </>
               ))
             }
           </thead>
@@ -144,10 +139,6 @@ function InternshipList() {
                       )
                     })
                   }
-                  <ApprovalDisapproval
-                  internship={row.original}
-                  isApproved={false}
-                  />
                   <button
                     className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
                   rounded-md border border-transparent bg-primary my-2 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900"

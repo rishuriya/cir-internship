@@ -9,7 +9,7 @@ export const ColumnFilter = ({ column }) => {
         Search:{" "}
         <input
             value={filterValue || ""}
-            onChange={(e) => setFilter(e.target.value)}
+            onChange={(e) => setFilter(e.target.value) || undefined}
         />
         </span>
     );
