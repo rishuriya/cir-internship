@@ -100,9 +100,8 @@ function InternshipList() {
           <thead>
             {
               headerGroups.map((headerGroup, i) => (
-                <>
+                <React.Fragment  key={i}>
                   <tr
-                    key={i}
                     {...headerGroup.getHeaderGroupProps()}>
                     {
                       headerGroup.headers.map((column) => (
@@ -117,7 +116,6 @@ function InternshipList() {
                     
                   </tr>
                 </>
-                
               ))
             }
           </thead>
@@ -141,7 +139,7 @@ function InternshipList() {
                             {...cell.getCellProps()}>{cell.render('Cell')}
                             {/* {(i===headerGroups.)} */}
                           </td>
-                          {/* {(i === rows.length - 1) && <td className='p-4 text-center'>l</td>} */}
+                          {/* {(i === rows.length - 1) && <tdz className='p-4 text-center'>l</td>} */}
                         </>
                       )
                     })

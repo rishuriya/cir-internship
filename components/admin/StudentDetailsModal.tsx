@@ -27,12 +27,6 @@ export default function DetailModal({closeModal, info} ) {
     });
   }, [])
 
-  // useEffect(() => {
-  //   if (internships.length > 0) {
-  //     setLoading(false);
-  //   }
-  // }, [internships])
-
   const toDate=(date)=>{
     const d = new Date(date);
     return d.toDateString();
@@ -80,17 +74,17 @@ export default function DetailModal({closeModal, info} ) {
                           Student Details
                         </p>
                         {user!==""?<>
-                        <p className="text-sm text-gray-500">
-                          Name : {info.name} <span>( {user.rollno} )</span>
+                        <p className="text-sm text-gray-700">
+                          Name : <span className='text-black'>{info.name}</span> <span>( {user.rollno} )</span>
                         </p>
                         <p>
 
                         </p>
-                        <p className='text-sm text-gray-500'>
-                          Course/Branch: {user.course} - {user.branch}
+                        <p className='text-sm text-gray-700'>
+                          Course/Branch: <span className='text-black'>{user.course} - {user.branch}</span>
                         </p>
-                        <p className='text-sm text-gray-500'>
-                          School: {user.school}
+                        <p className='text-sm text-gray-700'>
+                          School: <span className='text-black'>{user.school}</span>
                         </p>
                         </>:
                         <AiOutlineLoading3Quarters className="fill-primary animate-spin my-4 ml-4"
@@ -100,26 +94,26 @@ export default function DetailModal({closeModal, info} ) {
                         <p className='text-lg'>
                           Internship Details
                         </p>
-                        <p className='text-sm text-gray-500'>
-                          Company : {info.company_name} <span>( <a  className='text-blue-500' href={`${info.company_website}`}> {info.company_website} </a>)
+                        <p className='text-sm text-gray-700'>
+                          Company : <span className='text-black'>{info.company_name}</span> <span>( <a  className='text-blue-500' href={`${info.company_website}`}> {info.company_website} </a>)
                           </span>
                         </p>
-                        <p className='text-sm text-gray-500'>
-                          Company location : {info.company_location}
+                        <p className='text-sm text-gray-700 '>
+                          Company location : <span className='text-black'>{info.company_location}</span>
                         </p>
-                        <p className='text-sm text-gray-500'>
-                          contact : {info.company_mobile}
+                        <p className='text-sm text-gray-700'>
+                          contact : <span className='text-black'>{info.company_mobile}</span>
                         </p>
                         <div className='flex flex-row justify-between'>
-                        <p className='text-sm text-gray-500'>
-                          Mode : {info.internship_mode}
+                        <p className='text-sm text-gray-700'>
+                          Mode :  <span className='text-black'>{info.internship_mode}</span>
                         </p>
-                        <p className='text-sm text-gray-500 ml-5'>
-                          Training Type : {info.training_type}
+                        <p className='text-sm text-gray-700 ml-5'>
+                          Training Type : <span className='text-black'>{info.training_type}</span>
                         </p>
                         </div>
-                        <p className='text-sm text-gray-500'>
-                          Dates : {toDate(info.internship_start_date)} - {toDate(info.internship_end_date)}
+                        <p className='text-sm text-gray-700'>
+                          Dates : <span className='text-black'>{toDate(info.internship_start_date)} - {toDate(info.internship_end_date)}</span>
                         </p>
                         </div>
                       </div>
