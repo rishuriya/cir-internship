@@ -70,49 +70,49 @@ export default function DetailModal({closeModal, info} ) {
                       </Dialog.Title>
                       <div className="mt-1 ml-2">
                         <div>
-                        <p className='text-lg'>
+                        <p className='text-lg font-semibold'>
                           Student Details
                         </p>
                         {user!==""?<>
-                        <p className="text-sm text-gray-700">
+                        <p className="text-base text-gray-700">
                           Name : <span className='text-black'>{info.name}</span> <span>( {user.rollno} )</span>
                         </p>
                         <p>
 
                         </p>
-                        <p className='text-sm text-gray-700'>
+                        <p className='text-base text-gray-700'>
                           Course/Branch: <span className='text-black'>{user.course} - {user.branch}</span>
                         </p>
-                        <p className='text-sm text-gray-700'>
+                        <p className='text-base text-gray-700'>
                           School: <span className='text-black'>{user.school}</span>
                         </p>
                         </>:
                         <AiOutlineLoading3Quarters className="fill-primary animate-spin my-4 ml-4"
                         size={36}/>}
                         </div>
-                        <div className='mt-1'>
-                        <p className='text-lg'>
+                        <div className='mt-2'>
+                        <p className='text-lg font-semibold'>
                           Internship Details
                         </p>
-                        <p className='text-sm text-gray-700'>
+                        <p className='text-base text-gray-700'>
                           Company : <span className='text-black'>{info.company_name}</span> <span>( <a  className='text-blue-500' href={`${info.company_website}`}> {info.company_website} </a>)
                           </span>
                         </p>
-                        <p className='text-sm text-gray-700 '>
+                        <p className='text-base text-gray-700 '>
                           Company location : <span className='text-black'>{info.company_location}</span>
                         </p>
-                        <p className='text-sm text-gray-700'>
+                        <p className='text-base text-gray-700'>
                           contact : <span className='text-black'>{info.company_mobile}</span>
                         </p>
                         <div className='flex flex-row justify-between'>
-                        <p className='text-sm text-gray-700'>
+                        <p className='text-base text-gray-700'>
                           Mode :  <span className='text-black'>{info.internship_mode}</span>
                         </p>
-                        <p className='text-sm text-gray-700 ml-5'>
+                        <p className='text-base text-gray-700 ml-5'>
                           Training Type : <span className='text-black'>{info.training_type}</span>
                         </p>
                         </div>
-                        <p className='text-sm text-gray-700'>
+                        <p className='text-base text-gray-700'>
                           Dates : <span className='text-black'>{toDate(info.internship_start_date)} - {toDate(info.internship_end_date)}</span>
                         </p>
                         </div>
@@ -123,7 +123,7 @@ export default function DetailModal({closeModal, info} ) {
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
+                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 text-base font-medium text-white shadow-base hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-base"
                     onClick={() => closeModal(false)}>
                     Ok
                   </button>

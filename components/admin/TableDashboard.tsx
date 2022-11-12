@@ -45,7 +45,6 @@ export default function TableDashboard() {
   const [StudentDetail, setStudentDetail] = useState({});
 
   const columns = useMemo(() => tableColumns, []);
-  // const data = useMemo(() => internships, []);
   const close = () => {
     setShow(false);
   };
@@ -91,13 +90,8 @@ export default function TableDashboard() {
   }, [internships]);
 
   function StudentDetails(row) {
-    // console.log("Hello world these are the students applied for Internship")
-    // console.log(row.original);
     let a = row.original;
     setStudentDetail(a);
-    // {setOpenModal(true);}
-    // {openModal && <StudentDetailsModal closeModal={setOpenModal} row={row}/> }
-    // <Modal show={show}></Modal>
     setOpenModal(true);
   }
 
@@ -121,7 +115,7 @@ export default function TableDashboard() {
                     <th
                       key={i}
                       scope="col"
-                      className="text-sm text-center font-medium text-gray-900 px-6 py-4"
+                      className="text-lg text-center font-medium text-gray-900 px-6 py-4"
                       {...column.getHeaderProps()}
                     >
                       {column.render("Header")}
@@ -132,7 +126,7 @@ export default function TableDashboard() {
                   ))}
                   {i === headerGroups.length - 1 && (
                     <th
-                      className="text-sm text-center font-medium text-gray-900 px-6 py-4 "
+                      className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
                       scope="col"
                     >
                       Details
@@ -141,7 +135,7 @@ export default function TableDashboard() {
                   {
                     <th
                       id="4"
-                      className="text-sm text-center font-medium text-gray-900 px-6 py-4"
+                      className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
                       scope="col"
                     >
                       Approval
