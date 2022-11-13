@@ -1,0 +1,10 @@
+def helloworld():
+    print("You are in the hello world function")
+    x=10
+    print(x)
+    def love():
+        print("some shit love ",x)
+    love()
+
+print("Hello world this is just an example")
+helloworld()
