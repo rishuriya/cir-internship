@@ -78,7 +78,7 @@ function InternshipList() {
                 }
               })
               .map((user) => {
-                if (user.approved === "Incomplete" || user.approved === "") {
+                if (user.approved === "Pending" || user.approved === "") {
                   // console.log(user);
 
                   return (

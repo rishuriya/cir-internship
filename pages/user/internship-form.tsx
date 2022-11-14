@@ -19,6 +19,7 @@ function InternshipForm() {
   const [userRoll, setUserRoll] = useState("");
   const [editDetail,setEditDetail] = useState(false);
   const [username,setUserName]=useState([]);
+  const [url,setUrl]=useState("");
   let user_name
   let date_ob = new Date();
   var year = date_ob.getFullYear()
@@ -90,9 +91,22 @@ function InternshipForm() {
     });
   
      fileres = await response.json();
-  }
-      if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member==""){
+     setUrl((fileres.url).substr(6));
+    }
+      if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member=="" ){
         member_data=null;
+      }else{
+        member_data=JSON.stringify(formValues)
+      }
+      if(!((data.internship_end_date)>(data.internship_start_date)) ){
+        setError("Please enter valid start and end dates");
+        setLoading(false);
+        return;
+      }
+      if(data.training_type===undefined || data.training_type==="" || data.internship_mode===undefined){
+        setError("Please fill/select all the fields");
+        setLoading(false);
+        return;
       }
       else{
         member_data=JSON.stringify(formValues)
@@ -111,7 +125,7 @@ function InternshipForm() {
         internship_end_date: data.internship_end_date,
         internship_mode: data.internship_mode,
         company_website:data.company_website,
-        request_letter:image!=null?fileres.url:null,
+        request_letter:image!=null?url:null,
         member:member_data
       };
       const userObject={
@@ -126,7 +140,8 @@ function InternshipForm() {
         phone: data.phone,
         year_of_joining: data.year_of_joining,
       };
-      //console.log(bodyObject);
+      console.log("rv sir")
+      console.log(fileres.url);
       const resUser = await fetch("/api/student/userdetails", {
         method: "POST",
         headers: {

@@ -17,7 +17,7 @@ const post = async (req, res) => {
 };
 
 const saveFile = async (file,id) => {
-  let filename="./public/uploads/"+id+file.originalFilename;
+  let filename="./pages/uploads/"+id+file.originalFilename;
   const data = fs.readFileSync(file.filepath);
   // console.log(data);
   fs.writeFileSync(filename, data);

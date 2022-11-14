@@ -58,11 +58,13 @@ export default function InternshipCard({id}) {
             body
           }).then(async (response) => {
            const fileres = await response.json();
+           var url=(fileres.url).replace("./pages","");
            const bodyObject={
             _id:internship["_id"],
-            hod_letter: fileres.url,
+            hod_letter: url,
             approved:"Pending"
            }
+           console.log(url);
            fetch("/api/admin/admin_decision", {
             method: "POST",
             headers: {
