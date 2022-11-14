@@ -34,7 +34,7 @@ const tableColumns = [
   },
 ];
 
-export default function TableDashboard() {
+export default function ApprovedInternships() {
   const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [csvData, setCsvData] = useState([]);
@@ -67,7 +67,7 @@ export default function TableDashboard() {
   const { globalFilter } = state;
 
   useEffect(() => {
-    fetch("/api/admin/pendingInternships", {
+    fetch("/api/admin/approvedInternships", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
