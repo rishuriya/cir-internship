@@ -5,28 +5,10 @@ import User from "../../../models/User";
 export default async function handeler(req,res) {
     await db_connect();
     try{
-        //console.log(req.body);
         let internship = new Internship(req.body);
 
-        if(req.isAuth){
-            const id = req.query.studentId;
-            let userID = await User.findById(req.user.id);
-            
-            // if(!userID){  
-            //     return await res.status(200).json({success:true,message:'User data found',data:user})
-            // }
-            // else{
-            //     return await res.status(400).json({success:false,message:'data not found'})
-            // }
-
-            if(id===userID){
-                return await res.status(200).json({success:true,message:'User data found',data:req.user})
-            }else{
-                return await res.status(400).json({success:false,message:'not authenticated'})
-            }
-        }
-        else{
-            return await res.status(400).json({success:false,message:'not authenticated'})
+        if(!req.isAuth){
+            return await res.status(401).json({success:false,message:'not authenticated'})
         }
         
         if(!internship){
@@ -43,7 +25,7 @@ export default async function handeler(req,res) {
 
         let result = await internship.save();
 
-        console.log(result)
+        // console.log(result)
         
         return await res.status(200).json({success:true,message:'Form created',internship:result})
             
