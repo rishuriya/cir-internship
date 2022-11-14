@@ -82,6 +82,8 @@ function InternshipForm() {
     });
     });
   },[data]);
+
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
@@ -164,14 +166,19 @@ function InternshipForm() {
       });
       const resData = await res.json();
       if (resData.success && resUserData.success) {
-        router.push("/user"
-        );
+        router.push("/user");
         setLoading(false);
         return;
       }else{
-        if(resData.error){
+        if(res.status===400){
           setError(resData.error);
           setLoading(false);
+          return;
+        }
+        if(res.status===401){
+          setError("You are Unauthorised");
+          setLoading(false);
+          router.push("/login")
           return;
         }
         setError("Something went wrong");
@@ -236,7 +243,7 @@ function InternshipForm() {
               <div onClick={() => setEditDetail(!editDetail)} className=" mx-3">{
                 editDetail ?
                   <MdOutlineModeEditOutline size={24} /> :
-                  <MdOutlineEditOff size={24} />
+                  <MdOutlineEditOff size={24} className={"fill-slate-700"}/>
               }
               </div>
             </div>
