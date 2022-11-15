@@ -75,7 +75,7 @@ export default function ApprovedInternships() {
     }).then(async (res) => {
       const resData = await res.json();
       if (resData.success) {
-        console.log(resData.data);
+        // console.log(resData.data);
         setInternships(resData.data);
         setData(resData.data);
         // setCsvData(resData.data);
