@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import Navbar from "../../components/user/Navbar";
 import { useRouter } from "next/router";
 import cookie from 'js-cookie';
+import { ImSpinner2 } from "react-icons/im";
 import { getUser } from '../../utils/getUser'
 import { useEffect } from 'react'
 import setUser from "../../utils/setUser";
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store'
+import { MdReportGmailerrorred } from "react-icons/md";
 import {MdOutlineEditOff, MdOutlineModeEditOutline} from 'react-icons/md'
 
 
@@ -17,8 +21,8 @@ function InternshipForm() {
   const [data, setData] = useState(false);
   const [user, setUserToken] = useState([]);
   const [userRoll, setUserRoll] = useState("");
-  const [editDetail,setEditDetail] = useState(false);
-  const [username,setUserName]=useState([]);
+  const [editDetail, setEditDetail] = useState(false);
+  const [username, setUserName] = useState([]);
   const [url,setUrl]=useState("");
   let user_name
   let date_ob = new Date();
@@ -28,7 +32,13 @@ function InternshipForm() {
   let name;
   let roll;
   let fileres;
+  let email;
+  // let token;
+  let isAdmin;
   const router = useRouter()
+
+  const dispatch = useDispatch();
+  const authUser: any = useSelector((state: RootState) => state.user.value);
 
   const uploadToClient = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -38,7 +48,7 @@ function InternshipForm() {
     }
   };
 
-  const handleChange = (i, e) => { 
+  const handleChange = (i, e) => {
     let data = [...formValues];
     data[i][e.target.name] = e.target.value;
     setFormValues(data);
@@ -55,7 +65,7 @@ function InternshipForm() {
       name=response.user["name"];
       roll=response.user["rollno"];
       setUserToken([response.user]);
-      // console.log(user);
+      console.log(user);
       fetch(`../api/student/${id}`, {
         method: "GET",
         headers: {
@@ -77,10 +87,10 @@ function InternshipForm() {
     e.preventDefault();
     try {
       setError("");
-      setLoading(true);
+      setLoading(true);      
       
       const data = Object.fromEntries(new FormData(e.target).entries());
-      // console.log(data)
+      
       if(image!=null){
       const body = new FormData();
       body.append("file", image);
@@ -108,10 +118,20 @@ function InternshipForm() {
         setLoading(false);
         return;
       }
+      if(!((data.internship_end_date)>(data.internship_start_date)) ){
+        setError("Please enter valid start and end dates");
+        setLoading(false);
+        return;
+      }
+      if(data.training_type===undefined || data.training_type==="" || data.internship_mode===undefined){
+        setError("Please fill/select all the fields");
+        setLoading(false);
+        return;
+      }
       else{
         member_data=JSON.stringify(formValues)
       }
-      const bodyObject={
+      const bodyObject = {
         user: user[0]["id"],
         name: user[0]["name"],
         roll: user[0]["rollno"],
@@ -128,13 +148,13 @@ function InternshipForm() {
         request_letter:image!=null?url:null,
         member:member_data
       };
-      const userObject={
+      const userObject = {
         name: data.name,
         email: data.email,
         gender: data.gender,
         school: data.school,
         rollno: data.roll,
-        course:data.course,
+        course: data.course,
         branch: data.branch,
         semester: data.sem,
         phone: data.phone,
@@ -158,15 +178,26 @@ function InternshipForm() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-      if(resData.success && resUserData.success){
+      if (resData.success && resUserData.success) {
         router.push("/user"
         );
+        setLoading(false);
+        return;
+      }else{
+        if(resData.error){
+          setError(resData.error);
+          setLoading(false);
+          return;
+        }
+        setError("Something went wrong");
+        setLoading(false);
+        return;
       }
 
       setLoading(false);
     } catch (e) {
       setError(e);
-      console.log(e);
+      // console.log(e);
       setLoading(false);
     }
   };
@@ -192,20 +223,19 @@ function InternshipForm() {
   };
 
   let validatingContacs = (text) => {
-      // var contact =  /^\d{1}|\+{1}? ?\d+$/;
-      // if(text.value.match(contact)){
-      //   return true;
-      // }
-      // else{
-      //   return false;
-      // }
-      const regex = new RegExp('^\d{1}|\+{1}? ?\d+$');   
+      var contact =  /^\d{1}|\+{1}? ?\d+$/;
+      if(text.value.match(contact)){
+        return true;
+      }
+      else{
+        return false;
+      }
   }
 
   return (
     <>
 
-      <Navbar/>
+      <Navbar />
 
       <div className="bg-secondary h-screen w-full relative p-2 md:text-lg">
 
@@ -215,41 +245,37 @@ function InternshipForm() {
             onSubmit={handleSubmit}
             className="w-full">
 
-              {/* Personal Details  */}
-          <div className="my-3 mx-2 text-white font-semibold uppercase flex flex-row">
-            Personal Details
-            <div onClick={()=>setEditDetail(!editDetail)} className=" mx-3">{
-                editDetail?
-                <MdOutlineModeEditOutline size={24}/>:
-                <MdOutlineEditOff size={24}/>
+            {/* Personal Details  */}
+            <div className="my-3 mx-2 text-white font-semibold uppercase flex flex-row">
+              Personal Details
+              <div onClick={() => setEditDetail(!editDetail)} className=" mx-3">{
+                editDetail ?
+                  <MdOutlineModeEditOutline size={24} /> :
+                  <MdOutlineEditOff size={24} />
               }
+              </div>
             </div>
-            </div>
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="name">
-                Full name
-              </label>
-              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
-              name="name" id="name" type="text" placeholder="Full Name" value={username["name"]} readOnly/>
-            </div>
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-gender">
-                Gender
-              </label>
-              <div className="relative">
-                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="gender" id="grid-gender" value={username["gender"]} required readOnly>
-                  {/* <option disabled>Select Gender</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Others</option> */}
-                </input>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="name">
+                  Full name
+                </label>
+                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                  name="name" id="name" type="text" placeholder="Full Name" value={username["name"]} readOnly />
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-gender">
+                  Gender
+                </label>
+                <div className="relative">
+                  <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="gender" id="grid-gender" value={username["gender"]} required readOnly>
+                  </input>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
           <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -259,147 +285,82 @@ function InternshipForm() {
               <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/>
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number" >
+              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
                 Phone No.
               </label>
-              <input pattern="[0-9,+]{10,15}" title="Number Invalid/Enter number without spaces" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/>
+              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/>
             </div>
           </div>
-
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-school">
-                School
-              </label>
-              <div className="relative">
-                <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="school" id="grid-school" required defaultValue={username["school"]} readOnly>
-                  {/* <option value="Amrita School Of Engineering">Amrita School Of Engineering</option>
-                  <option value="Amrita School Of Arts and Science">Amrita School Of Arts and Science</option> */}
-                </input>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-school">
+                  School
+                </label>
+                <div className="relative">
+                  <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="school" id="grid-school" required defaultValue={username["school"]} readOnly>
+                  </input>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll">
+                  Roll Number
+                </label>
+                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll" id="roll" type="text" placeholder="AM.XX.XXXXXXX" defaultValue={username["rollno"]} readOnly />
+              </div>
+            </div>
+            <div className="flex flex-wrap -mx-3 mb-2">
+              <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-course">
+                  Course
+                </label>
+                <div className="relative">
+                  <input className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="course" id="grid-course" required defaultValue={username["course"]} readOnly >
+                  </input>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-branch">
+                  Branch
+                </label>
+                <div className="relative">
+                  <input className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="branch" id="grid-branch" required defaultValue={username["branch"]} readOnly>
+                  </input>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-sem">
+                  Present Semester
+                </label>
+                <div className="relative">
+                  <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]} readOnly>
+                  </input>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-joining-year">
+                  Year Of Joining
+                </label>
+                <div className="relative">
+                  <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="year_of_joining" id="grid-joining-year" defaultValue={username["year_of_joining"]}>
+                  </input>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll">
-                Roll Number
-              </label>
-              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll" id="roll" type="text" placeholder="AM.XX.XXXXXXX" defaultValue={username["rollno"]} readOnly/>
-            </div>
-          </div>
-          <div className="flex flex-wrap -mx-3 mb-2">
-            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-course">
-                Course
-              </label>
-              <div className="relative">
-                <input className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="course" id="grid-course" required defaultValue={username["course"]} readOnly >
-                  {/* <option disabled >Select Course</option>
-                  <option>B.Tech</option>
-                  <option>M.Tech</option> */}
-                </input>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-branch">
-                Branch
-              </label>
-              <div className="relative">
-                <input className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="branch" id="grid-branch" required defaultValue={username["branch"]} readOnly>
-                  {/* {course === "B.Tech" || course === "M.Tech" ? (
-                    course === "B.Tech" ? (
-                      <React.Fragment>
-                        <option disabled>Select Specialization</option>
-                        <option>AIE - Artificial Intelligence</option>
-                        <option>CSE - Computer Science</option>
-                        <option>ECE - Electronics & Communication</option>
-                        <option>EAC - Electronics & Computer</option>
-                        <option>ELC - Electrcial & Computer</option>
-                        <option>EEE - Electrcial & Electronics</option>
-                        <option>MEE - Mechanical Engineering</option>
-                      </React.Fragment>
-                    ) : (
-                      <React.Fragment>
-                        <option disabled>Select Specialization</option>
-                        <option>CS - Computer Science</option>
-                        <option>EC - Electronics & Communication</option>
-                        <option>EE - Electrcial & Electronics</option>
-                        <option>ME - Mechanical Engineering</option>
-                      </React.Fragment>
-                    )
-                  ) : (
-                    <React.Fragment>
-                      <option disabled>Select Specialization</option>
-                    </React.Fragment>
-                  )} */}
-                </input>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-sem">
-                Present Semester
-              </label>
-              <div className="relative">
-                <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]} readOnly>
-                  {/* <option disabled>Select Semster</option>
-                  {course === "B.Tech" || course === "M.Tech" ? (
-                    course === "B.Tech" ? (
-                      <React.Fragment>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                      </React.Fragment>
-                    ) : (
-                      <React.Fragment>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                      </React.Fragment>
-                    )
-                  ) : (
-                    <React.Fragment>
-                      <option disabled>Select B.Tech/M.Tech</option>
-                    </React.Fragment>
-                  )} */}
-                </input>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                </div>
-              </div>
-            </div>
-            <div className="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-joining-year">
-                Year Of Joining
-              </label>
-              <div className="relative">
-                <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="year_of_joining" id="grid-joining-year" defaultValue={username["year_of_joining"]}>
-                  {/* <option disabled>Select Year</option>
-                  <option>{year}</option>
-                  <option>{year - 1}</option>
-                  <option>{year - 2}</option>
-                  <option>{year - 3}</option>
-                  <option>{year - 4}</option> */}
-                </input>
-                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                </div>
-              </div>
-            </div>
-          </div>
-            {/* company name and location input  */}
             <div className="mt-10 mb-4 mx-2 text-white font-semibold uppercase text-xl">Internship Details</div>
             <div className="flex flex-wrap -mx-3 mb-2">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -446,7 +407,7 @@ function InternshipForm() {
                 </label>
                 <div className="relative">
                   <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="training_type" id="grid-internship-nature" defaultValue={"Select Option"}>
-                    <option value="" disabled >Select Option</option>
+                    <option disabled >Select Option</option>
                     <option>Internship</option>
                     <option>In-plant training</option>
                     <option>Industrial training</option>
@@ -484,7 +445,7 @@ function InternshipForm() {
                 </label>
                 <div className="relative">
                   <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="internship_mode" id="grid-internship-mode" defaultValue={"Select Option"}>
-                    <option value="" disabled>Select Option</option>
+                    <option disabled >Select Option</option>
                     <option>Offline</option>
                     <option>Online</option>
                     <option>Hybrid</option>
@@ -504,7 +465,7 @@ function InternshipForm() {
                 </label>
                 <input className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="certificate" onChange={uploadToClient} id="grid-internship-certificate" type="file" accept="application/pdf" />
               </div>
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-company-website">
                   Company Website
                 </label>
@@ -514,10 +475,10 @@ function InternshipForm() {
 
             {/* for adding group members for internship */}
             <div className="flex my-2">
-            <input type="checkbox" className="mx-3" id="release" onClick={radioHandler} />
-            <label className="block uppercase tracking-wide text-white text-xs font-bold" htmlFor="release">
-              Add Member for Internship
-            </label>
+              <input type="checkbox" className="mx-3" id="release" onClick={radioHandler} />
+              <label className="block uppercase tracking-wide text-white text-xs font-bold" htmlFor="release">
+                Add Member for Internship
+              </label>
             </div>
             <div style={{ display: status ? 'block' : 'none' }}>
               {formValues.map((element, index) => (
@@ -561,9 +522,23 @@ function InternshipForm() {
 
             {/* form submit button */}
             <div className=" flex justify-end  px-3 mb-6 md:mb-0 mt-2">
+            {error !== "" ? (
+            <div className="flex bg-red-300/40  border-l-2 border-red-700 my-1 flex-row items-center mx-5">
+              <MdReportGmailerrorred size={28} className="fill-red-700" />
+              <p className="text-red-700 mx-3 my-2 font-medium">{error}</p>
+            </div>
+          ) : (
+            <></>
+          )}
               <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit"> 
-                Submit
+               {loading?
+                <ImSpinner2
+                className="animate-spin my-3 fill-white"
+                size={30}
+              />
+               :"Submit"} 
               </button>
+              
             </div>
 
           </form>
@@ -573,4 +548,4 @@ function InternshipForm() {
   );
 }
 
-export default InternshipForm;
+export default InternshipForm;670961

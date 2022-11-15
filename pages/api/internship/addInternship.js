@@ -6,6 +6,9 @@ export default async function handeler(req,res) {
     await db_connect();
     try{
         let internship = new Internship(req.body);
+        // check if internship details is filled
+        
+
         if(!internship){
             return res.status(400).json({success:false,message:'Internship form not created'})
         }

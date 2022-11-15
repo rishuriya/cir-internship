@@ -84,7 +84,7 @@ export default function Navbar() {
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
             {auth?
               <>
-              <div className='truncate w-62 py-2 px-3 bg-slate-200/30 rounded-xl'>
+              <div className='truncate w-62 py-2 px-3 text-lg  bg-slate-200/30 rounded-xl'>
                 {auth.name}
               </div>
              <button
