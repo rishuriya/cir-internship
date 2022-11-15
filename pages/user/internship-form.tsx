@@ -83,6 +83,7 @@ function InternshipForm() {
     });
   },[data]);
 
+  let token = cookie.get("token");
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -152,7 +153,7 @@ function InternshipForm() {
       const resUser = await fetch("/api/student/userdetails", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ",
+          "Content-Type": "application/json; charset=utf8 ","authorisation":token
         },
         body: JSON.stringify(userObject),
       });
@@ -160,7 +161,7 @@ function InternshipForm() {
       const res = await fetch("/api/student/internship-form", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ",
+          "Content-Type": "application/json; charset=utf8 ","authorisation":token
         },
         body: JSON.stringify(bodyObject),
       });

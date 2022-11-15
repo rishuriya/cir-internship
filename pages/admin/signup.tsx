@@ -108,7 +108,7 @@ function Signup() {
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
         
-          <div className="my-2 hover:text-blue-500 cursor-pointer" onClick={()=>Router.push("/admin")}>
+          <div className="my-2 hover:text-blue-500 cursor-pointer text-lg " onClick={()=>Router.push("/admin")}>
             Back
           </div>
           <h1 className="text-3xl my-5 font-bold ">Admin Signup</h1>
