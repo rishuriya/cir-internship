@@ -23,7 +23,7 @@ export default function DetailModal({closeModal, info} ) {
       if (resData.success) {
         setUser(resData.data);
       }
-      console.log(resData.data);
+      // console.log(resData.data);
     });
   }, [])
 

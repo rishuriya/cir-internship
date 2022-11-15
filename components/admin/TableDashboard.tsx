@@ -3,7 +3,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import InternshipCard from "./InternshipCard";
 import { useEffect } from "react";
 import { CSVLink, CSVDownload } from "react-csv";
-import { useTable, useGlobalFilter, useFilters } from "react-table";
+import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
 import InternshipDetailsModal from "./InternshipDetailsModal";
 import React from "react";
 import ApprovalDisapproval from "./ApprovalDisapproval";
@@ -26,6 +26,11 @@ const tableColumns = [
     Header: "Duration",
     accessor: "internship_start_date",
     Filter: ColumnFilter,
+    Cell: ({ row: { original } }) => (
+      <div>
+        {timeDuration(original.internship_start_date, original.internship_end_date)} Days
+      </div>
+    )
   },
   {
     Header: "Company Name",
@@ -33,6 +38,14 @@ const tableColumns = [
     Filter: ColumnFilter,
   },
 ];
+
+const timeDuration = (start, end) => {
+  const startDate: any = new Date(start);
+  const endDate: any = new Date(end);
+  const diffTime = Math.abs(endDate - startDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+}
 
 export default function TableDashboard() {
   const [internships, setInternships] = useState([]);
@@ -58,16 +71,24 @@ export default function TableDashboard() {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    gotoPage,
+    pageCount,
+    nextPage,
+    previousPage,
     prepareRow,
     state,
     setGlobalFilter,
-  } = useTable({ columns, data }, useFilters, useGlobalFilter);
+    setPageSize
+  } = useTable({ columns, data }, useFilters, useGlobalFilter, usePagination);
 
-  const { globalFilter } = state;
+  const { globalFilter, pageIndex, pageSize } = state;
 
   useEffect(() => {
-    fetch("/api/admin/allInternships", {
+    fetch("/api/admin/pendingInternships", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +96,7 @@ export default function TableDashboard() {
     }).then(async (res) => {
       const resData = await res.json();
       if (resData.success) {
-        console.log(resData.data);
+        // console.log(resData.data);
         setInternships(resData.data);
         setData(resData.data);
         // setCsvData(resData.data);
@@ -146,7 +167,7 @@ export default function TableDashboard() {
             ))}
           </thead>
           <tbody className="divide-y-2" {...getTableBodyProps()}>
-            {rows.map((row, i) => {
+            {page.map((row, i) => {
               prepareRow(row);
               return (
                 <tr key={i} {...row.getRowProps()}>
@@ -182,6 +203,52 @@ export default function TableDashboard() {
             })}
           </tbody>
         </table>
+        <div className="my-5 mx-5">
+          <span>
+            Page{' '}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>
+          </span>
+          <span>
+            <select
+            className="ml-2 inline-flex items-center justify-center whitespace-nowrap px-2 py-1"
+            value={pageSize}
+            onChange={e => setPageSize(Number(e.target.value))}>
+              {
+                [5,10,20,50].map(pageSize => (
+                  <option key={pageSize} value={pageSize}>
+                    Show {pageSize}
+                  </option>
+                ))
+              }
+            </select>
+          </span>
+          <button
+            onClick={() => gotoPage(0)}
+              className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
+            disabled={!canPreviousPage}>
+            {'<<'}
+          </button>
+          <button
+            className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}>
+             Previous
+          </button>
+          <button
+            className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
+            onClick={() => nextPage()}
+            disabled={!canNextPage}>
+            Next
+          </button>
+          <button
+            onClick={() => gotoPage(pageCount - 1)}
+            className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
+            disabled={!canNextPage}>
+            {'>>'}
+          </button>
+        </div>
       </div>
     </>
   );
