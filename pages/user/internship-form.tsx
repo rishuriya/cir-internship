@@ -83,6 +83,7 @@ function InternshipForm() {
     });
   },[data]);
 
+
   let token = cookie.get("token");
 
   const handleSubmit = async(e) => {
@@ -246,7 +247,7 @@ function InternshipForm() {
                   <MdOutlineModeEditOutline size={24} /> :
                   <MdOutlineEditOff size={24} className={"fill-slate-700"}/>
               }
-              </div>
+              </div>  
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -254,15 +255,29 @@ function InternshipForm() {
                   Full name
                 </label>
                 <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  name="name" id="name" type="text" placeholder="Full Name" value={username["name"]} readOnly />
+                  name="name" id="name" type="text" placeholder="Full Name"  defaultValue ={username["name"]} readOnly />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-gender">
                   Gender
                 </label>
                 <div className="relative">
-                  <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="gender" id="grid-gender" value={username["gender"]} required readOnly>
-                  </input>
+                  {/* <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="gender" id="grid-gender" value={username["gender"]} required readOnly>
+                  </input> */}
+                  {
+                  <select className="appearance-none block 
+                  w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight 
+                  focus:outline-none focus:bg-white" name="gender" id="grid-gender" 
+                  defaultValue ={username["name"]}
+                  // onChange={handleCourseChange}
+                  disabled={!editDetail}
+                  >
+                  <option disabled>Select Gender</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Others</option>
+                </select>
+                  }
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                   </div>
@@ -274,14 +289,28 @@ function InternshipForm() {
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="email">
                 Email
+                
               </label>
-              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/>
+            {
+              !editDetail ?
+              <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student email-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/> 
+              :
+              <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student email-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]}/>
+
+            }
+              {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/> */}
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
                 Phone No.
               </label>
+              {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/> */}
+              {
+                !editDetail ? 
               <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/>
+                :
+              <input pattern="[0-9,+]{10,15}" title="Type numbers without spaces/Number invalid" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" />
+              }
             </div>
           </div>
             <div className="flex flex-wrap -mx-3 mb-6">
@@ -334,8 +363,44 @@ function InternshipForm() {
                   Present Semester
                 </label>
                 <div className="relative">
-                  <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]} readOnly>
-                  </input>
+                  {/* <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 
+                  rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]} readOnly>
+                  </input> */}
+                  {
+                     <select 
+                     required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
+                     focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]}
+                     disabled={!editDetail}
+                     >
+                     
+                     <option disabled>Select Semster</option>
+                     {course === "B.Tech" || course === "M.Tech" ? (
+                       course === "B.Tech" ? (
+                         <React.Fragment>
+                           <option>1</option>
+                           <option>2</option>
+                           <option>3</option>
+                           <option>4</option>
+                           <option>5</option>
+                           <option>6</option>
+                           <option>7</option>
+                           <option>8</option>
+                         </React.Fragment>
+                       ) : (
+                         <React.Fragment>
+                           <option>1</option>
+                           <option>2</option>
+                           <option>3</option>
+                           <option>4</option>
+                         </React.Fragment>
+                       )
+                     ) : (
+                       <React.Fragment>
+                         <option disabled>Select B.Tech/M.Tech</option>
+                       </React.Fragment>
+                     )}
+                   </select>
+                  }
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                   </div>
