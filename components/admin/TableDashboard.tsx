@@ -26,6 +26,11 @@ const tableColumns = [
     Header: "Duration",
     accessor: "internship_start_date",
     Filter: ColumnFilter,
+    Cell: ({ row: { original } }) => (
+      <div>
+        {timeDuration(original.internship_start_date,original.internship_end_date) } Days
+      </div>
+    )
   },
   {
     Header: "Company Name",
@@ -33,6 +38,14 @@ const tableColumns = [
     Filter: ColumnFilter,
   },
 ];
+
+const timeDuration=(start,end)=>{
+  const startDate:any=new Date(start);
+  const endDate:any=new Date(end);
+  const diffTime = Math.abs(endDate - startDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+}
 
 export default function TableDashboard() {
   const [internships, setInternships] = useState([]);
