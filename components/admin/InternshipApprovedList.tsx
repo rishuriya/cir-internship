@@ -3,7 +3,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import InternshipCard from "./InternshipCard";
 import { useEffect } from "react";
 import { CSVLink, CSVDownload } from "react-csv";
-import { useTable, useGlobalFilter, useFilters } from "react-table";
+import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
 import InternshipDetailsModal from "./InternshipDetailsModal";
 import React from "react";
 import ApprovalDisapproval from "./ApprovalDisapproval";
@@ -26,6 +26,11 @@ const tableColumns = [
     Header: "Duration",
     accessor: "internship_start_date",
     Filter: ColumnFilter,
+    Cell: ({ row: { original } }) => (
+      <div>
+        {timeDuration(original.internship_start_date,original.internship_end_date) } Days
+      </div>
+    )
   },
   {
     Header: "Company Name",
@@ -33,6 +38,14 @@ const tableColumns = [
     Filter: ColumnFilter,
   },
 ];
+
+const timeDuration=(start,end)=>{
+  const startDate:any=new Date(start);
+  const endDate:any=new Date(end);
+  const diffTime = Math.abs(endDate - startDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+}
 
 export default function InternshipApprovedList() {
   const [internships, setInternships] = useState([]);
@@ -58,13 +71,21 @@ export default function InternshipApprovedList() {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
+    page,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    gotoPage,
+    pageCount,
+    nextPage,
+    previousPage,
     prepareRow,
     state,
     setGlobalFilter,
-  } = useTable({ columns, data }, useFilters, useGlobalFilter);
+    setPageSize
+  } = useTable({ columns, data }, useFilters, useGlobalFilter, usePagination);
 
-  const { globalFilter } = state;
+  const { globalFilter, pageIndex, pageSize } = state;
 
   useEffect(() => {
     fetch("/api/admin/approvedInternships", {
@@ -146,7 +167,7 @@ export default function InternshipApprovedList() {
             ))}
           </thead>
           <tbody className="divide-y-2" {...getTableBodyProps()}>
-            {rows.map((row, i) => {
+            {page.map((row, i) => {
               prepareRow(row);
               return (
                 <tr key={i} {...row.getRowProps()}>
@@ -179,6 +200,49 @@ export default function InternshipApprovedList() {
             })}
           </tbody>
         </table>
+        <div>
+          <span>
+            Page{' '}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>
+          </span>
+          <span>
+            <select
+            value={pageSize}
+            onChange={e => setPageSize(Number(e.target.value))}>
+              {
+                [1,10,20,50].map(pageSize => (
+                  <option key={pageSize} value={pageSize}>
+                    Show {pageSize}
+                  </option>
+                ))
+              }
+            </select>
+          </span>
+          <button
+            onClick={() => gotoPage(0)}
+            disabled={!canPreviousPage}>
+            {'<<'}
+          </button>
+          <button
+            className="p-1 bg-red-500 m-2"
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}>
+            previous
+          </button>
+          <button
+            className="p-1 bg-green-500 text-white m-2"
+            onClick={() => nextPage()}
+            disabled={!canNextPage}>
+            next
+          </button>
+          <button
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}>
+            {'>>'}
+          </button>
+        </div>
       </div>
     </>
   );
