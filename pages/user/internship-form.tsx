@@ -82,6 +82,8 @@ function InternshipForm() {
     });
     });
   },[data]);
+
+
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
@@ -164,14 +166,19 @@ function InternshipForm() {
       });
       const resData = await res.json();
       if (resData.success && resUserData.success) {
-        router.push("/user"
-        );
+        router.push("/user");
         setLoading(false);
         return;
       }else{
-        if(resData.error){
+        if(res.status===400){
           setError(resData.error);
           setLoading(false);
+          return;
+        }
+        if(res.status===401){
+          setError("You are Unauthorised");
+          setLoading(false);
+          router.push("/login")
           return;
         }
         setError("Something went wrong");
@@ -205,7 +212,18 @@ function InternshipForm() {
     } else {
       setStatus(false)
     }
+  };
+
+  let validatingContacs = (text) => {
+      var contact =  /^\d{1}|\+{1}? ?\d+$/;
+      if(text.value.match(contact)){
+        return true;
+      }
+      else{
+        return false;
+      }
   }
+
   return (
     <>
 
@@ -218,47 +236,39 @@ function InternshipForm() {
           <form
             onSubmit={handleSubmit}
             className="w-full">
-              {console.log(editDetail)}
+
             {/* Personal Details  */}
             <div className="my-3 mx-2 text-white font-semibold uppercase flex flex-row">
               Personal Details
               <div onClick={() => setEditDetail(!editDetail)} className=" mx-3">{
                 editDetail ?
                   <MdOutlineModeEditOutline size={24} /> :
-                  <MdOutlineEditOff size={24} />
+                  <MdOutlineEditOff size={24} className={"fill-slate-700"}/>
               }
-              </div>
+              </div>  
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="name">
                   Full name
                 </label>
-                {
-                  !editDetail ? <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                   name="name" id="name" type="text" placeholder="Full Name"  defaultValue ={username["name"]} readOnly />
-                   : 
-                  <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 
-                  leading-tight focus:outline-none focus:bg-white"
-                  name="name" id="name" type="text" placeholder="Full Name" />
-                  }
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-gender">
                   Gender
                 </label>
                 <div className="relative">
+                  {/* <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="gender" id="grid-gender" value={username["gender"]} required readOnly>
+                  </input> */}
                   {
-                  !editDetail?
-                  <input className="appearance-none block w-full bg-gray-100 text-gray-700 border 
-                  rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
-                  name="gender" id="grid-gender" defaultValue={username["gender"]} readOnly/>
-                  :
                   <select className="appearance-none block 
                   w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight 
                   focus:outline-none focus:bg-white" name="gender" id="grid-gender" 
                   defaultValue ={username["name"]}
                   // onChange={handleCourseChange}
+                  disabled={!editDetail}
                   >
                   <option disabled>Select Gender</option>
                   <option>Male</option>
@@ -273,20 +283,26 @@ function InternshipForm() {
               </div>
             </div>
 
-          {/* <div className="flex flex-wrap -mx-3 mb-6"> */}
+          <div className="flex flex-wrap -mx-3 mb-6">
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="email">
                 Email
-              </label>{
-                !editDetail ?<input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/>
-                :<input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student mail-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" />
+                
+              </label>
+            {
+              !editDetail ?
+              <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student email-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/> 
+              :
+              <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student email-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]}/>
 
-              }
+            }
+              {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/> */}
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
                 Phone No.
               </label>
+              {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/> */}
               {
                 !editDetail ? 
               <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/>
@@ -294,26 +310,15 @@ function InternshipForm() {
               <input pattern="[0-9,+]{10,15}" title="Type numbers without spaces/Number invalid" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" />
               }
             </div>
-
+          </div>
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-school">
                   School
                 </label>
                 <div className="relative">
-                  {/* <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="school" id="grid-school" required defaultValue={username["school"]} readOnly>
-                  </input> */}
-
-                  {
-                    !editDetail ?
-                     <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="school" id="grid-school" required defaultValue={username["school"]} readOnly>
-                    </input>
-                    :
-                    <select className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="school" id="grid-school" required>
-                  <option value="Amrita School Of Engineering">Amrita School Of Engineering</option>
-                  <option value="Amrita School Of Arts and Science">Amrita School Of Arts and Science</option>
-                </select>
-                  }
+                  <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="school" id="grid-school" required defaultValue={username["school"]} readOnly>
+                  </input>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                   </div>
@@ -323,17 +328,7 @@ function InternshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll">
                   Roll Number
                 </label>
-                {/* pattern="[AM]{0,2}\.[A-Za-z]{0,2}\.[A-Z].{0,9}"
-              title="Enter valid Student Roll number"  */}
-              {
-                !editDetail ? 
                 <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="roll" id="roll" type="text" placeholder="AM.XX.XXXXXXX" defaultValue={username["rollno"]} readOnly />
-                :
-                <input pattern="[AM]{0,2}\.[A-Za-z]{0,2}\.[A-Z].{0,9}"
-                title="Enter valid Student Roll number" 
-                required className="appearance-none block w-fullbg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 
-                leading-tight focus:outline-none focus:bg-white" name="roll" id="roll" type="text" placeholder="AM.XX.XXXXXXX"  />
-              }
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-2">
@@ -342,17 +337,8 @@ function InternshipForm() {
                   Course
                 </label>
                 <div className="relative">
-                  {/* <input className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="course" id="grid-course" required defaultValue={username["course"]} readOnly >
-                  </input> */}
-                  {
-                    !editDetail 
-                    ? <input className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="course" id="grid-course" required defaultValue={username["course"]} readOnly />
-                    :
-                    <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="course" id="grid-course">
-                    <option>B.Tech</option>
-                    <option>M.Tech</option>
-                  </select>
-                  }
+                  <input className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="course" id="grid-course" required defaultValue={username["course"]} readOnly >
+                  </input>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                   </div>
@@ -363,48 +349,8 @@ function InternshipForm() {
                   Branch
                 </label>
                 <div className="relative">
-                  {/* <input className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="branch" id="grid-branch" required defaultValue={username["branch"]} readOnly>
-                  </input> */}
-                  {
-                    !editDetail ? 
-                    // <input className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="branch" id="grid-branch" required defaultValue={username["branch"]} readOnly>
-                    /* </input>  */
-                    <select className="block appearance-none w-full bg-gray-100 border border-gray-200 
-                    text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
-                    focus:bg-white focus:border-gray-500" name="branch" id="grid-branch" required defaultValue={username["branch"]} />
-                    :(
-                    <select className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight 
-                    focus:outline-none focus:bg-white focus:border-gray-500" 
-                    name="branch" id="grid-branch"  >
-                  {course === "B.Tech" || course === "M.Tech" ? (
-                    course === "B.Tech" ? (
-                      <React.Fragment>
-                        <option disabled>Select Specialization</option>
-                        <option>AIE - Artificial Intelligence</option>
-                        <option>CSE - Computer Science</option>
-                        <option>ECE - Electronics & Communication</option>
-                        <option>EAC - Electronics & Computer</option>
-                        <option>ELC - Electrcial & Computer</option>
-                        <option>EEE - Electrcial & Electronics</option>
-                        <option>MEE - Mechanical Engineering</option>
-                      </React.Fragment>
-                    ) : (
-                      <React.Fragment>
-                        <option disabled>Select Specialization</option>
-                        <option>CS - Computer Science</option>
-                        <option>EC - Electronics & Communication</option>
-                        <option>EE - Electrcial & Electronics</option>
-                        <option>ME - Mechanical Engineering</option>
-                      </React.Fragment>
-                    )
-                  ) : (
-                    <React.Fragment>
-                      <option disabled>Select Specialization</option>
-                    </React.Fragment>
-                  )}
-                </select>
-                    )
-                  }
+                  <input className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="branch" id="grid-branch" required defaultValue={username["branch"]} readOnly>
+                  </input>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                   </div>
@@ -415,40 +361,43 @@ function InternshipForm() {
                   Present Semester
                 </label>
                 <div className="relative">
-                  {/* <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]} readOnly>
+                  {/* <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 
+                  rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]} readOnly>
                   </input> */}
                   {
-                    !editDetail ? <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]} readOnly>
-                    </input>
-                    :
-                    <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" >
-                  <option disabled>Select Semster</option>
-                  {course === "B.Tech" || course === "M.Tech" ? (
-                    course === "B.Tech" ? (
-                      <React.Fragment>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        <option>6</option>
-                        <option>7</option>
-                        <option>8</option>
-                      </React.Fragment>
-                    ) : (
-                      <React.Fragment>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                      </React.Fragment>
-                    )
-                  ) : (
-                    <React.Fragment>
-                      <option disabled>Select B.Tech/M.Tech</option>
-                    </React.Fragment>
-                  )}
-                </select>
+                     <select 
+                     required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
+                     focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]}
+                     disabled={!editDetail}
+                     >
+                     
+                     <option disabled>Select Semster</option>
+                     {course === "B.Tech" || course === "M.Tech" ? (
+                       course === "B.Tech" ? (
+                         <React.Fragment>
+                           <option>1</option>
+                           <option>2</option>
+                           <option>3</option>
+                           <option>4</option>
+                           <option>5</option>
+                           <option>6</option>
+                           <option>7</option>
+                           <option>8</option>
+                         </React.Fragment>
+                       ) : (
+                         <React.Fragment>
+                           <option>1</option>
+                           <option>2</option>
+                           <option>3</option>
+                           <option>4</option>
+                         </React.Fragment>
+                       )
+                     ) : (
+                       <React.Fragment>
+                         <option disabled>Select B.Tech/M.Tech</option>
+                       </React.Fragment>
+                     )}
+                   </select>
                   }
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
@@ -460,20 +409,8 @@ function InternshipForm() {
                   Year Of Joining
                 </label>
                 <div className="relative">
-                  {/* <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="year_of_joining" id="grid-joining-year" defaultValue={username["year_of_joining"]}>
-                  </input> */}
-                  {
-                    !editDetail ?<input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="year_of_joining" id="grid-joining-year" defaultValue={username["year_of_joining"]}>
-                    </input>
-                    :
-                    <select required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="year_of_joining" id="grid-joining-year" defaultValue={username["year_of_joining"]}>
-                    <option>{year}</option>
-                    <option>{year - 1}</option>
-                    <option>{year - 2}</option>
-                    <option>{year - 3}</option>
-                    <option>{year - 4}</option>
-                  </select>
-                  }
+                  <input required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="year_of_joining" id="grid-joining-year" defaultValue={username["year_of_joining"]}>
+                  </input>
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                   </div>
@@ -660,7 +597,6 @@ function InternshipForm() {
               
             </div>
 
-
           </form>
         </div>
       </div>
@@ -669,4 +605,3 @@ function InternshipForm() {
 }
 
 export default InternshipForm;670961
-
