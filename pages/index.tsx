@@ -14,7 +14,7 @@ export default function landingPage() {
                     
                 </div>
                 <div className="flex space-x-8 m-5 items-start p-4 sm:justify-center text-lg font-medium">
-                    <Link href={"/"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer truncate">Home</div></Link>
+                    {/* <Link href={"/"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer truncate">Home</div></Link> */}
                     <Link href={"/login"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer truncate">Login</div></Link>
                     <Link href={"/signup"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer truncate">Sign up</div></Link>
 

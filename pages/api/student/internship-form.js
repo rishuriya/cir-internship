@@ -7,10 +7,11 @@ export default async function handeler(req,res) {
     try{
         let internship = new Internship(req.body);
 
-        if(!req.isAuth){
+        console.log("erererere: ",res.headers.isauth);
+
+        if(!res.headers.isauth){
             return await res.status(401).json({success:false,message:'not authenticated'})
         }
-        
         if(!internship){
             return res.status(400).json({success:false,message:'Internship form not created'})
         }
