@@ -5,9 +5,9 @@ export async function middleware(req) {
   // console.log("middleware working");
   const response = NextResponse.next()
   // response.headers.append({"isAuth":false});
-  req.headers.append("isAuth",false);
-  console.log("middleware working");
-  console.log(req);
+  // req.headers.append("isAuth",false);
+  // console.log("middleware working");
+  // console.log(req);
     
   // req.isAuth=false
   // req.user=null
@@ -27,8 +27,8 @@ export async function middleware(req) {
     };
   }
 
-  console.log("asdrewdcdf: ",response);
-  return response
+  // console.log("asdrewdcdf: ",response);
+  // return response
 }
 
 
