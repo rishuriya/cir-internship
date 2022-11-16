@@ -96,7 +96,7 @@ export default function InternshipApprovedList() {
     }).then(async (res) => {
       const resData = await res.json();
       if (resData.success) {
-        console.log(resData.data);
+        // console.log(resData.data);
         setInternships(resData.data);
         setData(resData.data);
         // setCsvData(resData.data);
@@ -200,7 +200,7 @@ export default function InternshipApprovedList() {
             })}
           </tbody>
         </table>
-        <div>
+        <div className="my-5 mx-5">
           <span>
             Page{' '}
             <strong>
@@ -209,10 +209,11 @@ export default function InternshipApprovedList() {
           </span>
           <span>
             <select
+            className="ml-2 inline-flex items-center justify-center whitespace-nowrap px-2 py-1"
             value={pageSize}
             onChange={e => setPageSize(Number(e.target.value))}>
               {
-                [1,10,20,50].map(pageSize => (
+                [5,10,20,50].map(pageSize => (
                   <option key={pageSize} value={pageSize}>
                     Show {pageSize}
                   </option>
@@ -222,23 +223,25 @@ export default function InternshipApprovedList() {
           </span>
           <button
             onClick={() => gotoPage(0)}
+              className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
             disabled={!canPreviousPage}>
             {'<<'}
           </button>
           <button
-            className="p-1 bg-red-500 m-2"
+            className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
             onClick={() => previousPage()}
             disabled={!canPreviousPage}>
-            previous
+             Previous
           </button>
           <button
-            className="p-1 bg-green-500 text-white m-2"
+            className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
             onClick={() => nextPage()}
             disabled={!canNextPage}>
-            next
+            Next
           </button>
           <button
             onClick={() => gotoPage(pageCount - 1)}
+            className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
             disabled={!canNextPage}>
             {'>>'}
           </button>
