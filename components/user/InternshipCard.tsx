@@ -58,7 +58,7 @@ export default function InternshipCard({id}) {
             body
           }).then(async (response) => {
            const fileres = await response.json();
-           var url=(fileres.url).replace("./pages","");
+           var url=(fileres.url).replace("./public/","");
            const bodyObject={
             _id:internship["_id"],
             hod_letter: url,

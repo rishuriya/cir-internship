@@ -92,7 +92,7 @@ export default function InternshipCard({ internship, isApproved }) {
         const resData = await res.json();
         // console.log(resData);
         await setStudent(resData.data);
-        console.log(internship.hod_letter,"jtyjty");
+        //console.log(internship.hod_letter,"jtyjty");
         setLoading(false);
       }else{
         await setStudent("");
@@ -323,14 +323,16 @@ export default function InternshipCard({ internship, isApproved }) {
                 <div className="flex flex-row">
                     <span className="pr-2"> HOD Approval Letter</span>
                     {internship.hod_letter!==undefined?
+                    <Link href={internship.hod_letter}>
                       <AiOutlineDownload
                         className="fill-primary cursor-pointer"
-                        onClick={()=>router.push({
-                          pathname: 'pdfviewer',
-                          query: { id: internship.hod_letter },
-                       },'/admin/pdfviewer')}
+                      //   onClick={()=>router.push({
+                      //     pathname: 'pdfviewer',
+                      //     query: { id: internship.hod_letter },
+                      //  },'/admin/pdfviewer')}
                         size={28}
                       />
+                      </Link>
                     :
                      <AiOutlineDownload
                      className="fill-primary/30"

@@ -23,7 +23,6 @@ function InternshipForm() {
   const [userRoll, setUserRoll] = useState("");
   const [editDetail, setEditDetail] = useState(false);
   const [username, setUserName] = useState([]);
-  const [url,setUrl]=useState("");
   let user_name
   let date_ob = new Date();
   var year = date_ob.getFullYear()
@@ -32,9 +31,7 @@ function InternshipForm() {
   let name;
   let roll;
   let fileres;
-  let email;
-  // let token;
-  let isAdmin;
+  let url;
   const router = useRouter()
 
   const dispatch = useDispatch();
@@ -101,7 +98,7 @@ function InternshipForm() {
     });
   
      fileres = await response.json();
-     setUrl((fileres.url).substr(6));
+     url =(fileres.url).replace("./public/","");
     }
       if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member=="" ){
         member_data=null;
@@ -118,20 +115,7 @@ function InternshipForm() {
         setLoading(false);
         return;
       }
-      if(!((data.internship_end_date)>(data.internship_start_date)) ){
-        setError("Please enter valid start and end dates");
-        setLoading(false);
-        return;
-      }
-      if(data.training_type===undefined || data.training_type==="" || data.internship_mode===undefined){
-        setError("Please fill/select all the fields");
-        setLoading(false);
-        return;
-      }
-      else{
-        member_data=JSON.stringify(formValues)
-      }
-      const bodyObject = {
+      const bodyObject={
         user: user[0]["id"],
         name: user[0]["name"],
         roll: user[0]["rollno"],
