@@ -60,7 +60,7 @@ function Signup() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-      
+
       Router.push("/admin");
       setLoading(false);
     } catch (e) {
@@ -131,15 +131,6 @@ function Signup() {
             </div>
           </div>
           <input type="hidden" name="role" value="Admin"/>
-
-          {/* <div className="my-3 mx-10">
-            Already have an account?{" "}
-            <Link href="/login">
-              <span className="text-blue-500 hover:underline cursor-pointer">
-                Login
-              </span>
-            </Link>
-          </div> */}
 
           {!loading ? (
             <button
