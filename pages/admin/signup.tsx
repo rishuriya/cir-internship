@@ -19,23 +19,28 @@ function Signup() {
   const [passwordInput, setPasswordInput] = useState("");
   const [error, setError] = useState("");
 
-  const authUser: any = useSelector((state: RootState) => state.user.value);
   const dispatch = useDispatch()
-
+  
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
+  const authUser: any = useSelector((state: RootState) => state.user.value);
 
   useEffect(() => {
-    if (authUser === null || !authUser.isAdmin) {
-      Router.push("/admin/login");
-      return;
-    }
+    console.log(authUser)
+    // if ((authUser === null || !authUser.isAdmin)) {
+    //   Router.push("/admin/login");
+    // }
   },[])
 
   const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
+      if(!authUser){
+        setError("Please login first");
+        Router.push("/admin/login");
+        return;
+      }
       alert("Admin being created by " + authUser.name);
       setError("");
       setLoading(true);
@@ -44,6 +49,12 @@ function Signup() {
       }
       
       const data = Object.fromEntries(new FormData(e.target).entries());
+
+      if(data.password!==data.confirm_password){
+        throw("Confirm Password does not match!");
+        setLoading(false);
+        return;
+      }
       
       const bodyObject={
         name: data.name,
@@ -64,6 +75,8 @@ function Signup() {
       Router.push("/admin");
       setLoading(false);
     } catch (e) {
+      console.log("sdsdsdsd",e);
+      
       setError(e);
       setLoading(false);
     }
@@ -78,7 +91,9 @@ function Signup() {
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
         
-        
+          <div className="my-2 hover:text-blue-500 cursor-pointer text-lg " onClick={()=>Router.push("/admin")}>
+            Back
+          </div>
           <h1 className="text-3xl my-5 font-bold ">Admin Signup</h1>
 
           <div className="my-3 mx-3">
@@ -112,6 +127,30 @@ function Signup() {
               className="peer border-2 border-primaryDark rounded-xl px-3 py-2 focus:border-cyan-500 focus:outline-none focus:shadow-xl invalid:border-red-500"
               name="password"
               placeholder="Password"
+              onChange={(e) => setPasswordInput(e.target.value)}
+              required
+            />
+            
+            <div
+              className="absolute peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:top-8 top-8 right-4 z-20 cursor-pointer"
+              onClick={showPasswordHandler}>
+              {showPassword ? (
+                <React.Fragment>
+                  <AiFillEye size={26} />
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <AiFillEyeInvisible size={26} />
+                </React.Fragment>
+              )}
+            </div>
+
+            <div className=" mx-2 my-2 font-medium ">Confirm Password</div>
+            <input
+              type={showPassword ? "text" : "password"}
+              className="peer border-2 border-primaryDark rounded-xl px-3 py-2 focus:border-cyan-500 focus:outline-none focus:shadow-xl invalid:border-red-500"
+              name="confirm_password"
+              placeholder="Confirm Password"
               onChange={(e) => setPasswordInput(e.target.value)}
               required
             />
