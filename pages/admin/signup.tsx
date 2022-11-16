@@ -71,25 +71,8 @@ function Signup() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-
-      if (res.status === 200 && resData.success) {
-        const userObj={
-          name: resData.user.name,
-          email: resData.user.email,
-          isAdmin: true,
-          token: resData.token,
-        }
-        dispatch(update(userObj));
-        cookie.set("token", resData.token);
-        // cookie.set("id", resData.user._id);
-        // cookie.set("email", resData.user.email);
-        Router.push("/admin");
-      } else {
-        if(res.status===400){
-          throw resData.message;
-        }
-        throw "Something went wrong!";
-      }
+      
+      Router.push("/admin");
       setLoading(false);
     } catch (e) {
       console.log("sdsdsdsd",e);
