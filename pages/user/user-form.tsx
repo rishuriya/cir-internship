@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { ImSpinner2 } from "react-icons/im";
 import { getUser } from '../../utils/getUser'
 import React, { useEffect, useState } from "react";
+import { MdOutlineEditOff, MdOutlineModeEditOutline } from "react-icons/md";
 
 function StudentForm() {
   let date_ob = new Date();
@@ -16,6 +17,7 @@ function StudentForm() {
   const [userRoll, setUserRoll] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [editDetail, setEditDetail] = useState(false);
   const handleCourseChange = (e) => {
     setCourse(e.target.value);
   }
@@ -78,8 +80,17 @@ function StudentForm() {
         <form
           onSubmit={handleSubmit}
           className="w-full">
-          <div className="my-3 mx-2 text-white font-semibold uppercase">Personal Details</div>
-          <div className="flex flex-wrap -mx-3 mb-6">
+          <div className="my-3 mx-2 text-white font-semibold uppercase"onClick={() => setEditDetail(!editDetail)}>
+          
+              Personal Details <div onClick={() => setEditDetail(!editDetail)} className=" mx-3">{
+                editDetail ?
+                  <MdOutlineModeEditOutline size={24} /> :
+                  <MdOutlineEditOff size={24} />
+              }
+              </div>
+              
+              </div>
+          <div className="flex flex-wrap -mx-3 mb-6" >
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="name">
                 Full name
@@ -109,7 +120,8 @@ function StudentForm() {
               <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="email">
                 Email
               </label>
-              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" value={userEmail}/>
+              {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" value={userEmail}/> */}
+              <input pattern=".*@am\.students\.amrita\.edu" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" value={userEmail}/>
             </div>
             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
               <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
