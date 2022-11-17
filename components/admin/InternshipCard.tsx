@@ -9,13 +9,12 @@ import {
   AiOutlineDownload,
   AiOutlineLoading3Quarters,
 } from "react-icons/ai";
-import { useRouter } from "next/router";
 
 export default function InternshipCard({ internship, isApproved }) {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
-  const router=useRouter();
+
   //modal
   let [isOpen, setIsOpen] = useState(false);
   let [approve, setApprove] = useState("");
@@ -92,7 +91,6 @@ export default function InternshipCard({ internship, isApproved }) {
         const resData = await res.json();
         // console.log(resData);
         await setStudent(resData.data);
-        //console.log(internship.hod_letter,"jtyjty");
         setLoading(false);
       }else{
         await setStudent("");
@@ -322,18 +320,15 @@ export default function InternshipCard({ internship, isApproved }) {
                 )}
                 <div className="flex flex-row">
                     <span className="pr-2"> HOD Approval Letter</span>
-                    {internship.hod_letter!==undefined?
-                    <Link href={internship.hod_letter}>
+                    {internship.hod_letter!==undefined?<Link
+                      href={
+                         internship.hod_letter
+                      }>
                       <AiOutlineDownload
                         className="fill-primary cursor-pointer"
-                      //   onClick={()=>router.push({
-                      //     pathname: 'pdfviewer',
-                      //     query: { id: internship.hod_letter },
-                      //  },'/admin/pdfviewer')}
                         size={28}
                       />
-                      </Link>
-                    :
+                    </Link>:
                      <AiOutlineDownload
                      className="fill-primary/30"
                      size={28}
