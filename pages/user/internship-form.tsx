@@ -31,7 +31,9 @@ function InternshipForm() {
   let name;
   let roll;
   let fileres;
-  let url;
+  let email;
+  // let token;
+  let isAdmin;
   const router = useRouter()
 
   const dispatch = useDispatch();
@@ -102,12 +104,9 @@ function InternshipForm() {
     });
   
      fileres = await response.json();
-     url =(fileres.url).replace("./public/","");
     }
       if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member=="" ){
         member_data=null;
-      }else{
-        member_data=JSON.stringify(formValues)
       }
       if(!((data.internship_end_date)>(data.internship_start_date)) ){
         setError("Please enter valid start and end dates");
@@ -119,7 +118,10 @@ function InternshipForm() {
         setLoading(false);
         return;
       }
-      const bodyObject={
+      else{
+        member_data=JSON.stringify(formValues)
+      }
+      const bodyObject = {
         user: user[0]["id"],
         name: user[0]["name"],
         roll: user[0]["rollno"],
@@ -132,9 +134,9 @@ function InternshipForm() {
         internship_start_date: data.internship_start_date,
         internship_end_date: data.internship_end_date,
         internship_mode: data.internship_mode,
-        company_website:data.company_website,
-        request_letter:image!=null?url:null,
-        member:member_data
+        company_website: data.company_website,
+        request_letter: image != null ? fileres.url : null,
+        member: member_data
       };
       const userObject = {
         name: data.name,
@@ -148,8 +150,7 @@ function InternshipForm() {
         phone: data.phone,
         year_of_joining: data.year_of_joining,
       };
-      console.log("rv sir")
-      console.log(fileres.url);
+      //console.log(bodyObject);
       const resUser = await fetch("/api/student/userdetails", {
         method: "POST",
         headers: {
