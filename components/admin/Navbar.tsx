@@ -70,15 +70,21 @@ export default function Navbar() {
           </div>
 
           <Popover.Group as="nav" className="hidden space-x-5 md:space-x-10 md:flex">
-            <Link href="/admin" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
-              Home
-            </Link>
-            <Link href="/admin/approved-internships" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
-            Approved Internships
-            </Link>
-            <Link href="/admin/signup" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
-              Add Admin
-            </Link>         
+          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+          <Link href="/admin">
+            Home
+          </Link>
+          </div>
+          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+          <Link href="/admin/approved-internships">
+          Approved Internships
+          </Link>
+          </div>
+          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+          <Link href="/admin/signup">
+          Add Admin
+          </Link>
+          </div>         
           </Popover.Group>
 
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">

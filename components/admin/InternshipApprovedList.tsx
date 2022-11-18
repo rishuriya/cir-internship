@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import InternshipCard from "./InternshipCard";
 import { useEffect } from "react";
 import { CSVLink, CSVDownload } from "react-csv";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
@@ -28,7 +27,12 @@ const tableColumns = [
     Filter: ColumnFilter,
     Cell: ({ row: { original } }) => (
       <div>
-        {timeDuration(original.internship_start_date,original.internship_end_date) } Days
+       <p>
+        {timeDuration(original.internship_start_date, original.internship_end_date)} Days
+      </p>
+      <div>
+        {toDDmmm(original.internship_start_date)} - {toDDmmm(original.internship_end_date)}
+      </div> 
       </div>
     )
   },
@@ -45,6 +49,11 @@ const timeDuration=(start,end)=>{
   const diffTime = Math.abs(endDate - startDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return diffDays;
+}
+const toDDmmm = (date) => {
+  const d = new Date(date);
+  const month = d.toLocaleString('default', { month: 'short' });
+  return `${d.getDate()} ${month}`;
 }
 
 export default function InternshipApprovedList() {
@@ -96,10 +105,8 @@ export default function InternshipApprovedList() {
     }).then(async (res) => {
       const resData = await res.json();
       if (resData.success) {
-        // console.log(resData.data);
         setInternships(resData.data);
         setData(resData.data);
-        // setCsvData(resData.data);
       }
     });
   }, []);
@@ -194,7 +201,7 @@ export default function InternshipApprovedList() {
                       Details
                     </button>
                   </td>
-                  <p className="text-center">Approved</p>
+                  <td className="text-center rounded-lg mx-7 items-center justify-center whitespace-nowrap text-green-700 py-1 px-4">Approved</td>
                 </tr>
               );
             })}

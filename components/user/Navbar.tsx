@@ -54,7 +54,6 @@ export default function Navbar() {
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link href="/user">
-              {/* <span className="sr-only">Amrita Vishwa Vidyapeetham</span> */}
               <img
                 className="h-10 w-auto sm:h-16"
                 src="https://upload.wikimedia.org/wikipedia/en/f/f8/Amrita-vishwa-vidyapeetham-color-logo.png"
@@ -70,12 +69,16 @@ export default function Navbar() {
           </div>
 
           <Popover.Group as="nav" className="hidden space-x-5 md:space-x-10 md:flex">
-            <Link href="/user" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
-              Home
-            </Link>
-            <Link href="/user/internship-form" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
-              Add Internship
-            </Link>         
+          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+          <Link href="/user">
+            Home
+          </Link>
+          </div>
+          <div className="py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+          <Link href="/user/internship-form" >
+            Add Internship
+          </Link>         
+          </div>
           </Popover.Group>
 
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
@@ -126,8 +129,7 @@ export default function Navbar() {
                   <img
                     className="h-8 w-auto"
                     src="https://upload.wikimedia.org/wikipedia/en/f/f8/Amrita-vishwa-vidyapeetham-color-logo.png"
-                    alt="Your Company"
-                  />
+                    alt="Your Company"/>
                 </div>
                
                 <div className="-mr-2">
@@ -146,8 +148,7 @@ export default function Navbar() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
-                    >
+                      className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
                       <item.icon className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
                       {/* <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span> */}
                     </Link>
@@ -163,7 +164,6 @@ export default function Navbar() {
                   className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
                   Sign out
                 </button>
-                
               </div>
             </div>
           </div>

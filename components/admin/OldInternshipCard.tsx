@@ -48,7 +48,7 @@ export default function InternshipCard({ internship, isApproved }) {
       // console.log(resData);
       if (resData.success) {
         setIsOpen(false);
-        window.location.reload();
+        // window.location.reload();
       }
     });
   }
@@ -72,27 +72,25 @@ export default function InternshipCard({ internship, isApproved }) {
       // console.log(resData);
       if (resData.success) {
         setIsOpen(false);
-        window.location.reload();
+        // window.location.reload();
       }
     });
   };
 
-
   useEffect(() => {
-
     fetch(`/api/student/${internship.user}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-      }
+      },
     }).then(async (res) => {
       // console.log(res);
-      if(res.status==200){
+      if (res.status == 200) {
         const resData = await res.json();
         // console.log(resData);
         await setStudent(resData.data);
         setLoading(false);
-      }else{
+      } else {
         await setStudent("");
       }
       setLoading(false);
@@ -118,9 +116,9 @@ export default function InternshipCard({ internship, isApproved }) {
 
   return (
     <>
-      {student===""?
-      <></>
-      :(!loading ? (
+      {student === "" ? (
+        <></>
+      ) : !loading ? (
         <>
           {/* modal */}
           <Transition appear show={isOpen} as={Fragment}>
@@ -250,30 +248,34 @@ export default function InternshipCard({ internship, isApproved }) {
               </p>
             </td>
 
-            { isApproved?
-            <td className="text-center py-6">
-              {internship.approved==="Approved"?
-              <p className="text-green-500">Approved</p>:
-              <p className="text-red-500">Declined</p>}
-            </td>
-            :<td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-              <div className="flex flex-row justify-center flex-nowrap ml-auto mr-5 mt-3 sm:mt-5 text-center">
-                <button
-                  onClick={handleApprove}
-                  className="flex bg-green-400 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"
-                >
-                  <AiOutlineCheck className="fill-green-700" size={26} />
-                  <span>Approve</span>
-                </button>
-                <button
-                  onClick={handleDisapprove}
-                  className="flex bg-red-300 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"
-                >
-                  <AiOutlineClose className="fill-red-700" size={26} />
-                  <span>Decline</span>
-                </button>
-              </div>
-            </td> }
+            {isApproved ? (
+              <td className="text-center py-6">
+                {internship.approved === "Approved" ? (
+                  <p className="text-green-500">Approved</p>
+                ) : (
+                  <p className="text-red-500">Declined</p>
+                )}
+              </td>
+            ) : (
+              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <div className="flex flex-row justify-center flex-nowrap ml-auto mr-5 mt-3 sm:mt-5 text-center">
+                  <button
+                    onClick={handleApprove}
+                    className="flex bg-green-400 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"
+                  >
+                    <AiOutlineCheck className="fill-green-700" size={26} />
+                    <span>Approve</span>
+                  </button>
+                  <button
+                    onClick={handleDisapprove}
+                    className="flex bg-red-300 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"
+                  >
+                    <AiOutlineClose className="fill-red-700" size={26} />
+                    <span>Decline</span>
+                  </button>
+                </div>
+              </td>
+            )}
           </tr>
           <tr className={showDetails ? "h-28 border-b-4" : "hidden"}>
             <td></td>
@@ -304,9 +306,7 @@ export default function InternshipCard({ internship, isApproved }) {
                   <div className="flex flex-row">
                     <span className="pr-2"> Offer Letter</span>
                     <Link
-                      href={
-                         internship.request_letter
-                      }
+                      href={internship.request_letter}
                       // href="/"
                     >
                       <AiOutlineDownload
@@ -319,22 +319,18 @@ export default function InternshipCard({ internship, isApproved }) {
                   <></>
                 )}
                 <div className="flex flex-row">
-                    <span className="pr-2"> HOD Approval Letter</span>
-                    {internship.hod_letter!==undefined?<Link
-                      href={
-                         internship.hod_letter
-                      }>
+                  <span className="pr-2"> HOD Approval Letter</span>
+                  {internship.hod_letter !== undefined ? (
+                    <Link href={internship.hod_letter}>
                       <AiOutlineDownload
                         className="fill-primary cursor-pointer"
                         size={28}
                       />
-                    </Link>:
-                     <AiOutlineDownload
-                     className="fill-primary/30"
-                     size={28}
-                   />
-                    }
-                  </div>
+                    </Link>
+                  ) : (
+                    <AiOutlineDownload className="fill-primary/30" size={28} />
+                  )}
+                </div>
                 {/* table for showing team members with their details */}
                 <div className="my-6">
                   {internship.member != null ? (
@@ -411,7 +407,7 @@ export default function InternshipCard({ internship, isApproved }) {
             size={32}
           />
         </>
-      ))}
+      )}
     </>
   );
 }

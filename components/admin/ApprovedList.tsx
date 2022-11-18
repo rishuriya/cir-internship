@@ -1,8 +1,5 @@
 import { useMemo, useState } from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import InternshipCard from "./InternshipCard";
 import { useEffect } from "react";
-import { CSVLink, CSVDownload } from "react-csv";
 import { useTable, useGlobalFilter, useFilters } from "react-table";
 import InternshipDetailsModal from "./InternshipDetailsModal";
 import React from "react";
@@ -43,6 +40,8 @@ export default function ApprovedInternships() {
   const [modal, setModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [StudentDetail, setStudentDetail] = useState({});
+  const [isDone, setIsDone] = useState(false);
+
 
   const columns = useMemo(() => tableColumns, []);
   const close = () => {
@@ -116,8 +115,7 @@ export default function ApprovedInternships() {
                       key={i}
                       scope="col"
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4"
-                      {...column.getHeaderProps()}
-                    >
+                      {...column.getHeaderProps()}>
                       {column.render("Header")}
                       <div>
                         {column.canFilter ? column.render("Filter") : null}
@@ -127,8 +125,7 @@ export default function ApprovedInternships() {
                   {i === headerGroups.length - 1 && (
                     <th
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
-                      scope="col"
-                    >
+                      scope="col">
                       Details
                     </th>
                   )}
@@ -136,8 +133,7 @@ export default function ApprovedInternships() {
                     <th
                       id="4"
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
-                      scope="col"
-                    >
+                      scope="col">
                       Approval
                     </th>
                   }
@@ -173,10 +169,6 @@ export default function ApprovedInternships() {
                       Details
                     </button>
                   </td>
-                  <ApprovalDisapproval
-                    internship={row.original}
-                    isApproved={false}
-                  />
                 </tr>
               );
             })}
