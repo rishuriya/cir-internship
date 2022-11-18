@@ -3,6 +3,7 @@ import React from "react";
 export const ColumnFilter = ({ column }) => {
 
     const { filterValue, setFilter } = column;
+    
     return (
         <span>
         <input
@@ -14,3 +15,8 @@ export const ColumnFilter = ({ column }) => {
         </span>
     );
 };
+
+export const DateFilter= ({ column })=>{
+
+
+}
