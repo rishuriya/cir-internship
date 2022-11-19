@@ -1,11 +1,8 @@
-import { useMemo, useState } from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { useEffect } from "react";
-import { CSVLink, CSVDownload } from "react-csv";
-import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
-import InternshipDetailsModal from "./InternshipDetailsModal";
 import React from "react";
-import ApprovalDisapproval from "./ApprovalDisapproval";
+import { useEffect } from "react";
+import { useMemo, useState } from "react";
+import InternshipDetailsModal from "./InternshipDetailsModal";
+import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
 
 import GlobalFilter from "./GlobalFilter";
 import { ColumnFilter } from "./ColumnFilter";
@@ -166,7 +163,7 @@ export default function InternshipApprovedList() {
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
                       scope="col"
                     >
-                      Approval Status
+                      Status
                     </th>
                   }
                 </tr>
