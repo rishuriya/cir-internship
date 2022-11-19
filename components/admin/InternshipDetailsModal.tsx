@@ -31,7 +31,8 @@ export default function DetailModal({closeModal, info} ) {
     const d = new Date(date);
     return d.toDateString();
   }
-
+  let member = info.member == null ? null : JSON.parse(info.member);
+  console.log(info.member);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => closeModal(false)}>
@@ -116,6 +117,70 @@ export default function DetailModal({closeModal, info} ) {
                           Dates : <span className='text-black'>{toDate(info.internship_start_date)} - {toDate(info.internship_end_date)}</span>
                         </p>
                         </div>
+                        <div>
+                  {info.member != null ? (
+                    <>
+                      <p>
+                        Team members :{" "}
+                        <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg">
+                          {member.length}
+                        </span>
+                      </p>
+                      <table className="mt-3">
+                        <thead>
+                          <tr>
+                            <th className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-900">Name</div>
+                            </th>
+                            <th className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-900">
+                                Roll No
+                              </div>
+                            </th>
+                            <th className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm text-gray-900">Email</div>
+                            </th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          {member.map((members) => {
+                            return (
+                              <>
+                                <tr>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm text-gray-900">
+                                      {members.name_member}
+                                    </div>
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm text-gray-900">
+                                      {members.roll_member}
+                                    </div>
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="text-sm text-gray-900">
+                                      {members.email_member}
+                                    </div>
+                                  </td>
+                                </tr>
+                              </>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </>
+                  ) : (
+                    <>
+                      <p>
+                        Team members :{" "}
+                        <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg">
+                          None
+                        </span>
+                      </p>
+                    </>
+                  )}
+                </div>
                       </div>
                     </div>
                   </div>
