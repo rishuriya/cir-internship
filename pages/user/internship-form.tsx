@@ -33,6 +33,7 @@ function InternshipForm() {
   let fileres;
   let email;
   // let token;
+  let url
   let isAdmin;
   const router = useRouter()
 
@@ -104,9 +105,13 @@ function InternshipForm() {
     });
   
      fileres = await response.json();
+     url = fileres.url.replace("./public/", "");
     }
       if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member=="" ){
         member_data=null;
+      }
+      else{
+        member_data=JSON.stringify(formValues)
       }
       if(!((data.internship_end_date)>(data.internship_start_date)) ){
         setError("Please enter valid start and end dates");
@@ -118,9 +123,7 @@ function InternshipForm() {
         setLoading(false);
         return;
       }
-      else{
-        member_data=JSON.stringify(formValues)
-      }
+      
       const bodyObject = {
         user: user[0]["id"],
         name: user[0]["name"],
@@ -135,7 +138,7 @@ function InternshipForm() {
         internship_end_date: data.internship_end_date,
         internship_mode: data.internship_mode,
         company_website: data.company_website,
-        request_letter: image != null ? fileres.url : null,
+        request_letter: image != null ? url : null,
         member: member_data
       };
       const userObject = {
