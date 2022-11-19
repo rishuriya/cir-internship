@@ -6,7 +6,7 @@ import { unsetUser } from '../../slices/userSlice'
 import { useSelector,useDispatch } from 'react-redux'
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import {AiOutlineFileAdd,AiOutlineCheck, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
+import {AiOutlineFileAdd, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
 
 const navOptions = [
   {
