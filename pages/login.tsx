@@ -204,7 +204,7 @@ function Login() {
             <></>
           )}
 
-         <Link href={"admin/login"}>
+         <Link href="admin/login">
             <div className="hover:underline text-blue-500 cursor-pointer font-medium mt-6">
             Admin Login
             </div>

@@ -55,7 +55,6 @@ const toDDmmm = (date) => {
 } 
 
 export default function TableDashboard() {
-  const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [csvData, setCsvData] = useState([]);
   const [data, setData] = useState([]);
@@ -104,18 +103,11 @@ export default function TableDashboard() {
     }).then(async (res) => {
       const resData = await res.json();
       if (resData.success) {
-        setInternships(resData.data);
         setData(resData.data);
       }
     });
     setIsDone(false);
   }, [isDone]);
-
-  useEffect(() => {
-    if (internships.length > 0) {
-      setLoading(false);
-    }
-  }, [internships]);
 
   function StudentDetails(row) {
     let a = row.original;

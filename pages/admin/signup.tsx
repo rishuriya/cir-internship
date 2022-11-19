@@ -1,10 +1,7 @@
 import React, { useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 import Router from "next/router";
 import { useSelector, useDispatch } from 'react-redux'
-import { update } from '../../slices/userSlice'
 import { ImSpinner2 } from "react-icons/im";
 import { RootState } from '../../store'
 import { MdReportGmailerrorred } from "react-icons/md";
@@ -86,7 +83,6 @@ function Signup() {
     <div className="bg-secondary h-screen w-full relative p-2">
 
       <form
-      // action="/api/auth/signup"
       onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
