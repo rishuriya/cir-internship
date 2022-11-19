@@ -9,8 +9,7 @@ import setUser from "../../utils/setUser";
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store'
 import { MdReportGmailerrorred } from "react-icons/md";
-import {MdOutlineEditOff, MdOutlineModeEditOutline} from 'react-icons/md'
-
+import { MdOutlineEditOff, MdOutlineModeEditOutline } from 'react-icons/md'
 
 function InternshipForm() {
   const [formValues, setFormValues] = useState([{ name_member: "", email_member: "", roll_member: "" }])
@@ -23,6 +22,7 @@ function InternshipForm() {
   const [userRoll, setUserRoll] = useState("");
   const [editDetail, setEditDetail] = useState(false);
   const [username, setUserName] = useState([]);
+  const [disableSubmit, setDisableSubmit] = useState(false);
   let user_name
   let date_ob = new Date();
   var year = date_ob.getFullYear()
@@ -59,67 +59,67 @@ function InternshipForm() {
 
   useEffect(() => {
     const token = cookie.get("token");
-    getUser(token).then(async(response) => {
-      id=response.user["id"];
-      name=response.user["name"];
-      roll=response.user["rollno"];
+    getUser(token).then(async (response) => {
+      id = response.user["id"];
+      name = response.user["name"];
+      roll = response.user["rollno"];
       setUserToken([response.user]);
       console.log(user);
       fetch(`../api/student/${id}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ","authorisation":token
+          "Content-Type": "application/json; charset=utf8 ", "authorisation": token
         },
       }).then(async (res) => {
-        const resData=await res.json()
-      user_name= resData.data 
-      if(user_name)
-      {
-        setCourse(user_name["course"]);
-        setUserName(user_name);
-        setData(true);
-      }       
+        const resData = await res.json()
+        user_name = resData.data
+        if (user_name) {
+          setCourse(user_name["course"]);
+          setUserName(user_name);
+          setData(true);
+        }
+      });
     });
-    });
-  },[data]);
+  }, [data]);
 
 
   let token = cookie.get("token");
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
+    setDisableSubmit(true);
     e.preventDefault();
     try {
       setError("");
-      setLoading(true);      
-      
+      setLoading(true);
+
       const data = Object.fromEntries(new FormData(e.target).entries());
-      
-      if(image!=null){
-      const body = new FormData();
-      body.append("file", image);
-      body.append("id",user[0]["id"]);
-      const response = await fetch("/api/student/file", {
-      method: "POST",
-      body
-    });
-  
-     fileres = await response.json();
-    }
-      if(formValues[0].name_member=="" || formValues[0].email_member=="" || formValues[0].roll_member=="" ){
-        member_data=null;
+
+      if (image != null) {
+        const body = new FormData();
+        body.append("file", image);
+        body.append("id", user[0]["id"]);
+        const response = await fetch("/api/student/file", {
+          method: "POST",
+          body
+        });
+
+        fileres = await response.json();
       }
-      if(!((data.internship_end_date)>(data.internship_start_date)) ){
+      if (formValues[0].name_member == "" || formValues[0].email_member == "" || formValues[0].roll_member == "") {
+        member_data = null;
+      }
+      if (!((data.internship_end_date) > (data.internship_start_date))) {
         setError("Please enter valid start and end dates");
         setLoading(false);
         return;
       }
-      if(data.training_type===undefined || data.training_type==="" || data.internship_mode===undefined){
+      if (data.training_type === undefined || data.training_type === "" || data.internship_mode === undefined) {
         setError("Please fill/select all the fields");
         setLoading(false);
         return;
       }
-      else{
-        member_data=JSON.stringify(formValues)
+      else {
+        member_data = JSON.stringify(formValues)
       }
       const bodyObject = {
         user: user[0]["id"],
@@ -154,7 +154,7 @@ function InternshipForm() {
       const resUser = await fetch("/api/student/userdetails", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ","authorisation":token
+          "Content-Type": "application/json; charset=utf8 ", "authorisation": token
         },
         body: JSON.stringify(userObject),
       });
@@ -162,7 +162,7 @@ function InternshipForm() {
       const res = await fetch("/api/student/internship-form", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ","authorisation":token
+          "Content-Type": "application/json; charset=utf8 ", "authorisation": token
         },
         body: JSON.stringify(bodyObject),
       });
@@ -171,13 +171,13 @@ function InternshipForm() {
         router.push("/user");
         setLoading(false);
         return;
-      }else{
-        if(res.status===400){
+      } else {
+        if (res.status === 400) {
           setError(resData.error);
           setLoading(false);
           return;
         }
-        if(res.status===401){
+        if (res.status === 401) {
           setError("You are Unauthorised");
           setLoading(false);
           router.push("/login")
@@ -217,13 +217,13 @@ function InternshipForm() {
   };
 
   let validatingContacs = (text) => {
-      var contact =  /^\d{1}|\+{1}? ?\d+$/;
-      if(text.value.match(contact)){
-        return true;
-      }
-      else{
-        return false;
-      }
+    var contact = /^\d{1}|\+{1}? ?\d+$/;
+    if (text.value.match(contact)) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   return (
@@ -245,9 +245,9 @@ function InternshipForm() {
               <div onClick={() => setEditDetail(!editDetail)} className=" mx-3">{
                 editDetail ?
                   <MdOutlineModeEditOutline size={24} /> :
-                  <MdOutlineEditOff size={24} className={"fill-slate-700"}/>
+                  <MdOutlineEditOff size={24} className={"fill-slate-700"} />
               }
-              </div>  
+              </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -255,7 +255,7 @@ function InternshipForm() {
                   Full name
                 </label>
                 <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                  name="name" id="name" type="text" placeholder="Full Name"  defaultValue ={username["name"]} readOnly />
+                  name="name" id="name" type="text" placeholder="Full Name" defaultValue={username["name"]} readOnly />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-gender">
@@ -265,18 +265,18 @@ function InternshipForm() {
                   {/* <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="gender" id="grid-gender" value={username["gender"]} required readOnly>
                   </input> */}
                   {
-                  <select className="appearance-none block 
+                    <select className="appearance-none block 
                   w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight 
-                  focus:outline-none focus:bg-white" name="gender" id="grid-gender" 
-                  defaultValue ={username["name"]}
-                  // onChange={handleCourseChange}
-                  disabled={!editDetail}
-                  >
-                  <option disabled>Select Gender</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                  <option>Others</option>
-                </select>
+                  focus:outline-none focus:bg-white" name="gender" id="grid-gender"
+                      defaultValue={username["name"]}
+                      // onChange={handleCourseChange}
+                      disabled={!editDetail}
+                    >
+                      <option disabled>Select Gender</option>
+                      <option>Male</option>
+                      <option>Female</option>
+                      <option>Others</option>
+                    </select>
                   }
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
@@ -285,34 +285,34 @@ function InternshipForm() {
               </div>
             </div>
 
-          <div className="flex flex-wrap -mx-3 mb-6">
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="email">
-                Email
-                
-              </label>
-            {
-              !editDetail ?
-              <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student email-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/> 
-              :
-              <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student email-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]}/>
+            <div className="flex flex-wrap -mx-3 mb-6">
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="email">
+                  Email
 
-            }
-              {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/> */}
+                </label>
+                {
+                  !editDetail ?
+                    <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student email-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly />
+                    :
+                    <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student email-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} />
+
+                }
+                {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/> */}
+              </div>
+              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
+                  Phone No.
+                </label>
+                {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/> */}
+                {
+                  !editDetail ?
+                    <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly />
+                    :
+                    <input pattern="[0-9,+]{10,15}" title="Type numbers without spaces/Number invalid" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" />
+                }
+              </div>
             </div>
-            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-              <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
-                Phone No.
-              </label>
-              {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/> */}
-              {
-                !editDetail ? 
-              <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/>
-                :
-              <input pattern="[0-9,+]{10,15}" title="Type numbers without spaces/Number invalid" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" />
-              }
-            </div>
-          </div>
             <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-school">
@@ -367,39 +367,39 @@ function InternshipForm() {
                   rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]} readOnly>
                   </input> */}
                   {
-                     <select 
-                     required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
+                    <select
+                      required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
                      focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]}
-                     disabled={!editDetail}
-                     >
-                     
-                     <option disabled>Select Semster</option>
-                     {course === "B.Tech" || course === "M.Tech" ? (
-                       course === "B.Tech" ? (
-                         <React.Fragment>
-                           <option>1</option>
-                           <option>2</option>
-                           <option>3</option>
-                           <option>4</option>
-                           <option>5</option>
-                           <option>6</option>
-                           <option>7</option>
-                           <option>8</option>
-                         </React.Fragment>
-                       ) : (
-                         <React.Fragment>
-                           <option>1</option>
-                           <option>2</option>
-                           <option>3</option>
-                           <option>4</option>
-                         </React.Fragment>
-                       )
-                     ) : (
-                       <React.Fragment>
-                         <option disabled>Select B.Tech/M.Tech</option>
-                       </React.Fragment>
-                     )}
-                   </select>
+                      disabled={!editDetail}
+                    >
+
+                      <option disabled>Select Semster</option>
+                      {course === "B.Tech" || course === "M.Tech" ? (
+                        course === "B.Tech" ? (
+                          <React.Fragment>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                            <option>8</option>
+                          </React.Fragment>
+                        ) : (
+                          <React.Fragment>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </React.Fragment>
+                        )
+                      ) : (
+                        <React.Fragment>
+                          <option disabled>Select B.Tech/M.Tech</option>
+                        </React.Fragment>
+                      )}
+                    </select>
                   }
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                     <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
@@ -557,16 +557,16 @@ function InternshipForm() {
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll_member">
                       Roll No.
                     </label>
-                    <input 
-                    className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight
-                    focus:outline-none focus:bg-white" 
-                    name="roll_member" 
-                    id="roll_member" 
-                    pattern="[AM]{0,2}\.[A-Za-z]{0,2}\.[A-Z].{0,9}"
-                    title="Enter valid Student Roll number" 
-                    type="input" 
-                    placeholder="AM.XX.XX.XXXXX" 
-                    onChange={e => handleChange(index, e)} />
+                    <input
+                      className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight
+                    focus:outline-none focus:bg-white"
+                      name="roll_member"
+                      id="roll_member"
+                      pattern="[AM]{0,2}\.[A-Za-z]{0,2}\.[A-Z].{0,9}"
+                      title="Enter valid Student Roll number"
+                      type="input"
+                      placeholder="AM.XX.XX.XXXXX"
+                      onChange={e => handleChange(index, e)} />
                   </div>
                   {
                     index ?
@@ -580,23 +580,35 @@ function InternshipForm() {
 
             {/* form submit button */}
             <div className=" flex justify-end  px-3 mb-6 md:mb-0 mt-2">
-            {error !== "" ? (
-            <div className="flex bg-red-300/40  border-l-2 border-red-700 my-1 flex-row items-center mx-5">
-              <MdReportGmailerrorred size={28} className="fill-red-700" />
-              <p className="text-red-700 mx-3 my-2 font-medium">{error}</p>
-            </div>
-          ) : (
-            <></>
-          )}
-              <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit"> 
-               {loading?
-                <ImSpinner2
-                className="animate-spin my-3 fill-white"
-                size={30}
-              />
-               :"Submit"} 
-              </button>
-              
+              {error !== "" ? (
+                <div className="flex bg-red-300/40  border-l-2 border-red-700 my-1 flex-row items-center mx-5">
+                  <MdReportGmailerrorred size={28} className="fill-red-700" />
+                  <p className="text-red-700 mx-3 my-2 font-medium">{error}</p>
+                </div>
+              ) : (
+                <></>
+              )}
+
+              {disableSubmit ? (
+                <button className="py-3 px-5 bg-red-200 rounded-lg font-semibold text-white" type="submit" disabled={disableSubmit}>
+                  {loading ?
+                    <ImSpinner2
+                      className="animate-spin my-3 fill-white"
+                      size={30}
+                    />
+                    : "Submit"}
+                </button>
+              ) : (
+                <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit" disabled={disableSubmit}>
+                  {loading ?
+                    <ImSpinner2
+                      className="animate-spin my-3 fill-white"
+                      size={30}
+                    />
+                    : "Submit"}
+                </button>
+              )}
+
             </div>
 
           </form>
@@ -606,4 +618,4 @@ function InternshipForm() {
   );
 }
 
-export default InternshipForm;670961
+export default InternshipForm;
