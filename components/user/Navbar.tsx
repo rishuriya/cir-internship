@@ -6,27 +6,27 @@ import { unsetUser } from '../../slices/userSlice'
 import { useSelector,useDispatch } from 'react-redux'
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import {AiOutlineFileAdd,AiOutlineCheck, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
+import {AiOutlineFileAdd, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
 
 const navOptions = [
   {
     name: 'Home',
-    description: 'Get a better understanding of where your traffic is coming from.',
-    href: '/',
+    description: 'Home',
+    href: '/user',
     icon: AiFillHome,
   },
   {
     name: 'Add Internship',
-    description: 'Speak directly to your customers in a more meaningful way.',
-    href: '/form',
+    description: 'Register Internships',
+    href: '/user/internship-form',
     icon: AiOutlineFileAdd,
   },
-  {
-    name: 'Approved Internships',
-    description: "Connect with third-party tools that you're already using.",
-    href: '/',
-    icon: AiOutlineCheck,
-  },
+  // {
+  //   name: 'Approved Internships',
+  //   description: "Connect with third",
+  //   href: '/',
+  //   icon: AiOutlineCheck,
+  // },
  
 ]
 
@@ -49,7 +49,7 @@ export default function Navbar() {
   }
 
   return (
-    <Popover className="relative bg-white">
+    <Popover className="relative bg-white z-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
@@ -148,9 +148,12 @@ export default function Navbar() {
                     <Link
                       key={item.name}
                       href={item.href}
+                      title={item.description}
                       className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
+                        <div className='flex flex-row '>
                       <item.icon className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
-                      {/* <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span> */}
+                      <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
+                        </div>
                     </Link>
                   ))} 
                 </nav>
