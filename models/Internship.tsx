@@ -80,7 +80,11 @@ const internshipSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-});
+  createdOn: {
+    type: Date,
+    default: Date.now,
+  },
+}); 
 
 const internshipDataRecords =
   mongoose.models.internshipDataRecords ||
