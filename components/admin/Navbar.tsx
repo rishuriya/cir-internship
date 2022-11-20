@@ -11,20 +11,20 @@ import {AiOutlineFileAdd,AiFillHome,AiOutlineMenu,AiOutlineClose,AiOutlineUserAd
 const navOptions = [
   {
     name: 'Home',
-    description: 'Get a better understanding of where your traffic is coming from.',
+    description: 'Admin Internship view Dashboard',
     href: '/admin',
     icon: AiFillHome,
   },
   {
     name: 'Approved internships',
-    description: 'Speak directly to your customers in a more meaningful way.',
+    description: 'See all approved Internships',
     href: '/admin/approved-internships',
     icon: AiOutlineFileAdd,
   },
   {
     name: 'Add Admin',
-    description: "Connect with third-party tools that you're already using.",
-    href: '/admin/add-admin',
+    description: "Add Admins who can approve Students Internships",
+    href: '/admin/signup',
     icon: AiOutlineUserAdd,
   },
  
@@ -70,15 +70,21 @@ export default function Navbar() {
           </div>
 
           <Popover.Group as="nav" className="hidden space-x-5 md:space-x-10 md:flex">
-            <Link href="/admin" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
-              Home
-            </Link>
-            <Link href="/admin/approved-internships" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
+          <Link href="/admin">
+          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+            Home
+          </div>
+          </Link>
+          <Link href="/admin/approved-internships">
+            <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
             Approved Internships
-            </Link>
-            <Link href="/admin/signup" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
-              Add Admin
-            </Link>         
+            </div>
+          </Link>
+          <Link href="/admin/signup">
+          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+          Add Admin
+          </div>         
+          </Link>
           </Popover.Group>
 
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
@@ -149,10 +155,11 @@ export default function Navbar() {
                     <Link
                       key={item.name}
                       href={item.href}
+                      title={item.description}
                       className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
                       <div className='flex flex-row cursor-pointer'>
-                      <item.icon className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
-                      <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
+                        <item.icon className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
+                        <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
                       </div>
                     </Link>
                   ))} 

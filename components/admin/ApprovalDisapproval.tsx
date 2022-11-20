@@ -5,10 +5,10 @@ import {
   AiOutlineClose,
 } from "react-icons/ai";
 
-export default function InternshipCard({ internship, isApproved }) {
-  const [student, setStudent] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [showDetails, setShowDetails] = useState(false);
+export default function InternshipCard({ internship, isApproved ,setIsDone}) {
+  // const [student, setStudent] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [showDetails, setShowDetails] = useState(false);
 
   //modal
   let [isOpen, setIsOpen] = useState(false);
@@ -18,7 +18,6 @@ export default function InternshipCard({ internship, isApproved }) {
     setIsOpen(true);
     setApprove("approve");
   }
-
   function handleDisapprove() {
     setIsOpen(true);
     setApprove("disapprove");
@@ -42,7 +41,7 @@ export default function InternshipCard({ internship, isApproved }) {
       const resData = await res.json();
       if (resData.success) {
         setIsOpen(false);
-        window.location.reload();
+        setIsDone(true);
       }
     });
   }
@@ -66,30 +65,11 @@ export default function InternshipCard({ internship, isApproved }) {
       // console.log(resData);
       if (resData.success) {
         setIsOpen(false);
-        window.location.reload();
+        setIsDone(true);
       }
     });
   };
 
-  // useEffect(() => {
-  //   fetch(`/api/student/${internship.user}`, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }).then(async (res) => {
-  //     // console.log(res);
-  //     if (res.status == 200) {
-  //       const resData = await res.json();
-  //       // console.log(resData);
-  //       await setStudent(resData.data);
-  //       setLoading(false);
-  //     } else {
-  //       await setStudent("");
-  //     }
-  //     setLoading(false);
-  //   });
-  // }, []);
 
   return (
     <>

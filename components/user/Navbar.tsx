@@ -6,27 +6,27 @@ import { unsetUser } from '../../slices/userSlice'
 import { useSelector,useDispatch } from 'react-redux'
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import {AiOutlineFileAdd,AiOutlineCheck, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
+import {AiOutlineFileAdd, AiFillHome,AiOutlineMenu,AiOutlineClose} from 'react-icons/ai';
 
 const navOptions = [
   {
     name: 'Home',
-    description: 'Get a better understanding of where your traffic is coming from.',
-    href: '/',
+    description: 'Home',
+    href: '/user',
     icon: AiFillHome,
   },
   {
     name: 'Add Internship',
-    description: 'Speak directly to your customers in a more meaningful way.',
-    href: '/form',
+    description: 'Register Internships',
+    href: '/user/internship-form',
     icon: AiOutlineFileAdd,
   },
-  {
-    name: 'Approved Internships',
-    description: "Connect with third-party tools that you're already using.",
-    href: '/',
-    icon: AiOutlineCheck,
-  },
+  // {
+  //   name: 'Approved Internships',
+  //   description: "Connect with third",
+  //   href: '/',
+  //   icon: AiOutlineCheck,
+  // },
  
 ]
 
@@ -49,12 +49,11 @@ export default function Navbar() {
   }
 
   return (
-    <Popover className="relative bg-white">
+    <Popover className="relative bg-white z-10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link href="/user">
-              {/* <span className="sr-only">Amrita Vishwa Vidyapeetham</span> */}
               <img
                 className="h-10 w-auto sm:h-16"
                 src="https://upload.wikimedia.org/wikipedia/en/f/f8/Amrita-vishwa-vidyapeetham-color-logo.png"
@@ -70,12 +69,16 @@ export default function Navbar() {
           </div>
 
           <Popover.Group as="nav" className="hidden space-x-5 md:space-x-10 md:flex">
-            <Link href="/user" className=" py-2 font-medium text-gray-500 hover:text-gray-900">
-              Home
-            </Link>
-            <Link href="/user/internship-form" className="py-2 font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">
+          <Link href="/user">
+          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+            Home
+          </div>
+          </Link>
+          <Link href="/user/internship-form" >
+            <div className="py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
               Add Internship
-            </Link>         
+            </div>
+          </Link>         
           </Popover.Group>
 
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
@@ -126,8 +129,7 @@ export default function Navbar() {
                   <img
                     className="h-8 w-auto"
                     src="https://upload.wikimedia.org/wikipedia/en/f/f8/Amrita-vishwa-vidyapeetham-color-logo.png"
-                    alt="Your Company"
-                  />
+                    alt="Your Company"/>
                 </div>
                
                 <div className="-mr-2">
@@ -146,10 +148,12 @@ export default function Navbar() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50"
-                    >
+                      title={item.description}
+                      className="-m-3 flex items-center rounded-md p-3 hover:bg-gray-50">
+                        <div className='flex flex-row '>
                       <item.icon className="h-6 w-6 flex-shrink-0 text-primary" aria-hidden="true" />
-                      {/* <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span> */}
+                      <span className="ml-3 text-base font-medium text-gray-900">{item.name}</span>
+                        </div>
                     </Link>
                   ))} 
                 </nav>
@@ -163,7 +167,6 @@ export default function Navbar() {
                   className="flex w-full items-center justify-center rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
                   Sign out
                 </button>
-                
               </div>
             </div>
           </div>

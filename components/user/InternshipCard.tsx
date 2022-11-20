@@ -145,7 +145,7 @@ export default function InternshipCard({id}) {
                     :internship["approved"] === "Incomplete"?<div className="my-3">
                     <div className="mr-5 bg-yellow-300/70 px-2 py-1 rounded-xl flex flex-row items-center">
                         <FiAlertTriangle className="mx-1" size ={22}/>
-                        <span className="underline">Upload the signed Letter to Complete Registration</span>
+                        <span className="">Upload the signed Letter to Complete Registration</span>
                     </div>
                 </div>:
                 <div></div>}
@@ -166,7 +166,7 @@ export default function InternshipCard({id}) {
                         {internship["approved"] !== "Disapproved"?<button onClick={(e)=> handleletter(e,internship["_id"],internship["approved"])}>
                             <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2">
                                 <AiOutlineDownload className="fill-black " size={28}/>
-                                <p className="text-sm mx-2 mt-1">Download Letter</p>
+                                <p className="text-sm mx-2 mt-1">Letter Template</p>
                             </div>
                         </button>:
                          <AiOutlineDownload className="fill-gray-300 " size={26}/>

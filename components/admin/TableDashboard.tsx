@@ -1,12 +1,9 @@
-import { useMemo, useState } from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import InternshipCard from "./InternshipCard";
-import { useEffect } from "react";
-import { CSVLink, CSVDownload } from "react-csv";
-import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
-import InternshipDetailsModal from "./InternshipDetailsModal";
 import React from "react";
+import { useEffect } from "react";
+import { useMemo, useState } from "react";
 import ApprovalDisapproval from "./ApprovalDisapproval";
+import InternshipDetailsModal from "./InternshipDetailsModal";
+import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
 
 import GlobalFilter from "./GlobalFilter";
 import { ColumnFilter } from "./ColumnFilter";
@@ -28,7 +25,12 @@ const tableColumns = [
     Filter: ColumnFilter,
     Cell: ({ row: { original } }) => (
       <div>
+       <p>
         {timeDuration(original.internship_start_date, original.internship_end_date)} Days
+      </p>
+      <div>
+        {toDDmmm(original.internship_start_date)} - {toDDmmm(original.internship_end_date)}
+      </div> 
       </div>
     )
   },
@@ -46,9 +48,13 @@ const timeDuration = (start, end) => {
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return diffDays;
 }
+const toDDmmm = (date) => {
+  const d = new Date(date);
+  const month = d.toLocaleString('default', { month: 'short' });
+  return `${d.getDate()} ${month}`;
+} 
 
 export default function TableDashboard() {
-  const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [csvData, setCsvData] = useState([]);
   const [data, setData] = useState([]);
@@ -56,6 +62,7 @@ export default function TableDashboard() {
   const [modal, setModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [StudentDetail, setStudentDetail] = useState({});
+  const [isDone, setIsDone] = useState(false);
 
   const columns = useMemo(() => tableColumns, []);
   const close = () => {
@@ -96,19 +103,11 @@ export default function TableDashboard() {
     }).then(async (res) => {
       const resData = await res.json();
       if (resData.success) {
-        // console.log(resData.data);
-        setInternships(resData.data);
         setData(resData.data);
-        // setCsvData(resData.data);
       }
     });
-  }, []);
-
-  useEffect(() => {
-    if (internships.length > 0) {
-      setLoading(false);
-    }
-  }, [internships]);
+    setIsDone(false);
+  }, [isDone]);
 
   function StudentDetails(row) {
     let a = row.original;
@@ -181,7 +180,6 @@ export default function TableDashboard() {
                         >
                           {cell.render("Cell")}
                         </td>
-                        {/* {(i === rows.length - 1) && <td className='p-4 text-center'>l</td>} */}
                       </>
                     );
                   })}
@@ -197,6 +195,7 @@ export default function TableDashboard() {
                   <ApprovalDisapproval
                     internship={row.original}
                     isApproved={false}
+                    setIsDone={setIsDone}
                   />
                 </tr>
               );
