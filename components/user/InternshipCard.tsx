@@ -145,7 +145,7 @@ export default function InternshipCard({id}) {
                     :internship["approved"] === "Incomplete"?<div className="my-3">
                     <div className="mr-5 bg-yellow-300/70 px-2 py-1 rounded-xl flex flex-row items-center">
                         <FiAlertTriangle className="mx-1" size ={22}/>
-                        <span className="underline">Upload the signed Letter to Complete Registration</span>
+                        <span className="">Upload the signed Letter to Complete Registration</span>
                     </div>
                 </div>:
                 <div></div>}
