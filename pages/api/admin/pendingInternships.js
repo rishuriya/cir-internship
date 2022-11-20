@@ -5,7 +5,7 @@ import User from "../../../models/User";
 export default async function allInternships(req, res) {
     await db_connect();
     try {
-        let Internship_data = await Internship.find({ approved: "Incomplete" });
+        let Internship_data = await Internship.find({ approved: "Pending" });
 
         if (Internship_data.length > 0) {
             return await res.status(200).json({ success: true, message: 'Internship Fetched', data: Internship_data })
