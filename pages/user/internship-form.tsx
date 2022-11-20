@@ -114,7 +114,12 @@ function InternshipForm() {
         return;
       }
       if (data.training_type === undefined || data.training_type === "" || data.internship_mode === undefined) {
-        setError("Please fill/select all the fields");
+        if(data.training_type === undefined){
+          setError("Please select Nature Of Training");
+        }
+        else if(data.internship_mode === undefined){
+          setError("Please select Internship Mode");
+        }
         setLoading(false);
         return;
       }
@@ -441,7 +446,7 @@ function InternshipForm() {
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-mentor-name">
                   Mentor Name
                 </label>
-                <input pattern="[a-zA-Z ]+ " title="Enter Valid Mentor Name" required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_person_name" id="grid-mentor-name" type="text" placeholder="Mentor Name" />
+                <input title="Enter Valid Mentor Name" required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_person_name" id="grid-mentor-name" type="text" placeholder="Mentor Name" />
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-mentor-email">
@@ -589,24 +594,17 @@ function InternshipForm() {
                 <></>
               )}
 
-              {disableSubmit ? (
-                <button className="py-3 px-5 bg-red-200 rounded-lg font-semibold text-white" type="submit" disabled={disableSubmit}>
-                  {loading ?
-                    <ImSpinner2
-                      className="animate-spin my-3 fill-white"
-                      size={30}
-                    />
-                    : "Submit"}
+            {!loading ? (
+                <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white cursor-pointer shadow-md hover:shadow-none" type="submit">
+                  Submit
                 </button>
               ) : (
-                <button className="py-3 px-5 bg-primary rounded-lg font-semibold text-white" type="submit" disabled={disableSubmit}>
-                  {loading ?
+                <div className="py-1 px-7 bg-red-200 rounded-lg font-semibold cursor-wait text-white"  >
                     <ImSpinner2
-                      className="animate-spin my-3 fill-white"
+                      className="animate-spin my-2 fill-white"
                       size={30}
                     />
-                    : "Submit"}
-                </button>
+                </div>
               )}
 
             </div>
