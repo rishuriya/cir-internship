@@ -86,57 +86,55 @@ export default function InternshipCard({id}) {
     const handleStatus=(status)=>{
         if(status=="Incomplete"){
             return (
-                <p id="status" className="px-3 py-1 text-sm font-bold text-blue-500 bg-blue-100 rounded">Incomplete</p> 
+                <p id="status" className="px-3 py-1 text-sm md:text-base font-bold text-blue-500 bg-blue-100 rounded" title="Upload signed Letter from HOD/counceller to complete the process">Incomplete</p> 
             )
         }
         else if(status=="Approved"){
             return (
-                <p id="status" className="px-3 py-1 text-sm font-bold text-green-500 bg-green-100 rounded">Approved</p> 
+                <p id="status" className="px-3 py-1 text-sm md:text-base font-bold text-green-500 bg-green-100 rounded">Approved</p> 
             )
         }
         else if(status=="Disapproved"){
             return (
-                <p id="status" className="px-3 py-1 text-sm font-bold text-red-500 bg-red-100 rounded">Disapproved</p>
+                <p id="status" className="px-3 py-1 text-sm md:text-base font-bold text-red-500 bg-red-100 rounded">Disapproved</p>
             )
         }
         else{
             return (
-                <p id="status" className="px-3 py-1 text-sm font-bold text-yellow-500 bg-yellow-100 rounded">Pending</p>
+                <p id="status" className="px-3 py-1 text-sm md:text-base font-bold text-yellow-500 bg-yellow-100 rounded" title="Pending">Pending</p>
             )
         }
     }
 
-    const handleDate=(fromDate,toDate)=>{
-        var from = new Date(fromDate);
-        var to = new Date(toDate);
-        var fromYear = from.getFullYear();
-        var toYear = to.getFullYear();
-        var fromMonth = from.getMonth()+1;
-        var toMonth = to.getMonth()+1;
-        var fromDay = from.getDate();
-        var toDay = to.getDate();
-        return fromDay+"/"+fromMonth+"/"+fromYear+" - "+toDay+"/"+toMonth+"/"+toYear
+    const handleDateToDDmmmYYYY=(fromDate,toDate)=>{
+        let monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+          ];
+        let fromdate=new Date(fromDate).getDate()+" "+monthNames[new Date(fromDate).getMonth()]+" "+new Date(fromDate).getFullYear()
+        let todate=new Date(toDate).getDate()+" "+monthNames[new Date(toDate).getMonth()]+" "+new Date(toDate).getFullYear()
+        return fromdate+" - "+todate
     }
 
 
     return (
         <>{loading ? 
-            <div className="flex justify-center items-center h-96">
+            <div className="flex justify-center items-center h-96 max-w-3xl border-2 mx-auto my-4 rounded-xl shadow-lg bg-gray-200 animate-pulse">
              <AiOutlineLoading3Quarters
                 className="fill-primary animate-spin my-4 mx-auto"
-                size={36}/>
+                size={42}/>
             </div>
         : ((internship!==null)?
             <div>
-              <div className="max-w-2xl px-8 py-4 mx-auto rounded-lg shadow-lg" style={{ cursor: "auto" }}>
+              <div className="max-w-4xl px-8 py-4 my-4 mx-auto rounded-lg shadow-lg border-" style={{ cursor: "auto" }}>
                 <div className="flex items-center justify-between">
-                    <div className="font-medium text-lg my-2">{internship["company_name"]}</div>
+                    <div className="font-medium text-lg md:text-xl my-2">{internship["company_name"]}</div>
                     {handleStatus(internship["approved"])}
                 </div>
-                <div className="mt-1">
-                    <Link href="/" className="text-2xl font-bold text-gray-700 hover:underline"><>{internship["company_website"]}</></Link>
-                    <p className="mt-1">Dates : {handleDate(internship["internship_start_date"],internship["internship_end_date"])}</p>
-                    <p className="mt-1">{internship["internship_mode"]} - {internship["training_type"]}</p>
+                <div className="mt-1 ml-2">
+                    <p className=""><span className="font-semibold">Email : </span>{internship["company_website"]}</p>
+                    <p className=""><span className="font-semibold">Phone no. :</span>{internship["company_mobile"]}</p>
+                    <p className="mt-1 text-lg">{internship["internship_mode"]} / {internship["training_type"]}</p>
+                    <p className="mt-1"> <span className="font-semibold">Dates : </span>{handleDateToDDmmmYYYY(internship["internship_start_date"],internship["internship_end_date"])}</p>
                 </div>
                 <div className="flex justify-between">
                     {internship["approved"] === "Disapproved"?<div className="my-3 ">
@@ -144,24 +142,23 @@ export default function InternshipCard({id}) {
                     </div>
                     :internship["approved"] === "Incomplete"?<div className="my-3">
                     <div className="mr-5 bg-yellow-300/70 px-2 py-1 rounded-xl flex flex-row items-center">
-                        <FiAlertTriangle className="mx-1" size ={22}/>
+                        <FiAlertTriangle className="mx-1 hidden md:block" size ={22}/>
                         <span className="">Upload the signed Letter to Complete Registration</span>
                     </div>
                 </div>:
                 <div></div>}
                     <div>
+                    {internship["approved"] === "Incomplete"&&
                         <div className="Absolute right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
-                    {internship["approved"] === "Incomplete"?
                     <form>
                         <label className="flex flex-row right-0 cursor-pointer" htmlFor="file-input">
                             <AiOutlineUpload className="fill-black " size={28}/>
                             <p className="text-sm mx-2 mt-1">Upload Letter</p>
                         </label>
                         <input id="file-input" type="file" onChange={(e)=> handleUpload(e)} style={{display:'none'}} accept="application/pdf"/>
-                        </form>:
-                         <div></div>
-                        }
+                        </form>
                         </div>
+                        }
                         <div>
                         {internship["approved"] !== "Disapproved"?<button onClick={(e)=> handleletter(e,internship["_id"],internship["approved"])}>
                             <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2">
@@ -179,7 +176,6 @@ export default function InternshipCard({id}) {
         :<></>
         )
      }
-           
         </>
     )
 }
