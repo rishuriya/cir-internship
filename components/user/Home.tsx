@@ -17,9 +17,6 @@ function Home() {
     const token = cookie.get("token");
 
     if (authUser !== null) {
-      // const userObject = {
-      //   _id: authUser.id,
-      // };
       fetch(`/api/student/${authUser.id}`, {
         method: "GET",
         headers: {

@@ -3,8 +3,8 @@ import Internship from "../../../models/Internship"
 import User from "../../../models/User";
 
 export default async function allInternships(req, res) {
-    await db_connect();
     try {
+        await db_connect();
         let Internship_data = await Internship.find({ approved: "Pending" });
 
         if (Internship_data.length > 0) {

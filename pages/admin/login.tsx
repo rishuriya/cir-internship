@@ -49,7 +49,7 @@ function Login() {
         }),
       });
       await res.json().then((resData)=>{
-      console.log(resData);
+      // console.log(resData);
       if (res.status === 200 && resData.success) {
         const userObj={
           name: resData.user.name,
@@ -123,12 +123,12 @@ function Login() {
               )}
             </div>
           </div>
-
+{/* 
           <button
             onClick={() => alert("Help comming soon!!")}
             className="text-blue-500 my-1 hover:underline">
             Forgot password?
-          </button>
+          </button> */}
 
           {/* <div className="my-3 mx-10">
             New here?{" "}
