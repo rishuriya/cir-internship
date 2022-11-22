@@ -42,8 +42,8 @@ function Home() {
       <Navbar />
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="text-2xl my-5 mx-5 mb-5">
-          Internships
+        <div className="text-2xl my-5 mx-7 mb-5 md:mx-24">
+          Internships Registered
         </div>
         {!loading && internship_id.length === 0 ? (
           <NoInternship />

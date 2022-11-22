@@ -102,7 +102,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
              I applied for the Internship program in the {internshipdata["company_name"]} for {internshipdata["training_type"]} and I got selected for program.</p>
              <p className='my-3'>I request you to give me permission to join the internship which is starting on {internshipdata["internship_start_date"].substring(0,10)} and ending on {internshipdata["internship_end_date"].substring(0,10)}.</p>
         </div>
-        <div className='flex flex-row justify-between mx-3 items-end my-10'>
+        <div className='flex flex-row justify-between mx-3 items-end my-14'>
             <div>
                 <p>Thanking You,</p>
                 <p>Yours truly,</p>
