@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AiOutlineDownload, AiOutlineUpload } from "react-icons/ai";
 import { FiAlertTriangle } from "react-icons/fi";
-import { AiOutlineLoading3Quarters,AiOutlineClockCircle } from "react-icons/ai";
+import { AiOutlineLoading3Quarters,AiOutlineClockCircle,AiOutlineCheckCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
 export default function InternshipCard({ id }) {
   const [internship, setInternship] = useState([]);
@@ -154,14 +154,6 @@ export default function InternshipCard({ id }) {
     return fromdate + " - " + todate;
   };
 
-//   const daysLeft = (toDate:string) => {
-//     let today = new Date();
-//     let todate = new Date(toDate);
-//     let diff = todate.getTime() - today.getTime();
-//     let days = Math.ceil(diff / (1000 * 3600 * 24));
-//     return days;
-//   }
-
     const daysLeft = (toDate:string) => {
     let today = new Date();
     let todate = new Date(toDate);
@@ -214,26 +206,14 @@ export default function InternshipCard({ id }) {
               </p>
             </div>
             <div className="flex justify-between">
-              {internship["approved"] === "Disapproved" ? (
+              {internship["approved"] === "Disapproved" &&(
                 <div className="my-3 ">
                   <p className="mr-5 bg-red-200/60 px-2 py-1 rounded-xl">
                     <span className="underline text-lg">Remarks</span> :{" "}
                     {internship["admin_remarks"]}
                   </p>
                 </div>
-              ) : internship["approved"] === "Incomplete" && (
-                <div className="my-3">
-                  <div className="mr-5 bg-yellow-300/70 px-2 py-1 rounded-xl flex flex-row items-center">
-                    <FiAlertTriangle
-                      className="mx-1 hidden md:block"
-                      size={22}
-                    />
-                    <span className="">
-                      Upload the signed Letter to Complete Registration
-                    </span>
-                  </div>
-                </div>
-              )}
+              ) }
               
                 {internship["approved"] === "Incomplete" && (
                   <div className="flex flex-col ">
@@ -241,8 +221,7 @@ export default function InternshipCard({ id }) {
                       <form>
                         <label
                           className="flex flex-row right-0 cursor-pointer"
-                          htmlFor="file-input"
-                        >
+                          htmlFor="file-input">
                           <AiOutlineUpload className="fill-black " size={28} />
                           <p className="text-sm mx-2 mt-1">Upload Letter</p>
                         </label>
@@ -298,6 +277,24 @@ export default function InternshipCard({ id }) {
                     }
                     </>
                 )}
+                {
+                    internship["approved"] === "Pending" && (
+                        <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
+                            <AiOutlineClockCircle className="fill-black " size={24} />
+                            <p className="text-sm md:text-base mx-2 mt-1">Pending Approval</p>
+                            <p className="text-sm hidden md:block"> - CIR Office has to Approve it</p>
+                        </div>
+                    )
+                }
+                {
+                    internship["approved"] === "Completed" && (
+                        <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
+                            <AiOutlineCheckCircle className="fill-black " size={24} />
+                            <p className="text-sm md:text-base mx-2 mt-1">Completed</p>
+                            {/* <p className="text-sm hidden md:block"> </p> */}
+                        </div>
+                     )
+                }
             </div>
           </div>
         </div>
