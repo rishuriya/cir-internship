@@ -61,7 +61,7 @@ export default function TableDashboard() {
   const [show, setShow] = React.useState(false);
   const [modal, setModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [StudentDetail, setStudentDetail] = useState({});
+  const [StudentDetail, setStudentDetail] = useState([]);
   const [isDone, setIsDone] = useState(false);
 
   const columns = useMemo(() => tableColumns, []);
@@ -95,18 +95,31 @@ export default function TableDashboard() {
   const { globalFilter, pageIndex, pageSize } = state;
 
   useEffect(() => {
-    fetch("/api/admin/pendingInternships", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(async (res) => {
-      const resData = await res.json();
-      if (resData.success) {
-        setData(resData.data);
-      }
-    });
-    setIsDone(false);
+    try{
+      setLoading(true);
+      fetch("/api/admin/pendingInternships", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(async (res) => {
+        const resData = await res.json();
+        console.log("sdsd",resData);
+
+        if (resData.success) {
+          setData(resData.data);
+        }else{
+          setData(null);
+        }
+      });
+      setLoading(false);
+      setIsDone(false);
+    }catch(e){
+      // 
+      setLoading(false);
+
+      console.log(e);
+    }
   }, [isDone]);
 
   function StudentDetails(row) {
@@ -125,7 +138,7 @@ export default function TableDashboard() {
           info={StudentDetail}
         />
       )}
-      <div className="table max-w-5xl md:max-w-7xl mx-auto">
+      {(data.length!==null && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (
@@ -136,8 +149,7 @@ export default function TableDashboard() {
                       key={i}
                       scope="col"
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4"
-                      {...column.getHeaderProps()}
-                    >
+                      {...column.getHeaderProps()}>
                       {column.render("Header")}
                       <div>
                         {column.canFilter ? column.render("Filter") : null}
@@ -248,7 +260,13 @@ export default function TableDashboard() {
             {'>>'}
           </button>
         </div>
-      </div>
+      </div>:(loading===true?<div className="flex justify-center items-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+        </div>:<div className="flex justify-center items-center my-10">
+          <h1 className="text-2xl font-bold">No Pending Internships.</h1>
+        </div>)
+      }  
     </>
   );
 }
+

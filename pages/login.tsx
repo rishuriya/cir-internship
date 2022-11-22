@@ -165,11 +165,11 @@ function Login() {
             </div>
           </div>
 
-          <Link
+          {/* <Link
             onClick={() => alert("Help comming soon!!")}
             className="text-blue-500 my-1 hover:underline" href={""}>
             Forgot password?
-          </Link>
+          </Link> */}
 
           <div className="my-3 mx-10">
             New here?{" "}

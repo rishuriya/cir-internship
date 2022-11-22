@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useTable, useGlobalFilter, useFilters } from "react-table";
 import InternshipDetailsModal from "./InternshipDetailsModal";
 import React from "react";
+import { AiOutlineLoading3Quarters} from "react-icons/ai";
 import ApprovalDisapproval from "./ApprovalDisapproval";
 
 import GlobalFilter from "./GlobalFilter";
@@ -33,13 +34,13 @@ const tableColumns = [
 
 export default function ApprovedInternships() {
   const [internships, setInternships] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [csvData, setCsvData] = useState([]);
   const [data, setData] = useState([]);
   const [show, setShow] = React.useState(false);
   const [modal, setModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [StudentDetail, setStudentDetail] = useState({});
+  const [StudentDetail, setStudentDetail] = useState([]);
   const [isDone, setIsDone] = useState(false);
 
 
@@ -66,20 +67,27 @@ export default function ApprovedInternships() {
   const { globalFilter } = state;
 
   useEffect(() => {
-    fetch("/api/admin/approvedInternships", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(async (res) => {
-      const resData = await res.json();
-      if (resData.success) {
-        // console.log(resData.data);
-        setInternships(resData.data);
-        setData(resData.data);
-        // setCsvData(resData.data);
+    try{
+      setLoading(true);
+      fetch("/api/admin/approvedInternships", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(async (res) => {
+        const resData = await res.json();
+        if (resData.success) {
+          // console.log(resData.data);
+          setInternships(resData.data);
+          setData(resData.data);
+          // setCsvData(resData.data);
+        }});
+        setLoading(false);
       }
-    });
+    catch(error){
+      setLoading(false);
+      console.log("error",error);
+    }
   }, []);
 
   useEffect(() => {
@@ -104,11 +112,11 @@ export default function ApprovedInternships() {
           info={StudentDetail}
         />
       )}
-      <div className="table max-w-5xl md:max-w-7xl mx-auto">
+      {(StudentDetail.length!==0 && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (
-              <>
+              <React.Fragment key={i}>
                 <tr key={i} {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
                     <th
@@ -138,7 +146,7 @@ export default function ApprovedInternships() {
                     </th>
                   }
                 </tr>
-              </>
+              </React.Fragment>
             ))}
           </thead>
           <tbody className="divide-y-2" {...getTableBodyProps()}>
@@ -174,7 +182,18 @@ export default function ApprovedInternships() {
             })}
           </tbody>
         </table>
-      </div>
+      </div>:
+      (
+        loading===true?
+        <div className="flex justify-center items-center">
+         <AiOutlineLoading3Quarters className="fill-primary animate-spin my-4 ml-4"
+          size={36}/>
+        </div>:
+        <div className="flex justify-center items-center">
+          <h1 className="text-2xl font-bold">No Internships Found</h1>
+        </div>
+      )
+     }
     </>
   );
 }

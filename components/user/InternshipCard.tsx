@@ -42,15 +42,12 @@ export default function InternshipCard({ id }) {
     return;
   }
   const handleUpload = async (e) => {
-    //console.log(e.target.files)
     if (e.target.files && e.target.files[0]) {
       const i = e.target.files[0];
       fileimg = i;
       setImage(e.target.files[0]);
-      //console.log(fileimg)
     }
     if (fileimg != undefined) {
-      // console.log(fileimg)
       const body = new FormData();
       body.append("file", fileimg);
       body.append("id", id);
@@ -166,7 +163,7 @@ export default function InternshipCard({ id }) {
   return (
     <>
       {loading ? (
-        <div className="flex justify-center items-center h-96 max-w-3xl border-2 mx-auto my-4 rounded-xl shadow-lg bg-gray-200 animate-pulse">
+        <div className="flex justify-center items-center h-80 max-w-3xl border-2 mx-auto my-4 rounded-xl shadow-lg bg-gray-200 animate-pulse">
           <AiOutlineLoading3Quarters
             className="fill-primary animate-spin my-4 mx-auto"
             size={42}
@@ -222,8 +219,9 @@ export default function InternshipCard({ id }) {
               
                 {internship["approved"] === "Incomplete" && (
                   <div className="flex flex-row justify-evenly w-full">
-                    <div className="my-auto">
-                    <p className="mr-5 bg-yellow-200/60 px-2 py-1 rounded-xl max-w-xl">
+                    <div className="my-auto flex flex-row mr-5 bg-yellow-200/60 px-2 py-1 rounded-xl max-w-xl">
+                    <div className="mx-2 hidden md:block"><FiAlertTriangle className="fill-yellow-600" size={26}/></div>
+                    <p className="text-sm md:text-base">
                     Download the letter template below, have it approved by your department head or counsellor, and then <span className="font-medium">Upload it here</span>.
                   </p>
                     </div>
@@ -263,7 +261,7 @@ export default function InternshipCard({ id }) {
                     {
                         (daysLeft(internship["internship_end_date"]) <= 0) ? (
                           <div className="flex flex-row  w-full">
-                          <p className="mr-5 bg-yellow-200/60 px-2 py-1 rounded-xl max-w-xl my-auto md:mr-10 lg:mr-12"> Upload your internship certificate here
+                          <p className="mr-5 bg-yellow-200/60 px-2 py-1 rounded-xl max-w-xl my-auto md:mr-10 lg:mr-12 flex flex-row"><span className="mx-2 "><FiAlertTriangle className="fill-yellow-600" size={26}/></span> Upload your internship completion certificate here.
                           </p>
                             <form className="right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md shadow-lg hover:shadow-sm mx-2 mt-4">
                             <label
@@ -295,8 +293,8 @@ export default function InternshipCard({ id }) {
                     internship["approved"] === "Pending" && (
                         <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
                             <AiOutlineClockCircle className="fill-black " size={24} />
-                            <p className="text-sm md:text-base mx-2 mt-1">Pending Approval</p>
-                            <p className="text-sm hidden md:block"> - CIR Office has to Approve it</p>
+                            <p className="text-sm md:text-base my-auto mx-2 mt-1">Pending Approval</p>
+                            <p className="text-sm hidden my-auto md:block"> - CIR Office has to Approve it</p>
                         </div>
                     )
                 }
