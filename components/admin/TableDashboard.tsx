@@ -63,6 +63,7 @@ export default function TableDashboard() {
   const [openModal, setOpenModal] = useState(false);
   const [StudentDetail, setStudentDetail] = useState([]);
   const [isDone, setIsDone] = useState(false);
+  const [empty, setEmpty] = useState(false);
 
   const columns = useMemo(() => tableColumns, []);
   const close = () => {
@@ -109,15 +110,13 @@ export default function TableDashboard() {
         if (resData.success) {
           setData(resData.data);
         }else{
-          setData(null);
+          setEmpty(true);
         }
       });
       setLoading(false);
       setIsDone(false);
     }catch(e){
-      // 
       setLoading(false);
-
       console.log(e);
     }
   }, [isDone]);
@@ -138,7 +137,7 @@ export default function TableDashboard() {
           info={StudentDetail}
         />
       )}
-      {(data.length!==null && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
+      {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (

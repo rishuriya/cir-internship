@@ -108,7 +108,18 @@ export default function InternshipCard({ id }) {
           Disapproved
         </p>
       );
-    } else {
+    }else if (status == "Completed"){
+      return (
+        <p
+
+          id="status"
+          className="px-3 py-1 text-sm md:text-base font-bold text-green-500 bg-green-100 rounded"
+        >
+          Completed
+        </p>
+      );
+    }
+     else {
       return (
         <p
           id="status"

@@ -63,6 +63,8 @@ export default function InternshipApprovedList() {
   const [modal, setModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [StudentDetail, setStudentDetail] = useState([]);
+  const [empty, setEmpty] = useState(false);
+
 
   const columns = useMemo(() => tableColumns, []);
   const close = () => {
@@ -107,11 +109,15 @@ export default function InternshipApprovedList() {
         if (resData.success) {
           setInternships(resData.data);
           setData(resData.data);
+          setLoading(false);
         }
         else{
-
+          setEmpty(true);
+          setLoading(false);
         }
       });
+      setLoading(false);
+      
     }catch(e){
       setLoading(false);
       console.log("error",e);
@@ -140,7 +146,7 @@ export default function InternshipApprovedList() {
           info={StudentDetail}
         />
       )}
-      {(StudentDetail.length!==null && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
+      {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (
@@ -262,10 +268,10 @@ export default function InternshipApprovedList() {
         </div>
       </div>:
       (
-        loading===true?
+        loading?
         <div className="flex justify-center items-center">
          <AiOutlineLoading3Quarters className="fill-primary animate-spin my-4 ml-4"
-          size={36}/>
+          size={42}/>
         </div>:
         <div className="flex justify-center items-center">
           <h1 className="text-2xl font-bold">No Internships Found</h1>
