@@ -176,18 +176,19 @@ export default function InternshipCard({ id }) {
         <div>
           <div
             className="max-w-4xl px-8 py-4 my-4 mx-auto rounded-lg shadow-lg border-"
-            style={{ cursor: "auto" }}
-          >
+            style={{ cursor: "auto" }}>
             <div className="flex items-center justify-between">
               <div className="font-medium text-lg md:text-xl my-2">
                 {internship["company_name"]}
               </div>
               {handleStatus(internship["approved"])}
             </div>
-            <div className="mt-1 ml-2">
+            <div className="mt-1 ml-2 flex flex-row">
+              <div>
+                {internship["company_website"]}
               <p className="">
                 <span className="font-semibold">Email : </span>
-                {internship["company_website"]}
+                {internship["company_email"]}
               </p>
               <p className="">
                 <span className="font-semibold">Phone no. :</span>
@@ -204,8 +205,12 @@ export default function InternshipCard({ id }) {
                   internship["internship_end_date"]
                 )}
               </p>
+              </div>
+              <div className="">
+                {/* <p>Members - <span>{internship["members"]}</span></p> */}
+              </div>
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between border-t-2 mt-5">
               {internship["approved"] === "Disapproved" &&(
                 <div className="my-3 ">
                   <p className="mr-5 bg-red-200/60 px-2 py-1 rounded-xl">
@@ -216,14 +221,19 @@ export default function InternshipCard({ id }) {
               ) }
               
                 {internship["approved"] === "Incomplete" && (
-                  <div className="flex flex-col ">
-                    <div className="Absolute right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
-                      <form>
+                  <div className="flex flex-row justify-evenly w-full">
+                    <div className="my-auto">
+                    <p className="mr-5 bg-yellow-200/60 px-2 py-1 rounded-xl max-w-xl">
+                    Download the letter template below, have it approved by your department head or counsellor, and then <span className="font-medium">Upload it here</span>.
+                  </p>
+                    </div>
+                      <div className="flex flex-col ">
+                      <form className="right-0 bg-slate-300/30 shadow-md hover:shadow-none px-2 py-1 my-2 rounded-md">
                         <label
                           className="flex flex-row right-0 cursor-pointer"
                           htmlFor="file-input">
                           <AiOutlineUpload className="fill-black " size={28} />
-                          <p className="text-sm mx-2 mt-1">Upload Letter</p>
+                          <p className="text-sm md:text-base mx-2 mt-1">Upload Letter</p>
                         </label>
                         <input
                           id="file-input"
@@ -233,7 +243,6 @@ export default function InternshipCard({ id }) {
                           accept="application/pdf"
                         />
                       </form>
-                    </div>
                     <button
                       onClick={(e) =>
                         handleletter(
@@ -242,9 +251,10 @@ export default function InternshipCard({ id }) {
                           internship["approved"])}>
                       <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2">
                         <AiOutlineDownload className="fill-black " size={28} />
-                        <p className="text-sm mx-2 mt-1">Letter Template</p>
+                        <p className="text-sm mx-1 mt-1">Letter Template</p>
                       </div>
                     </button>
+                    </div>
                   </div>
                 )}
                 
@@ -252,13 +262,16 @@ export default function InternshipCard({ id }) {
                     <>
                     {
                         (daysLeft(internship["internship_end_date"]) <= 0) ? (
-                            <form className="right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
+                          <div className="flex flex-row  w-full">
+                          <p className="mr-5 bg-yellow-200/60 px-2 py-1 rounded-xl max-w-xl my-auto md:mr-10 lg:mr-12"> Upload your internship certificate here
+                          </p>
+                            <form className="right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md shadow-lg hover:shadow-sm mx-2 mt-4">
                             <label
                               className="flex flex-row right-0 cursor-pointer"
                               htmlFor="file-input"
-                            >
+                              >
                               <AiOutlineUpload className="fill-black " size={28} />
-                              <p className="text-sm mx-2 mt-1">Upload Internship Cirtificate</p>
+                              <p className="text-sm md:text-base  mx-2 mt-1">Upload Internship Cirtificate</p>
                             </label>
                             <input
                               id="file-input"
@@ -266,8 +279,9 @@ export default function InternshipCard({ id }) {
                               onChange={(e) => handleUpload(e)}
                               style={{ display: "none" }}
                               accept="application/pdf"
-                            />
+                              />
                           </form>
+                              </div>
                             ) : (
                             <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
                                 <AiOutlineClockCircle className="fill-black " size={26} />
