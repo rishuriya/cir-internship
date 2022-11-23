@@ -102,7 +102,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
              I applied for the Internship program in the {internshipdata["company_name"]} for {internshipdata["training_type"]} and I got selected for program.</p>
              <p className='my-3'>I request you to give me permission to join the internship which is starting on {internshipdata["internship_start_date"].substring(0,10)} and ending on {internshipdata["internship_end_date"].substring(0,10)}.</p>
         </div>
-        <div className='flex flex-row justify-between mx-3 items-end my-10'>
+        <div className='flex flex-row justify-between mx-3 items-end my-14'>
             <div>
                 <p>Thanking You,</p>
                 <p>Yours truly,</p>
@@ -127,9 +127,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
 
 function PrintLetter() {
     let componentRef;
-  
       componentRef = useRef();
-      //console.log(componentRef.current);
     return (
       <div>
         <InternshipLetter ref={el => (componentRef = el)} />
@@ -138,9 +136,11 @@ function PrintLetter() {
           trigger={() => <a className="px-6 py-3 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200" href="#">Download</a>}
           content={() => componentRef}
         />
+          <Link href="/user">
         <button className='px-6 py-2 mx-4 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200'>
-          <Link href="/user">Back</Link>
+            Back
         </button>
+            </Link>
         </div>
       </div>
     );
