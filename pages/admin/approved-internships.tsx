@@ -8,7 +8,7 @@ import { getUser } from '../../utils/getUser'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store';
 import Navbar from '../../components/admin/Navbar'
-import InternshipApprovedList from '../../components/admin/InternshipApprovedList'
+import InternshipApprovedList from '../../components/admin/ApprovedInternshipList'
 
 
 function ApprovedInternships() {
