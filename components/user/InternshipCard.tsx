@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { AiOutlineDownload, AiOutlineUpload } from "react-icons/ai";
-import { FiAlertTriangle } from "react-icons/fi";
-import { AiOutlineLoading3Quarters,AiOutlineClockCircle,AiOutlineCheckCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { FiAlertTriangle } from "react-icons/fi";
+import { AiOutlineDownload, AiOutlineUpload } from "react-icons/ai";
+import { AiOutlineLoading3Quarters,AiOutlineClockCircle,AiOutlineCheckCircle } from "react-icons/ai";
 export default function InternshipCard({ id }) {
   const [internship, setInternship] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -27,7 +27,6 @@ export default function InternshipCard({ id }) {
   }, []);
 
   function handleletter(e, uid, approve) {
-    // console.log(approve)
     if (approve != "Disapproved") {
       router.push(
         {
@@ -163,11 +162,11 @@ export default function InternshipCard({ id }) {
   };
 
     const daysLeft = (toDate:string) => {
-    let today = new Date();
-    let todate = new Date(toDate);
-    let diff = todate.getTime() - today.getTime();
-    let days = Math.ceil(diff / (1000 * 3600 * 24));
-    return days;
+      let today = new Date();
+      let todate = new Date(toDate);
+      let diff = todate.getTime() - today.getTime();
+      let days = Math.ceil(diff / (1000 * 3600 * 24));
+      return days;
     }
 
 
@@ -183,10 +182,10 @@ export default function InternshipCard({ id }) {
       ) : internship !== null && (
         <div>
           <div
-            className="max-w-4xl px-8 py-4 my-4 mx-auto rounded-lg shadow-lg border-"
+            className="max-w-4xl px-8 py-4 my-4 mx-auto rounded-lg shadow-lg border-2"
             style={{ cursor: "auto" }}>
             <div className="flex items-center justify-between">
-              <div className="font-medium text-lg md:text-xl my-2">
+              <div className="font-medium text-lg md:text-2xl my-2">
                 {internship["company_name"]}
               </div>
               {handleStatus(internship["approved"])}
