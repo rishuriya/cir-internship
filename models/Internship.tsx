@@ -56,7 +56,7 @@ const internshipSchema = new mongoose.Schema({
   },
   approved: {
     type:String,
-    enum:["Incomplete","Pending","Approved","Disapproved","Completed"],
+    enum:["Incomplete","Pending","Approved","Disapproved","Pending Verification","Completed"],
     default:"Incomplete",
     required:true
   },
