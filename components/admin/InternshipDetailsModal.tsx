@@ -181,14 +181,13 @@ export default function DetailModal({closeModal, info} ) {
                     info.member.length != 55
                     ?(
                       <div>
-                      <p className='text-lg font-semibold'>
+                      <p className='text-base mt-1 font-semibold'>
                         Team members : 
                         {/* <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg"/> */}
                       </p>
-                      {member.map((members) => {
-                          console.log("the length ofthe memebers are :",info.member.length);
-                          return (
-                            <p className='text-base text-gray-700 ml-2'>
+                      {member.map((members) => 
+                          (
+                            <p className='text-base text-gray-700 ml-2' key={members.roll_number}>
                               Name : <span className='text-black'>{members.name_member}</span> <span></span>
                               <br></br>
                               Roll number : <span className='text-black'>{members.roll_member}</span>
@@ -196,7 +195,7 @@ export default function DetailModal({closeModal, info} ) {
                               Email : <span className='text-black'>{members.email_member}</span>
                             </p>
                           )
-                        })}
+                        )}
                       </div>
                       
                     )
