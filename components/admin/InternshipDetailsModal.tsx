@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { MdCardMembership } from 'react-icons/md';
 
 export default function DetailModal({closeModal, info} ) {
   const [open, setOpen] = useState(true)
@@ -69,16 +70,16 @@ export default function DetailModal({closeModal, info} ) {
                           Student Details
                         </p>
                         {user!==""?<>
-                        <p className="text-base text-gray-700">
+                        <p className="text-base text-gray-700 ml-2">
                           Name : <span className='text-black'>{info.name}</span> <span>( {user.rollno} )</span>
                         </p>
                         <p>
 
                         </p>
-                        <p className='text-base text-gray-700'>
+                        <p className='text-base text-gray-700 ml-2'>
                           Course/Branch: <span className='text-black'>{user.course} - {user.branch}</span>
                         </p>
-                        <p className='text-base text-gray-700'>
+                        <p className='text-base text-gray-700 ml-2'>
                           School: <span className='text-black'>{user.school}</span>
                         </p>
                         </>:
@@ -89,30 +90,32 @@ export default function DetailModal({closeModal, info} ) {
                         <p className='text-lg font-semibold'>
                           Internship Details
                         </p>
-                        <p className='text-base text-gray-700'>
+                        <p className='text-base text-gray-700 ml-2'>
                           Company : <span className='text-black'>{info.company_name}</span> <span>( <a  className='text-blue-500' href={`${info.company_website}`}> {info.company_website} </a>)
                           </span>
                         </p>
-                        <p className='text-base text-gray-700 '>
+                        <p className='text-base text-gray-700 ml-2'>
                           Company location : <span className='text-black'>{info.company_location}</span>
                         </p>
-                        <p className='text-base text-gray-700'>
-                          contact : <span className='text-black'>{info.company_mobile}</span>
+                        <p className='text-base text-gray-700 ml-2'>
+                          Contact : <span className='text-black'>{info.company_mobile}</span>
                         </p>
                         <div className='flex flex-row justify-between'>
-                        <p className='text-base text-gray-700'>
+                        <p className='text-base text-gray-700 ml-2'>
                           Mode :  <span className='text-black'>{info.internship_mode}</span>
                         </p>
-                        <p className='text-base text-gray-700 ml-5'>
+                        </div>
+                        <div className='flex flex-row justify-between'>
+                        <p className='text-base text-gray-700 ml-2'>
                           Training Type : <span className='text-black'>{info.training_type}</span>
                         </p>
                         </div>
-                        <p className='text-base text-gray-700'>
+                        <p className='text-base text-gray-700 ml-2'>
                           Dates : <span className='text-black'>{toDate(info.internship_start_date)} - {toDate(info.internship_end_date)}</span>
                         </p>
                         </div>
                         <div>
-                  {info.member != null ? (
+                  {/* {info.member != null ? (
                     <>
                       <p>
                         Team members :{" "}
@@ -173,7 +176,39 @@ export default function DetailModal({closeModal, info} ) {
                         </span>
                       </p>
                     </>
-                  )}
+                  )} */}
+                  {
+                    info.member.length != 55
+                    ?(
+                      <div>
+                      <p className='text-lg font-semibold'>
+                        Team members : 
+                        {/* <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg"/> */}
+                      </p>
+                      {member.map((members) => {
+                          console.log("the length ofthe memebers are :",info.member.length);
+                          return (
+                            <p className='text-base text-gray-700 ml-2'>
+                              Name : <span className='text-black'>{members.name_member}</span> <span></span>
+                              <br></br>
+                              Roll number : <span className='text-black'>{members.roll_member}</span>
+                              <br></br>
+                              Email : <span className='text-black'>{members.email_member}</span>
+                            </p>
+                          )
+                        })}
+                      </div>
+                      
+                    )
+                    :(
+                      <p className='text-lg font-semibold'>
+                        Team members : <span className="bg-gray-100/80 p-2 mx-2 my-1 rounded-md">
+                          None
+                        </span> 
+                        </p>
+                    )
+
+                  }
                 </div>
                       </div>
                     </div>
