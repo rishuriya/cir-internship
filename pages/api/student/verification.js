@@ -7,7 +7,6 @@ export default async function handeler(req,res) {
     await db_connect();
     try{
         let certificate = new Approval(req.body);
-        console.log(certificate)
         // console.log("erererere: ",res.headers.isauth);
 
         // if(!res.headers.isauth){
@@ -30,8 +29,6 @@ export default async function handeler(req,res) {
         // console.log(user)
 
         let result = await certificate.save();
-
-         console.log(result)
         
         return await res.status(200).json({success:true,message:'Form created',approval:result})
             
