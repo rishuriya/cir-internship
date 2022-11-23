@@ -149,7 +149,7 @@ export default function InternshipCard({ id }) {
         </p>
       );
     } 
-    }else if (status == "Completed"){
+    else if (status == "Completed"){
       return (
         <p
 
@@ -221,7 +221,7 @@ export default function InternshipCard({ id }) {
     }
 
 
-  return (
+  return(
     <>
       {loading ? (
         <div className="flex justify-center items-center h-80 max-w-3xl border-2 mx-auto my-4 rounded-xl shadow-lg bg-gray-200 animate-pulse">
@@ -315,7 +315,7 @@ export default function InternshipCard({ id }) {
                     </button>
                     </div>
                   </div>
-                )}
+                ) }
                 
                 {internship["approved"] === "Approved" && (
                     <>
@@ -371,8 +371,8 @@ export default function InternshipCard({ id }) {
                 }
             </div>
           </div>
-        </div>
+          </div>
       )}
-    </>
-  );
-}
+      </>
+    );
+  }
