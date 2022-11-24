@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../../components/user/Navbar";
 import { useRouter } from "next/router";
-import cookie from 'js-cookie';
+import Cookie from 'js-cookie';
 import { ImSpinner2 } from "react-icons/im";
 import { getUser } from '../../utils/getUser'
 import { useEffect } from 'react'
@@ -58,7 +58,7 @@ function InternshipForm() {
   }
 
   useEffect(() => {
-    const token = cookie.get("token");
+    const token = Cookie.get("token");
     getUser(token).then(async (response) => {
       id = response.user["id"];
       name = response.user["name"];
@@ -83,7 +83,7 @@ function InternshipForm() {
   }, [data]);
 
 
-  let token = cookie.get("token");
+  let token = Cookie.get("token");
 
   const handleSubmit = async (e) => {
     setDisableSubmit(true);
@@ -159,7 +159,7 @@ function InternshipForm() {
       const resUser = await fetch("/api/student/userdetails", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ", "authorisation": token
+          "Content-Type": "application/json; charset=utf8 ", "authorisation": `${token}`
         },
         body: JSON.stringify(userObject),
       });
@@ -167,7 +167,7 @@ function InternshipForm() {
       const res = await fetch("/api/student/internship-form", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ", "authorisation": token
+          "Content-Type": "application/json; charset=utf8 ", "authorisation": `${token}`
         },
         body: JSON.stringify(bodyObject),
       });

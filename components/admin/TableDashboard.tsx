@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useMemo, useState } from "react";
 import ApprovalDisapproval from "./ApprovalDisapproval";
 import InternshipDetailsModal from "./InternshipDetailsModal";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
 
 import GlobalFilter from "./GlobalFilter";
@@ -260,7 +261,9 @@ export default function TableDashboard() {
           </button>
         </div>
       </div>:(loading===true?<div className="flex justify-center items-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+        <div className="">
+          <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42}/>
+        </div>
         </div>:<div className="flex justify-center items-center my-10">
           <h1 className="text-2xl font-bold">No Pending Internships.</h1>
         </div>)
