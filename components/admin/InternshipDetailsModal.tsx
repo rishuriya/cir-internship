@@ -179,25 +179,47 @@ export default function DetailModal({closeModal, info} ) {
                   )} */}
                   {
                     info.member.length != 55
-                    ?(
+                    ?(                      
                       <div>
                       <p className='text-base mt-1 font-semibold'>
                         Team members : 
-                        {/* <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg"/> */}
+                        <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg"/>
+                        
                       </p>
                       {member.map((members) => 
-                          (
-                            <p className='text-base text-gray-700 ml-2' key={members.roll_number}>
-                              Name : <span className='text-black'>{members.name_member}</span> <span></span>
-                              <br></br>
-                              Roll number : <span className='text-black'>{members.roll_member}</span>
-                              <br></br>
-                              Email : <span className='text-black'>{members.email_member}</span>
-                            </p>
+                          // (
+                          //   <p className='text-base text-gray-700 ml-2' key={members.roll_number}>
+                          //     Name : <span className='text-black'>{members.name_member}</span> <span></span>
+                          //     <br></br>
+                          //     Roll number : <span className='text-black'>{members.roll_member}</span>
+                          //     <br></br>
+                          //     Email : <span className='text-black'>{members.email_member}</span>
+                          //     {/* <br></br>
+                          //     Members : {Object.keys(members).length} */}
+                          //   </p>
+                          // )
+                         (
+                          members.name_member !== null || members.roll_member !== null || members.email_member !== null ?(
+                            <><p className='text-base text-gray-700 ml-2'>
+                            Name: <span className='text-black'>{members.name_member}</span>
+                          </p><p className='text-base text-gray-700 ml-2'>
+                              Roll number: <span className='text-black'>{members.roll_member}</span>
+                            </p><p className='text-base text-gray-700 ml-2'>
+                              Email: <span className='text-black'>{members.email_member}</span>
+                            </p></>
+                          ):( 
+                            <><p className='text-base text-gray-700 ml-2'>
+                              Name: <span className='text-black'>None</span>
+                            </p><p className='text-base text-gray-700 ml-2'>
+                                Roll number: <span className='text-black'>None</span>
+                              </p><p className='text-base text-gray-700 ml-2'>
+                                Email: <span className='text-black'>None</span>
+                              </p></>
+
                           )
+                         )
                         )}
                       </div>
-                      
                     )
                     :(
                       <p className='text-lg font-semibold'>
