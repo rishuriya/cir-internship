@@ -80,6 +80,9 @@ function InternshipForm() {
           setUserName(user_name);
           setData(true);
         }
+        if(user_name["profile_completed"]!==true){
+          router.push("/user/user-form");
+        }
       });
     });
   }, [data]);

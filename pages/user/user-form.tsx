@@ -40,6 +40,7 @@ function StudentForm() {
         semester: data.sem,
         phone: data.phone,
         year_of_joining: data.year_of_joining,
+        profile_completed: true
       };
       //console.log(bodyObject);
       const res = await fetch("/api/student/userdetails", {
