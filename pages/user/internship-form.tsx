@@ -16,6 +16,7 @@ function InternshipForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
+  const [sem, setSem] = useState("");
   const [course, setCourse] = useState("");
   const [data, setData] = useState(false);
   const [user, setUserToken] = useState([]);
@@ -75,13 +76,16 @@ function InternshipForm() {
         user_name = resData.data
         if (user_name) {
           setCourse(user_name["course"]);
+          setSem(user_name["semester"]);
           setUserName(user_name);
           setData(true);
         }
       });
     });
   }, [data]);
-
+  // useEffect(() => {
+  //   user_name[]
+  // },[sem])
 
   let token = cookie.get("token");
 
@@ -374,7 +378,8 @@ function InternshipForm() {
                   {
                     <select
                       required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
-                     focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" defaultValue={username["semester"]}
+                     focus:bg-white focus:border-gray-500" name="sem" id="grid-sem" value={sem}
+                      onChange={(e) => setSem(e.target.value)}
                       disabled={!editDetail}
                     >
 
@@ -556,7 +561,7 @@ function InternshipForm() {
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="email_member">
                       Email Id
                     </label>
-                    <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid student Email-id" className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email_member" id="email_member" type="email" placeholder="abc@am.students.amrita.edu" onChange={e => handleChange(index, e)} />
+                    <input pattern="[^-\s].*@am\.students\.amrita\.edu" title="Enter valid student Email-id" className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email_member" id="email_member" type="email" placeholder="abc@am.students.amrita.edu" onChange={e => handleChange(index, e)} />
                   </div>
                   <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="roll_member">
@@ -567,7 +572,7 @@ function InternshipForm() {
                     focus:outline-none focus:bg-white"
                       name="roll_member"
                       id="roll_member"
-                      pattern="[AM]{0,2}\.[A-Za-z]{0,2}\.[A-Z].{0,9}"
+                      pattern="[^-\s][AM]{0,2}\.[A-Za-z]{0,2}\.[A-Z].{0,9}"
                       title="Enter valid Student Roll number"
                       type="input"
                       placeholder="AM.XX.XX.XXXXX"
