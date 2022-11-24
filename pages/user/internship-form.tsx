@@ -557,7 +557,7 @@ function InternshipForm() {
                     <label className="block uppercase tracking-wide text-xs font-bold mb-2 text-white" htmlFor="name_member" >
                       Name
                     </label>
-                    <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="name_member" id="name_member" type="input" placeholder="Student Name" onChange={e => handleChange(index, e)} />
+                    <input pattern="[^-\s][a-zA-Z0-9._\s-]+" title="Enter a Valid Name" className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="name_member" id="name_member" type="input" placeholder="Student Name" onChange={e => handleChange(index, e)} />
                   </div>
                   <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
                     <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="email_member">
