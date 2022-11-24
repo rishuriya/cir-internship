@@ -222,11 +222,15 @@ export default function DetailModal({closeModal, info} ) {
                       </div>
                     )
                     :(
+                      
                       <p className='text-lg font-semibold'>
                         Team members : <span className="bg-gray-100/80 p-2 mx-2 my-1 rounded-md">
                           None
+                          
                         </span> 
                         </p>
+                        
+                        
                     )
 
                   }
