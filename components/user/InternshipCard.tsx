@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { AiOutlineDownload, AiOutlineUpload } from "react-icons/ai";
-import { FiAlertTriangle } from "react-icons/fi";
-import { AiOutlineLoading3Quarters,AiOutlineClockCircle,AiOutlineCheckCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { FiAlertTriangle } from "react-icons/fi";
+import { AiOutlineDownload, AiOutlineUpload } from "react-icons/ai";
+import { AiOutlineLoading3Quarters,AiOutlineClockCircle,AiOutlineCheckCircle } from "react-icons/ai";
 import Cookies from "js-cookie";
 
 export default function InternshipCard({ id }) {
@@ -29,7 +29,6 @@ export default function InternshipCard({ id }) {
   }, []);
 
   function handleletter(e, uid, approve) {
-    // console.log(approve)
     if (approve != "Disapproved") {
       router.push(
         {
@@ -81,6 +80,47 @@ export default function InternshipCard({ id }) {
     }
   };
 
+  const handleCertificateUpload = async (e) => {
+    //console.log(e.target.files)
+    if (e.target.files && e.target.files[0]) {
+      const i = e.target.files[0];
+      fileimg = i;
+      setImage(e.target.files[0]);
+      //console.log(fileimg)
+    }
+    if (fileimg != undefined) {
+      // console.log(fileimg)
+      const body = new FormData();
+      body.append("file", fileimg);
+      body.append("id", id);
+      fetch("/api/student/certificate", {
+        method: "POST",
+        body,
+      }).then(async (response) => {
+        const fileres = await response.json();
+        const bodyObject = {
+          user:internship["user"],
+          internship: internship["_id"],
+          completion_certificate: fileres.url.replace("./public/", ""),
+        };
+        fetch("/api/student/verification", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json; charset=utf8 ",
+          },
+          body: JSON.stringify(bodyObject),
+        }).then(async (res) => {
+          const resData = await res.json();
+          if (resData.success) {
+            window.location.reload();
+          } else {
+            console.log(resData.message);
+          }
+        });
+      });
+    }
+  };
+
   const handleStatus = (status) => {
     if (status == "Incomplete") {
       return (
@@ -110,7 +150,8 @@ export default function InternshipCard({ id }) {
           Disapproved
         </p>
       );
-    }else if (status == "Completed"){
+    } 
+    else if (status == "Completed"){
       return (
         <p
 
@@ -121,14 +162,23 @@ export default function InternshipCard({ id }) {
         </p>
       );
     }
-     else {
+     else if (status == "Pending"){
       return (
         <p
           id="status"
           className="px-3 py-1 text-sm md:text-base font-bold text-yellow-500 bg-yellow-100 rounded"
-          title="Pending"
         >
           Pending
+        </p>
+      );
+    }
+    else if (status == "Pending Verification"){
+      return(
+        <p
+          id="status"
+          className="px-3 py-1 text-sm md:text-base font-bold text-blue-500 bg-blue-100 rounded"
+        >
+          Verification pending
         </p>
       );
     }
@@ -165,15 +215,15 @@ export default function InternshipCard({ id }) {
   };
 
     const daysLeft = (toDate:string) => {
-    let today = new Date();
-    let todate = new Date(toDate);
-    let diff = todate.getTime() - today.getTime();
-    let days = Math.ceil(diff / (1000 * 3600 * 24));
-    return days;
+      let today = new Date();
+      let todate = new Date(toDate);
+      let diff = todate.getTime() - today.getTime();
+      let days = Math.ceil(diff / (1000 * 3600 * 24));
+      return days;
     }
 
 
-  return (
+  return(
     <>
       {loading ? (
         <div className="flex justify-center items-center h-80 max-w-3xl border-2 mx-auto my-4 rounded-xl shadow-lg bg-gray-200 animate-pulse">
@@ -185,10 +235,10 @@ export default function InternshipCard({ id }) {
       ) : internship !== null && (
         <div>
           <div
-            className="max-w-4xl px-8 py-4 my-4 mx-auto rounded-lg shadow-lg border-"
+            className="max-w-4xl px-8 py-4 my-4 mx-auto rounded-lg shadow-lg border-2"
             style={{ cursor: "auto" }}>
             <div className="flex items-center justify-between">
-              <div className="font-medium text-lg md:text-xl my-2">
+              <div className="font-medium text-lg md:text-2xl my-2">
                 {internship["company_name"]}
               </div>
               {handleStatus(internship["approved"])}
@@ -267,7 +317,7 @@ export default function InternshipCard({ id }) {
                     </button>
                     </div>
                   </div>
-                )}
+                ) }
                 
                 {internship["approved"] === "Approved" && (
                     <>
@@ -282,12 +332,13 @@ export default function InternshipCard({ id }) {
                               htmlFor="file-input"
                               >
                               <AiOutlineUpload className="fill-black " size={28} />
-                              <p className="text-sm md:text-base  mx-2 mt-1">Upload Internship Cirtificate</p>
+
+                              <p className="text-sm md:text-base  mx-2 mt-1">Upload Internship Certificate</p>
                             </label>
                             <input
                               id="file-input"
                               type="file"
-                              onChange={(e) => handleUpload(e)}
+                              onChange={(e) => handleCertificateUpload(e)}
                               style={{ display: "none" }}
                               accept="application/pdf"
                               />
@@ -322,8 +373,8 @@ export default function InternshipCard({ id }) {
                 }
             </div>
           </div>
-        </div>
+          </div>
       )}
-    </>
-  );
-}
+      </>
+    );
+  }

@@ -84,6 +84,9 @@ function InternshipForm() {
           setUserName(user_name);
           setData(true);
         }
+        if(user_name["profile_completed"]!==true){
+          router.push("/user/user-form");
+        }
       });
     });
   }, [data]);
@@ -254,13 +257,20 @@ function InternshipForm() {
             className="w-full">
 
             {/* Personal Details  */}
-            <div className="my-3 mx-2 text-white font-semibold uppercase flex flex-row">
+            <div className="my-3 mx-2  flex flex-row justify-between w-full">
+              <div className="text-white font-semibold uppercase">
               Personal Details
-              <div onClick={() => setEditDetail(!editDetail)} className=" mx-3">{
+              {username.length===0 && <ImSpinner2 className="fill-primary my-1 animate-spin" size={24}/>}
+              </div>
+              <div onClick={() => setEditDetail(!editDetail)} className="flex flex-row mx-3 rounded-md border-2 px-2 py-1 text-xs md:text-sm cursor-pointer bg-gray-100/50 my-auto">
+                {
                 editDetail ?
                   <MdOutlineModeEditOutline size={24} /> :
                   <MdOutlineEditOff size={24} className={"fill-slate-700"} />
               }
+              <p className="ml-1">
+              Edit
+              </p>
               </div>
             </div>
             <div className="flex flex-wrap -mx-3 mb-6">

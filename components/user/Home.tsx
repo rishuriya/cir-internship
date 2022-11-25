@@ -43,7 +43,7 @@ function Home() {
       <Navbar />
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="text-2xl my-5 mx-7 mb-5 md:mx-24">
+        <div className="text-2xl my-5 mx-7 mb-5 md:mx-32">
           Internships Registered
         </div>
         {!loading && internship_id.length === 0 ? (

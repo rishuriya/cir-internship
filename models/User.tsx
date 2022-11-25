@@ -72,7 +72,11 @@ const userSchema =new mongoose.Schema({
     internships:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"internshipDataRecords"
-    }]
+    }],
+    profile_completed:{
+        type:Boolean,
+        default:false
+    },
 })
 
 export default (mongoose.models.User as mongoose.Model<User>) || mongoose.model('User', userSchema);
