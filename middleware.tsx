@@ -25,5 +25,7 @@ export async function middleware(req: NextRequest,) {
 }
 
 export const config = {
-    matcher: ['/api/internship/:path*','/api/student/internship-form/:path*','/api/student/userdetails/:path*','/api/admin/admin_decision/:path*','/api/auth/signup/:path*']
+    // matcher: ['/api/internship/:path*','/api/student/internship-form/:path*','/api/student/userdetails/:path*','/api/admin/admin_decision/:path*','/api/auth/signup/:path*']
+    matcher: ['/api/internship/:path*','/api/student/internship-form/:path*','/api/student/userdetails/:path*','/api/admin/admin_decision/:path*']
+
 };
