@@ -19,7 +19,7 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/functions.js", "pages/signup.tsx", "utils/getUser.js", "components/admin/OldInternshipCard.tsx", "components/admin/InternshipList.tsx", "pages/api/student/userdetails.js", "pages/api/student/internship-form.js", "pages/api/auth/signup.js", "pages/api/auth/login.js", "utils/db_connect.js", "pages/api/admin/allInternships.js", "middleware.js", "pages/api/student/verification.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "utils/functions.js", "pages/signup.tsx", "utils/getUser.js", "components/admin/OldInternshipCard.tsx", "components/admin/InternshipList.tsx", "pages/api/student/userdetails.js", "pages/api/student/internship-form.js", "pages/api/auth/signup.js", "pages/api/auth/login.js", "utils/db_connect.js", "pages/api/admin/allInternships.js", "middleware.tsx","pages/api/student/verification.js"],
   "exclude": [
     "node_modules"
   ],

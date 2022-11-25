@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ImSpinner2 } from "react-icons/im";
 import { RootState } from '../../store'
 import { MdReportGmailerrorred } from "react-icons/md";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { AiFillEye, AiFillEyeInvisible, AiOutlineArrowLeft } from "react-icons/ai";
 import cookie from "js-cookie";
 
 function Signup() {
@@ -59,20 +59,33 @@ function Signup() {
         password: data.password,
         role: "Admin",
       };
+      const token =cookie.get('token') || "";
 
       const res = await fetch("../api/auth/signup", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ",
+          "Content-Type": "application/json; charset=utf8 ", 'authorisation': `${token}`
         },
         body: JSON.stringify(bodyObject),
       });
-      const resData = await res.json();
+      if(res.status===200){
+        alert("Admin created successfully!");
+        Router.push("/admin");
+      }
+      if(res.status === 401){
+        setLoading(false);
+        Router.push("/admin/login");
+        return;
+      }
+      else{
+        const resData = await res.json();
+        throw resData.message;
+      }
 
       Router.push("/admin");
       setLoading(false);
     } catch (e) {
-      console.log("sdsdsdsd",e);
+      // console.log(e);
       
       setError(e);
       setLoading(false);
@@ -86,10 +99,13 @@ function Signup() {
       onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
-        
-          <div className="my-2 hover:text-blue-500 cursor-pointer text-lg " onClick={()=>Router.push("/admin")}>
+        <div className="flex flex-row items-center hover:text-blue-500 fill-black hover:fill-blue-500 cursor-pointer text-lg ">
+            <AiOutlineArrowLeft className="" size={18}/>
+
+          <div className="my-2 " onClick={()=>Router.push("/admin")}>
             Back
           </div>
+        </div>
           <h1 className="text-3xl my-5 font-bold ">Admin Signup</h1>
 
           <div className="my-3 mx-3">

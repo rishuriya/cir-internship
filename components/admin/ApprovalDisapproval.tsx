@@ -4,6 +4,7 @@ import {
   AiOutlineCheck,
   AiOutlineClose,
 } from "react-icons/ai";
+import cookie from "js-cookie";
 
 export default function InternshipCard({ internship, isApproved ,setIsDone}) {
   // const [student, setStudent] = useState(null);
@@ -34,7 +35,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
     fetch("/api/admin/admin_decision", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json", 'authorisation': `${cookie.get('token')}`
       },
       body: JSON.stringify(userObject),
     }).then(async (res) => {

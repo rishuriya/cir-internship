@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { FiAlertTriangle } from "react-icons/fi";
 import { AiOutlineDownload, AiOutlineUpload } from "react-icons/ai";
 import { AiOutlineLoading3Quarters,AiOutlineClockCircle,AiOutlineCheckCircle } from "react-icons/ai";
+import Cookies from "js-cookie";
+
 export default function InternshipCard({ id }) {
   const [internship, setInternship] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +16,7 @@ export default function InternshipCard({ id }) {
     fetch(`../api/internship/${id}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json; charset=utf8 ",
+        "Content-Type": "application/json; charset=utf8 ","authorisation": `${Cookies.get("token")}`,
       },
     }).then(async (res) => {
       const resData = await res.json();
