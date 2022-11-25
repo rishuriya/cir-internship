@@ -27,6 +27,9 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
   function closeModal() {
     setIsOpen(false);
   }
+
+  const token = cookie.get("token") || "";
+
   function approved() {
     const userObject = {
       _id: internship._id,
@@ -35,7 +38,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
     fetch("/api/admin/admin_decision", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json", 'authorisation': `${cookie.get('token')}`
+        "Content-Type": "application/json", 'authorisation': `${token}`
       },
       body: JSON.stringify(userObject),
     }).then(async (res) => {
@@ -58,7 +61,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
     fetch("/api/admin/admin_decision", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json",'authorisation': `${token}`
       },
       body: JSON.stringify(userObject),
     }).then(async (res) => {
