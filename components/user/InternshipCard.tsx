@@ -48,6 +48,7 @@ export default function InternshipCard({ id }) {
       fileimg = i;
       setImage(e.target.files[0]);
     }
+    const token = Cookies.get('token') || "";
     if (fileimg != undefined) {
       const body = new FormData();
       body.append("file", fileimg);
@@ -65,7 +66,7 @@ export default function InternshipCard({ id }) {
         fetch("/api/admin/admin_decision", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json; charset=utf8 ",
+            "Content-Type": "application/json; charset=utf8 ", 'authorisation': `${token}`
           },
           body: JSON.stringify(bodyObject),
         }).then(async (res) => {
