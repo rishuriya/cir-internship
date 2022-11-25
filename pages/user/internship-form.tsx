@@ -95,6 +95,9 @@ function InternshipForm() {
     setDisableSubmit(true);
     e.preventDefault();
     try {
+      if(!token || token.trim()===""){
+        router.push('/login')
+      }
       setError("");
       setLoading(true);
 
