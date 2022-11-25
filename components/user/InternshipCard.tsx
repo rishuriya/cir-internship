@@ -246,17 +246,26 @@ export default function InternshipCard({ id }) {
             </div>
             <div className="mt-1 ml-2 flex flex-row">
               <div>
-                {internship["company_website"]}
-              <p className="">
-                <span className="font-semibold">Email : </span>
-                {internship["company_email"]}
+              <p className="mt-1 text-md">
+                <span className="font-semibold">Company Website : </span>
+                <a href={internship["company_website"]} target="_blank" className="underline text-blue-600 hover:text-blue-800">Link to Company Website</a>
               </p>
-              <p className="">
-                <span className="font-semibold">Phone no. :</span>
+              <p className="mt-1 text-md">
+                <span className="font-semibold">Email : </span>
+                <a href={`mailto: ${internship["company_email"]}`} target="_blank" className="underline text-blue-600 hover:text-blue-800">{internship["company_email"]}</a>
+
+              </p>
+              <p className="mt-1 text-md">
+                <span className="font-semibold">Phone no. : </span>
                 {internship["company_mobile"]}
               </p>
-              <p className="mt-1 text-lg">
-                {internship["internship_mode"]} / {internship["training_type"]}
+              <p className="mt-1 text-md">
+                <span className="font-semibold">Mode : </span>
+                {internship["internship_mode"]} 
+              </p>
+              <p className="mt-1 text-md">
+                <span className="font-semibold">Job Type : </span>
+                {internship["training_type"]}
               </p>
               <p className="mt-1">
                 {" "}
@@ -311,9 +320,9 @@ export default function InternshipCard({ id }) {
                           e,
                           internship["_id"],
                           internship["approved"])}>
-                      <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2">
+                      <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md shadow-md hover:shadow-none">
                         <AiOutlineDownload className="fill-black " size={28} />
-                        <p className="text-sm mx-1 mt-1">Letter Template</p>
+                        <p className="text-sm mx-1 mt-1 ">Letter Template</p>
                       </div>
                     </button>
                     </div>
