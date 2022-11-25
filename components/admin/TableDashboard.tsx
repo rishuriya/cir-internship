@@ -186,6 +186,7 @@ export default function TableDashboard() {
                     return (
                       <>
                         <td
+                        onClick={() => StudentDetails(row)}
                           key={i}
                           className="p-4 text-center"
                           {...cell.getCellProps()}
@@ -201,7 +202,7 @@ export default function TableDashboard() {
                                     rounded-md border border-transparent bg-primary my-2 px-3 py-1 text-base font-medium text-white shadow-sm hover:bg-pink-900"
                       onClick={() => StudentDetails(row)}
                     >
-                      Details
+                      Branch/Course
                     </button>
                   </td>
                   <ApprovalDisapproval
