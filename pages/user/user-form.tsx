@@ -27,7 +27,7 @@ function StudentForm() {
       setError("");
       setLoading(true);
       
-      
+      const token =cookie.get('token') || "";
       const data = Object.fromEntries(new FormData(e.target).entries());
       const bodyObject={
         name: data.name,
@@ -46,7 +46,7 @@ function StudentForm() {
       const res = await fetch("/api/student/userdetails", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ",
+          "Content-Type": "application/json; charset=utf8 ",'authorisation': `${token}`
         },
         body: JSON.stringify(bodyObject),
       });
