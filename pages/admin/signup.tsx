@@ -72,6 +72,11 @@ function Signup() {
         alert("Admin created successfully!");
         Router.push("/admin");
       }
+      if(res.status === 401){
+        setLoading(false);
+        Router.push("/admin/login");
+        return;
+      }
       else{
         const resData = await res.json();
         throw resData.message;

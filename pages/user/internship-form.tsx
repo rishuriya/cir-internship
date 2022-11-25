@@ -60,6 +60,10 @@ function InternshipForm() {
 
   useEffect(() => {
     const token = Cookie.get("token");
+    if (!token || token.trim()==="") {
+      router.push("/login");
+      return;
+    }
     getUser(token).then(async (response) => {
       id = response.user["id"];
       name = response.user["name"];
@@ -83,9 +87,7 @@ function InternshipForm() {
       });
     });
   }, [data]);
-  // useEffect(() => {
-  //   user_name[]
-  // },[sem])
+  
 
   let token = Cookie.get("token");
 

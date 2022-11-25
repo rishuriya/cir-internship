@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import NoInternship from "./NoInternship";
 import { useSelector } from "react-redux";
 import InternshipCard from "./InternshipCard";
+import Router from "next/router";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function Home() {
@@ -22,10 +23,13 @@ function Home() {
         headers: {
           "Content-Type": "application/json; charset=utf8 ","authorisation":token
         },
-      }).then((res) => res.json())
+      }).then((res) => {
+        if(res.status === 401){
+          Router.push("/login")
+          return
+        }
+       return res.json()})
         .then((data) => {
-          // console.log(data);
-          
           if (data.success) {
             setInternship_id(data.data.internships.reverse());
           }
@@ -55,7 +59,6 @@ function Home() {
           })
         )}
       </main>
-
       <footer className="">
       </footer>
     </div>
