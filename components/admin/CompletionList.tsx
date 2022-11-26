@@ -1,9 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
 import { useMemo, useState } from "react";
-import ApprovalDisapproval from "./ApprovalDisapprovalPending";
-import InternshipDetailsModal from "./InternshipDetailsModal";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import InternshipDetailsModal from "./InternshipDetailsModal";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
 
 import GlobalFilter from "./GlobalFilter";
@@ -42,9 +41,9 @@ const tableColumns = [
   },
 ];
 
-const timeDuration = (start, end) => {
-  const startDate: any = new Date(start);
-  const endDate: any = new Date(end);
+const timeDuration=(start,end)=>{
+  const startDate:any=new Date(start);
+  const endDate:any=new Date(end);
   const diffTime = Math.abs(endDate - startDate);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   return diffDays;
@@ -53,9 +52,10 @@ const toDDmmm = (date) => {
   const d = new Date(date);
   const month = d.toLocaleString('default', { month: 'short' });
   return `${d.getDate()} ${month}`;
-} 
+}
 
-export default function TableDashboard() {
+export default function InternshipApprovedList() {
+  const [internships, setInternships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [csvData, setCsvData] = useState([]);
   const [data, setData] = useState([]);
@@ -63,8 +63,8 @@ export default function TableDashboard() {
   const [modal, setModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [StudentDetail, setStudentDetail] = useState([]);
-  const [isDone, setIsDone] = useState(false);
   const [empty, setEmpty] = useState(false);
+
 
   const columns = useMemo(() => tableColumns, []);
   const close = () => {
@@ -99,28 +99,36 @@ export default function TableDashboard() {
   useEffect(() => {
     try{
       setLoading(true);
-      fetch("/api/admin/pendingInternships", {
+      fetch("/api/admin/approvedInternships", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       }).then(async (res) => {
-        const resData = await res.json();
-        console.log("sdsd",resData);
-
+        const resData = await res.json();          
         if (resData.success) {
+          setInternships(resData.data);
           setData(resData.data);
-        }else{
+          setLoading(false);
+        }
+        else{
           setEmpty(true);
+          setLoading(false);
         }
       });
       setLoading(false);
-      setIsDone(false);
+      
     }catch(e){
       setLoading(false);
-      console.log(e);
+      console.log("error",e);
     }
-  }, [isDone]);
+  }, []);
+
+  useEffect(() => {
+    if (internships.length > 0) {
+      setLoading(false);
+    }
+  }, [internships]);
 
   function StudentDetails(row) {
     let a = row.original;
@@ -142,14 +150,15 @@ export default function TableDashboard() {
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (
-              <>
+              <React.Fragment key={i}>
                 <tr key={i} {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
                     <th
                       key={i}
                       scope="col"
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4"
-                      {...column.getHeaderProps()}>
+                      {...column.getHeaderProps()}
+                    >
                       {column.render("Header")}
                       <div>
                         {column.canFilter ? column.render("Filter") : null}
@@ -170,11 +179,11 @@ export default function TableDashboard() {
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
                       scope="col"
                     >
-                      Approval
+                      Status
                     </th>
                   }
                 </tr>
-              </>
+              </React.Fragment>
             ))}
           </thead>
           <tbody className="divide-y-2" {...getTableBodyProps()}>
@@ -186,13 +195,13 @@ export default function TableDashboard() {
                     return (
                       <>
                         <td
-                        onClick={() => StudentDetails(row)}
                           key={i}
                           className="p-4 text-center"
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
                         </td>
+                        {/* {(i === rows.length - 1) && <td className='p-4 text-center'>l</td>} */}
                       </>
                     );
                   })}
@@ -202,14 +211,10 @@ export default function TableDashboard() {
                                     rounded-md border border-transparent bg-primary my-2 px-3 py-1 text-base font-medium text-white shadow-sm hover:bg-pink-900"
                       onClick={() => StudentDetails(row)}
                     >
-                      Branch/Course
+                      Details
                     </button>
                   </td>
-                  <ApprovalDisapproval
-                    internship={row.original}
-                    isApproved={false}
-                    setIsDone={setIsDone}
-                  />
+                  <td className="text-center rounded-lg mx-7 items-center justify-center whitespace-nowrap text-green-700 py-1 px-4">Approved</td>
                 </tr>
               );
             })}
@@ -261,15 +266,18 @@ export default function TableDashboard() {
             {'>>'}
           </button>
         </div>
-      </div>:(loading===true?<div className="flex justify-center items-center">
-        <div className="">
-          <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42}/>
+      </div>:
+      (
+        loading?
+        <div className="flex justify-center items-center">
+         <AiOutlineLoading3Quarters className="fill-primary animate-spin my-4 ml-4"
+          size={42}/>
+        </div>:
+        <div className="flex justify-center items-center">
+          <h1 className="text-2xl font-bold">No Internships Found</h1>
         </div>
-        </div>:<div className="flex justify-center items-center my-10">
-          <h1 className="text-2xl font-bold">No Pending Internships.</h1>
-        </div>)
-      }  
+      )
+      }
     </>
   );
 }
-

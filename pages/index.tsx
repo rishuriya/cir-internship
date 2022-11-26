@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 export default function landingPage() {
-
+    console.log(" ** Made by amFOSS 🤍 for Amrita **")
     return (
         <div className="w-[100vw] h-[100vh] bg-no-repeat bg-[url('../public/img/setu-bg.jpg')] bg-cover">
             
