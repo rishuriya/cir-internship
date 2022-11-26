@@ -248,11 +248,11 @@ export default function InternshipCard({ id }) {
               <div>
               <p className="mt-1 text-md">
                 <span className="font-semibold">Company Website : </span>
-                <a href={internship["company_website"]} target="_blank" className="underline text-blue-600 hover:text-blue-800">Link to Company Website</a>
+                <a href={internship["company_website"]}  className="underline text-blue-600 hover:text-blue-800">{internship["company_website"]} </a>
               </p>
               <p className="mt-1 text-md">
                 <span className="font-semibold">Email : </span>
-                <a href={`mailto: ${internship["company_email"]}`} target="_blank" className="underline text-blue-600 hover:text-blue-800">{internship["company_email"]}</a>
+                <a href={`mailto: ${internship["company_email"]}`}  className="underline text-blue-600 hover:text-blue-800">{internship["company_email"]}</a>
 
               </p>
               <p className="mt-1 text-md">
