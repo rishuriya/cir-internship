@@ -63,6 +63,7 @@ export default function InternshipApprovedList() {
   const [modal, setModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [StudentDetail, setStudentDetail] = useState([]);
+  const [isDone, setIsDone] = useState(false);
   const [empty, setEmpty] = useState(false);
 
 
@@ -144,6 +145,7 @@ export default function InternshipApprovedList() {
         <InternshipDetailsModal
           closeModal={setOpenModal}
           info={StudentDetail}
+          setIsDone={setIsDone}
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
