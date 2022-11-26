@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import Head from 'next/head'
 import cookie from 'js-cookie';
 import { useEffect } from 'react'
@@ -8,14 +7,15 @@ import Router from "next/router";
 import { getUser } from '../../utils/getUser'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store';
-import AdminHome from '../../components/admin/Home';
+import Navbar from '../../components/admin/Navbar'
+import CompletionList from '../../components/admin/CompletionList'
 
 
-function Index() {
+function ApprovedInternships() {
 
   const dispatch = useDispatch();
   const authUser:any = useSelector((state: RootState) => state.user.value);
-  
+
   useEffect(() => {
     if (authUser === null) {
       try {
@@ -26,6 +26,7 @@ function Index() {
             Router.push("/login");
             return;
           }
+          // console.log("welcome ",response.user.name)
           const userObj = {
             id: response.user.id,
             name: response.user.name,
@@ -69,10 +70,19 @@ function Index() {
       </Head> 
 
       <main>
-        <AdminHome/>
+      <Navbar/>
+        <div className='mx-auto max-w-7xl px-4 sm:px-6'>
+            <div className='my-3 mx-2 font-semibold text-lg text-center'>
+                Admin Portal
+            </div>
+            <div className='font-medium mx-5 my-5 text-xl'>
+            Internships
+            </div>
+            <CompletionList/>
+        </div>
       </main>
     </div>
   )
 }
 
-export default Index
+export default ApprovedInternships

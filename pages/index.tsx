@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 
 export default function landingPage() {
-
+    console.log(" ** Made by amFOSS 🤍 for Amrita **")
     return (
         <div className="w-[100vw] h-[100vh] bg-no-repeat bg-[url('../public/img/setu-bg.jpg')] bg-cover">
             
@@ -25,6 +25,9 @@ export default function landingPage() {
                     <p className="my-5 text-lg font-medium" >Corporate & Industry Relations(CIR),Amritapuri</p>
 
                 </div>
+                {/* <div>
+                        <img src="https://amfoss.in/branding/HORIZONTAL-TEXT-BULB-WHITE.svg" className="fixed bottom-8 right-10" alt="This CIR-Internship is made by amFOSS" width={200}  height={20}/>
+                </div> */}
         </div>
     )
 }

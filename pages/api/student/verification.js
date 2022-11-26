@@ -13,17 +13,21 @@ export default async function handeler(req,res) {
         //     return await res.status(401).json({success:false,message:'not authenticated'})
         // }
         if(!certificate){
-            return res.status(400).json({success:false,message:'Internship form not created'})
+            return res.status(400).json({success:false,message:'Certificate not uploaded'})
         }
         // store internship data in user
-        const user = await User.findById(req.body.user);
-        if(!user){
-            return res.status(400).json({success:false,message:'User not found'})
-        }
+        // const user = await User.findById(req.body.user);
+        // if(!user){
+        //     return res.status(400).json({success:false,message:'User not found'})
+        // }
         let query={_id:req.body.internship}
         //console.log(query)
         //console.log(req.body)
         let status = await Internship.updateOne(query,{approved:"Pending Verification"})
+
+        if(!status){
+            return res.status(400).json({success:false,message:'Internship not found'})
+        }
         // await user.internships.push(internship._id);
         // await user.save();
         // console.log(user)

@@ -54,7 +54,6 @@ export default function Navbar() {
         <div className="flex items-center justify-between border-b-2 border-gray-100 py-2 md:justify-start md:space-x-10">
           <div className="flex justify-start lg:w-0 lg:flex-1">
             <Link href="/admin">
-              {/* <span className="sr-only">Amrita Vishwa Vidyapeetham</span> */}
               <img
                 className="h-10 w-auto sm:h-16"
                 src="https://upload.wikimedia.org/wikipedia/en/f/f8/Amrita-vishwa-vidyapeetham-color-logo.png"
@@ -78,6 +77,11 @@ export default function Navbar() {
           <Link href="/admin/approved-internships">
             <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
             Approved Internships
+            </div>
+          </Link>
+          <Link href="/admin/pending-verification">
+            <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+            Pending Verification
             </div>
           </Link>
           <Link href="/admin/signup">

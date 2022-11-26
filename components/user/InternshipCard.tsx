@@ -10,8 +10,10 @@ export default function InternshipCard({ id }) {
   const [internship, setInternship] = useState([]);
   const [loading, setLoading] = useState(true);
   const [image, setImage] = useState(null);
+  const [pageUpdate, setPageUpdate] = useState(false);
   const router = useRouter();
   let fileimg;
+
   useEffect(() => {
     fetch(`../api/internship/${id}`, {
       method: "GET",
@@ -26,7 +28,8 @@ export default function InternshipCard({ id }) {
       }
       setLoading(false);
     });
-  }, []);
+  }, [pageUpdate]);
+
 
   function handleletter(e, uid, approve) {
     if (approve != "Disapproved") {
@@ -72,7 +75,8 @@ export default function InternshipCard({ id }) {
         }).then(async (res) => {
           const resData = await res.json();
           if (resData.success) {
-            window.location.reload();
+            // window.location.reload();
+            setPageUpdate(!pageUpdate);
           } else {
             console.log(resData.error);
           }
@@ -113,7 +117,8 @@ export default function InternshipCard({ id }) {
         }).then(async (res) => {
           const resData = await res.json();
           if (resData.success) {
-            window.location.reload();
+            // window.location.reload();
+            setPageUpdate(!pageUpdate);
           } else {
             console.log(resData.message);
           }
@@ -133,7 +138,7 @@ export default function InternshipCard({ id }) {
           Incomplete
         </p>
       );
-    } else if (status == "Approved") {
+    } else if (status === "Approved") {
       return (
         <p
           id="status"
@@ -142,7 +147,7 @@ export default function InternshipCard({ id }) {
           Approved
         </p>
       );
-    } else if (status == "Disapproved") {
+    } else if (status === "Disapproved") {
       return (
         <p
           id="status"
@@ -152,7 +157,7 @@ export default function InternshipCard({ id }) {
         </p>
       );
     } 
-    else if (status == "Completed"){
+    else if (status === "Completed"){
       return (
         <p
 
@@ -163,7 +168,7 @@ export default function InternshipCard({ id }) {
         </p>
       );
     }
-     else if (status == "Pending"){
+     else if (status === "Pending"){
       return (
         <p
           id="status"
@@ -173,11 +178,11 @@ export default function InternshipCard({ id }) {
         </p>
       );
     }
-    else if (status == "Pending Verification"){
+    else if (status === "Pending Verification"){
       return(
         <p
           id="status"
-          className="px-3 py-1 text-sm md:text-base font-bold text-blue-500 bg-blue-100 rounded"
+          className="px-3 py-1 text-sm md:text-base font-bold text-orange-500 bg-orange-100 rounded"
         >
           Verification pending
         </p>
@@ -366,7 +371,7 @@ export default function InternshipCard({ id }) {
                 {
                     internship["approved"] === "Pending" && (
                         <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
-                            <AiOutlineClockCircle className="fill-black " size={24} />
+                            <AiOutlineClockCircle className="fill-black my-auto" size={24} />
                             <p className="text-sm md:text-base my-auto mx-2 mt-1">Pending Approval</p>
                             <p className="text-sm hidden my-auto md:block"> - CIR Office has to Approve it</p>
                         </div>
@@ -375,11 +380,22 @@ export default function InternshipCard({ id }) {
                 {
                     internship["approved"] === "Completed" && (
                         <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
-                            <AiOutlineCheckCircle className="fill-black " size={24} />
-                            <p className="text-sm md:text-base mx-2 mt-1">Completed</p>
+                            <AiOutlineCheckCircle className="fill-black my-auto " size={24} />
+                            <p className="text-sm my-auto md:text-base mx-2 mt-1">Completed</p>
                             {/* <p className="text-sm hidden md:block"> </p> */}
                         </div>
                      )
+                }
+                {
+                    internship["approved"] === "Pending Verification" && (
+                      <div>
+                        <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
+                            <AiOutlineClockCircle className="fill-black my-auto" size={24} />
+                            <p className="text-sm my-auto md:text-base mx-2 mt-1">Pending Verification</p>
+                            <p className="text-sm hidden my-auto md:block"> - CIR Office has to Verify its completion</p>
+                          </div>
+                      </div>
+                    )
                 }
             </div>
           </div>

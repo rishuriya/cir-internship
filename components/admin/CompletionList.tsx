@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useMemo, useState } from "react";
-import ApprovalDisapprovalPending from "./ApprovalDisapprovalPending";
+import ApprovalDisapprovalCompletion from "./ApprovalDisapprovalCompletion";
 import InternshipDetailsModal from "./InternshipDetailsModal";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
@@ -55,7 +55,7 @@ const toDDmmm = (date) => {
   return `${d.getDate()} ${month}`;
 } 
 
-export default function TableDashboard() {
+export default function TableCompletionApproal() {
   const [loading, setLoading] = useState(true);
   const [csvData, setCsvData] = useState([]);
   const [data, setData] = useState([]);
@@ -99,7 +99,7 @@ export default function TableDashboard() {
   useEffect(() => {
     try{
       setLoading(true);
-      fetch("/api/admin/pendingInternships", {
+      fetch("/api/admin/completedInternships", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -205,7 +205,7 @@ export default function TableDashboard() {
                       Branch/Course
                     </button>
                   </td>
-                  <ApprovalDisapprovalPending
+                  <ApprovalDisapprovalCompletion
                     internship={row.original}
                     isApproved={false}
                     setIsDone={setIsDone}
