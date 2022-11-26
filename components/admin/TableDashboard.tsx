@@ -8,6 +8,7 @@ import { useTable, useGlobalFilter, useFilters, usePagination } from "react-tabl
 
 import GlobalFilter from "./GlobalFilter";
 import { ColumnFilter } from "./ColumnFilter";
+import { MdRowing } from "react-icons/md";
 
 const tableColumns = [
   {
@@ -133,6 +134,7 @@ export default function TableDashboard() {
         <InternshipDetailsModal
           closeModal={setOpenModal}
           info={StudentDetail}
+          setIsDone={setIsDone}
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
@@ -185,11 +187,12 @@ export default function TableDashboard() {
                         <td
                         onClick={() => StudentDetails(row)}
                           key={i}
-                          className="p-4 text-center cursor-pointer"  
+                          className="p-4 text-center cursor-pointer hover:bg-slate-200"  
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
                         </td>
+                        
                       </>
                     );
                   })}
@@ -206,6 +209,7 @@ export default function TableDashboard() {
                     internship={row.original}
                     isApproved={false}
                     setIsDone={setIsDone}
+                    showModal={false}
                   />
                 </tr>
               );

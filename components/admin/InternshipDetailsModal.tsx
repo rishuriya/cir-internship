@@ -2,8 +2,10 @@ import { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { MdCardMembership } from 'react-icons/md';
+import ApprovalDisapprovalPending from './ApprovalDisapprovalPending';
+import internal from 'stream';
 
-export default function DetailModal({closeModal, info} ) {
+export default function DetailModal({closeModal, info,setIsDone,} ) {
   const [open, setOpen] = useState(true)
   const [loading, setLoading] = useState(true);
   const cancelButtonRef = useRef(null)
@@ -229,10 +231,7 @@ export default function DetailModal({closeModal, info} ) {
                           
                         </span> 
                         </p>
-                        
-                        
                     )
-
                   }
                 </div>
                       </div>
@@ -242,10 +241,35 @@ export default function DetailModal({closeModal, info} ) {
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 text-base font-medium text-white shadow-base hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-base"
+                    className="inline-flex w-full h-10 bottom-5 justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 text-base font-medium text-white shadow-base hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-base"
                     onClick={() => closeModal(false)}>
                     OK
                   </button>
+                  {/* <div className="absolute left-0 inline-flex h-55">
+                    
+                  <button
+                    type="button"
+                    className="rounded-md border border-transparent bg-green-500 px-4 py-2 text-base font-medium text-white shadow-base hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-base"
+                    onClick={() => (closeModal(false))}>
+                      Approve
+                  </button>
+                  <button
+                    type="button"
+                    className="rounded-md border border-transparent bg-red-500 px-4 py-2 text-base font-medium text-white shadow-base hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-base"
+                    onClick={() => closeModal(false)}>
+                      Disapprove
+                  </button>
+                  </div> */}
+                  <div className='absolute left-0 bottom-1'>
+                    <ApprovalDisapprovalPending
+                    internship={info}
+                    isApproved={false}
+                    setIsDone={setIsDone}
+                    showModal={closeModal}
+
+                  />
+                  </div>
+                  
                 </div>
               </Dialog.Panel>
             </Transition.Child>
