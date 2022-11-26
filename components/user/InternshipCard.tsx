@@ -10,8 +10,10 @@ export default function InternshipCard({ id }) {
   const [internship, setInternship] = useState([]);
   const [loading, setLoading] = useState(true);
   const [image, setImage] = useState(null);
+  const [pageUpdate, setPageUpdate] = useState(false);
   const router = useRouter();
   let fileimg;
+
   useEffect(() => {
     fetch(`../api/internship/${id}`, {
       method: "GET",
@@ -26,7 +28,8 @@ export default function InternshipCard({ id }) {
       }
       setLoading(false);
     });
-  }, []);
+  }, [pageUpdate]);
+
 
   function handleletter(e, uid, approve) {
     if (approve != "Disapproved") {
@@ -72,7 +75,8 @@ export default function InternshipCard({ id }) {
         }).then(async (res) => {
           const resData = await res.json();
           if (resData.success) {
-            window.location.reload();
+            // window.location.reload();
+            setPageUpdate(!pageUpdate);
           } else {
             console.log(resData.error);
           }
@@ -113,7 +117,8 @@ export default function InternshipCard({ id }) {
         }).then(async (res) => {
           const resData = await res.json();
           if (resData.success) {
-            window.location.reload();
+            // window.location.reload();
+            setPageUpdate(!pageUpdate);
           } else {
             console.log(resData.message);
           }
