@@ -188,7 +188,7 @@ export default function TableDashboard() {
                         <td
                         onClick={() => StudentDetails(row)}
                           key={i}
-                          className="p-4 text-center"
+                          className="p-4 text-center cursor-pointer"  
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
