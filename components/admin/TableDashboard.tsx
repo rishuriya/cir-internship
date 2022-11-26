@@ -8,6 +8,7 @@ import { useTable, useGlobalFilter, useFilters, usePagination } from "react-tabl
 
 import GlobalFilter from "./GlobalFilter";
 import { ColumnFilter } from "./ColumnFilter";
+import { MdRowing } from "react-icons/md";
 
 const tableColumns = [
   {
@@ -40,6 +41,11 @@ const tableColumns = [
     accessor: "company_name",
     Filter: ColumnFilter,
   },
+  {
+    Header: "Branch/Course",
+    accessor: "status",
+    Filter: ColumnFilter,
+  }
 ];
 
 const timeDuration = (start, end) => {
@@ -67,15 +73,7 @@ export default function TableDashboard() {
   const [empty, setEmpty] = useState(false);
 
   const columns = useMemo(() => tableColumns, []);
-  const close = () => {
-    setShow(false);
-  };
-
-  // Function to close Modal
-  const open = () => {
-    setShow(true);
-  };
-
+ 
   const {
     getTableProps,
     getTableBodyProps,
@@ -136,10 +134,11 @@ export default function TableDashboard() {
         <InternshipDetailsModal
           closeModal={setOpenModal}
           info={StudentDetail}
+          setIsDone={setIsDone}
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
-        <table {...getTableProps()}>
+        <table {...getTableProps()} >
           <thead>
             {headerGroups.map((headerGroup, i) => (
               <>
@@ -156,14 +155,14 @@ export default function TableDashboard() {
                       </div>
                     </th>
                   ))}
-                  {i === headerGroups.length - 1 && (
+                  {/* {i === headerGroups.length - 1 && (
                     <th
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
                       scope="col"
                     >
-                      Details
+                      
                     </th>
-                  )}
+                  )} */}
                   {
                     <th
                       id="4"
@@ -181,22 +180,23 @@ export default function TableDashboard() {
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr key={i} {...row.getRowProps()}>
+                <tr key={i} {...row.getRowProps()} className="hover:bg-slate-100/60 rounded-lg cursor-pointer">
                   {row.cells.map((cell) => {
                     return (
                       <>
                         <td
                         onClick={() => StudentDetails(row)}
                           key={i}
-                          className="p-4 text-center cursor-pointer"  
+                          className="p-4 text-center "  
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
                         </td>
+                        
                       </>
                     );
                   })}
-                  <td>
+                  {/* <td>
                     <button
                       className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
                                     rounded-md border border-transparent bg-primary my-2 px-3 py-1 text-base font-medium text-white shadow-sm hover:bg-pink-900"
@@ -204,25 +204,26 @@ export default function TableDashboard() {
                     >
                       Branch/Course
                     </button>
-                  </td>
+                  </td> */}
                   <ApprovalDisapprovalPending
                     internship={row.original}
                     isApproved={false}
                     setIsDone={setIsDone}
+                    showModal={false}
                   />
                 </tr>
               );
             })}
           </tbody>
         </table>
-        <div className="my-5 mx-5">
-          <span>
+        <div className="my-5 mx-5 flex flex-row justify-end">
+          <div className="my-auto">
             Page{' '}
             <strong>
               {pageIndex + 1} of {pageOptions.length}
             </strong>
-          </span>
-          <span>
+          </div>
+          <div className="my-auto">
             <select
             className="ml-2 inline-flex items-center justify-center whitespace-nowrap px-2 py-1"
             value={pageSize}
@@ -235,7 +236,7 @@ export default function TableDashboard() {
                 ))
               }
             </select>
-          </span>
+          </div>
           <button
             onClick={() => gotoPage(0)}
               className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"

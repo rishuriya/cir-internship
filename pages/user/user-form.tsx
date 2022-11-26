@@ -83,12 +83,8 @@ function StudentForm() {
           className="w-full">
           <div className="my-3 mx-2 text-white font-semibold uppercase"onClick={() => setEditDetail(!editDetail)}>
           
-              Personal Details <div onClick={() => setEditDetail(!editDetail)} className=" mx-3">{
-                editDetail ?
-                  <MdOutlineModeEditOutline size={24} /> :
-                  <MdOutlineEditOff size={24} />
-              }
-              </div>
+              Personal Details 
+             
               
               </div>
           <div className="flex flex-wrap -mx-3 mb-6" >

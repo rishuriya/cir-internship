@@ -6,11 +6,11 @@ import {
 } from "react-icons/ai";
 import cookie from "js-cookie";
 
-export default function InternshipCard({ internship, isApproved ,setIsDone}) {
+export default function InternshipCard({ internship, isApproved ,setIsDone,showModal}) {
   // const [student, setStudent] = useState(null);
   // const [loading, setLoading] = useState(true);
   // const [showDetails, setShowDetails] = useState(false);
-
+  // const [isApproved, setIsApproved] = useState(false);
   //modal
   let [isOpen, setIsOpen] = useState(false);
   let [approve, setApprove] = useState("");
@@ -31,6 +31,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
   const token = cookie.get("token") || "";
 
   function approved() {
+    showModal(false)
     const userObject = {
       _id: internship._id,
       approved: "Approved",

@@ -26,12 +26,6 @@ function Signup() {
   };
   const user = cookie.get("token");
 
-  // React.useEffect(() => {
-  //     if(user!=undefined){
-  //       Router.push("/user");
-  //     }
-  //  },[]
-  // )
   const handleOnSubmit = async(e) => {
     e.preventDefault();
     try {
@@ -59,9 +53,10 @@ function Signup() {
         body: JSON.stringify(bodyObject),
       });
       const resData = await res.json();
-      // console.log(resData);
       if (res.status === 200 && resData.success) {
+
         const userObj={
+          id:resData.user._id,
           name: resData.user.name,
           email: resData.user.email,
           isAdmin: false,
