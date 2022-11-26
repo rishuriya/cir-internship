@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useMemo, useState } from "react";
-import ApprovalDisapproval from "./ApprovalDisapprovalPending";
+import ApprovalDisapprovalPending from "./ApprovalDisapprovalPending";
 import InternshipDetailsModal from "./InternshipDetailsModal";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
@@ -205,7 +205,7 @@ export default function TableDashboard() {
                       Branch/Course
                     </button>
                   </td>
-                  <ApprovalDisapproval
+                  <ApprovalDisapprovalPending
                     internship={row.original}
                     isApproved={false}
                     setIsDone={setIsDone}

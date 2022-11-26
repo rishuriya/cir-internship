@@ -1,7 +1,7 @@
 import db_connect from "../../../utils/db_connect";
 import Internship from "../../../models/Internship";
 import User from "../../../models/User";
-import Approval from "../../../models/approval";
+import Approval from "../../../models/CompletedInternship";
 
 export default async function handeler(req,res) {
     await db_connect();
