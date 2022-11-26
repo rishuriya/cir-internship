@@ -17,7 +17,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
 
   function handleApprove() {
     setIsOpen(true);
-    setApprove("approve");
+    setApprove("verify");
   }
   function handleDisapprove() {
     setIsOpen(true);
@@ -33,7 +33,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
   function approved() {
     const userObject = {
       _id: internship._id,
-      approved: "Approved",
+      approved: "Completed",
     };
     fetch("/api/admin/admin_decision", {
       method: "POST",
@@ -112,14 +112,14 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-sm text-gray-500">
-                      {approve === "approve"
+                      {approve === "verify"
                         ? "This will autogenerate the letter for the student"
                         : "Kindly provide remarks stating the reason for disapproval"}
                     </p>
                   </div>
 
                   <div className="mt-4">
-                    {approve === "approve" ? (
+                    {approve === "verify" ? (
                       <>
                         <div className="flex justify-around">
                           <button
@@ -175,7 +175,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
               className="flex bg-green-400 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"
             >
               <AiOutlineCheck className="fill-green-700" size={26} />
-              <span>Approve</span>
+              <span>Verify</span>
             </button>
             <button
               onClick={handleDisapprove}
