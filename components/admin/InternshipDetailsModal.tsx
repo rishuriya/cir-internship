@@ -1,23 +1,22 @@
-import { Fragment, useEffect, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useEffect, useRef, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { MdCardMembership } from 'react-icons/md';
-import ApprovalDisapprovalPending from './ApprovalDisapprovalPending';
-import internal from 'stream';
+import { MdCardMembership } from "react-icons/md";
+import ApprovalDisapprovalPending from "./ApprovalDisapprovalPending";
+import internal from "stream";
 
-export default function DetailModal({closeModal, info,setIsDone,} ) {
-  const [open, setOpen] = useState(true)
+export default function DetailModal({ closeModal, info, setIsDone }) {
+  const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
-  const cancelButtonRef = useRef(null)
-  const [user,setUser] = useState<any>("")
+  const cancelButtonRef = useRef(null);
+  const [user, setUser] = useState<any>("");
 
   useEffect(() => {
-    
     fetch(`/api/student/${info.user}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).then(async (res) => {
       const resData = await res.json();
       if (resData.success) {
@@ -25,17 +24,22 @@ export default function DetailModal({closeModal, info,setIsDone,} ) {
       }
       // console.log(resData.data);
     });
-  }, [])
+  }, []);
 
-  const toDate=(date)=>{
+  const toDate = (date) => {
     const d = new Date(date);
     return d.toDateString();
-  }
+  };
   let member = info.member == null ? null : JSON.parse(info.member);
   console.log(info.member);
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={() => closeModal(false)}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        initialFocus={cancelButtonRef}
+        onClose={() => closeModal(false)}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -63,61 +67,104 @@ export default function DetailModal({closeModal, info,setIsDone,} ) {
                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <div className="sm:flex sm:items-start">
                     <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
-                      <Dialog.Title as="h3" className="text-lg font-medium leading-5 text-gray-900">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-lg font-medium leading-5 text-gray-900"
+                      >
                         Details:
                       </Dialog.Title>
                       <div className="mt-1 ml-2">
                         <div>
-                        <p className='text-lg font-semibold'>
-                          Student Details
-                        </p>
-                        {user!==""?<>
-                        <p className="text-base text-gray-700 ml-2">
-                          Name : <span className='text-black'>{info.name}</span> <span>( {user.rollno} )</span>
-                        </p>
-                        <p>
-
-                        </p>
-                        <p className='text-base text-gray-700 ml-2'>
-                          Course/Branch: <span className='text-black'>{user.course} - {user.branch}</span>
-                        </p>
-                        <p className='text-base text-gray-700 ml-2'>
-                          School: <span className='text-black'>{user.school}</span>
-                        </p>
-                        </>:
-                        <AiOutlineLoading3Quarters className="fill-primary animate-spin my-4 ml-4"
-                        size={36}/>}
+                          <p className="text-lg font-semibold">
+                            Student Details
+                          </p>
+                          {user !== "" ? (
+                            <>
+                              <p className="text-base text-gray-700 ml-2">
+                                Name :{" "}
+                                <span className="text-black">{info.name}</span>{" "}
+                                <span>( {user.rollno} )</span>
+                              </p>
+                              <p></p>
+                              <p className="text-base text-gray-700 ml-2">
+                                Course/Branch:{" "}
+                                <span className="text-black">
+                                  {user.course} - {user.branch}
+                                </span>
+                              </p>
+                              <p className="text-base text-gray-700 ml-2">
+                                School:{" "}
+                                <span className="text-black">
+                                  {user.school}
+                                </span>
+                              </p>
+                            </>
+                          ) : (
+                            <AiOutlineLoading3Quarters
+                              className="fill-primary animate-spin my-4 ml-4"
+                              size={36}
+                            />
+                          )}
                         </div>
-                        <div className='mt-2'>
-                        <p className='text-lg font-semibold'>
-                          Internship Details
-                        </p>
-                        <p className='text-base text-gray-700 ml-2'>
-                          Company : <span className='text-black'>{info.company_name}</span> <span>( <a  className='text-blue-500' href={`${info.company_website}`}> {info.company_website} </a>)
-                          </span>
-                        </p>
-                        <p className='text-base text-gray-700 ml-2'>
-                          Company location : <span className='text-black'>{info.company_location}</span>
-                        </p>
-                        <p className='text-base text-gray-700 ml-2'>
-                          Contact : <span className='text-black'>{info.company_mobile}</span>
-                        </p>
-                        <div className='flex flex-row justify-between'>
-                        <p className='text-base text-gray-700 ml-2'>
-                          Mode :  <span className='text-black'>{info.internship_mode}</span>
-                        </p>
-                        </div>
-                        <div className='flex flex-row justify-between'>
-                        <p className='text-base text-gray-700 ml-2'>
-                          Training Type : <span className='text-black'>{info.training_type}</span>
-                        </p>
-                        </div>
-                        <p className='text-base text-gray-700 ml-2'>
-                          Dates : <span className='text-black'>{toDate(info.internship_start_date)} - {toDate(info.internship_end_date)}</span>
-                        </p>
+                        <div className="mt-2">
+                          <p className="text-lg font-semibold">
+                            Internship Details
+                          </p>
+                          <p className="text-base text-gray-700 ml-2">
+                            Company :{" "}
+                            <span className="text-black">
+                              {info.company_name}
+                            </span>{" "}
+                            <span>
+                              ({" "}
+                              <a
+                                className="text-blue-500"
+                                href={`${info.company_website}`}
+                              >
+                                {" "}
+                                {info.company_website}{" "}
+                              </a>
+                              )
+                            </span>
+                          </p>
+                          <p className="text-base text-gray-700 ml-2">
+                            Company location :{" "}
+                            <span className="text-black">
+                              {info.company_location}
+                            </span>
+                          </p>
+                          <p className="text-base text-gray-700 ml-2">
+                            Contact :{" "}
+                            <span className="text-black">
+                              {info.company_mobile}
+                            </span>
+                          </p>
+                          <div className="flex flex-row justify-between">
+                            <p className="text-base text-gray-700 ml-2">
+                              Mode :{" "}
+                              <span className="text-black">
+                                {info.internship_mode}
+                              </span>
+                            </p>
+                          </div>
+                          <div className="flex flex-row justify-between">
+                            <p className="text-base text-gray-700 ml-2">
+                              Training Type :{" "}
+                              <span className="text-black">
+                                {info.training_type}
+                              </span>
+                            </p>
+                          </div>
+                          <p className="text-base text-gray-700 ml-2">
+                            Dates :{" "}
+                            <span className="text-black">
+                              {toDate(info.internship_start_date)} -{" "}
+                              {toDate(info.internship_end_date)}
+                            </span>
+                          </p>
                         </div>
                         <div>
-                  {/* {info.member != null ? (
+                          {/* {info.member != null ? (
                     <>
                       <p>
                         Team members :{" "}
@@ -179,61 +226,74 @@ export default function DetailModal({closeModal, info,setIsDone,} ) {
                       </p>
                     </>
                   )} */}
-                  {
-                    info.member.length != 55
-                    ?(                      
-                      <div>
-                      <p className='text-base mt-1 font-semibold'>
-                        Team members : 
-                        <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg"/>
-                        
-                      </p>
-                      {member.map((members) => 
-                          // (
-                          //   <p className='text-base text-gray-700 ml-2' key={members.roll_number}>
-                          //     Name : <span className='text-black'>{members.name_member}</span> <span></span>
-                          //     <br></br>
-                          //     Roll number : <span className='text-black'>{members.roll_member}</span>
-                          //     <br></br>
-                          //     Email : <span className='text-black'>{members.email_member}</span>
-                          //     {/* <br></br>
-                          //     Members : {Object.keys(members).length} */}
-                          //   </p>
-                          // )
-                         (
-                          members.name_member !== null || members.roll_member !== null || members.email_member !== null ?(
-                            <><p className='text-base text-gray-700 ml-2'>
-                            Name: <span className='text-black'>{members.name_member}</span>
-                          </p><p className='text-base text-gray-700 ml-2'>
-                              Roll number: <span className='text-black'>{members.roll_member}</span>
-                            </p><p className='text-base text-gray-700 ml-2'>
-                              Email: <span className='text-black'>{members.email_member}</span>
-                            </p></>
-                          ):( 
-                            <><p className='text-base text-gray-700 ml-2'>
-                              Name: <span className='text-black'>None</span>
-                            </p><p className='text-base text-gray-700 ml-2'>
-                                Roll number: <span className='text-black'>None</span>
-                              </p><p className='text-base text-gray-700 ml-2'>
-                                Email: <span className='text-black'>None</span>
-                              </p></>
-
-                          )
-                         )
-                        )}
-                      </div>
-                    )
-                    :(
-                      
-                      <p className='text-lg font-semibold'>
-                        Team members : <span className="bg-gray-100/80 p-2 mx-2 my-1 rounded-md">
-                          None
-                          
-                        </span> 
-                        </p>
-                    )
-                  }
-                </div>
+                          {info.member.length != 55 ? (
+                            <div>
+                              <p className="text-base mt-1 font-semibold">
+                                Team members :
+                                <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg" />
+                              </p>
+                              {member.map((members) =>
+                                // (
+                                //   <p className='text-base text-gray-700 ml-2' key={members.roll_number}>
+                                //     Name : <span className='text-black'>{members.name_member}</span> <span></span>
+                                //     <br></br>
+                                //     Roll number : <span className='text-black'>{members.roll_member}</span>
+                                //     <br></br>
+                                //     Email : <span className='text-black'>{members.email_member}</span>
+                                //     {/* <br></br>
+                                //     Members : {Object.keys(members).length} */}
+                                //   </p>
+                                // )
+                                members.name_member !== null ||
+                                members.roll_member !== null ||
+                                members.email_member !== null ? (
+                                  <>
+                                    <p className="text-base text-gray-700 ml-2">
+                                      Name:{" "}
+                                      <span className="text-black">
+                                        {members.name_member}
+                                      </span>
+                                    </p>
+                                    <p className="text-base text-gray-700 ml-2">
+                                      Roll number:{" "}
+                                      <span className="text-black">
+                                        {members.roll_member}
+                                      </span>
+                                    </p>
+                                    <p className="text-base text-gray-700 ml-2">
+                                      Email:{" "}
+                                      <span className="text-black">
+                                        {members.email_member}
+                                      </span>
+                                    </p>
+                                  </>
+                                ) : (
+                                  <>
+                                    <p className="text-base text-gray-700 ml-2">
+                                      Name:{" "}
+                                      <span className="text-black">None</span>
+                                    </p>
+                                    <p className="text-base text-gray-700 ml-2">
+                                      Roll number:{" "}
+                                      <span className="text-black">None</span>
+                                    </p>
+                                    <p className="text-base text-gray-700 ml-2">
+                                      Email:{" "}
+                                      <span className="text-black">None</span>
+                                    </p>
+                                  </>
+                                )
+                              )}
+                            </div>
+                          ) : (
+                            <p className="text-base font-semibold">
+                              Team members :{" "}
+                              <span className="bg-gray-100/60 p-2 mx-2 my-1 rounded-md font-normal">
+                                None
+                              </span>
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -242,7 +302,8 @@ export default function DetailModal({closeModal, info,setIsDone,} ) {
                   <button
                     type="button"
                     className="inline-flex w-full h-10 bottom-5 justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 text-base font-medium text-white shadow-base hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-base"
-                    onClick={() => closeModal(false)}>
+                    onClick={() => closeModal(false)}
+                  >
                     OK
                   </button>
                   {/* <div className="absolute left-0 inline-flex h-55">
@@ -260,16 +321,14 @@ export default function DetailModal({closeModal, info,setIsDone,} ) {
                       Disapprove
                   </button>
                   </div> */}
-                  <div className='absolute left-0 bottom-1'>
+                  <div className="absolute left-0 bottom-1">
                     <ApprovalDisapprovalPending
-                    internship={info}
-                    isApproved={false}
-                    setIsDone={setIsDone}
-                    showModal={closeModal}
-
-                  />
+                      internship={info}
+                      isApproved={false}
+                      setIsDone={setIsDone}
+                      showModal={closeModal}
+                    />
                   </div>
-                  
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -277,5 +336,5 @@ export default function DetailModal({closeModal, info,setIsDone,} ) {
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }

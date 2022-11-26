@@ -138,7 +138,7 @@ export default function TableDashboard() {
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
-        <table {...getTableProps()}>
+        <table {...getTableProps()} >
           <thead>
             {headerGroups.map((headerGroup, i) => (
               <>
@@ -180,14 +180,14 @@ export default function TableDashboard() {
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr key={i} {...row.getRowProps()} className="hover:bg-slate-100/60 rounded-lg">
+                <tr key={i} {...row.getRowProps()} className="hover:bg-slate-100/60 rounded-lg cursor-pointer">
                   {row.cells.map((cell) => {
                     return (
                       <>
                         <td
                         onClick={() => StudentDetails(row)}
                           key={i}
-                          className="p-4 text-center cursor-pointer hover:bg-slate-200"  
+                          className="p-4 text-center "  
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}

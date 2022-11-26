@@ -40,6 +40,11 @@ const tableColumns = [
     accessor: "company_name",
     Filter: ColumnFilter,
   },
+  {
+    Header: "Branch/Course",
+    accessor: "status",
+    Filter: ColumnFilter,
+  }
 ];
 
 const timeDuration = (start, end) => {
@@ -136,6 +141,7 @@ export default function TableCompletionApproal() {
         <InternshipDetailsModal
           closeModal={setOpenModal}
           info={StudentDetail}
+          setIsDone={setIsDone}
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
@@ -156,14 +162,14 @@ export default function TableCompletionApproal() {
                       </div>
                     </th>
                   ))}
-                  {i === headerGroups.length - 1 && (
+                  {/* {i === headerGroups.length - 1 && (
                     <th
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
                       scope="col"
                     >
                       Details
                     </th>
-                  )}
+                  )} */}
                   {
                     <th
                       id="4"
@@ -196,7 +202,7 @@ export default function TableCompletionApproal() {
                       </>
                     );
                   })}
-                  <td>
+                  {/* <td>
                     <button
                       className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
                                     rounded-md border border-transparent bg-primary my-2 px-3 py-1 text-base font-medium text-white shadow-sm hover:bg-pink-900"
@@ -204,7 +210,7 @@ export default function TableCompletionApproal() {
                     >
                       Branch/Course
                     </button>
-                  </td>
+                  </td> */}
                   <ApprovalDisapprovalCompletion
                     internship={row.original}
                     isApproved={false}
@@ -215,14 +221,14 @@ export default function TableCompletionApproal() {
             })}
           </tbody>
         </table>
-        <div className="my-5 mx-5">
-          <span>
+        <div className="my-5 mx-5 flex flex-row justify-end">
+          <div className="my-auto">
             Page{' '}
             <strong>
               {pageIndex + 1} of {pageOptions.length}
             </strong>
-          </span>
-          <span>
+          </div>
+          <div className="my-auto">
             <select
             className="ml-2 inline-flex items-center justify-center whitespace-nowrap px-2 py-1"
             value={pageSize}
@@ -235,7 +241,7 @@ export default function TableCompletionApproal() {
                 ))
               }
             </select>
-          </span>
+          </div>
           <button
             onClick={() => gotoPage(0)}
               className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"

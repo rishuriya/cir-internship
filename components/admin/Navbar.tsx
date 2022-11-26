@@ -68,24 +68,24 @@ export default function Navbar() {
             </Popover.Button>
           </div>
 
-          <Popover.Group as="nav" className="hidden space-x-5 md:space-x-10 md:flex">
+          <Popover.Group as="nav" className="hidden space-x-5 md:space-x-10 md:flex scale-90">
           <Link href="/admin">
-          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-sm rounded-md cursor-pointer">
             Home
           </div>
           </Link>
           <Link href="/admin/approved-internships">
-            <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+            <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-sm rounded-md cursor-pointer">
             Approved Internships
             </div>
           </Link>
           <Link href="/admin/pending-verification">
-            <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+            <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-sm rounded-md cursor-pointer">
             Pending Verification
             </div>
           </Link>
           <Link href="/admin/signup">
-          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-md rounded-md cursor-pointer">
+          <div className=" py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-sm rounded-md cursor-pointer">
           Add Admin
           </div>         
           </Link>
