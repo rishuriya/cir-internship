@@ -152,39 +152,39 @@
 export default function Letter(){
     return (
         <div className="mx-auto max-w-5xl">
-            <div className="my-12">
+            <div className="my-12 text-sm">
             11/25/22, 6:39 PM 
             </div>
-            <div className="my-20 ">
+            <div className="mt-24 mb-5 text-center">
             Aum Amriteswaryai Namah
             </div>
-        <div className='px-4 sm:px-8 my-20' >
-            <div>
-                <p>To,</p>
-                <p>The Principal,</p>
-            </div>
+            <p className="my-10 text-right mr-10">
+            25-11-2022
+            </p>
+        <div className='px-4 sm:px-8 mt-14 mb-5' >
             <div className='my-5'>
-                <p>username["school"],</p>
-                <p>Amrita Vishwa Vidyapeetham,</p>
-                <p>Amritapuri, Kollam, Kerala</p>
+                <p>Company Name</p>
+                <p>Designation</p>
+                <p>Company Address</p>
             </div>
-            <div className='my-5'>
-                <p>Subject: Regarding approval to join internship.</p>
+            <div className='my-5 font-medium'>
+                <p>Subject:- Request for Internship for B.Tech student.</p>
             </div>
             <div className='my-5'>
                 <p>Respected Sir/Madam,</p>
             </div>
             <div className='my-5 mx-2'>
-                <p className='indent-8'>I am username["name"] of username["course"] username["branch"] student of username["year_of_joining"] batch currently studying in S username["semester"] .
-                 I applied for the Internship program in the internshipdata["company_name"] for internshipdata["training_type"] and I got selected for program.</p>
-                 <p className='my-3'>I request you to give me permission to join the internship which is starting on internshipdata["internship_start_date"].substring(0,10) and ending on internshipdata["internship_end_date"].substring(0,10).</p>
+            Amrita School of Engineering (ASE) is one of the several professional institutions under Amrita Vishwa
+            Vidyapeetham, established under section 3 of the UGC Act, 1956. Engineering (B.Tech) students
+            studying in ASE are advised to do Internship in reputed organizations. This will give them some practical
+            experience which will contribute substantially to their learning process
             </div>
             <div className='flex flex-row justify-between mx-3 items-end my-14'>
                 <div>
                     <p>Thanking You,</p>
                     <p>Yours truly,</p>
-                    <p>username["name"]</p>
-                    <p>username["rollno"]</p>
+                    <p>username[name]</p>
+                    <p>username[rollno]</p>
                     <p>Signature</p>
                 </div>
                 <div>
