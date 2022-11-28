@@ -41,11 +41,11 @@ const tableColumns = [
     accessor: "company_name",
     Filter: ColumnFilter,
   },
-  {
-    Header: "Branch/Course",
-    accessor: "status",
-    Filter: ColumnFilter,
-  }
+  // {
+  //   Header: "Branch/Course",
+  //   accessor: "status",
+  //   Filter: ColumnFilter,
+  // }
 ];
 
 const timeDuration = (start, end) => {
@@ -155,14 +155,15 @@ export default function TableDashboard() {
                       </div>
                     </th>
                   ))}
-                  {/* {i === headerGroups.length - 1 && (
+                  {i === headerGroups.length - 1 && (
                     <th
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
                       scope="col"
                     >
-                      
+                      Branch
                     </th>
-                  )} */}
+                  )}
+                  
                   {
                     <th
                       id="4"
@@ -196,15 +197,11 @@ export default function TableDashboard() {
                       </>
                     );
                   })}
-                  {/* <td>
-                    <button
-                      className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
-                                    rounded-md border border-transparent bg-primary my-2 px-3 py-1 text-base font-medium text-white shadow-sm hover:bg-pink-900"
-                      onClick={() => StudentDetails(row)}
-                    >
-                      Branch/Course
-                    </button>
-                  </td> */}
+                  <td>
+                    <p>
+                      AIE - Artificial Intelligence 
+                    </p>
+                  </td>
                   <ApprovalDisapprovalPending
                     internship={row.original}
                     isApproved={false}

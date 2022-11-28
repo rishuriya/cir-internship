@@ -9,7 +9,6 @@ export default async function allInternships(req, res) {
         if (Internship_data.length > 0) {
             return await res.status(200).json({ success: true, message: 'Internship Fetched', data: Internship_data })
         }
-
         else {
             return await res.status(400).json({ success: false, message: 'data not found' })
         }
