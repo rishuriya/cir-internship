@@ -14,6 +14,9 @@ const internshipSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  branch: {
+    type: String,
+  },
   company_name: {
     type: String,
     required: true,

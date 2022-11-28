@@ -41,11 +41,11 @@ const tableColumns = [
     accessor: "company_name",
     Filter: ColumnFilter,
   },
-  // {
-  //   Header: "Branch/Course",
-  //   accessor: "status",
-  //   Filter: ColumnFilter,
-  // }
+  {
+    Header: "Branch",
+    accessor: "branch",
+    Filter: ColumnFilter,
+  }
 ];
 
 const timeDuration = (start, end) => {
@@ -155,14 +155,14 @@ export default function TableDashboard() {
                       </div>
                     </th>
                   ))}
-                  {i === headerGroups.length - 1 && (
+                  {/* {i === headerGroups.length - 1 && (
                     <th
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
                       scope="col"
                     >
                       Branch
                     </th>
-                  )}
+                  )} */}
                   
                   {
                     <th
@@ -197,11 +197,11 @@ export default function TableDashboard() {
                       </>
                     );
                   })}
-                  <td>
+                  {/* <td>
                     <p>
                       AIE - Artificial Intelligence 
                     </p>
-                  </td>
+                  </td> */}
                   <ApprovalDisapprovalPending
                     internship={row.original}
                     isApproved={false}
