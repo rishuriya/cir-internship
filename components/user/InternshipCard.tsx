@@ -269,7 +269,8 @@ export default function InternshipCard({ id }) {
                 {internship["internship_mode"]} 
               </p>
               <p className="mt-1 text-md">
-                <span className="font-semibold">Job Type : </span>
+                <span className="font-semibold">Type : </span>
+
                 {internship["training_type"]}
               </p>
               <p className="mt-1">
@@ -325,7 +326,7 @@ export default function InternshipCard({ id }) {
                           e,
                           internship["_id"],
                           internship["approved"])}>
-                      <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md shadow-md hover:shadow-none">
+                      <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
                         <AiOutlineDownload className="fill-black " size={28} />
                         <p className="text-sm mx-1 mt-1 ">Letter Template</p>
                       </div>
@@ -341,14 +342,14 @@ export default function InternshipCard({ id }) {
                           <div className="flex flex-row  w-full">
                           <p className="mr-5 bg-yellow-200/60 px-2 py-1 rounded-xl max-w-xl my-auto md:mr-10 lg:mr-12 flex flex-row"><span className="mx-2 "><FiAlertTriangle className="fill-yellow-600" size={26}/></span> Upload your internship completion certificate here.
                           </p>
-                            <form className="right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md shadow-lg hover:shadow-sm mx-2 mt-4">
+                            <form className="right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md shadow-md hover:shadow-sm mx-2 mt-4">
                             <label
                               className="flex flex-row right-0 cursor-pointer"
                               htmlFor="file-input"
                               >
                               <AiOutlineUpload className="fill-black " size={28} />
 
-                              <p className="text-sm md:text-base  mx-2 mt-1">Upload Internship Certificate</p>
+                              <p className="text-sm md:text-base mx-2 mt-1">Upload Internship Certificate</p>
                             </label>
                             <input
                               id="file-input"

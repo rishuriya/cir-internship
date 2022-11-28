@@ -168,7 +168,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
           </div>
         </Dialog>
       </Transition>
-      <tr className=" mx-auto my-8 max-w-md md:max-w-7xl rounded-xl border-gray-600 border-0  p-10 ">
+      <div className=" mx-auto my-1 max-w-md md:max-w-7xl rounded-xl border-gray-600 border-0 ">
         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
           <div className="flex flex-row justify-center flex-nowrap ml-auto mr-5 mt-1 sm:mt-3 text-center">
             <button
@@ -187,7 +187,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
             </button>
           </div>
         </td>
-      </tr>
+      </div>
     </>
   );
 }

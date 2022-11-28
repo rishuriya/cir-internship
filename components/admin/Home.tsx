@@ -13,7 +13,7 @@ function AdminHome() {
                 Administrative Portal
             </div>
             <div className='font-medium mx-5 my-5 text-xl'>
-            Internships
+               Internships
             </div>
             <TableDashboard/>
             {/* <InternshipList/> */}

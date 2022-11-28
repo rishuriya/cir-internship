@@ -142,6 +142,7 @@ function InternshipForm() {
         user: user[0]["id"],
         name: user[0]["name"],
         roll: user[0]["rollno"],
+        branch: user[0]["branch"],
         company_name: data.company_name,
         company_location: data.company_location,
         company_person_name: data.company_person_name,

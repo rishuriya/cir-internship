@@ -42,8 +42,8 @@ const tableColumns = [
     Filter: ColumnFilter,
   },
   {
-    Header: "Branch/Course",
-    accessor: "status",
+    Header: "Branch",
+    accessor: "branch",
     Filter: ColumnFilter,
   }
 ];
@@ -160,9 +160,10 @@ export default function TableDashboard() {
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
                       scope="col"
                     >
-                      
+                      Branch
                     </th>
                   )} */}
+                  
                   {
                     <th
                       id="4"
@@ -197,13 +198,9 @@ export default function TableDashboard() {
                     );
                   })}
                   {/* <td>
-                    <button
-                      className="ml-2 inline-flex items-center justify-center whitespace-nowrap 
-                                    rounded-md border border-transparent bg-primary my-2 px-3 py-1 text-base font-medium text-white shadow-sm hover:bg-pink-900"
-                      onClick={() => StudentDetails(row)}
-                    >
-                      Branch/Course
-                    </button>
+                    <p>
+                      AIE - Artificial Intelligence 
+                    </p>
                   </td> */}
                   <ApprovalDisapprovalPending
                     internship={row.original}
