@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useMemo, useState } from "react";
 import ApprovalDisapprovalPending from "./ApprovalDisapprovalPending";
 import InternshipDetailsModal from "./InternshipDetailsModal";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineLoading3Quarters ,AiOutlineDownload} from "react-icons/ai";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
 import { CSVLink } from "react-csv";
 
@@ -48,6 +48,23 @@ const tableColumns = [
     Filter: ColumnFilter,
   }
 ];
+
+const headers=[
+  {label:"Name",key:"name"},
+  {label:"Roll Number",key:"roll"},
+  {label:"Branch",key:"branch"},
+  {label:"Company Name",key:"company_name"},
+  {label:"Company Location",key:"company_location"},
+  {label:"Company Website",key:"company_website"},
+  {label:"Company Email",key:"company_email"},
+  {label:"Company Contact",key:"company_mobile"},
+  {label:"Company Mentor",key:"company_person_name"},
+  {label:"Type ",key:"training_type"},
+  {label:"Internship Mode",key:"internship_mode"},
+  {label:"Internship Start Date",key:"internship_start_date"},
+  {label:"Internship End Date",key:"internship_end_date"},
+  {label:"Status",key:"approved"},
+]
 
 const timeDuration = (start, end) => {
   const startDate: any = new Date(start);
@@ -127,18 +144,23 @@ export default function TableDashboard() {
     setOpenModal(true);
   }
 
+
   return (
     <>
     <div className="flex flex-row justify-between">
 
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+      <div className="flex flex-row px-1 py-2 bg-slate-200/60 rounded-md hover:bg-slate-300/60">
+      <AiOutlineDownload className="fill-black mx-1" size={26}/>
       <CSVLink
         filename={"InternshipRegistered.csv"}
         data={data}
-        className="px-2 py-3 bg-slate-200/60 rounded-md hover:bg-slate-300/60">
+        headers={headers}
+        className="">
            Download Table
       </CSVLink>
-      
+      </div>
+
     </div>
       {openModal && (
         <InternshipDetailsModal
