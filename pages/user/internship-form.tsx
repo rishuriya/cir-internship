@@ -17,6 +17,7 @@ function InternshipForm() {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
   const [sem, setSem] = useState("");
+  const [gender, setGender] = useState("");
   const [course, setCourse] = useState("");
   const [data, setData] = useState(false);
   const [user, setUserToken] = useState([]);
@@ -81,6 +82,7 @@ function InternshipForm() {
         if (user_name) {
           setCourse(user_name["course"]);
           setSem(user_name["semester"]);
+          setGender(user_name["gender"])
           setUserName(user_name);
           setData(true);
         }
@@ -143,7 +145,7 @@ function InternshipForm() {
         user: user[0]["id"],
         name: user[0]["name"],
         roll: user[0]["rollno"],
-        branch: user[0]["branch"],
+        branch: data.branch,
         company_name: data.company_name,
         company_location: data.company_location,
         company_person_name: data.company_person_name,
@@ -294,7 +296,7 @@ function InternshipForm() {
                     <select className="appearance-none block 
                   w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight 
                   focus:outline-none focus:bg-white" name="gender" id="grid-gender"
-                      defaultValue={username["name"]}
+                      value={gender} onChange={(e) => setGender(e.target.value)}
                       // onChange={handleCourseChange}
                       disabled={!editDetail}
                     >
