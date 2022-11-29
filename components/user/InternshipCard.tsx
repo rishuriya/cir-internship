@@ -270,6 +270,7 @@ export default function InternshipCard({ id }) {
               </p>
               <p className="mt-1 text-md">
                 <span className="font-semibold">Type : </span>
+
                 {internship["training_type"]}
               </p>
               <p className="mt-1">
