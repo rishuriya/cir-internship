@@ -117,9 +117,7 @@ function InternshipForm() {
 
         fileres = await response.json();
       }
-      if (formValues[0].name_member == "" || formValues[0].email_member == "" || formValues[0].roll_member == "") {
-        member_data = null;
-      }
+      
       if (!((data.internship_end_date) > (data.internship_start_date))) {
         setError("Please enter valid start and end dates");
         setLoading(false);
@@ -134,6 +132,9 @@ function InternshipForm() {
         }
         setLoading(false);
         return;
+      }
+      if (formValues[0].name_member == "" || formValues[0].email_member == "" || formValues[0].roll_member == "") {
+        member_data = null;
       }
       else {
         member_data = JSON.stringify(formValues)
