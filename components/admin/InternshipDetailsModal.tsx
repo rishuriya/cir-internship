@@ -226,13 +226,15 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                       </p>
                     </>
                   )} */}
-                          {info.member.length != 55 ? (
+                          {member !== null ? (
+                            
                             <div>
                               <p className="text-base mt-1 font-semibold">
                                 Team members :
-                                <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg" />
+                                <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg" >{member.length}</span>
                               </p>
-                              {member.map((members) =>
+                              {member.map((members) =>{ 
+                                
                                 // (
                                 //   <p className='text-base text-gray-700 ml-2' key={members.roll_number}>
                                 //     Name : <span className='text-black'>{members.name_member}</span> <span></span>
@@ -244,15 +246,14 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                                 //     Members : {Object.keys(members).length} */}
                                 //   </p>
                                 // )
-                                members.name_member !== null ||
-                                members.roll_member !== null ||
-                                members.email_member !== null ? (
+                                return(
                                   <>
-                                    <p className="text-base text-gray-700 ml-2">
-                                      Name:{" "}
-                                      <span className="text-black">
+                                  <div className="border-2 border-gray-200 shadow-md rounded-md my-2 mx-3 p-2">
+                                    <p className="text-base text-gray-700 ml-2  ">
+                                      Name:<span className="text-black">
                                         {members.name_member}
                                       </span>
+                                      
                                     </p>
                                     <p className="text-base text-gray-700 ml-2">
                                       Roll number:{" "}
@@ -266,28 +267,14 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                                         {members.email_member}
                                       </span>
                                     </p>
+                                  </div>
                                   </>
-                                ) : (
-                                  <>
-                                    <p className="text-base text-gray-700 ml-2">
-                                      Name:{" "}
-                                      <span className="text-black">None</span>
-                                    </p>
-                                    <p className="text-base text-gray-700 ml-2">
-                                      Roll number:{" "}
-                                      <span className="text-black">None</span>
-                                    </p>
-                                    <p className="text-base text-gray-700 ml-2">
-                                      Email:{" "}
-                                      <span className="text-black">None</span>
-                                    </p>
-                                  </>
-                                )
+                                )} 
                               )}
                             </div>
                           ) : (
                             <p className="text-base font-semibold">
-                              Team members :{" "}
+                              Team members :{"None"}
                               <span className="bg-gray-100/60 p-2 mx-2 my-1 rounded-md font-normal">
                                 None
                               </span>

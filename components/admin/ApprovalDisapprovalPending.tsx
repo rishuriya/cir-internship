@@ -1,5 +1,6 @@
 import { useEffect, useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
 import {
   AiOutlineCheck,
   AiOutlineClose,
@@ -14,7 +15,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
   //modal
   let [isOpen, setIsOpen] = useState(false);
   let [approve, setApprove] = useState("");
-
+  const router = useRouter();
   function handleApprove() {
     setIsOpen(true);
     setApprove("approve");
@@ -31,7 +32,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
   const token = cookie.get("token") || "";
 
   function approved() {
-    showModal(false)
+    // showModal(false)
     const userObject = {
       _id: internship._id,
       approved: "Approved",
@@ -47,7 +48,15 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
       if (resData.success) {
         setIsOpen(false);
         setIsDone(true);
+        router.push(
+          {
+            pathname: "/admin/company-letter",
+            query: { id: internship._id, user: internship.user },
+          },
+          "/admin/company-letter"
+        );
       }
+    
     });
   }
 
