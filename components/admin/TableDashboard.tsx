@@ -5,6 +5,7 @@ import ApprovalDisapprovalPending from "./ApprovalDisapprovalPending";
 import InternshipDetailsModal from "./InternshipDetailsModal";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
+import { CSVLink } from "react-csv";
 
 import GlobalFilter from "./GlobalFilter";
 import { ColumnFilter } from "./ColumnFilter";
@@ -128,8 +129,17 @@ export default function TableDashboard() {
 
   return (
     <>
+    <div className="flex flex-row justify-between">
+
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      {/* <StudentDetailsModal /> */}
+      <CSVLink
+        filename={"InternshipRegistered.csv"}
+        data={data}
+        className="px-2 py-3 bg-slate-200/60 rounded-md hover:bg-slate-300/60">
+           Download Table
+      </CSVLink>
+      
+    </div>
       {openModal && (
         <InternshipDetailsModal
           closeModal={setOpenModal}
