@@ -132,7 +132,7 @@ const CompanyLetter= React.forwardRef<HTMLDivElement>(function InternshipLetter(
              Thanking you,
             </div>
             <div className="my-3 mx-2">
-                Ever in Amma's service,
+                Ever in Amma&apos;s service,
             </div>
             <div className='flex flex-row justify-between mx-3 items-end my-14'>
                 <div>
