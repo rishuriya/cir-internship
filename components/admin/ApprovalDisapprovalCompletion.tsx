@@ -6,7 +6,7 @@ import {
 } from "react-icons/ai";
 import cookie from "js-cookie";
 
-export default function InternshipCard({ internship, isApproved ,setIsDone, showModal}) {
+export default function InternshipCard({ internship, isApproved ,setIsDone}) {
   // const [student, setStudent] = useState(null);
   // const [loading, setLoading] = useState(true);
   // const [showDetails, setShowDetails] = useState(false);
