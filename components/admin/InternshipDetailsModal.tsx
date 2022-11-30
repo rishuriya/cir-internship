@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { MdCardMembership } from "react-icons/md";
 import ApprovalDisapprovalPending from "./ApprovalDisapprovalPending";
+import ApprovalDisapprovalCompletion from "./ApprovalDisapprovalCompletion";
 import internal from "stream";
 
 export default function DetailModal({ closeModal, info, setIsDone }) {
@@ -269,6 +270,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                       Disapprove
                   </button>
                   </div> */}
+                  {info.approved==="Pending" ? (
                   <div className="absolute left-0 bottom-1">
                     <ApprovalDisapprovalPending
                       internship={info}
@@ -277,6 +279,16 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                       showModal={closeModal}
                     />
                   </div>
+                  ):info.approved==="Pending Verification" && (
+                    <div className="absolute left-0 bottom-1">
+                    <ApprovalDisapprovalCompletion
+                      internship={info}
+                      isApproved={false}
+                      setIsDone={setIsDone}
+                    />
+                  </div>
+                  )
+}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
