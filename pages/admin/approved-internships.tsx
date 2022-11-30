@@ -7,6 +7,7 @@ import Router from "next/router";
 import { getUser } from '../../utils/getUser'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store';
+import SideNav from '../../components/admin/SideNav';
 import Navbar from '../../components/admin/Navbar'
 import InternshipApprovedList from '../../components/admin/ApprovedInternshipList'
 
@@ -70,10 +71,11 @@ function ApprovedInternships() {
       </Head> 
 
       <main>
-      <Navbar/>
-        <div className='mx-auto max-w-7xl px-4 sm:px-6'>
-            <div className='my-3 mx-2 font-semibold text-lg text-center'>
-                Admin Portal
+      {/* <Navbar/> */}
+      <SideNav/>
+        <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:pl-[5rem]'>
+            <div className='my-3 mx-2 font-semibold text-2xl text-center'>
+                Administrative Portal
             </div>
             <div className='font-medium mx-5 my-5 text-xl'>
             Internships

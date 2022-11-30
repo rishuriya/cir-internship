@@ -54,7 +54,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center items-center sm:p-0">
+          <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -75,18 +75,14 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                         Details:
                       </Dialog.Title>
                       <div className="mt-1 ml-2">
-                        <div>
+                        <div className="">
                           <div className="flex">
                             <p className="text-lg font-semibold m-1 w-auto">
                               Student Details
                             </p>
                           </div>
-
-
-
                           {user !== "" ? (
                             <div>
-
                               <div className="flex mb-2 mt-1">
                                 <p className="text-base text-gray-700 ml-2 w-1/3">
                                   Name :{" "}
@@ -199,68 +195,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                           </div>
                         </div>
                         <div>
-                          {/* {info.member != null ? (
-                    <>
-                      <p>
-                        Team members :{" "}
-                        <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg">
-                          {member.length}
-                        </span>
-                      </p>
-                      <table className="mt-3">
-                        <thead>
-                          <tr>
-                            <th className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">Name</div>
-                            </th>
-                            <th className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">
-                                Roll No
-                              </div>
-                            </th>
-                            <th className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">Email</div>
-                            </th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          {member.map((members) => {
-                            return (
-                              <>
-                                <tr>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {members.name_member}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {members.roll_member}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {members.email_member}
-                                    </div>
-                                  </td>
-                                </tr>
-                              </>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </>
-                  ) : (
-                    <>
-                      <p>
-                        Team members :{" "}
-                        <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg">
-                          None
-                        </span>
-                      </p>
-                    </>
-                  )} */}
+                          
                           {member !== null ? (
 
                             <div>
@@ -269,18 +204,6 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                                 <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg" >{member.length}</span>
                               </p>
                               {member.map((members) => {
-
-                                // (
-                                //   <p className='text-base text-gray-700 ml-2' key={members.roll_number}>
-                                //     Name : <span className='text-black'>{members.name_member}</span> <span></span>
-                                //     <br></br>
-                                //     Roll number : <span className='text-black'>{members.roll_member}</span>
-                                //     <br></br>
-                                //     Email : <span className='text-black'>{members.email_member}</span>
-                                //     {/* <br></br>
-                                //     Members : {Object.keys(members).length} */}
-                                //   </p>
-                                // )
                                 return (
                                   <>
                                     <div className="border-2 border-gray-200 shadow-md rounded-md my-2 mx-3 p-2">
@@ -309,9 +232,9 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                               )}
                             </div>
                           ) : (
-                            <div className="flex">
+                            <div className="flex items-center">
                               <p className="text-base font-semibold w-1/3">
-                                Team members {" "}
+                                Team members: {" "}
                               </p>
                               <span className="bg-gray-100/60 p-2  rounded-md font-normal w-2/3">
                                 None
@@ -327,7 +250,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                 <div className="bg-gray-50 px-4 py-3 flex flex-row-reverse md:px-6">
                   <button
                     type="button"
-                    className="inline-flex h-10 bottom-5 justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 font-medium text-white shadow-base hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 ml-3 w-auto text-base"
+                    className="inline-flex h-10 bottom-5 justify-center rounded-md border border-transparent bg-primary px-4 py-2 font-medium text-white shadow-base hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 ml-3 w-auto text-base"
                     onClick={() => closeModal(false)}
                   >
                     OK
