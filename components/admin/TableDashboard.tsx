@@ -179,7 +179,7 @@ export default function TableDashboard() {
                     <th
                       key={i}
                       scope="col"
-                      className="text-lg text-center font-medium text-gray-900 px-6 py-4"
+                      className="text-lg text-center font-medium text-gray-900 px-3 py-4"
                       {...column.getHeaderProps()}>
                       {column.render("Header")}
                       <div>
@@ -199,7 +199,7 @@ export default function TableDashboard() {
                   {
                     <th
                       id="4"
-                      className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
+                      className="text-lg text-center font-medium text-gray-900 px-3 py-4 pb-14"
                       scope="col"
                     >
                       Approval
@@ -220,7 +220,7 @@ export default function TableDashboard() {
                         <td
                         onClick={() => StudentDetails(row)}
                           key={i}
-                          className="p-4 text-center "  
+                          className="py-3 px-3 text-center "  
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}

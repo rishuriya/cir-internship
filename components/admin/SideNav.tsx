@@ -68,7 +68,7 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="flex-col hidden md:mt-10 space-y-5 md:space-y-8 md:flex scale-90">
+      <div className="flex-col hidden md:mt-10 space-y-5 md:space-y-8 md:flex scale-90 ">
         <Link href="/admin">
             <div className={router.pathname=="/admin" ?active:inActive}>
               <AiOutlineHome size={24} className="mx-2"/>
@@ -91,8 +91,6 @@ export default function Navbar() {
             <div className={router.pathname=="/admin/signup" ?active:inActive}>
             <AiOutlineUserAdd size={24} className="mx-2"/>
             Add Admin
-            {/* <span className=''>
-            </span>          */}
           </div>
         </Link>
       </div>
