@@ -53,7 +53,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center items-center sm:p-0">
+          <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -69,36 +69,52 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                     <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title
                         as="h3"
-                        className="text-lg font-medium leading-5 text-gray-900"
+                        className="text-xl font-medium leading-5 text-gray-900"
                       >
                         Details:
                       </Dialog.Title>
                       <div className="mt-1 ml-2">
-                        <div>
-                          <p className="text-lg font-semibold">
-                            Student Details
-                          </p>
+                        <div className="">
+                          <div className="flex">
+                            <p className="text-lg font-semibold m-1 w-auto">
+                              Student Details
+                            </p>
+                          </div>
                           {user !== "" ? (
-                            <>
-                              <p className="text-base text-gray-700 ml-2">
-                                Name :{" "}
-                                <span className="text-black">{info.name}</span>{" "}
-                                <span>( {user.rollno} )</span>
-                              </p>
-                              <p></p>
-                              <p className="text-base text-gray-700 ml-2">
-                                Course/Branch:{" "}
-                                <span className="text-black">
+                            <div>
+                              <div className="flex mb-2 mt-1">
+                                <p className="text-base text-gray-700 ml-2 w-1/3">
+                                  Name :{" "}
+                                </p>
+                                <span className="text-black w-2/3">{info.name}</span>{" "}
+                              </div>
+
+                              <div className="flex mb-2" >
+                                <p className="text-base text-gray-700 ml-2 w-1/3">
+                                  Roll No. :{" "}
+
+                                </p>
+                                <span className="w-2/3"> {user.rollno} </span>
+                              </div>
+                              <div className="flex mb-2">
+                                <p className="text-base text-gray-700 ml-2 w-1/3">
+                                  Course/Branch:{" "}
+
+                                </p>
+                                <span className="text-black w-2/3">
                                   {user.course} - {user.branch}
                                 </span>
-                              </p>
-                              <p className="text-base text-gray-700 ml-2">
-                                School:{" "}
-                                <span className="text-black">
+                              </div>
+                              <div className="flex mb-2">
+
+                                <p className="text-base text-gray-700 ml-2 w-1/3">
+                                  School:{" "}
+                                </p>
+                                <span className="text-black w-2/3">
                                   {user.school}
                                 </span>
-                              </p>
-                            </>
+                              </div>
+                            </div>
                           ) : (
                             <AiOutlineLoading3Quarters
                               className="fill-primary animate-spin my-4 ml-4"
@@ -106,179 +122,124 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                             />
                           )}
                         </div>
-                        <div className="mt-2">
-                          <p className="text-lg font-semibold">
+                        <div className="mt-3 ">
+                          <p className="text-lg font-semibold ">
                             Internship Details
                           </p>
-                          <p className="text-base text-gray-700 ml-2">
-                            Company :{" "}
-                            <span className="text-black">
-                              {info.company_name}
-                            </span>{" "}
-                            <span>
-                              ({" "}
-                              <a
-                                className="text-blue-500"
-                                href={`${info.company_website}`}
-                              >
-                                {" "}
-                                {info.company_website}{" "}
-                              </a>
-                              )
+                          <div className="flex mb-2 mt-2">
+
+                            <p className="text-base text-gray-700 ml-2 w-1/3">
+                              Company :{" "}
+                            </p>
+                            <span className="w-2/3">
+                              <span className="text-black">
+                                {info.company_name}
+                              </span>{" "}
+                              <span>
+                                ({" "}
+                                <a
+                                  className="text-blue-500"
+                                  href={`${info.company_website}`}
+                                >
+                                  {" "}
+                                  {info.company_website}{" "}
+                                </a>
+                                )
+                              </span>
                             </span>
-                          </p>
-                          <p className="text-base text-gray-700 ml-2">
-                            Company location :{" "}
-                            <span className="text-black">
+                          </div>
+                          <div className="flex mb-2">
+                            <p className="text-base text-gray-700 ml-2 w-1/3">
+                              Location :{" "}
+                            </p>
+                            <span className="text-black w-2/3">
                               {info.company_location}
                             </span>
-                          </p>
-                          <p className="text-base text-gray-700 ml-2">
-                            Contact :{" "}
-                            <span className="text-black">
+                          </div>
+                          <div className="flex mb-2">
+                            <p className="text-base text-gray-700 ml-2 w-1/3">
+                              Contact :{" "}
+                            </p>
+                            <span className="text-black w-2/3">
                               {info.company_mobile}
                             </span>
-                          </p>
-                          <div className="flex flex-row justify-between">
-                            <p className="text-base text-gray-700 ml-2">
+
+                          </div>
+                          <div className="flex mb-2">
+                            <p className="text-base text-gray-700 ml-2 w-1/3">
                               Mode :{" "}
-                              <span className="text-black">
-                                {info.internship_mode}
-                              </span>
                             </p>
+                            <span className="text-black w-2/3">
+                              {info.internship_mode}
+                            </span>
+
                           </div>
-                          <div className="flex flex-row justify-between">
-                            <p className="text-base text-gray-700 ml-2">
+                          <div className="flex mb-2">
+                            <p className="text-base text-gray-700 ml-2 w-1/3">
                               Training Type :{" "}
-                              <span className="text-black">
-                                {info.training_type}
-                              </span>
                             </p>
+                            <span className="text-black w-2/3">
+                              {info.training_type}
+                            </span>
                           </div>
-                          <p className="text-base text-gray-700 ml-2">
-                            Dates :{" "}
-                            <span className="text-black">
+                          <div className="flex mb-2">
+                            <p className="text-base text-gray-700 ml-2 w-1/3">
+                              Dates :{" "}
+                            </p>
+                            <span className="text-black w-2/3">
                               {toDate(info.internship_start_date)} -{" "}
                               {toDate(info.internship_end_date)}
                             </span>
-                          </p>
+
+                          </div>
                         </div>
                         <div>
-                          {/* {info.member != null ? (
-                    <>
-                      <p>
-                        Team members :{" "}
-                        <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg">
-                          {member.length}
-                        </span>
-                      </p>
-                      <table className="mt-3">
-                        <thead>
-                          <tr>
-                            <th className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">Name</div>
-                            </th>
-                            <th className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">
-                                Roll No
-                              </div>
-                            </th>
-                            <th className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">Email</div>
-                            </th>
-                          </tr>
-                        </thead>
-
-                        <tbody>
-                          {member.map((members) => {
-                            return (
-                              <>
-                                <tr>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {members.name_member}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {members.roll_member}
-                                    </div>
-                                  </td>
-                                  <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className="text-sm text-gray-900">
-                                      {members.email_member}
-                                    </div>
-                                  </td>
-                                </tr>
-                              </>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    </>
-                  ) : (
-                    <>
-                      <p>
-                        Team members :{" "}
-                        <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg">
-                          None
-                        </span>
-                      </p>
-                    </>
-                  )} */}
+                          
                           {member !== null ? (
-                            
+
                             <div>
                               <p className="text-base mt-1 font-semibold">
                                 Team members :
                                 <span className="bg-gray-100/70 p-2 mx-2 my-1 rounded-lg" >{member.length}</span>
                               </p>
-                              {member.map((members) =>{ 
-                                
-                                // (
-                                //   <p className='text-base text-gray-700 ml-2' key={members.roll_number}>
-                                //     Name : <span className='text-black'>{members.name_member}</span> <span></span>
-                                //     <br></br>
-                                //     Roll number : <span className='text-black'>{members.roll_member}</span>
-                                //     <br></br>
-                                //     Email : <span className='text-black'>{members.email_member}</span>
-                                //     {/* <br></br>
-                                //     Members : {Object.keys(members).length} */}
-                                //   </p>
-                                // )
-                                return(
+                              {member.map((members) => {
+                                return (
                                   <>
-                                  <div className="border-2 border-gray-200 shadow-md rounded-md my-2 mx-3 p-2">
-                                    <p className="text-base text-gray-700 ml-2  ">
-                                      Name:<span className="text-black">
-                                        {members.name_member}
-                                      </span>
-                                      
-                                    </p>
-                                    <p className="text-base text-gray-700 ml-2">
-                                      Roll number:{" "}
-                                      <span className="text-black">
-                                        {members.roll_member}
-                                      </span>
-                                    </p>
-                                    <p className="text-base text-gray-700 ml-2">
-                                      Email:{" "}
-                                      <span className="text-black">
-                                        {members.email_member}
-                                      </span>
-                                    </p>
-                                  </div>
+                                    <div className="border-2 border-gray-200 shadow-md rounded-md my-2 mx-3 p-2">
+                                      <p className="text-base text-gray-700 ml-2  ">
+                                        Name:<span className="text-black">
+                                          {members.name_member}
+                                        </span>
+
+                                      </p>
+                                      <p className="text-base text-gray-700 ml-2">
+                                        Roll number:{" "}
+                                        <span className="text-black">
+                                          {members.roll_member}
+                                        </span>
+                                      </p>
+                                      <p className="text-base text-gray-700 ml-2">
+                                        Email:{" "}
+                                        <span className="text-black">
+                                          {members.email_member}
+                                        </span>
+                                      </p>
+                                    </div>
                                   </>
-                                )} 
+                                )
+                              }
                               )}
                             </div>
                           ) : (
-                            <p className="text-base font-semibold">
-                              Team members :{"None"}
-                              <span className="bg-gray-100/60 p-2 mx-2 my-1 rounded-md font-normal">
+                            <div className="flex items-center">
+                              <p className="text-base font-semibold w-1/3">
+                                Team members: {" "}
+                              </p>
+                              <span className="bg-gray-100/60 p-2  rounded-md font-normal w-2/3">
                                 None
                               </span>
-                            </p>
+
+                            </div>
                           )}
                         </div>
                       </div>
@@ -288,7 +249,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                 <div className="bg-gray-50 px-4 py-3 flex flex-row-reverse md:px-6">
                   <button
                     type="button"
-                      className="inline-flex h-10 bottom-5 justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 font-medium text-white shadow-base hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 ml-3 w-auto text-base"
+                    className="inline-flex h-10 bottom-5 justify-center rounded-md border border-transparent bg-primary px-4 py-2 font-medium text-white shadow-base hover:bg-pink-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 ml-3 w-auto text-base"
                     onClick={() => closeModal(false)}
                   >
                     OK
