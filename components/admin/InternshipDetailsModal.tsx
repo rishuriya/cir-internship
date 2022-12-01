@@ -206,7 +206,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                               {member.map((members) => {
                                 return (
                                   <>
-                                    <div className="border-2 border-gray-200 shadow-md rounded-md my-2 mx-3 p-2">
+                                    <div className="border-2 border-gray-200 shadow-sm rounded-md my-2 mx-3 p-2">
                                       <p className="text-base text-gray-700 ml-2  ">
                                         Name:<span className="text-black">
                                           {members.name_member}
@@ -255,21 +255,6 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                   >
                     OK
                   </button>
-                  {/* <div className="absolute left-0 inline-flex h-55">
-                    
-                  <button
-                    type="button"
-                    className="rounded-md border border-transparent bg-green-500 px-4 py-2 text-base font-medium text-white shadow-base hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-base"
-                    onClick={() => (closeModal(false))}>
-                      Approve
-                  </button>
-                  <button
-                    type="button"
-                    className="rounded-md border border-transparent bg-red-500 px-4 py-2 text-base font-medium text-white shadow-base hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-green-900 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-base"
-                    onClick={() => closeModal(false)}>
-                      Disapprove
-                  </button>
-                  </div> */}
                   {info.approved==="Pending" ? (
                   <div className="absolute left-0 bottom-1">
                     <ApprovalDisapprovalPending

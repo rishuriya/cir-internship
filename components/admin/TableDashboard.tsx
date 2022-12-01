@@ -138,27 +138,53 @@ export default function TableDashboard() {
     }
   }, [isDone]);
 
+  useEffect(() => {
+    updateData(page);
+  }, [page]);
+
   function StudentDetails(row) {
     let a = row.original;
     setStudentDetail(a);
     setOpenModal(true);
   }
 
+  function updateData(page){
+    let tempData=[];
+    page.map((row,id)=>{
+      tempData[id]=row.original
+    })
+    setCsvData(tempData)
+  }
 
   return (
     <>
     <div className="flex flex-row justify-between">
 
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      <div className="flex flex-row px-1 py-2 bg-slate-200/60 rounded-md hover:bg-slate-300/60">
-      <AiOutlineDownload className="fill-black mx-1" size={26}/>
+      <div className="flex flex-col scale-90">
+
+      <div className=" px-1 py-2 bg-slate-200/60 border-2 rounded-md hover:bg-slate-300/60 cursor-pointer">
       <CSVLink
         filename={"InternshipRegistered.csv"}
         data={data}
         headers={headers}
-        className="">
+        className="mr-2 flex flex-row">
+      <AiOutlineDownload className="fill-black ml-1 mr-2 " size={26}/>
+           Download Full Table
+      </CSVLink>
+      </div>
+
+      <div className=" px-1 py-2 bg-slate-200/60 rounded-md hover:bg-slate-300/60 cursor-pointer my-2">
+      <CSVLink
+        filename={"InternshipRegistered.csv"}
+        data={csvData}
+        // onClick={() => setCsvData(page)}
+        headers={headers}
+        className="mr-2 flex flex-row">
+      <AiOutlineDownload className="fill-black ml-1 mr-2 " size={26}/>
            Download Table
       </CSVLink>
+      </div>
       </div>
 
     </div>
@@ -187,15 +213,6 @@ export default function TableDashboard() {
                       </div>
                     </th>
                   ))}
-                  {/* {i === headerGroups.length - 1 && (
-                    <th
-                      className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
-                      scope="col"
-                    >
-                      Branch
-                    </th>
-                  )} */}
-                  
                   {
                     <th
                       id="4"
@@ -210,15 +227,17 @@ export default function TableDashboard() {
             ))}
           </thead>
           <tbody className="divide-y-2" {...getTableBodyProps()}>
-            {page.map((row, i) => {
+            {
+            page.map((row, i) => {
               prepareRow(row);
+          
               return (
                 <tr key={i} {...row.getRowProps()} className="hover:bg-slate-100/60 rounded-lg cursor-pointer">
                   {row.cells.map((cell) => {
                     return (
                       <>
                         <td
-                        onClick={() => StudentDetails(row)}
+                          onClick={() => StudentDetails(row)}
                           key={i}
                           className="py-3 px-3 text-center "  
                           {...cell.getCellProps()}
@@ -229,11 +248,6 @@ export default function TableDashboard() {
                       </>
                     );
                   })}
-                  {/* <td>
-                    <p>
-                      AIE - Artificial Intelligence 
-                    </p>
-                  </td> */}
                   <ApprovalDisapprovalPending
                     internship={row.original}
                     isApproved={false}
