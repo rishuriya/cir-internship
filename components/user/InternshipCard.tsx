@@ -45,6 +45,20 @@ export default function InternshipCard({ id }) {
     }
     return;
   }
+  function handleInternshipletter(e, uid, approve) {
+    if (approve == "Approved") {
+      router.push(
+        {
+          pathname: "/admin/company-letter",
+          query: { id: internship["_id"], user: internship["user"] },
+        },
+        "/admin/company-letter"
+      );
+    } else {
+      throw "Not Approved";
+    }
+    return;
+  }
   const handleUpload = async (e) => {
     if (e.target.files && e.target.files[0]) {
       const i = e.target.files[0];
@@ -361,10 +375,25 @@ export default function InternshipCard({ id }) {
                           </form>
                               </div>
                             ) : (
+                              <div className="flex flex-row justify-between w-full">
                             <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
                                 <AiOutlineClockCircle className="fill-black " size={26} />
                                 <p className="text-sm mx-2 mt-1">Days Left : {daysLeft(internship["internship_end_date"])} </p>
                             </div>
+                            <div className="flex flex-col ">
+                            <button
+                            onClick={(e) =>
+                              handleInternshipletter(
+                                e,
+                                internship["_id"],
+                                internship["approved"])}>
+                            <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
+                              <AiOutlineDownload className="fill-black " size={28} />
+                              <p className="text-sm mx-1 mt-1 ">Letter Template</p>
+                            </div>
+                          </button>
+                          </div>
+                          </div>
                         )
                     }
                     </>
