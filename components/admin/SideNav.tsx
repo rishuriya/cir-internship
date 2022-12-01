@@ -39,6 +39,8 @@ export default function Navbar() {
   const [auth, setAuth] = useState(null)
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  
 
   useEffect(() => {
     setAuth(authUser);
@@ -52,11 +54,12 @@ export default function Navbar() {
     Router.push("/login");
   }
 
-  const inActive= "py-2 my-1 px-3 font-medium text-gray-800 hover:text-gray-900 border-2 hover:border-primary shadow-sm rounded-lg cursor-pointer bg-slate-200/40 flex flex-row items-center";
-  const active  = "py-2 my-1 px-3 font-medium text-gray-900 hover:text-gray-900 border-2 border-primary shadow-sm rounded-lg cursor-pointer bg-pink-100/70 flex flex-row ";
+  const inActive= "py-2 my-1 px-3 font-medium text-gray-900 hover:text-gray-900 hover:bg-slate-300/80 hover:shadow-sm rounded-lg cursor-pointer bg-slate-200/40 flex flex-row items-center";
+  const active  = "py-2 my-1 px-3 font-medium text-black hover:text-gray-900 border-2 border-primary shadow-sm rounded-lg cursor-pointer bg-pink-100/70 flex flex-row ";
 
   return (
-    <nav className="right-auto w-[16.3rem] hidden md:block fixed bg-slate-100 inset-0 pb-10 px-4 overflow-y-auto shadow-lg">
+    <>
+    <nav className="right-auto w-[16.3rem] hidden lg:block fixed bg-slate-200/80 inset-0 pb-10 px-4 overflow-y-auto shadow-lg">
     <div className='flex md:flex-col'>
      <div className="justify-start md:my-4 md:flex-1 mx-auto">
         <Link href="/admin">
@@ -68,7 +71,7 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div className="flex-col hidden md:mt-10 space-y-5 md:space-y-8 md:flex scale-90">
+      <div className="flex-col hidden md:mt-10 space-y-5 md:space-y-8 md:flex scale-90 ">
         <Link href="/admin">
             <div className={router.pathname=="/admin" ?active:inActive}>
               <AiOutlineHome size={24} className="mx-2"/>
@@ -91,8 +94,6 @@ export default function Navbar() {
             <div className={router.pathname=="/admin/signup" ?active:inActive}>
             <AiOutlineUserAdd size={24} className="mx-2"/>
             Add Admin
-            {/* <span className=''>
-            </span>          */}
           </div>
         </Link>
       </div>
@@ -123,6 +124,79 @@ export default function Navbar() {
         }
       </div>
     </div>
-  </nav>
+    </nav>
+    <nav className='lg:hidden'>
+      <div>{
+        drawerOpen&&
+        <div className='flex md:flex-col'>
+      <div className="justify-start md:my-4 md:flex-1 mx-auto">
+          <Link href="/admin">
+            <img
+              className="h-10 w-auto sm:h-16"
+              src="https://upload.wikimedia.org/wikipedia/en/f/f8/Amrita-vishwa-vidyapeetham-color-logo.png"
+              alt=""
+            />
+          </Link>
+        </div>
+
+        <div className="flex-col hidden md:mt-10 space-y-5 md:space-y-8 md:flex scale-90 ">
+          <Link href="/admin">
+              <div className={router.pathname=="/admin" ?active:inActive}>
+                <AiOutlineHome size={24} className="mx-2"/>
+                  Dashboard
+              </div>
+          </Link>
+          <Link href="/admin/approved-internships">
+              <div className={router.pathname=="/admin/approved-internships" ?active:inActive}>
+              <AiOutlineFileDone size={24} className="mx-2"/>
+              Approved Internships
+              </div>
+          </Link>
+          <Link href="/admin/pending-verification">
+              <div className={router.pathname=="/admin/pending-verification" ?active:inActive}>
+              <AiOutlineFilePpt size={24} className="mx-2"/>
+              Pending Verification
+              </div>
+          </Link>
+          <Link href="/admin/signup" className='border-2 border-primary'>
+              <div className={router.pathname=="/admin/signup" ?active:inActive}>
+              <AiOutlineUserAdd size={24} className="mx-2"/>
+              Add Admin
+            </div>
+          </Link>
+        </div>
+        <div className='absolute bottom-0  '>
+        {auth?
+            <>
+            <div className='truncate w-56  py-1 px-3 text-lg bg-gray-50/90 border-2 border-slate-300 rounded-xl mb-4'>
+              {auth.name}
+            </div>
+          <button
+            onClick={signOut}
+            className="w-full mb-2 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
+            Sign Out
+          </button>
+          </>
+          :<div className='space-y-5 my-auto'>
+            <Link
+            href="/login"
+            className="inline-flex items-center justify-center whitespace-nowrap text-primary px-4 py-2 text-base font-medium hover:text-pink-900 hover:underline">
+            Login
+            </Link>
+          <Link
+            href="/signup"
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
+              Signup
+            </Link>
+            </div>
+          }
+        </div>
+        </div>
+        }
+      </div>
+    </nav>
+    </>
   )
 }
+
+
