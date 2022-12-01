@@ -8,7 +8,7 @@ import { getUser } from '../../utils/getUser'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store';
 import SideNav from '../../components/admin/SideNav';
-import CompletionList from '../../components/admin/CompletionList'
+import InternshipApprovedList from '../../components/admin/ApprovedInternshipList'
 
 
 function ApprovedInternships() {
@@ -26,6 +26,7 @@ function ApprovedInternships() {
             Router.push("/login");
             return;
           }
+          // console.log("welcome ",response.user.name)
           const userObj = {
             id: response.user.id,
             name: response.user.name,
@@ -71,15 +72,16 @@ function ApprovedInternships() {
       <main>
       {/* <Navbar/> */}
       <div className='mx-[1px] lg:pl-[18vw]'>
+
       <SideNav/>
         <div className='max-w-7xl px-4 sm:px-6 lg:w-[80vw] lg:mx-auto'>
-          <div className='my-3 mx-2 font-semibold text-2xl text-center'>
+            <div className='my-3 mx-2 font-semibold text-2xl text-center'>
                 Administrative Portal
             </div>
             <div className='font-medium mx-5 my-5 text-xl'>
-            Internships
+            Settings/Configurations comming soon
             </div>
-            <CompletionList/>
+            {/* <InternshipApprovedList/> */}
         </div>
       </div>
       </main>

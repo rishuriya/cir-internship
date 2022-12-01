@@ -172,16 +172,16 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
           <div className="flex flex-row justify-center flex-nowrap ml-auto mr-5 mt-1 sm:mt-3 text-center">
             <button
               onClick={handleApprove}
-              className="flex bg-green-400 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"
+              className="flex bg-green-50 hover:bg-green-200 border-2 border-green-300 rounded-2xl py-2 px-4 flex-row mx-2 cursor-pointer"
             >
-              <AiOutlineCheck className="fill-green-700" size={26} />
+              {/* <AiOutlineCheck className="fill-green-700" size={26} /> */}
               <span>Verify</span>
             </button>
             <button
               onClick={handleDisapprove}
-              className="flex bg-red-300 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"
+              className="flex bg-red-50 hover:bg-red-200 border-2 border-red-300 rounded-2xl py-2 px-4 flex-row mx-2 cursor-pointer"
             >
-              <AiOutlineClose className="fill-red-700" size={26} />
+              {/* <AiOutlineClose className="fill-red-700" size={26} /> */}
               <span>Decline</span>
             </button>
           </div>
