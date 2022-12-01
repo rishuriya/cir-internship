@@ -177,21 +177,21 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
           </div>
         </Dialog>
       </Transition>
-      <div className=" mx-auto my-1 max-w-md md:max-w-7xl rounded-xl border-gray-600 border-0 ">
-        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-          <div className="flex flex-row justify-center flex-nowrap ml-auto mr-5 mt-1 sm:mt-3 text-center">
+      <div className=" mx-auto max-w-md md:max-w-6xl border-gray-600 border-0 ">
+        <td className="px-5 py-4 whitespace-nowrap text-sm font-medium">
+          <div className="flex flex-row justify-center flex-nowrap ml-auto mr-3 mt-1 sm:mt-3 text-center">
             <button
               onClick={handleApprove}
-              className="flex bg-green-400 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"
+              className="flex bg-green-50 hover:bg-green-200 border-2 border-green-300 rounded-2xl py-2 px-4 flex-row mx-2 cursor-pointer"
             >
-              <AiOutlineCheck className="fill-green-700" size={26} />
+              {/* <AiOutlineCheck className="fill-green-700" size={26} /> */}
               <span>Approve</span>
             </button>
             <button
               onClick={handleDisapprove}
-              className="flex bg-red-300 rounded-2xl py-1 px-2 flex-row mx-3 cursor-pointer"
+              className="flex bg-red-50 hover:bg-red-200 border-2 border-red-300 rounded-2xl py-2 px-4 flex-row mx-2 cursor-pointer"
             >
-              <AiOutlineClose className="fill-red-700" size={26} />
+              {/* <AiOutlineClose className="fill-red-700" size={26} /> */}
               <span>Decline</span>
             </button>
           </div>

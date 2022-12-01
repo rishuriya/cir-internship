@@ -8,7 +8,7 @@ import { unsetUser } from '../../slices/userSlice'
 import { useSelector,useDispatch } from 'react-redux'
 import { Fragment, useEffect, useState } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import {AiOutlineFileAdd,AiFillHome,AiOutlineMenu,AiOutlineClose,AiOutlineUserAdd,AiOutlineHome,AiOutlineFileDone,AiOutlineFilePpt} from 'react-icons/ai';
+import {AiOutlineFileAdd,AiFillHome,AiOutlineMenu,AiOutlineClose,AiOutlineUserAdd,AiOutlineHome,AiOutlineFileDone,AiOutlineFilePpt, AiOutlineSetting} from 'react-icons/ai';
 
 const navOptions = [
   {
@@ -59,7 +59,7 @@ export default function Navbar() {
 
   return (
     <>
-    <nav className="right-auto w-[16.3rem] hidden lg:block fixed bg-slate-200/80 inset-0 pb-10 px-4 overflow-y-auto shadow-lg">
+    <nav className="right-auto w-[18vw] hidden lg:block fixed bg-slate-200/80 inset-0 pb-10 px-4 overflow-y-auto shadow-lg">
     <div className='flex md:flex-col'>
      <div className="justify-start md:my-4 md:flex-1 mx-auto">
         <Link href="/admin">
@@ -90,6 +90,12 @@ export default function Navbar() {
             Pending Verification
             </div>
         </Link>
+        <Link href="/admin/settings" className='border-2 border-primary'>
+            <div className={router.pathname=="/admin/settings" ?active:inActive}>
+            <AiOutlineSetting size={24} className="mx-2"/>
+            Settings
+          </div>
+        </Link>
         <Link href="/admin/signup" className='border-2 border-primary'>
             <div className={router.pathname=="/admin/signup" ?active:inActive}>
             <AiOutlineUserAdd size={24} className="mx-2"/>
@@ -100,7 +106,7 @@ export default function Navbar() {
       <div className='absolute bottom-0  '>
       {auth?
           <>
-          <div className='truncate w-56  py-1 px-3 text-lg bg-gray-50/90 border-2 border-slate-300 rounded-xl mb-4'>
+          <div className='truncate w-[15vw] py-1 px-3 text-lg bg-gray-50/90 border-2 border-slate-300 rounded-xl mb-4'>
             {auth.name}
           </div>
          <button
