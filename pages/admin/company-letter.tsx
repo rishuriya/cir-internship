@@ -7,16 +7,17 @@ import { useRouter } from "next/router";
 import { getUser } from '../../utils/getUser'
 import ReactToPrint from "react-to-print";
 
-
 const CompanyLetter= React.forwardRef<HTMLDivElement>(function InternshipLetter(prop,ref){
+  const [username,setUserName]=useState([]);
   const router = useRouter()
-  let internship_id=router.query.id;
   let user=router.query.user;
+  let internship_id=router.query.id;
+  
     let user_name
     let internship_data
     const [isDataRecieved, setIsDataRecieved] = useState(false); 
     const [data, setData] = useState(false);
-    const [username,setUserName]=useState([]);
+    
     const [internshipdata,setInternshipData]=useState([]);
 
     useEffect(() => {
@@ -149,6 +150,35 @@ const CompanyLetter= React.forwardRef<HTMLDivElement>(function InternshipLetter(
 
 
 function PrintLetter() {
+  const router = useRouter();
+  const [username,setUserName]=useState([]);
+  let user=router.query.user;
+  let user_name;
+  const [data, setData] = useState(false);
+  useEffect(() => {
+    try{
+         const userObject={
+            _id:user
+          }
+          fetch(`../api/student/${user}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json; charset=utf8 ",
+            },
+          }).then(async (res) => {
+            const resData=await res.json()
+          user_name= resData.data 
+          if(user_name)
+          {
+            setUserName(user_name);
+            setData(true);
+          }       
+        });
+      }catch(err){
+        console.log(err)
+      }
+    },[data]);
+  console.log(user);
     let componentRef;
       componentRef = useRef();
     return (
@@ -159,11 +189,20 @@ function PrintLetter() {
           trigger={() => <a className="px-6 py-3 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200" href="#">Download</a>}
           content={() => componentRef}
         />
+        {username["role"]==="Student" && (<>
+          <Link href="/user">
+        <button className='px-6 py-2 mx-4 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200'>
+            Back
+        </button>
+            </Link>
+</>)}
+{username["role"]==="Admin" && (<>
           <Link href="/admin">
         <button className='px-6 py-2 mx-4 text-blue-50 no-underline bg-blue-500 rounded hover:bg-blue-600 hover:underline hover:text-blue-200'>
             Back
         </button>
             </Link>
+</>)}
         </div>
       </div>
     );
