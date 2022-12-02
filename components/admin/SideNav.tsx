@@ -54,7 +54,7 @@ export default function Navbar() {
     Router.push("/login");
   }
 
-  const inActive= "py-2 my-1 px-3 font-medium text-gray-900 hover:text-gray-900 hover:bg-slate-300/80 hover:shadow-sm rounded-lg cursor-pointer bg-slate-200/40 flex flex-row items-center";
+  const inActive= "py-2 my-1 px-3 font-medium text-gray-900 hover:text-gray-900 hover:bg-slate-300/80 hover:shadow-sm border-2 border-slate-200/40 rounded-lg cursor-pointer bg-slate-200/40 flex flex-row items-center";
   const active  = "py-2 my-1 px-3 font-medium text-black hover:text-gray-900 border-2 border-primary shadow-sm rounded-lg cursor-pointer bg-pink-100/70 flex flex-row ";
 
   return (
