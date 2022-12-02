@@ -8,7 +8,7 @@ import { getUser } from '../../utils/getUser'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store';
 import SideNav from '../../components/admin/SideNav';
-import InternshipApprovedList from '../../components/admin/ApprovedInternshipList'
+import Settings from '../../components/admin/Settings'
 
 
 function ApprovedInternships() {
@@ -79,9 +79,9 @@ function ApprovedInternships() {
                 Administrative Portal
             </div>
             <div className='font-medium mx-5 my-5 text-xl'>
-            Settings/Configurations comming soon
+            Settings/Configurations
             </div>
-            {/* <InternshipApprovedList/> */}
+            <Settings/>
         </div>
       </div>
       </main>

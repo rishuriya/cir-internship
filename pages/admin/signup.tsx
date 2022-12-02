@@ -148,7 +148,7 @@ function Signup() {
             />
             
             <div
-              className="absolute peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:top-8 top-8 right-4 z-20 cursor-pointer"
+              className="absolute peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:top-8 top-8 right-4 cursor-pointer"
               onClick={showPasswordHandler}>
               {showPassword ? (
                 <React.Fragment>
@@ -172,7 +172,7 @@ function Signup() {
             />
             
             <div
-              className="absolute peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:top-8 top-8 right-4 z-20 cursor-pointer"
+              className="absolute peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:top-8 top-8 right-4 cursor-pointer"
               onClick={showPasswordHandler}>
               {showPassword ? (
                 <React.Fragment>

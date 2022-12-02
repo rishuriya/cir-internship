@@ -122,8 +122,6 @@ export default function TableDashboard() {
         },
       }).then(async (res) => {
         const resData = await res.json();
-        console.log("sdsd",resData);
-
         if (resData.success) {
           setData(resData.data);
         }else{
