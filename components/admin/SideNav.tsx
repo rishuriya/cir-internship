@@ -54,7 +54,7 @@ export default function Navbar() {
     Router.push("/login");
   }
 
-  const inActive= "py-2 my-1 px-3 font-medium text-gray-900 hover:text-gray-900 hover:bg-slate-300/80 hover:shadow-sm rounded-lg cursor-pointer bg-slate-200/40 flex flex-row items-center";
+  const inActive= "py-2 my-1 px-3 font-medium text-gray-900 hover:text-gray-900 hover:bg-slate-300/80 hover:shadow-sm border-2 border-slate-200/40 rounded-lg cursor-pointer bg-slate-200/40 flex flex-row items-center";
   const active  = "py-2 my-1 px-3 font-medium text-black hover:text-gray-900 border-2 border-primary shadow-sm rounded-lg cursor-pointer bg-pink-100/70 flex flex-row ";
 
   return (
@@ -131,21 +131,26 @@ export default function Navbar() {
       </div>
     </div>
     </nav>
-    <nav className='lg:hidden'>
+
+    {/* ---Mobile View--- */}
+    <nav className='lg:hidden z-50'>
       <div>{
-        drawerOpen&&
-        <div className='flex md:flex-col'>
-      <div className="justify-start md:my-4 md:flex-1 mx-auto">
-          <Link href="/admin">
+        drawerOpen?
+        <div className='right-auto w-full fixed bg-slate-200 inset-0 pb-10 px-4 overflow-y-auto shadow-lg'>
+        <div className='m-2' onClick={()=>setDrawerOpen(false)}>
+        <AiOutlineClose size={24} className="mx-2 border-slate-500 border-2 h-9 w-9 rounded-sm"/>
+        </div>
+          {/* <Link href="/admin">
             <img
-              className="h-10 w-auto sm:h-16"
+              className="h-12 w-auto sm:h-16 mx-auto"
               src="https://upload.wikimedia.org/wikipedia/en/f/f8/Amrita-vishwa-vidyapeetham-color-logo.png"
               alt=""
             />
-          </Link>
-        </div>
+          </Link> */}
+      {/* <div className="justify-start my-4 mx-auto z-50 fixed">
+        </div> */}
 
-        <div className="flex-col hidden md:mt-10 space-y-5 md:space-y-8 md:flex scale-90 ">
+        <div className="flex-col lg:hidden md:mt-10 space-y-5 md:space-y-8  scale-90 ">
           <Link href="/admin">
               <div className={router.pathname=="/admin" ?active:inActive}>
                 <AiOutlineHome size={24} className="mx-2"/>
@@ -164,17 +169,17 @@ export default function Navbar() {
               Pending Verification
               </div>
           </Link>
-          <Link href="/admin/signup" className='border-2 border-primary'>
+          {/* <Link href="/admin/signup" className='border-2 border-primary'>
               <div className={router.pathname=="/admin/signup" ?active:inActive}>
               <AiOutlineUserAdd size={24} className="mx-2"/>
               Add Admin
             </div>
-          </Link>
+          </Link> */}
         </div>
         <div className='absolute bottom-0  '>
         {auth?
-            <>
-            <div className='truncate w-56  py-1 px-3 text-lg bg-gray-50/90 border-2 border-slate-300 rounded-xl mb-4'>
+            <div className='mx-auto'>
+            <div className='truncate w-56 mx-auto py-1 px-3 text-lg bg-gray-50/90 border-2 border-slate-300 rounded-xl mb-4'>
               {auth.name}
             </div>
           <button
@@ -182,7 +187,7 @@ export default function Navbar() {
             className="w-full mb-2 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
             Sign Out
           </button>
-          </>
+          </div>
           :<div className='space-y-5 my-auto'>
             <Link
             href="/login"
@@ -198,7 +203,10 @@ export default function Navbar() {
           }
         </div>
         </div>
-        }
+        :
+        <div onClick={()=>setDrawerOpen(true)} className="m-2 p-2 border-2 border-slate-500">
+           <AiOutlineMenu size={26} className="mx-2"/>
+          </div>}
       </div>
     </nav>
     </>

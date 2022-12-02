@@ -7,6 +7,7 @@ import { RootState } from '../../store'
 import { MdReportGmailerrorred } from "react-icons/md";
 import { AiFillEye, AiFillEyeInvisible, AiOutlineArrowLeft } from "react-icons/ai";
 import cookie from "js-cookie";
+import SideNav from '../../components/admin/SideNav'
 
 function Signup() {
   const [loading, setLoading] = useState(false);
@@ -93,20 +94,23 @@ function Signup() {
   };
 
   return (
-    <div className="bg-secondary h-screen w-full relative p-2">
+    <div className="mx-[1px] lg:pl-[18vw]">
+      <SideNav/>
+
+    <div className="max-w-7xl px-4 sm:px-6 lg:w-[80vw] lg:mx-auto ">
 
       <form
       onSubmit={handleOnSubmit}
       >
       <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
-        <div className="flex flex-row items-center hover:text-blue-500 fill-black hover:fill-blue-500 cursor-pointer text-lg ">
+        {/* <div className="flex flex-row items-center hover:text-blue-500 fill-black hover:fill-blue-500 cursor-pointer text-lg ">
             <AiOutlineArrowLeft className="" size={18}/>
 
           <div className="my-2 " onClick={()=>Router.push("/admin")}>
             Back
           </div>
-        </div>
-          <h1 className="text-3xl my-5 font-bold ">Admin Signup</h1>
+        </div> */}
+          <h1 className="text-3xl my-5 font-bold ">Create Admin</h1>
 
           <div className="my-3 mx-3">
             <div className="mx-2 font-medium">Full Name</div>
@@ -144,7 +148,7 @@ function Signup() {
             />
             
             <div
-              className="absolute peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:top-8 top-8 right-4 z-20 cursor-pointer"
+              className="absolute peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:top-8 top-8 right-4 cursor-pointer"
               onClick={showPasswordHandler}>
               {showPassword ? (
                 <React.Fragment>
@@ -168,7 +172,7 @@ function Signup() {
             />
             
             <div
-              className="absolute peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:top-8 top-8 right-4 z-20 cursor-pointer"
+              className="absolute peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base peer-placeholder-shown:top-8 top-8 right-4 cursor-pointer"
               onClick={showPasswordHandler}>
               {showPassword ? (
                 <React.Fragment>
@@ -208,6 +212,7 @@ function Signup() {
           )}
       </div>
       </form>
+    </div>
     </div>
   );
 }
