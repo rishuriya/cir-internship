@@ -2,13 +2,11 @@ import mongoose from "mongoose";
 const branchSchema =new mongoose.Schema({
     school_name:{
         required: true,
-        ref: "schools",
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
     },
     course:{
         required: true,
-        ref: "course",
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
     },
     branch:{
         type:String,

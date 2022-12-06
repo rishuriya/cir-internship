@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useMemo, useState } from "react";
-import InternshipDetailsModal from "./InternshipDetailsModal";
+import SchoolAddPopup from "./SchoolAddPopup";
 import { AiOutlineLoading3Quarters ,AiOutlineDownload} from "react-icons/ai";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
 import {GrAddCircle} from "react-icons/gr";
@@ -19,21 +19,6 @@ const tableColumns = [
     accessor: "course",
     // Filter: ColumnFilter,
   },
-//   {
-//     Header: "Duration",
-//     accessor: "internship_start_date",
-//     Filter: ColumnFilter,
-//     Cell: ({ row: { original } }) => (
-//       <div>
-//        <p>
-//         {timeDuration(original.internship_start_date, original.internship_end_date)} Days
-//       </p>
-//       <div>
-//         {toDDmmm(original.internship_start_date)} - {toDDmmm(original.internship_end_date)}
-//       </div> 
-//       </div>
-//     )
-//   },
 {
     Header: "Branch",
     accessor: "branch",
@@ -84,33 +69,6 @@ export default function TableDashboard() {
   } = useTable({ columns, data }, useFilters, useGlobalFilter, usePagination);
 
 
-//   useEffect(() => {
-//     try{
-    //   setLoading(true);
-    //   fetch("/api/admin/pendingInternships", {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   }).then(async (res) => {
-    //     const resData = await res.json();
-
-    //     if (resData.success) {
-    //       setData(resData.data);
-    //     }else{
-    //       setEmpty(true);
-    //     }
-    //   });
-    //   setLoading(false);
-    //   setIsDone(false);
-//     }catch(e){
-//       setLoading(false);
-//       console.log(e);
-//     }
-//   }, [isDone]);
-
-
-
   function StudentDetails(row) {
     let a = row.original;
     setStudentDetail(a);
@@ -121,10 +79,9 @@ export default function TableDashboard() {
   return (
     <>
       {openModal && (
-        <InternshipDetailsModal
+        <SchoolAddPopup
           closeModal={setOpenModal}
-          info={StudentDetail}
-          setIsDone={setIsDone}
+          // setIsDone={setIsDone}
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
@@ -169,6 +126,7 @@ export default function TableDashboard() {
                     return (
                       <>
                         <td
+                        onClick={() => StudentDetails(row)}
                           key={i}
                           className="px-3 text-center text-lg font-medium text-gray-900 py-5"  
                           {...cell.getCellProps()}
