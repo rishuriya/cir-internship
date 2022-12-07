@@ -84,7 +84,7 @@ export default function TableDashboard() {
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
-        <div className="flex flex-row justify-start items-center border-2 border-primary rounded-lg py-1 px-2 hover:bg-slate-200 hover:cursor-pointer"  onClick={() => StudentDetails()}>
+        <div className="flex flex-row justify-start items-center w-28 md:w-40 border-2 border-primary rounded-lg py-1 px-2 hover:bg-slate-200 hover:cursor-pointer"  onClick={() => StudentDetails()}>
           <GrAddCircle size={26} 
             className="p-2 h-10 w-10 mx-2 cursor-pointer rounded-lg "/>
             <span>

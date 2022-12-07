@@ -1,11 +1,28 @@
 import React, { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Console } from "console";
+import {GrAddCircle} from "react-icons/gr";
+
 
 export default function DetailModal({ closeModal }) {
   const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const cancelButtonRef = useRef(null);
+  const [newSchoolValue,setNewSchoolValue] = useState(null);
+  const [newCourseValue,setNewCourseValue] = useState(null);
+
+  const takeUserDetail=(isSchool)=>{
+    if(isSchool){
+      const inputValue = window.prompt("Enter the name of the school", "School of ")  ;
+      console.log(inputValue);
+      setNewSchoolValue(inputValue)
+    }else{
+      const inputValue = window.prompt("Enter the new Course", "")  ;
+      // console.log(inputValue);
+      setNewCourseValue(inputValue)
+    }
+    
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -74,9 +91,9 @@ export default function DetailModal({ closeModal }) {
                             </svg>
                           </div>
                         </div>
-                        <div className="">
-                          Add
-                        </div>
+                          <div className=""  onClick={()=>takeUserDetail(true)}>
+                          <GrAddCircle size={26} className="p-2 h-10 w-10 mx-2 cursor-pointer rounded-lg "/>
+                          </div>
                         </div>
 
                         {/* Course Addition dropdown */}
@@ -104,16 +121,16 @@ export default function DetailModal({ closeModal }) {
                             </svg>
                           </div>
                         </div>
-                        <div className="">
-                          Add
+                        <div className="" onClick={()=>takeUserDetail(false)}>
+                          <GrAddCircle size={26} className="p-2 h-10 w-10 mx-2 cursor-pointer rounded-lg "/>
                         </div>
                         </div>
                         
-                      <div className="w-full mb-6 md:mb-0">
-                        <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="branch_name" id="grid-branch-name" type="text" placeholder="Branch Name" />
+                      <div className="w-full mb-2 md:mb-0">
+                        <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" name="branch_name" id="grid-branch-name" type="text" placeholder="Branch Name" />
                       </div>
 
-                      <div className="relative">
+                      <div className="relative w-1/2">
                   
                     <select
                       required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
@@ -121,7 +138,7 @@ export default function DetailModal({ closeModal }) {
                       // onChange={(e) => setSem(e.target.value)}
                       // disabled={!editDetail}
                     >
-                      <option disabled>Select Semster</option>
+                      <option disabled>Number of semesters</option>
                       <React.Fragment>
                             <option>1</option>
                             <option>2</option>
