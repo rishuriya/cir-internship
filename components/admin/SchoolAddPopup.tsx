@@ -1,17 +1,13 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Console } from "console";
 
 
-export default function aDetailModal({ closeModal }) {
+export default function DetailModal({ closeModal }) {
   const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const cancelButtonRef = useRef(null);
 
-
-  useEffect(() => {
-    
-  }, []);
 
   
   return (
