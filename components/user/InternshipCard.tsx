@@ -64,6 +64,9 @@ export default function InternshipCard({ id }) {
       const i = e.target.files[0];
       fileimg = i;
       setImage(e.target.files[0]);
+      if (await confirm(`Want to upload - ${e.target.files[0].name}`) == false) {
+        return;
+      }
     }
     const token = Cookies.get('token') || "";
     if (fileimg != undefined) {
@@ -100,12 +103,14 @@ export default function InternshipCard({ id }) {
   };
 
   const handleCertificateUpload = async (e) => {
-    //console.log(e.target.files)
     if (e.target.files && e.target.files[0]) {
       const i = e.target.files[0];
       fileimg = i;
       setImage(e.target.files[0]);
       //console.log(fileimg)
+      if (await confirm(`Want to upload - ${e.target.files[0].name}`) == false) {
+        return;
+      }
     }
     if (fileimg != undefined) {
       // console.log(fileimg)
