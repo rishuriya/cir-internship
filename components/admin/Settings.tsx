@@ -6,18 +6,17 @@ import { AiOutlineLoading3Quarters ,AiOutlineDownload} from "react-icons/ai";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
 import {GrAddCircle} from "react-icons/gr";
 import { ColumnFilter } from "./ColumnFilter";
-import { MdRowing } from "react-icons/md";
+import { MdRowing,MdDelete } from "react-icons/md";
+
 
 const tableColumns = [
   {
     Header: "School",
     accessor: "school_name",
-    // Filter: ColumnFilter,
   },
   {
     Header: "Course",
     accessor: "course",
-    // Filter: ColumnFilter,
   },
 {
     Header: "Branch",
@@ -69,9 +68,9 @@ export default function TableDashboard() {
   } = useTable({ columns, data }, useFilters, useGlobalFilter, usePagination);
 
 
-  function StudentDetails(row) {
-    let a = row.original;
-    setStudentDetail(a);
+  function StudentDetails() {
+    // let a = row.original;
+    // setCourseDetail(a);
     setOpenModal(true);
   }
 
@@ -85,6 +84,13 @@ export default function TableDashboard() {
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
+        <div className="flex flex-row justify-start items-center w-28 md:w-40 border-2 border-primary rounded-lg py-1 px-2 hover:bg-slate-200 hover:cursor-pointer"  onClick={() => StudentDetails()}>
+          <GrAddCircle size={26} 
+            className="p-2 h-10 w-10 mx-2 cursor-pointer rounded-lg "/>
+            <span>
+            Add Course
+            </span>
+        </div>
         <table {...getTableProps()} >
           <thead>
             {headerGroups.map((headerGroup, i) => (
@@ -94,18 +100,15 @@ export default function TableDashboard() {
                     <th
                       key={i}
                       scope="col"
-                      className="text-xl text-center font-semibold text-gray-900 px-7 py-4 "
+                      className="text-xl text-center font-semibold text-gray-900 px-7 py-3 "
                       {...column.getHeaderProps()}>
                       {column.render("Header")}
-                      <div>
-                        <GrAddCircle size={26} className="border-2 p-2 h-10 w-10 cursor-pointer rounded-lg hover:bg-slate-200 mx-auto"/>
-                      </div>
                     </th>
                   ))}
                   {
                     <th
                       id="4"
-                      className="text-lg text-center font-medium text-gray-900 px-3 py-4 pb-14"
+                      className="text-xl text-center font-semibold text-gray-900 px-3 py-4 "
                       scope="col"
                     >
                       Remove
@@ -126,7 +129,6 @@ export default function TableDashboard() {
                     return (
                       <>
                         <td
-                        onClick={() => StudentDetails(row)}
                           key={i}
                           className="px-3 text-center text-lg font-medium text-gray-900 py-5"  
                           {...cell.getCellProps()}
@@ -137,8 +139,8 @@ export default function TableDashboard() {
                       </>
                     );
                   })}
-                  <div className="bg-red-50 border-2 border-red-400 px-2 py-1 my-4 rounded-md ">
-                    Delete
+                  <div className="bg-red-50 border-2 border-red-400 px-2 py-1 mx-2 my-4 rounded-md hover:bg-red-100 hover:border-red-500">
+                    <MdDelete className="fill-red-700 mx-auto" size={26}/>
                   </div>
                 </tr>
               );
