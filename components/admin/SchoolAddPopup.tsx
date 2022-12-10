@@ -107,8 +107,8 @@ export default function DetailModal({ closeModal }) {
                             defaultValue={"Select Option"}
                           >
                             <option disabled></option>
-                            <option>Bachelore's of Technology</option>
-                            <option>Masters's of Technology</option>
+                            <option>Bachelore&apos;s of Technology</option>
+                            <option>Masters&apos;s of Technology</option>
                             <option>PHD</option>
                           </select>
                           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
