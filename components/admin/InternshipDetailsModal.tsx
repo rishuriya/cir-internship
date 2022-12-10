@@ -1,17 +1,18 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineLoading3Quarters, AiOutlineDownload } from "react-icons/ai";
 import { MdCardMembership } from "react-icons/md";
 import ApprovalDisapprovalPending from "./ApprovalDisapprovalPending";
 import ApprovalDisapprovalCompletion from "./ApprovalDisapprovalCompletion";
 import internal from "stream";
+import { useRouter } from "next/router";
 
 export default function DetailModal({ closeModal, info, setIsDone }) {
   const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const cancelButtonRef = useRef(null);
   const [user, setUser] = useState<any>("");
-
+  const router = useRouter();
   useEffect(() => {
     fetch(`/api/student/${info.user}`, {
       method: "GET",
@@ -26,7 +27,18 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
       // console.log(resData.data);
     });
   }, []);
-
+  function handleInternshipletter(e, uid) {
+    
+      router.push(
+        {
+          pathname: "/admin/company-letter",
+          query: { id: info._id, user: info.user },
+        },
+        "/admin/company-letter"
+      );
+    
+    return;
+  }
   const toDate = (date) => {
     const d = new Date(date);
     return d.toDateString();
@@ -193,6 +205,28 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                             </span>
 
                           </div>
+                          {info.approved=="Approved"  &&(
+                          
+                        <div className="flex mb-2">
+                            <p className="text-base text-gray-700 ml-2 w-1/3">
+                              Internship-Letter :{" "}
+                            </p>
+                            <button
+                            onClick={(e) =>
+                              handleInternshipletter(
+                                e,
+                                info._id
+                                )}>
+                        
+                      <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
+                        <AiOutlineDownload className="fill-black " size={28} />
+                        <p className="text-sm mx-1 mt-1 ">Letter Template</p>
+                      </div>
+                    </button>
+                          </div>
+                          
+                        )                         
+                        }
                         </div>
                         <div>
                           
