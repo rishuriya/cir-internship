@@ -195,7 +195,7 @@ export default function InternshipApprovedList() {
           setIsDone={setIsDone}
         />
       )}
-      {(!empty && loading === false) ? <div className="table max-w-5xl md:max-w-7xl mx-auto">
+      {(!empty && loading === false) ? <div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (
@@ -218,7 +218,7 @@ export default function InternshipApprovedList() {
                   {
                     <th
                       id="4"
-                      className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
+                      className="text-lg text-center font-medium text-gray-900 px-3 py-4 pb-14 min-w-[150px]"
                       scope="col"
                     >
                       Status
@@ -228,7 +228,7 @@ export default function InternshipApprovedList() {
               </React.Fragment>
             ))}
           </thead>
-          <tbody className="divide-y-2" {...getTableBodyProps()}>
+          <tbody className="divide-y-2 bg-white truncate" {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row);
               return (

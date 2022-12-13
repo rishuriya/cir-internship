@@ -191,9 +191,9 @@ export default function TableDashboard() {
           setIsDone={setIsDone}
         />
       )}
-      {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
-        <table {...getTableProps()} >
-          <thead>
+      {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
+        <table {...getTableProps()} className="table-fixed" >
+          <thead className="">
             {headerGroups.map((headerGroup, i) => (
               <>
                 <tr key={i} {...headerGroup.getHeaderGroupProps()}>
@@ -212,7 +212,7 @@ export default function TableDashboard() {
                   {
                     <th
                       id="4"
-                      className="text-lg text-center font-medium text-gray-900 px-3 py-4 pb-14"
+                      className="text-lg text-center font-medium text-gray-900 px-3 py-4 pb-14 min-w-[250px]"
                       scope="col"
                     >
                       Approval
@@ -222,7 +222,7 @@ export default function TableDashboard() {
               </>
             ))}
           </thead>
-          <tbody className="divide-y-2" {...getTableBodyProps()}>
+          <tbody className="divide-y-2 bg-white truncate" {...getTableBodyProps()}>
             {
             page.map((row, i) => {
               prepareRow(row);
