@@ -47,8 +47,10 @@ export default function Navbar() {
   })
 
   const dispatch = useDispatch();
-  const signOut=()=>{
-    alert("Do you want to sign out?");
+  const signOut=async()=>{
+    if (await confirm("Want to sign out?") == false) {
+      return;
+    }
     cookie.remove("token");
     dispatch(unsetUser());
     Router.push("/login");

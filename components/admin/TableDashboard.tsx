@@ -159,18 +159,7 @@ export default function TableDashboard() {
     <div className="flex flex-row justify-between">
 
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      {/* <div className="flex flex-col scale-90">
-      <div className=" px-1 py-2 bg-slate-200/60 border-2 rounded-md hover:bg-slate-300/60 cursor-pointer">
-      <CSVLink
-        filename={"InternshipRegistered.csv"}
-        data={data}
-        headers={headers}
-        className="mr-2 flex flex-row">
-      <AiOutlineDownload className="fill-black ml-1 mr-2 " size={26}/>
-           Download Full Table
-      </CSVLink>
-      </div>
-      </div> */}
+      
       <div className=" px-1 py-2 bg-slate-200/60 rounded-md hover:bg-slate-300/60 cursor-pointer my-2">
       <CSVLink
         filename={"InternshipRegistered.csv"}
