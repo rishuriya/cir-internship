@@ -195,7 +195,7 @@ export default function InternshipApprovedList() {
           setIsDone={setIsDone}
         />
       )}
-      {(!empty && loading === false) ? <div className="table max-w-5xl md:max-w-7xl mx-auto">
+      {(!empty && loading === false) ? <div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (
@@ -218,7 +218,7 @@ export default function InternshipApprovedList() {
                   {
                     <th
                       id="4"
-                      className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
+                      className="text-lg text-center font-medium text-gray-900 px-3 py-4 pb-14 min-w-[150px]"
                       scope="col"
                     >
                       Status
@@ -228,7 +228,7 @@ export default function InternshipApprovedList() {
               </React.Fragment>
             ))}
           </thead>
-          <tbody className="divide-y-2" {...getTableBodyProps()}>
+          <tbody className="divide-y-2 bg-white truncate" {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row);
               return (
@@ -253,31 +253,31 @@ export default function InternshipApprovedList() {
               );
             })}
           </tbody>
-        </table>
-        <div className="my-5 mx-5 absolute right-10">
-          <span>
+          </table>
+        <div className="my-5 mx-5 flex flex-row justify-end">
+          <div className="my-auto">
             Page{' '}
             <strong>
               {pageIndex + 1} of {pageOptions.length}
             </strong>
-          </span>
-          <span>
+          </div>
+          <div className="my-auto">
             <select
-              className="ml-2 inline-flex items-center justify-center whitespace-nowrap px-2 py-1"
-              value={pageSize}
-              onChange={e => setPageSize(Number(e.target.value))}>
+            className="ml-2 inline-flex items-center justify-center whitespace-nowrap px-2 py-1"
+            value={pageSize}
+            onChange={e => setPageSize(Number(e.target.value))}>
               {
-                [5, 10, 20, 50].map(pageSize => (
+                [5,10,20,50].map(pageSize => (
                   <option key={pageSize} value={pageSize}>
                     Show {pageSize}
                   </option>
                 ))
               }
             </select>
-          </span>
+          </div>
           <button
             onClick={() => gotoPage(0)}
-            className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
+              className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
             disabled={!canPreviousPage}>
             {'<<'}
           </button>
@@ -285,7 +285,7 @@ export default function InternshipApprovedList() {
             className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
             onClick={() => previousPage()}
             disabled={!canPreviousPage}>
-            Previous
+             Previous
           </button>
           <button
             className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
@@ -300,18 +300,14 @@ export default function InternshipApprovedList() {
             {'>>'}
           </button>
         </div>
-      </div> :
-        (
-          loading ?
-            <div className="flex justify-center items-center">
-              <AiOutlineLoading3Quarters className="fill-primary animate-spin my-4 ml-4"
-                size={42} />
-            </div> :
-            <div className="flex justify-center items-center">
-              <h1 className="text-2xl font-bold">No Internships Found</h1>
-            </div>
-        )
-      }
+      </div>:(loading===true?<div className="flex justify-center items-center">
+        <div className="">
+          <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42}/>
+        </div>
+        </div>:<div className="flex justify-center items-center my-10">
+          <h1 className="text-2xl font-bold">No Pending Internships.</h1>
+        </div>)
+      } 
     </>
   );
 }

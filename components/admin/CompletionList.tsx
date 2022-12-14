@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import { useMemo, useState } from "react";
 import ApprovalDisapprovalCompletion from "./ApprovalDisapprovalCompletion";
 import InternshipDetailsModal from "./InternshipDetailsModal";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineLoading3Quarters, AiOutlineDownload } from "react-icons/ai";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
+import { CSVLink } from "react-csv";
 
 import GlobalFilter from "./GlobalFilter";
 import { ColumnFilter } from "./ColumnFilter";
@@ -46,6 +47,24 @@ const tableColumns = [
     Filter: ColumnFilter,
   }
 ];
+
+const headers=[
+  {label:"Name",key:"name"},
+  {label:"Roll Number",key:"roll"},
+  {label:"Branch",key:"branch"},
+  {label:"Company Name",key:"company_name"},
+  {label:"Company Location",key:"company_location"},
+  {label:"Company Website",key:"company_website"},
+  {label:"Company Email",key:"company_email"},
+  {label:"Company Contact",key:"company_mobile"},
+  {label:"Company Mentor",key:"company_person_name"},
+  {label:"Type ",key:"training_type"},
+  {label:"Internship Mode",key:"internship_mode"},
+  {label:"Internship Start Date",key:"internship_start_date"},
+  {label:"Internship End Date",key:"internship_end_date"},
+  {label:"Status",key:"approved"},
+]
+
 
 const timeDuration = (start, end) => {
   const startDate: any = new Date(start);
@@ -127,15 +146,43 @@ export default function TableCompletionApproal() {
     }
   }, [isDone]);
 
+  useEffect(() => {
+    updateData(page);
+  }, [page]);
+
+
   function StudentDetails(row) {
     let a = row.original;
     setStudentDetail(a);
     setOpenModal(true);
   }
-
+  
+  function updateData(page){
+    let tempData=[];
+    page.map((row,id)=>{
+      tempData[id]=row.original
+    })
+    setCsvData(tempData)
+  }
   return (
     <>
+     <div className="flex flex-row justify-between">
+
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+
+      <div className=" px-1 py-2 bg-slate-200/60 rounded-md hover:bg-slate-300/60 cursor-pointer my-2">
+      <CSVLink
+        filename={"InternshipRegistered.csv"}
+        data={csvData}
+        // onClick={() => setCsvData(page)}
+        headers={headers}
+        className="mr-2 flex flex-row">
+      <AiOutlineDownload className="fill-black ml-1 mr-2 " size={26}/>
+          Download Table
+      </CSVLink>
+      </div>
+
+      </div>
       {/* <StudentDetailsModal /> */}
       {openModal && (
         <InternshipDetailsModal
@@ -144,8 +191,8 @@ export default function TableCompletionApproal() {
           setIsDone={setIsDone}
         />
       )}
-      {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto">
-        <table {...getTableProps()}>
+      {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
+        <table {...getTableProps()} className="table-fixed">
           <thead>
             {headerGroups.map((headerGroup, i) => (
               <>
@@ -173,7 +220,7 @@ export default function TableCompletionApproal() {
                   {
                     <th
                       id="4"
-                      className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14"
+                      className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14 min-w-[250px]"
                       scope="col"
                     >
                       Approval
@@ -183,11 +230,11 @@ export default function TableCompletionApproal() {
               </>
             ))}
           </thead>
-          <tbody className="divide-y-2" {...getTableBodyProps()}>
+          <tbody className="divide-y-2 bg-white truncate" {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr key={i} {...row.getRowProps()}>
+                <tr key={i} {...row.getRowProps()}  className="hover:bg-slate-100/60 rounded-lg cursor-pointer">
                   {row.cells.map((cell) => {
                     return (
                       <>
@@ -220,7 +267,7 @@ export default function TableCompletionApproal() {
               );
             })}
           </tbody>
-        </table>
+          </table>
         <div className="my-5 mx-5 flex flex-row justify-end">
           <div className="my-auto">
             Page{' '}
@@ -274,7 +321,7 @@ export default function TableCompletionApproal() {
         </div>:<div className="flex justify-center items-center my-10">
           <h1 className="text-2xl font-bold">No Pending Internships.</h1>
         </div>)
-      }  
+      } 
     </>
   );
 }

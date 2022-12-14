@@ -47,8 +47,10 @@ export default function Navbar() {
   })
 
   const dispatch = useDispatch();
-  const signOut=()=>{
-    alert("Do you want to sign out?");
+  const signOut=async()=>{
+    if (await confirm("Want to sign out?") == false) {
+      return;
+    }
     cookie.remove("token");
     dispatch(unsetUser());
     Router.push("/login");
@@ -133,13 +135,13 @@ export default function Navbar() {
     </nav>
 
     {/* ---Mobile View--- */}
-    <nav className='lg:hidden z-50'>
+    <nav className='sticky top-0 z-10 border-b-2 bg-white pl-1 pt-1 text-gray-700 sm:pl-3 sm:pt-3 lg:hidden'>
       <div>{
         drawerOpen?
         <div className='right-auto w-full fixed bg-slate-200 inset-0 pb-10 px-4 overflow-y-auto shadow-lg'>
-        <div className='m-2' onClick={()=>setDrawerOpen(false)}>
-        <AiOutlineClose size={24} className="mx-2 border-slate-500 border-2 h-9 w-9 rounded-sm"/>
-        </div>
+        <button className='m-2 p-2 inline-flex border-2 border-gray-600 rounded-lg my-4' onClick={()=>setDrawerOpen(false)}>
+        <AiOutlineClose size={26} className="mx-2 "/>
+        </button>
           {/* <Link href="/admin">
             <img
               className="h-12 w-auto sm:h-16 mx-auto"
@@ -204,9 +206,9 @@ export default function Navbar() {
         </div>
         </div>
         :
-        <div onClick={()=>setDrawerOpen(true)} className="m-2 p-2 border-2 border-slate-500">
+        <button onClick={()=>setDrawerOpen(true)} className="m-2 p-2 border-2 border-slate-600 text-gray-600 rounded-lg">
            <AiOutlineMenu size={26} className="mx-2"/>
-          </div>}
+          </button>}
       </div>
     </nav>
     </>
