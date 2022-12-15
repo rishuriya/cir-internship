@@ -6,7 +6,7 @@ import {
 } from "react-icons/ai";
 import cookie from "js-cookie";
 
-export default function InternshipCard({ internship, isApproved ,setIsDone}) {
+export default function InternshipCard({ internship, isApproved ,setIsDone,showModal}) {
   // const [student, setStudent] = useState(null);
   // const [loading, setLoading] = useState(true);
   // const [showDetails, setShowDetails] = useState(false);
@@ -22,10 +22,12 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
   function handleDisapprove() {
     setIsOpen(true);
     setApprove("disapprove");
+    //showModal(false)
   }
 
   function closeModal() {
     setIsOpen(false);
+    
   }
 
   const token = cookie.get("token") || "";
@@ -48,6 +50,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
         setIsDone(true);
       }
     });
+    showModal(false)
   }
 
   const handleDecline = (e) => {
@@ -72,6 +75,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone}) {
         setIsDone(true);
       }
     });
+    showModal(false)
   };
 
 

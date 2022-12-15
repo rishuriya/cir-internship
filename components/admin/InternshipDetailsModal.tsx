@@ -304,6 +304,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                       internship={info}
                       isApproved={false}
                       setIsDone={setIsDone}
+                      showModal={closeModal}
                     />
                   </div>
                   )
