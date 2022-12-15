@@ -23,6 +23,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
   function handleDisapprove() {
     setIsOpen(true);
     setApprove("disapprove");
+    
   }
 
   function closeModal() {
@@ -82,6 +83,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
         setIsDone(true);
       }
     });
+    showModal(false)
   };
 
 
@@ -162,6 +164,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
                               <button
                                 type="submit"
                                 className=" bg-primary text-white ml-auto py-2 px-3 text-lg rounded-lg font-medium"
+                                
                               >
                                 Submit
                               </button>
