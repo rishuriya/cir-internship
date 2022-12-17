@@ -110,10 +110,12 @@ export default function TableDashboard() {
               {page.map((row) => {
                 prepareRow(row);
                 return (
-                  <tr {...row.getRowProps()}>
+                  <tr {...row.getRowProps()} key={row.id}
+                  >
                     {row.cells.map((cell) => {
                       return (
                         <td
+                          key={cell}
                           className="text-xl text-center font-semibold text-gray-900 px-7 py-3"
                           {...cell.getCellProps()}
                         >
