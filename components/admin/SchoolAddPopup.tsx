@@ -14,11 +14,11 @@ export default function DetailModal({ closeModal }) {
   const [courseList, setCourseList] = useState([]);
   const [schoolList, setSchoolList] = useState([]);
 
-  const takeUserDetail = async (isSchool) => {
+  const takeUserDetail = async (e,isSchool) => {
     if (isSchool) {
       const inputValue = window.prompt("Enter the name of the school", "School of ");
       console.log(inputValue);
-
+      e.preventDefault();
       const settingObject = {
         school_name: inputValue,
         type: "school"
@@ -45,7 +45,7 @@ export default function DetailModal({ closeModal }) {
       if (newSchoolValue !== null) {
         const inputValue = window.prompt("Enter the new Course", "");
         console.log(inputValue);
-
+        e.preventDefault();
         const settingObject = {
           school_name: newSchoolValue,
           course_name: inputValue,
@@ -75,7 +75,7 @@ export default function DetailModal({ closeModal }) {
 
   }
   const handleSchoolChange = (e) => {
-    console.log(e.target.value)
+    e.preventDefault();
     setNewSchoolValue(e.target.value);
     const schoolname={
       school:e.target.value
@@ -119,7 +119,7 @@ export default function DetailModal({ closeModal }) {
   }, [])
   const saveData = async (e) => {
     if (newCourseValue != null && newSchoolValue != null) {
-      //e.preventDefault();
+      e.preventDefault();
       const settingObject = {
         school_name: newSchoolValue,
         course: newCourseValue,
@@ -138,6 +138,7 @@ export default function DetailModal({ closeModal }) {
       const resUserData = await resUser.json();
       if (resUserData.success) {
         closeModal(false)
+        location.reload();
       }
       else {
         console.log(resUserData.message)
@@ -205,7 +206,7 @@ export default function DetailModal({ closeModal }) {
                             >
                               {schoolList.length == 0 ? (<>
                                 <React.Fragment><option disabled >Select School</option></React.Fragment></>) : (<><React.Fragment>
-                                  {newSchoolValue == null ? (<> <option>Select Option</option></>) : (<> <option>{newSchoolValue}</option></>)}
+                                  {newSchoolValue == null ? (<> <option>{newCourseValue}</option></>) : (<> <option>{newSchoolValue}</option></>)}
                                   {schoolList.map((school) => {
                                     return (<>
                                       <option value={school.school_name}>{school.school_name}</option>
@@ -222,7 +223,7 @@ export default function DetailModal({ closeModal }) {
                               </svg>
                             </div>
                           </div>
-                          <div className="" onClick={() => takeUserDetail(true)}>
+                          <div className="" onClick={(e) => takeUserDetail(e,true)}>
                             <GrAddCircle size={26} className="p-2 h-10 w-10 mx-2 cursor-pointer rounded-lg " />
                           </div>
                         </div>
@@ -241,7 +242,7 @@ export default function DetailModal({ closeModal }) {
                             >
                               {courseList.length==0?(<>
                     <React.Fragment> <option disabled >Select Course</option></React.Fragment> </>):(<>
-                      <React.Fragment> {newCourseValue == null ? (<> <option>Select Option</option></>) : (<> <option>{newCourseValue}</option></>)}
+                      <React.Fragment> {newCourseValue == null ? (<> <option>{newCourseValue}</option></>) : (<> <option>{newCourseValue}</option></>)}
                     {courseList.map((school) => {
                       return (<>
                       <option>{school.course_name}</option>
@@ -257,7 +258,7 @@ export default function DetailModal({ closeModal }) {
                               </svg>
                             </div>
                           </div>
-                          <div className="" onClick={() => takeUserDetail(false)}>
+                          <div className="" onClick={(e) => takeUserDetail(e,false)}>
                             <GrAddCircle size={26} className="p-2 h-10 w-10 mx-2 cursor-pointer rounded-lg " />
                           </div>
                         </div>
@@ -283,6 +284,8 @@ export default function DetailModal({ closeModal }) {
                               <option>6</option>
                               <option>7</option>
                               <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
                             </React.Fragment>
                           </select>
                           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
