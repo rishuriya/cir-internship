@@ -209,7 +209,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                           
                         <div className="flex mb-2">
                             <p className="text-base text-gray-700 ml-2 w-1/3">
-                              Internship-Letter :{" "}
+                              Letter:{" "}
                             </p>
                             <button
                             onClick={(e) =>
