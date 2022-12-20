@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { GrAddCircle } from "react-icons/gr";
 
 
-export default function DetailModal({ closeModal }) {
+export default function DetailModal({ closeModal,setUpdateTable,updateTable }) {
   const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const cancelButtonRef = useRef(null);
@@ -14,6 +14,7 @@ export default function DetailModal({ closeModal }) {
   const [courseList, setCourseList] = useState([]);
   const [schoolList, setSchoolList] = useState([]);
   const [pageUpdate, setPageUpdate] = useState(false);
+
   const takeUserDetail = async (e,isSchool) => {
     if (isSchool) {
       const inputValue = window.prompt("Enter the name of the school", "School of ");
@@ -24,6 +25,7 @@ export default function DetailModal({ closeModal }) {
         type: "school"
 
       };
+
       const resUser = await fetch("/api/admin/addSchool", {
         method: "POST",
         headers: {
@@ -41,7 +43,6 @@ export default function DetailModal({ closeModal }) {
         console.log(resUserData.message)
       }
 
-      //window.location.reload();
     } else {
       if (newSchoolValue !== null && newSchoolValue !== "Select School") {
         const inputValue = window.prompt("Enter the new Course", "");
@@ -119,6 +120,7 @@ export default function DetailModal({ closeModal }) {
       console.log(err);
     }
   }, [pageUpdate])
+
   const saveData = async (e) => {
     if (newCourseValue != null && newSchoolValue != null && newCourseValue!= "Select Course" && newSchoolValue!= "Select School" && branch != null && sem != 0) {
       e.preventDefault();
@@ -140,7 +142,8 @@ export default function DetailModal({ closeModal }) {
       const resUserData = await resUser.json();
       if (resUserData.success) {
         closeModal(false)
-        location.reload();
+        setUpdateTable(!updateTable);
+
       }
       else {
         console.log(resUserData.message)
@@ -276,7 +279,7 @@ export default function DetailModal({ closeModal }) {
                             onChange={(e) => setSem(parseInt(e.target.value, 10))}
                           // disabled={!editDetail}
                           >
-                            <option disabled>Number of semesters</option>
+                            <option disabled>Number of Semesters</option>
                             <React.Fragment>
                               <option>1</option>
                               <option>2</option>
@@ -288,6 +291,8 @@ export default function DetailModal({ closeModal }) {
                               <option>8</option>
                               <option>9</option>
                               <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
                             </React.Fragment>
                           </select>
                           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">

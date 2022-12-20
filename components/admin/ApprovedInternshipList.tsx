@@ -243,7 +243,7 @@ export default function InternshipApprovedList() {
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr onClick={() => StudentDetails(row)} key={i} {...row.getRowProps()}>
+                <tr onClick={() => StudentDetails(row)} key={i} {...row.getRowProps()} className="hover:bg-slate-100/60 rounded-lg cursor-pointer">
                   {row.cells.map((cell) => {
                     return (
                       <>

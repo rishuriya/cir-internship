@@ -224,7 +224,7 @@ export default function TableDashboard() {
                         <td
                           onClick={() => StudentDetails(row)}
                           key={i}
-                          className="py-3 px-3 text-center "  
+                          className="py-3 px-3 text-center"  
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
