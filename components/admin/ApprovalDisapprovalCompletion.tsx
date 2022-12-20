@@ -16,6 +16,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
   let [approve, setApprove] = useState("");
 
   function handleApprove() {
+    //showModal(false)
     setIsOpen(true);
     setApprove("verify");
   }

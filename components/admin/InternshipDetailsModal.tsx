@@ -7,7 +7,7 @@ import ApprovalDisapprovalCompletion from "./ApprovalDisapprovalCompletion";
 import internal from "stream";
 import { useRouter } from "next/router";
 
-export default function DetailModal({ closeModal, info, setIsDone }) {
+export default function DetailModal({ closeModal, info, setIsDone}) {
   const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const cancelButtonRef = useRef(null);

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useMemo, useState } from "react";
-import { AiOutlineLoading3Quarters, AiOutlineDownload } from "react-icons/ai";
+import { AiOutlineLoading3Quarters, AiOutlineDownload, AiOutlineConsoleSql } from "react-icons/ai";
 import InternshipDetailsModal from "./InternshipDetailsModal";
 import { useTable, useGlobalFilter, useFilters, usePagination } from "react-table";
 import GlobalFilter from "./GlobalFilter";
@@ -168,7 +168,7 @@ export default function InternshipApprovedList() {
   function StudentDetails(row) {
     let a = row.original;
     setStudentDetail(a);
-    setOpenModal(true);
+    setOpenModal(true);    
   }
 
   return (
@@ -193,9 +193,10 @@ export default function InternshipApprovedList() {
           closeModal={setOpenModal}
           info={StudentDetail}
           setIsDone={setIsDone}
-        />
+          />
       )}
       {(!empty && loading === false) ? <div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
+        
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (

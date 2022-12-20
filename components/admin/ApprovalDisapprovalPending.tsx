@@ -17,6 +17,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
   let [approve, setApprove] = useState("");
   const router = useRouter();
   function handleApprove() {
+    //showModal(false)
     setIsOpen(true);
     setApprove("approve");
   }
@@ -33,7 +34,6 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
   const token = cookie.get("token") || "";
 
   function approved() {
-    // showModal(false)
     const userObject = {
       _id: internship._id,
       approved: "Approved",
@@ -44,11 +44,16 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
         "Content-Type": "application/json", 'authorisation': `${token}`
       },
       body: JSON.stringify(userObject),
-    }).then(async (res) => {
+    })
+    .then(async (res) => {
       const resData = await res.json();
       if (resData.success) {
         setIsOpen(false);
         setIsDone(true);
+        if((await confirm('Are you sure you want to download this letter?')==false)){  
+          return;
+
+        }
         router.push(
           {
             pathname: "/admin/company-letter",
@@ -57,8 +62,8 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
           "/admin/company-letter"
         );
       }
-    
     });
+    
   }
 
   const handleDecline = (e) => {
@@ -85,7 +90,6 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
     });
     showModal(false)
   };
-
 
   return (
     <>

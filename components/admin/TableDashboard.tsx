@@ -144,6 +144,8 @@ export default function TableDashboard() {
     let a = row.original;
     setStudentDetail(a);
     setOpenModal(true);
+    console.log("The value of open modal is ", openModal);
+    
   }
 
   function updateData(page){
