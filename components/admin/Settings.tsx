@@ -44,7 +44,7 @@ export default function TableDashboard() {
   const [StudentDetail, setStudentDetail] = useState([]);
   const [isDone, setIsDone] = useState(false);
   const [empty, setEmpty] = useState(false);
-
+  const [pageUpdate, setPageUpdate] = useState(false);
   const columns = useMemo(() => tableColumns, []);
 
   const {
@@ -93,7 +93,7 @@ export default function TableDashboard() {
       setLoading(false);
       console.log("error", e);
     }
-  }, []);
+  }, [pageUpdate]);
   useEffect(() => {
     updateData(page);
   }, [page]);
@@ -115,8 +115,7 @@ export default function TableDashboard() {
       body: JSON.stringify(bodyObj),
     }).then((res) => {
       if (res.status === 200) {
-        alert("Deleted");
-        window.location.reload();
+        setPageUpdate(!pageUpdate);
       }
     });
   }

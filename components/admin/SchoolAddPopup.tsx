@@ -13,7 +13,7 @@ export default function DetailModal({ closeModal }) {
   const [branch, setBranch] = useState(null);
   const [courseList, setCourseList] = useState([]);
   const [schoolList, setSchoolList] = useState([]);
-
+  const [pageUpdate, setPageUpdate] = useState(false);
   const takeUserDetail = async (e,isSchool) => {
     if (isSchool) {
       const inputValue = window.prompt("Enter the name of the school", "School of ");
@@ -35,6 +35,7 @@ export default function DetailModal({ closeModal }) {
       if (resUserData.success) {
         setNewSchoolValue(inputValue)
         window.alert("School Added")
+        setPageUpdate(!pageUpdate);
       }
       else {
         console.log(resUserData.message)
@@ -42,7 +43,7 @@ export default function DetailModal({ closeModal }) {
 
       //window.location.reload();
     } else {
-      if (newSchoolValue !== null) {
+      if (newSchoolValue !== null && newSchoolValue !== "Select School") {
         const inputValue = window.prompt("Enter the new Course", "");
         console.log(inputValue);
         e.preventDefault();
@@ -63,6 +64,7 @@ export default function DetailModal({ closeModal }) {
         if (resUserData.success) {
           setNewCourseValue(inputValue)
           window.alert("Course Added")
+          setPageUpdate(!pageUpdate);
         }
         else {
           console.log(resUserData.message)
@@ -116,9 +118,9 @@ export default function DetailModal({ closeModal }) {
     } catch (err) {
       console.log(err);
     }
-  }, [])
+  }, [pageUpdate])
   const saveData = async (e) => {
-    if (newCourseValue != null && newSchoolValue != null) {
+    if (newCourseValue != null && newSchoolValue != null && newCourseValue!= "Select Course" && newSchoolValue!= "Select School" && branch != null && sem != 0) {
       e.preventDefault();
       const settingObject = {
         school_name: newSchoolValue,
@@ -205,8 +207,8 @@ export default function DetailModal({ closeModal }) {
                               onChange={handleSchoolChange}
                             >
                               {schoolList.length == 0 ? (<>
-                                <React.Fragment><option disabled >Select School</option></React.Fragment></>) : (<><React.Fragment>
-                                  {newSchoolValue == null ? (<> <option>{newCourseValue}</option></>) : (<> <option>{newSchoolValue}</option></>)}
+                                <React.Fragment> <option disabled>Select School</option></React.Fragment></>) : (<><React.Fragment>
+                                <option>Select School</option>
                                   {schoolList.map((school) => {
                                     return (<>
                                       <option value={school.school_name}>{school.school_name}</option>
@@ -241,8 +243,8 @@ export default function DetailModal({ closeModal }) {
                               onChange={(e) => setNewCourseValue(e.target.value)}
                             >
                               {courseList.length==0?(<>
-                    <React.Fragment> <option disabled >Select Course</option></React.Fragment> </>):(<>
-                      <React.Fragment> {newCourseValue == null ? (<> <option>{newCourseValue}</option></>) : (<> <option>{newCourseValue}</option></>)}
+                    <React.Fragment> {newCourseValue == null ? (<> <option>Select Course</option></>) : (<> <option>{newCourseValue}</option></>)}</React.Fragment> </>):(<>
+                      <React.Fragment> {newCourseValue == null ? (<> <option>Select Course</option></>) : (<> <option>{newCourseValue}</option></>)}
                     {courseList.map((school) => {
                       return (<>
                       <option>{school.course_name}</option>
