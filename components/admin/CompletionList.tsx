@@ -262,6 +262,8 @@ export default function TableCompletionApproal() {
                     internship={row.original}
                     isApproved={false}
                     setIsDone={setIsDone}
+                    showModal={setOpenModal}
+
                   />
                 </tr>
               );
