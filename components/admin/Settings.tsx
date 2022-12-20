@@ -136,16 +136,14 @@ export default function TableDashboard() {
                       {...column.getHeaderProps()}
                     >
                       {column.render("Header")}
-                      {/* <div>
-                        {column.canFilter ? column.render("Filter") : null}
-                      </div> */}
+                      
                     </th>
                   ))}
 
                   {
                     <th
                       id="4"
-                      className="text-lg text-center font-medium text-gray-900 px-3 py-4 pb-14 min-w-[180px]"
+                      className="text-lg text-center font-medium text-gray-900 px-3 py-4  min-w-[180px]"
                       scope="col"
                     >
                       Action
@@ -181,8 +179,8 @@ export default function TableDashboard() {
                       data[i]
                     )}>
                         
-                      <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
-                        <MdDelete className="fill-black " size={28} />
+                      <div className="flex flex-row right-0 bg-red-200/30 border-2 border-red-300 hover:bg-red-200/70 px-2 py-1 my-2 rounded-md">
+                        <MdDelete className="fill-red-500 " size={28} />
                         <p className="text-sm mx-1 mt-1 ">Letter Template</p>
                       </div>
                     </button></td>
