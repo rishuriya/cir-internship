@@ -7,7 +7,7 @@ import {
 } from "react-icons/ai";
 import cookie from "js-cookie";
 
-export default function InternshipCard({ internship, isApproved ,setIsDone,showModal}) {
+export default function InternshipCard({ internship, isApproved ,setIsDone,showModal,modalState}) {
   // const [student, setStudent] = useState(null);
   // const [loading, setLoading] = useState(true);
   // const [showDetails, setShowDetails] = useState(false);
@@ -50,9 +50,12 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
       if (resData.success) {
         setIsOpen(false);
         setIsDone(true);
-        if((await confirm('Are you sure you want to download this letter?')==false)){  
+        if((confirm('Are you sure you want to download this letter?')==false)){  
+          if(modalState==true){
+            showModal(false)
+            modalState==false
+          }
           return;
-
         }
         router.push(
           {
@@ -60,10 +63,10 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
             query: { id: internship._id, user: internship.user },
           },
           "/admin/company-letter"
-        );
+        )
       }
-    });
-    
+    })
+    console.log("stateModal/openModal:",modalState)
   }
 
   const handleDecline = (e) => {
@@ -207,3 +210,7 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
     </>
   );
 }
+function then(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+
