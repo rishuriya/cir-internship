@@ -2,11 +2,8 @@ import React, { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { GrAddCircle } from "react-icons/gr";
 
-export default function DetailModal({
-  closeModal,
-  setUpdateTable,
-  updateTable,
-}) {
+
+export default function DetailModal({ closeModal,setUpdateTable,updateTable }) {
   const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const cancelButtonRef = useRef(null);
@@ -18,34 +15,34 @@ export default function DetailModal({
   const [schoolList, setSchoolList] = useState([]);
   const [pageUpdate, setPageUpdate] = useState(false);
 
-  const takeUserDetail = async (e, isSchool) => {
+  const takeUserDetail = async (e,isSchool) => {
     if (isSchool) {
-      const inputValue = window.prompt(
-        "Enter the name of the school",
-        "School of "
-      );
+      const inputValue = window.prompt("Enter the name of the school", "School of ");
       console.log(inputValue);
       e.preventDefault();
       const settingObject = {
         school_name: inputValue,
-        type: "school",
+        type: "school"
+
       };
 
       const resUser = await fetch("/api/admin/addSchool", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ",
+          "Content-Type": "application/json; charset=utf8 "
         },
         body: JSON.stringify(settingObject),
       });
       const resUserData = await resUser.json();
       if (resUserData.success) {
-        setNewSchoolValue(inputValue);
-        window.alert("School Added");
+        setNewSchoolValue(inputValue)
+        window.alert("School Added")
         setPageUpdate(!pageUpdate);
-      } else {
-        console.log(resUserData.message);
       }
+      else {
+        console.log(resUserData.message)
+      }
+
     } else {
       if (newSchoolValue !== null && newSchoolValue !== "Select School") {
         const inputValue = window.prompt("Enter the new Course", "");
@@ -54,34 +51,38 @@ export default function DetailModal({
         const settingObject = {
           school_name: newSchoolValue,
           course_name: inputValue,
-          type: "course",
+          type: "course"
+
         };
         const resUser = await fetch("/api/admin/addSchool", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json; charset=utf8 ",
+            "Content-Type": "application/json; charset=utf8 "
           },
           body: JSON.stringify(settingObject),
         });
         const resUserData = await resUser.json();
         if (resUserData.success) {
-          setNewCourseValue(inputValue);
-          window.alert("Course Added");
+          setNewCourseValue(inputValue)
+          window.alert("Course Added")
           setPageUpdate(!pageUpdate);
-        } else {
-          console.log(resUserData.message);
         }
-      } else {
+        else {
+          console.log(resUserData.message)
+        }
+      }
+      else {
         alert("Choose School");
       }
     }
-  };
+
+  }
   const handleSchoolChange = (e) => {
     e.preventDefault();
     setNewSchoolValue(e.target.value);
-    const schoolname = {
-      school: e.target.value,
-    };
+    const schoolname={
+      school:e.target.value
+    }
     fetch(`/api/student/showCourse`, {
       method: "POST",
       headers: {
@@ -90,15 +91,15 @@ export default function DetailModal({
 
       body: JSON.stringify(schoolname),
     }).then(async (res) => {
-      const resData = await res.json();
-      console.log(resData);
-      if (resData.success) {
-        setCourseList(resData.course);
-        console.log(resData.course);
-      }
-      //handleCourseChange(e);
-    });
-  };
+        const resData = await res.json()
+        console.log(resData);
+        if(resData.success){
+          setCourseList(resData.course)
+          console.log(resData.course);
+        }
+        //handleCourseChange(e);
+        })
+  }
 
   useEffect(() => {
     try {
@@ -108,53 +109,50 @@ export default function DetailModal({
           "Content-Type": "application/json; charset=utf8 ",
         },
       }).then(async (res) => {
-        const resData = await res.json();
+        const resData = await res.json()
         console.log(resData);
         if (resData.success) {
-          setSchoolList(resData.course);
+          setSchoolList(resData.course)
           console.log(resData.course);
         }
-      });
+      })
     } catch (err) {
       console.log(err);
     }
-  }, [pageUpdate]);
+  }, [pageUpdate])
 
   const saveData = async (e) => {
-    if (
-      newCourseValue != null &&
-      newSchoolValue != null &&
-      newCourseValue != "Select Course" &&
-      newSchoolValue != "Select School" &&
-      branch != null &&
-      sem != 0
-    ) {
+    if (newCourseValue != null && newSchoolValue != null && newCourseValue!= "Select Course" && newSchoolValue!= "Select School" && branch != null && sem != 0) {
       e.preventDefault();
       const settingObject = {
         school_name: newSchoolValue,
         course: newCourseValue,
         branch: branch,
         semester: sem,
-        type: "branch",
+        type: "branch"
+
       };
       const resUser = await fetch("/api/admin/addSchool", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json; charset=utf8 ",
+          "Content-Type": "application/json; charset=utf8 "
         },
         body: JSON.stringify(settingObject),
       });
       const resUserData = await resUser.json();
       if (resUserData.success) {
-        closeModal(false);
+        closeModal(false)
         setUpdateTable(!updateTable);
-      } else {
-        console.log(resUserData.message);
+
       }
-    } else {
-      alert("All field are mandatory");
+      else {
+        console.log(resUserData.message)
+      }
     }
-  };
+    else {
+      alert("All field are mandatory")
+    }
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -208,32 +206,17 @@ export default function DetailModal({
                               name="training_type"
                               id="grid-internship-nature"
                               defaultValue={"Select Option"}
-                              value={newSchoolValue != null && newSchoolValue}
+                              value={newSchoolValue != null && (newSchoolValue)}
                               onChange={handleSchoolChange}
                             >
-                              {schoolList.length == 0 ? (
-                                <>
-                                  <React.Fragment>
-                                    {" "}
-                                    <option disabled>Select School</option>
-                                  </React.Fragment>
-                                </>
-                              ) : (
-                                <>
-                                  <React.Fragment>
-                                    <option>Select School</option>
-                                    {schoolList.map((school) => {
-                                      return (
-                                        <>
-                                          <option value={school.school_name}>
-                                            {school.school_name}
-                                          </option>
-                                        </>
-                                      );
-                                    })}
-                                  </React.Fragment>{" "}
-                                </>
-                              )}
+                              {schoolList.length == 0 ? (<>
+                                <React.Fragment> <option disabled>Select School</option></React.Fragment></>) : (<><React.Fragment>
+                                <option>Select School</option>
+                                  {schoolList.map((school) => {
+                                    return (<>
+                                      <option value={school.school_name}>{school.school_name}</option>
+                                    </>)
+                                  })}</React.Fragment> </>)}
                             </select>
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                               <svg
@@ -245,14 +228,8 @@ export default function DetailModal({
                               </svg>
                             </div>
                           </div>
-                          <div
-                            className=""
-                            onClick={(e) => takeUserDetail(e, true)}
-                          >
-                            <GrAddCircle
-                              size={26}
-                              className="p-2 h-10 w-10 mx-2 cursor-pointer rounded-lg "
-                            />
+                          <div className="" onClick={(e) => takeUserDetail(e,true)}>
+                            <GrAddCircle size={26} className="p-2 h-10 w-10 mx-2 cursor-pointer rounded-lg " />
                           </div>
                         </div>
 
@@ -265,53 +242,19 @@ export default function DetailModal({
                               name="training_type"
                               id="grid-internship-nature"
                               defaultValue={"Select Option"}
-                              value={newCourseValue != null && newCourseValue}
-                              onChange={(e) =>
-                                setNewCourseValue(e.target.value)
-                              }
+                              value={newCourseValue != null && (newCourseValue)}
+                              onChange={(e) => setNewCourseValue(e.target.value)}
                             >
-                              {courseList.length == 0 ? (
-                                <>
-                                  <React.Fragment>
-                                    {" "}
-                                    {newCourseValue == null ? (
-                                      <>
-                                        {" "}
-                                        <option>Select Course</option>
-                                      </>
-                                    ) : (
-                                      <>
-                                        {" "}
-                                        <option>{newCourseValue}</option>
-                                      </>
-                                    )}
-                                  </React.Fragment>{" "}
-                                </>
-                              ) : (
-                                <>
-                                  <React.Fragment>
-                                    {" "}
-                                    {newCourseValue == null ? (
-                                      <>
-                                        {" "}
-                                        <option>Select Course</option>
-                                      </>
-                                    ) : (
-                                      <>
-                                        {" "}
-                                        <option>{newCourseValue}</option>
-                                      </>
-                                    )}
-                                    {courseList.map((school) => {
-                                      return (
-                                        <>
-                                          <option>{school.course_name}</option>
-                                        </>
-                                      );
-                                    })}
-                                  </React.Fragment>
-                                </>
-                              )}
+                              {courseList.length==0?(<>
+                              <React.Fragment> {newCourseValue == null ? (<> <option>Select Course</option></>) : (<> <option>{newCourseValue}</option></>)}</React.Fragment> </>):(<>
+                                <React.Fragment> {newCourseValue == null ? (<> <option>Select Course</option></>) : (<> <option>{newCourseValue}</option></>)}
+                              {courseList.map((school) => {
+                                return (<>
+                                <option>{school.course_name}</option>
+                              </>
+                              )})} 
+                              </React.Fragment> 
+                              </> )}
                             </select>
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                               <svg
@@ -323,39 +266,21 @@ export default function DetailModal({
                               </svg>
                             </div>
                           </div>
-                          <div
-                            className=""
-                            onClick={(e) => takeUserDetail(e, false)}
-                          >
-                            <GrAddCircle
-                              size={26}
-                              className="p-2 h-10 w-10 mx-2 cursor-pointer rounded-lg "
-                            />
+                          <div className="" onClick={(e) => takeUserDetail(e,false)}>
+                            <GrAddCircle size={26} className="p-2 h-10 w-10 mx-2 cursor-pointer rounded-lg " />
                           </div>
                         </div>
                         <div className="w-full mb-2 md:mb-0">
-                          <input
-                            onChange={(e) => setBranch(e.target.value)}
-                            required
-                            className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                            name="branch_name"
-                            id="grid-branch-name"
-                            type="text"
-                            placeholder="Branch Name"
-                          />
+                          <input onChange={(e) => setBranch(e.target.value)} required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" name="branch_name" id="grid-branch-name" type="text" placeholder="Branch Name" />
                         </div>
 
                         <div className="relative w-1/2">
+
                           <select
-                            required
-                            className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
-                     focus:bg-white focus:border-gray-500"
-                            name="sem"
-                            id="grid-sem"
-                            onChange={(e) =>
-                              setSem(parseInt(e.target.value, 10))
-                            }
-                            // disabled={!editDetail}
+                            required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
+                     focus:bg-white focus:border-gray-500" name="sem" id="grid-sem"
+                            onChange={(e) => setSem(parseInt(e.target.value, 10))}
+                          // disabled={!editDetail}
                           >
                             <option disabled>Number of Semesters</option>
                             <React.Fragment>
@@ -374,13 +299,7 @@ export default function DetailModal({
                             </React.Fragment>
                           </select>
                           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                            <svg
-                              className="fill-current h-4 w-4"
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                            </svg>
+                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                           </div>
                         </div>
                       </div>
@@ -403,6 +322,7 @@ export default function DetailModal({
                     Cancel
                   </button>
                 </div>
+
               </Dialog.Panel>
             </Transition.Child>
           </div>

@@ -24,7 +24,7 @@ function Signup() {
   const showPasswordHandler = () => {
     setShowPassword(!showPassword);
   };
-  const user = cookie.get("token");
+ 
 
   const handleOnSubmit = async(e) => {
     e.preventDefault();

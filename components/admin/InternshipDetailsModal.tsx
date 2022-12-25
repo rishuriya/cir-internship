@@ -42,7 +42,6 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
     return d.toDateString();
   };
   let member = info.member == null ? null : JSON.parse(info.member);
-  console.log(info.member);
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog

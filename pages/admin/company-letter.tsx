@@ -71,19 +71,16 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
       }
 
 
-      // if(resData.success){
-      //   setIsDataRecieved(true);
-      //   router.push("/")
-      // }
+  
     } catch (err) {
       console.log(err);
     }
   }, [isDataRecieved, data]);
+
   if (isDataRecieved && data) {
     let member = internshipdata["member"] == null ? null : JSON.parse(internshipdata["member"]);
-    console.log(role);
     return (
-      <div className="mx-auto max-w-4xl" ref={ref} style={{width: 780.7007874, height:1050.519685}}>
+      <div className="mx-auto max-w-4xl text-[16px] font-sans" ref={ref} style={{width: 780.7007874, height:1050.519685}}>
         <div className="mt-0 mb-0 text-center">
           {role!="Admin" ?(<>
           <Image src={Header} />
@@ -149,8 +146,8 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
           </div>
           <div className='flex flex-row justify-between mx-3 items-end my-6'>
             <div>
-              <p>Biju Kumar</p>
-              <p>Head-Corporate & Industry Relations</p>
+              <p>Br. Vishwanathamrita Chaitanya </p>
+              <p>Head - Corporate & Industry Relations</p>
               <p>Amritapuri Campus</p>
             </div>
           </div>
@@ -189,7 +186,7 @@ function PrintLetter() {
       console.log(err)
     }
   }, [data]);
-  console.log(user);
+
   let componentRef;
   componentRef = useRef();
   return (

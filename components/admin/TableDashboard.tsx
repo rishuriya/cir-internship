@@ -183,7 +183,7 @@ export default function TableDashboard() {
         <table {...getTableProps()} className="table-fixed " >
           <thead className="">
             {headerGroups.map((headerGroup, i) => (
-              <>
+
                 <tr key={i} {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
                     <th
@@ -207,7 +207,7 @@ export default function TableDashboard() {
                     </th>
                   }
                 </tr>
-              </>
+            
             ))}
           </thead>
           <tbody className="divide-y-2 bg-white truncate" {...getTableBodyProps()}>
@@ -217,19 +217,17 @@ export default function TableDashboard() {
           
               return (
                 <tr key={i} {...row.getRowProps()} className="hover:bg-slate-100/60 rounded-lg cursor-pointer">
-                  {row.cells.map((cell) => {
+                  {row.cells.map((cell,index) => {
                     return (
-                      <>
                         <td
                           onClick={() => StudentDetails(row)}
-                          key={i}
+                          key={index}
                           className="py-3 px-3 text-center max-w-[320px] overflow-hidden truncate"  
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
                         </td>
-                        
-                      </>
+                    
                     );
                   })}
                   <ApprovalDisapprovalPending
