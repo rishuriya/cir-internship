@@ -249,7 +249,7 @@ export default function InternshipApprovedList() {
                       <>
                         <td
                           key={i}
-                          className="p-4 text-center"
+                          className="p-4 text-center max-w-[300px] overflow-hidden truncate"
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}

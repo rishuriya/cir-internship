@@ -21,12 +21,6 @@ const navOptions = [
     href: '/user/internship-form',
     icon: AiOutlineFileAdd,
   },
-  // {
-  //   name: 'Approved Internships',
-  //   description: "Connect with third",
-  //   href: '/',
-  //   icon: AiOutlineCheck,
-  // },
  
 ]
 
@@ -42,7 +36,11 @@ export default function Navbar() {
   })
 
   const dispatch = useDispatch();
-  const signOut=()=>{
+
+  const signOut=async ()=>{
+    if (await confirm("Want to sign out?") == false) {
+      return;
+    }
     cookie.remove("token");
     dispatch(unsetUser());
     Router.push("/login");

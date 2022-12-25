@@ -164,7 +164,6 @@ export default function TableDashboard() {
       <CSVLink
         filename={"InternshipRegistered.csv"}
         data={csvData}
-        // onClick={() => setCsvData(page)}
         headers={headers}
         className="mr-2 flex flex-row">
       <AiOutlineDownload className="fill-black ml-1 mr-2 " size={26}/>
@@ -181,7 +180,7 @@ export default function TableDashboard() {
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
-        <table {...getTableProps()} className="table-fixed" >
+        <table {...getTableProps()} className="table-fixed " >
           <thead className="">
             {headerGroups.map((headerGroup, i) => (
               <>
@@ -224,7 +223,7 @@ export default function TableDashboard() {
                         <td
                           onClick={() => StudentDetails(row)}
                           key={i}
-                          className="py-3 px-3 text-center"  
+                          className="py-3 px-3 text-center max-w-[320px] overflow-hidden truncate"  
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
@@ -290,13 +289,16 @@ export default function TableDashboard() {
             {'>>'}
           </button>
         </div>
-      </div>:(loading===true?<div className="flex justify-center items-center">
-        <div className="">
-          <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42}/>
-        </div>
-        </div>:<div className="flex justify-center items-center my-10">
+      </div>
+      :(loading===true?
+          <div className="flex justify-center items-center">
+
+              <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42}/>
+
+          </div>
+        :<div className="flex justify-center items-center my-10">
           <h1 className="text-2xl font-bold">No Pending Internships.</h1>
-        </div>)
+         </div>)
       }  
     </>
   );
