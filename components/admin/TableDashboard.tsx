@@ -134,7 +134,7 @@ export default function TableDashboard() {
       setLoading(false);
       console.log(e);
     }
-  }, [isDone]);
+  }, [isDone, openModal]);
 
   useEffect(() => {
     updateData(page);
