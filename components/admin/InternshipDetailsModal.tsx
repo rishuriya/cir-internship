@@ -1,10 +1,8 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { AiOutlineLoading3Quarters, AiOutlineDownload } from "react-icons/ai";
-import { MdCardMembership } from "react-icons/md";
 import ApprovalDisapprovalPending from "./ApprovalDisapprovalPending";
 import ApprovalDisapprovalCompletion from "./ApprovalDisapprovalCompletion";
-import internal from "stream";
 import { useRouter } from "next/router";
 
 export default function DetailModal({ closeModal, info, setIsDone }) {

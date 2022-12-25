@@ -86,7 +86,6 @@ function Signup() {
     <div className="bg-secondary h-screen w-full relative p-2">
 
       <form
-      // action="/api/auth/signup"
       method="POST"
       onSubmit={handleOnSubmit}
       >
@@ -188,11 +187,6 @@ function Signup() {
             <></>
           )}
 
-        {/* <Link href={"admin/signup"}>
-            <div className="hover:underline text-blue-500 cursor-pointer font-medium mt-6">
-            Admin SignUp
-            </div>
-        </Link>  */}
       </div>
       </form>
     </div>

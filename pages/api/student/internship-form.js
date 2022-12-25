@@ -7,26 +7,21 @@ export default async function handeler(req,res) {
     try{
         let internship = new Internship(req.body);
 
-        // console.log("erererere: ",res.headers.isauth);
-
-        // if(!res.headers.isauth){
-        //     return await res.status(401).json({success:false,message:'not authenticated'})
-        // }
         if(!internship){
             return res.status(400).json({success:false,message:'Internship form not created'})
         }
-        // store internship data in user
+       
         const user = await User.findById(req.body.user);
         if(!user){
             return res.status(400).json({success:false,message:'User not found'})
         }
         await user.internships.push(internship._id);
         await user.save();
-        // console.log(user)
+        
 
         let result = await internship.save();
 
-        // console.log(result)
+        
         
         return await res.status(200).json({success:true,message:'Form created',internship:result})
             

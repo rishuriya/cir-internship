@@ -168,7 +168,6 @@ export default function TableDashboard() {
                         >
                           {cell.render("Cell")}
                         </td>
-                        {/* {(i === rows.length - 1) && <td className='p-4 text-center'>l</td>} */}
                       </>
                     );
                   })}
