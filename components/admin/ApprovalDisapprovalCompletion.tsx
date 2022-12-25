@@ -1,15 +1,9 @@
-import { useEffect, useState, Fragment } from "react";
+import { useState, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import {
-  AiOutlineCheck,
-  AiOutlineClose,
-} from "react-icons/ai";
+
 import cookie from "js-cookie";
 
 export default function InternshipCard({ internship, isApproved ,setIsDone}) {
-  // const [student, setStudent] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [showDetails, setShowDetails] = useState(false);
 
   //modal
   let [isOpen, setIsOpen] = useState(false);

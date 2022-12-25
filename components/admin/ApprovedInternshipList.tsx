@@ -210,7 +210,7 @@ export default function InternshipApprovedList() {
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (
-              <React.Fragment key={i}>
+              
                 <tr key={i} {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
                     <th
@@ -236,7 +236,7 @@ export default function InternshipApprovedList() {
                     </th>
                   }
                 </tr>
-              </React.Fragment>
+
             ))}
           </thead>
           <tbody className="divide-y-2 bg-white truncate" {...getTableBodyProps()}>
@@ -246,16 +246,15 @@ export default function InternshipApprovedList() {
                 <tr onClick={() => StudentDetails(row)} key={i} {...row.getRowProps()} className="hover:bg-slate-100/60 rounded-lg cursor-pointer">
                   {row.cells.map((cell) => {
                     return (
-                      <>
+                      
                         <td
                           key={i}
-                          className="p-4 text-center"
+                          className="p-4 text-center max-w-[300px] overflow-hidden truncate"
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
                         </td>
-                        {/* {(i === rows.length - 1) && <td className='p-4 text-center'>l</td>} */}
-                      </>
+                      
                     );
                   })}
 
@@ -267,7 +266,7 @@ export default function InternshipApprovedList() {
                                 internships[i]["user"]
                                 )}>
                         
-                      <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
+                      <div className="flex flex-row right-0 bg-slate-300/70 hover:bg-slate-300 px-2 py-1 my-2 rounded-md">
                         <AiOutlineDownload className="fill-black " size={28} />
                         <p className="text-sm mx-1 mt-1 ">Letter Template</p>
                       </div>

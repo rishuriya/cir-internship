@@ -313,8 +313,7 @@ function InternshipForm() {
                   Gender
                 </label>
                 <div className="relative">
-                  {/* <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="gender" id="grid-gender" value={username["gender"]} required readOnly>
-                  </input> */}
+                 
                   {
                     <select className="appearance-none block 
                   w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight 
@@ -349,13 +348,11 @@ function InternshipForm() {
                     <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student email-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} />
 
                 }
-                {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/> */}
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
                   Phone No.
                 </label>
-                {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/> */}
                 {
                   !editDetail ?
                     <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly />
@@ -422,7 +419,7 @@ function InternshipForm() {
                       disabled={!editDetail}
                     >
 
-{semList.length==0?(<>
+                  {semList.length==0?(<>
                     <React.Fragment> <option disabled >Select Semster</option></React.Fragment> </>):(<>
                       <React.Fragment> <option disabled>Select Semster</option>
                     {semList.map((school) => {

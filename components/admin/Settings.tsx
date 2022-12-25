@@ -27,7 +27,7 @@ const tableColumns = [
 ];
 
 
-export default function TableDashboard() {
+export default function Settings() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -79,7 +79,6 @@ export default function TableDashboard() {
 
   function deleteBranch(e,id){
     e.preventDefault();
-    console.log(id);
     const bodyObj = {
       _id:id["_id"],
       course:id["course"],
@@ -126,11 +125,11 @@ export default function TableDashboard() {
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (
-              <React.Fragment key={i}>
+              
                 <tr key={i} {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
+                  {headerGroup.headers.map((column,index) => (
                     <th
-                      key={i}
+                      key={index}
                       scope="col"
                       className="text-lg text-center font-medium text-gray-900 px-6 py-4 min-w-[200px]"
                       {...column.getHeaderProps()}
@@ -150,7 +149,6 @@ export default function TableDashboard() {
                     </th>
                   }
                 </tr>
-              </React.Fragment>
             ))}
           </thead>
           <tbody className="divide-y-2 bg-white truncate" {...getTableBodyProps()}>
@@ -160,7 +158,7 @@ export default function TableDashboard() {
                 <tr  key={i} {...row.getRowProps()}>
                   {row.cells.map((cell) => {
                     return (
-                      <>
+                      
                         <td
                           key={i}
                           className="p-4 text-center"
@@ -168,8 +166,7 @@ export default function TableDashboard() {
                         >
                           {cell.render("Cell")}
                         </td>
-                        {/* {(i === rows.length - 1) && <td className='p-4 text-center'>l</td>} */}
-                      </>
+                      
                     );
                   })}
 

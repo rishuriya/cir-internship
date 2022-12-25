@@ -4,7 +4,6 @@ import { AiOutlineLoading3Quarters, AiOutlineDownload } from "react-icons/ai";
 import { MdCardMembership,  MdOutlineModeEditOutline,MdOutlineEditOff } from "react-icons/md";
 import ApprovalDisapprovalPending from "./ApprovalDisapprovalPending";
 import ApprovalDisapprovalCompletion from "./ApprovalDisapprovalCompletion";
-import internal from "stream";
 import { useRouter } from "next/router";
 import Cookie from "js-cookie";
 export default function DetailModal({ closeModal, info, setIsDone }) {

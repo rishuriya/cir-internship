@@ -7,7 +7,6 @@ import { RootState } from '../../store';
 import { unsetUser } from '../../slices/userSlice'
 import { useSelector,useDispatch } from 'react-redux'
 import { Fragment, useEffect, useState } from 'react'
-import { Popover, Transition } from '@headlessui/react'
 import {AiOutlineFileAdd,AiFillHome,AiOutlineMenu,AiOutlineClose,AiOutlineUserAdd,AiOutlineHome,AiOutlineFileDone,AiOutlineFilePpt, AiOutlineSetting} from 'react-icons/ai';
 
 const navOptions = [
@@ -56,12 +55,12 @@ export default function Navbar() {
     Router.push("/login");
   }
 
-  const inActive= "py-2 my-1 px-3 font-medium text-gray-900 hover:text-gray-900 hover:bg-slate-300/80 hover:shadow-sm border-2 border-slate-200/40 rounded-lg cursor-pointer bg-slate-200/40 flex flex-row items-center";
+  const inActive= "py-2 my-1 px-3 font-medium text-gray-900 hover:text-gray-900 hover:bg-slate-400/70 hover:shadow-sm border-2 border-slate-300/30 rounded-lg cursor-pointer bg-slate-300/40 flex flex-row items-center";
   const active  = "py-2 my-1 px-3 font-medium text-black hover:text-gray-900 border-2 border-primary shadow-sm rounded-lg cursor-pointer bg-pink-100/70 flex flex-row ";
 
   return (
     <>
-    <nav className="right-auto w-[18vw] hidden lg:block fixed bg-slate-200/80 inset-0 pb-10 px-4 overflow-y-auto shadow-lg">
+    <nav className="right-auto w-[18vw] hidden lg:block fixed bg-slate-300/80 inset-0 pb-10 px-4 overflow-y-auto shadow-lg">
     <div className='flex md:flex-col'>
      <div className="justify-start md:my-4 md:flex-1 mx-auto">
         <Link href="/admin">
@@ -142,15 +141,6 @@ export default function Navbar() {
         <button className='m-2 p-2 inline-flex border-2 border-gray-600 rounded-lg my-4' onClick={()=>setDrawerOpen(false)}>
         <AiOutlineClose size={26} className="mx-2 "/>
         </button>
-          {/* <Link href="/admin">
-            <img
-              className="h-12 w-auto sm:h-16 mx-auto"
-              src="https://upload.wikimedia.org/wikipedia/en/f/f8/Amrita-vishwa-vidyapeetham-color-logo.png"
-              alt=""
-            />
-          </Link> */}
-      {/* <div className="justify-start my-4 mx-auto z-50 fixed">
-        </div> */}
 
         <div className="flex-col lg:hidden md:mt-10 space-y-5 md:space-y-8  scale-90 ">
           <Link href="/admin">
@@ -171,12 +161,6 @@ export default function Navbar() {
               Pending Verification
               </div>
           </Link>
-          {/* <Link href="/admin/signup" className='border-2 border-primary'>
-              <div className={router.pathname=="/admin/signup" ?active:inActive}>
-              <AiOutlineUserAdd size={24} className="mx-2"/>
-              Add Admin
-            </div>
-          </Link> */}
         </div>
         <div className='absolute bottom-0  '>
         {auth?

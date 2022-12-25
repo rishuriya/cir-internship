@@ -246,12 +246,15 @@ export default function DetailModal({ closeModal,setUpdateTable,updateTable }) {
                               onChange={(e) => setNewCourseValue(e.target.value)}
                             >
                               {courseList.length==0?(<>
-                    <React.Fragment> {newCourseValue == null ? (<> <option>Select Course</option></>) : (<> <option>{newCourseValue}</option></>)}</React.Fragment> </>):(<>
-                      <React.Fragment> {newCourseValue == null ? (<> <option>Select Course</option></>) : (<> <option>{newCourseValue}</option></>)}
-                    {courseList.map((school) => {
-                      return (<>
-                      <option>{school.course_name}</option>
-                    </>)})} </React.Fragment> </> )}
+                              <React.Fragment> {newCourseValue == null ? (<> <option>Select Course</option></>) : (<> <option>{newCourseValue}</option></>)}</React.Fragment> </>):(<>
+                                <React.Fragment> {newCourseValue == null ? (<> <option>Select Course</option></>) : (<> <option>{newCourseValue}</option></>)}
+                              {courseList.map((school) => {
+                                return (<>
+                                <option>{school.course_name}</option>
+                              </>
+                              )})} 
+                              </React.Fragment> 
+                              </> )}
                             </select>
                             <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                               <svg
