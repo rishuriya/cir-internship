@@ -181,7 +181,7 @@ export default function TableDashboard() {
                         
                       <div className="flex flex-row right-0 bg-red-200/30 border-2 border-red-300 hover:bg-red-200/70 px-2 py-1 my-2 rounded-md">
                         <MdDelete className="fill-red-500 " size={28} />
-                        <p className="text-sm mx-1 mt-1 ">Letter Template</p>
+                        <p className="text-sm mx-1 mt-1 ">Delete</p>
                       </div>
                     </button></td>
                 </tr>
