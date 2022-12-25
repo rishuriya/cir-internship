@@ -74,6 +74,14 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
   else{
     alert("End date should be greater than start date");
   }
+}
+  const enableEdit=()=>{
+    setEditDetail(!editDetail);
+    setCompanyName(info.company_name);
+    setCompanyLocation(info.company_location);
+    setCompanyMobile(info.company_mobile);
+    setStartDate(info.internship_start_date);
+    setEndDate(info.internship_end_date);
   }
   const toDate = (date) => {
     const d = new Date(date);
@@ -125,7 +133,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
              Details:
               </div>
               {info.approved==="Pending"?(<>
-              <div onClick={() => setEditDetail(!editDetail)} className="flex flex-row mx-3 rounded-md border-2 px-2 py-1 text-xs md:text-sm cursor-pointer bg-gray-100/50 my-auto">
+              <div onClick={enableEdit} className="flex flex-row mx-3 rounded-md border-2 px-2 py-1 text-xs md:text-sm cursor-pointer bg-gray-100/50 my-auto">
                 {
                 editDetail ?
                   <MdOutlineModeEditOutline size={24} /> :
