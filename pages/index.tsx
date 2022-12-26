@@ -1,7 +1,6 @@
 import Image from "next/image";
 import logo from '../public/img/amritaLogo.png'
 import Link from "next/link";
-import { useEffect } from "react";
 
 export default function landingPage() {
     console.log(" ** Made by amFOSS 🤍 for Amrita **")
@@ -21,8 +20,8 @@ export default function landingPage() {
                 </div>
             </div>
             <div className="border border-white py-4 px-3 max-w-6xl bg-slate-100/50 hover:shadow-lg rounded-md text-center mx-auto my-12  ">
-                    <h1 className="font-medium leading-text text-6xl tracking-wider text-primary" >Online Internship Registration Portal</h1>
-                    <p className="my-5 text-lg font-medium" >Corporate & Industry Relations(CIR),Amritapuri</p>
+                    <h1 className="font-medium leading-text md:text-5xl text-xl tracking-wider text-primary" >Online Internship Registration Portal</h1>
+                    <p className="my-5 text-base font-medium md:text-2xl" >Corporate & Industry Relations(CIR),Amritapuri</p>
 
                 </div>
                 {/* <div>
