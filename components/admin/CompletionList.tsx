@@ -188,6 +188,7 @@ export default function TableCompletionApproal() {
           closeModal={setOpenModal}
           info={StudentDetail}
           setIsDone={setIsDone}
+          stateModal={openModal}
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
@@ -244,8 +245,10 @@ export default function TableCompletionApproal() {
                  
                   <ApprovalDisapprovalCompletion
                     internship={row.original}
-                    isApproved={false}
+                    // isApproved={false}
                     setIsDone={setIsDone}
+                    showModal={setOpenModal}
+                    modalState={openModal}
                   />
                 </tr>
               );

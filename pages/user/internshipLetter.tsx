@@ -25,9 +25,7 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
         const token = cookie.get("token");
         getUser(token).then(async(response) => {
             user=response.user["id"];
-            const userObject={
-              _id:user
-            }
+
             fetch(`../api/student/${user}`, {
               method: "GET",
               headers: {
@@ -66,22 +64,16 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
             });
 
           }
-            //console.log(internshipdata._id);
-            
-      
-            // if(resData.success){
-            //   setIsDataRecieved(true);
-            //   router.push("/")
-            // }
+         
       }catch(err){
         console.log(err);
       }
       },[isDataRecieved, data]);
+
   if(isDataRecieved && data){
-    //console.log(internshipdata);
   return (
     <div>
-    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-32' ref={ref}>
+    <div className='mx-auto max-w-5xl px-4 sm:px-8 my-32 text-[16px] font-sans' ref={ref}>
         <div>
             <p>To,</p>
             <p>The Principal,</p>
@@ -118,8 +110,8 @@ const InternshipLetter= React.forwardRef<HTMLDivElement>(function InternshipLett
                 <p className=' mr-10'>HOD signature</p>
             </div>
         </div>
-  </div>
-</div>
+      </div>
+    </div>
 
   );}
 })

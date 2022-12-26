@@ -5,8 +5,9 @@ import { MdCardMembership,  MdOutlineModeEditOutline,MdOutlineEditOff } from "re
 import ApprovalDisapprovalPending from "./ApprovalDisapprovalPending";
 import ApprovalDisapprovalCompletion from "./ApprovalDisapprovalCompletion";
 import { useRouter } from "next/router";
+
 import Cookie from "js-cookie";
-export default function DetailModal({ closeModal, info, setIsDone }) {
+export default function DetailModal({ closeModal, info, setIsDone,stateModal }) {
   const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const cancelButtonRef = useRef(null);
@@ -413,14 +414,17 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                       isApproved={false}
                       setIsDone={setIsDone}
                       showModal={closeModal}
+                      modalState={stateModal}
                     />
                   </div>
                   ):info.approved==="Pending Verification" && (
                     <div className="absolute left-0 bottom-1">
                     <ApprovalDisapprovalCompletion
                       internship={info}
-                      isApproved={false}
+                      // isApproved={false}
                       setIsDone={setIsDone}
+                      showModal={closeModal}
+                      modalState={stateModal}
                     />
                   </div>
                   )

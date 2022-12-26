@@ -47,7 +47,7 @@ export default function Navbar() {
 
   const dispatch = useDispatch();
   const signOut=async()=>{
-    if (await confirm("Want to sign out?") == false) {
+    if (await confirm("Are you sure you want to sign out?") == false) {
       return;
     }
     cookie.remove("token");
