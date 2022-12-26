@@ -245,7 +245,7 @@ export default function TableCompletionApproal() {
                  
                   <ApprovalDisapprovalCompletion
                     internship={row.original}
-                    isApproved={false}
+                    // isApproved={false}
                     setIsDone={setIsDone}
                     showModal={setOpenModal}
                     modalState={openModal}

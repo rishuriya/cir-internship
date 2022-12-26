@@ -269,7 +269,7 @@ export default function InternshipApprovedList() {
                         
                       <div className="flex flex-row right-0 bg-slate-300/70 hover:bg-slate-300 px-2 py-1 my-2 rounded-md">
                         <AiOutlineDownload className="fill-black " size={28} />
-                        <p className="text-sm mx-1 mt-1 ">Letter Template</p>
+                        <p className="text-sm mx-1 mt-1 ">Letter</p>
                       </div>
                     </button></td>
                 </tr>
