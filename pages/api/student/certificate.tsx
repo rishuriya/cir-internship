@@ -19,8 +19,7 @@ const post = async (req, res) => {
 const saveFile = async (file,id) => {
   let filename="./public/uploads/Certificate/"+id+file.originalFilename;
   const data = fs.readFileSync(file.filepath);
-  // console.log(data);
-  // fs.writeFileSync(filename, data);
+  
   await fs.unlinkSync(file.filepath);
   return filename;
 };

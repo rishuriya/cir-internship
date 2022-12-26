@@ -13,7 +13,6 @@ export default function landingPage() {
                     
                 </div>
                 <div className="flex space-x-8 m-5 items-start p-4 sm:justify-center text-lg font-medium">
-                    {/* <Link href={"/"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer truncate">Home</div></Link> */}
                     <Link href={"/login"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer truncate">Login</div></Link>
                     <Link href={"/signup"}><div className="border border-white py-2 px-3 rounded-md hover:underline hover:bg-slate-100/50 hover:shadow-lg cursor-pointer truncate">Sign up</div></Link>
 
@@ -24,9 +23,7 @@ export default function landingPage() {
                     <p className="my-5 text-base font-medium md:text-2xl" >Corporate & Industry Relations(CIR),Amritapuri</p>
 
                 </div>
-                {/* <div>
-                        <img src="https://amfoss.in/branding/HORIZONTAL-TEXT-BULB-WHITE.svg" className="fixed bottom-8 right-10" alt="This CIR-Internship is made by amFOSS" width={200}  height={20}/>
-                </div> */}
+            
         </div>
     )
 }

@@ -6,8 +6,7 @@ export default async function handeler(req,res) {
     await db_connect();
     try{
         let id = req.query.id;
-        // console.log(id);
-        // let Internship_data = await Internship.find({"_id":id});
+        
         let Internship_data = await Internship.findById(id);
 
         // console.log("Internship:",Internship_data);

@@ -7,7 +7,7 @@ import { useTable, useGlobalFilter, useFilters, usePagination } from "react-tabl
 import GlobalFilter from "./GlobalFilter";
 import { ColumnFilter } from "./ColumnFilter";
 import { CSVLink } from "react-csv";
-
+import { useRouter } from "next/router";
 
 const tableColumns = [
   {
@@ -44,7 +44,7 @@ const tableColumns = [
     Header: "Branch",
     accessor: "branch",
     Filter: ColumnFilter,
-  }
+  },
 ];
 const headers = [
   { label: "Name", key: "name" },
@@ -88,7 +88,7 @@ export default function InternshipApprovedList() {
   const [isDone, setIsDone] = useState(false);
   const [empty, setEmpty] = useState(false);
 
-
+  const router = useRouter()
   const columns = useMemo(() => tableColumns, []);
   const close = () => {
     setShow(false);
@@ -98,7 +98,18 @@ export default function InternshipApprovedList() {
   const open = () => {
     setShow(true);
   };
-
+  function handleInternshipletter(e,id,uid) {
+    
+    router.push(
+      {
+        pathname: "/admin/company-letter",
+        query: { id: id, user: uid },
+      },
+      "/admin/company-letter"
+    );
+  
+  return;
+  }
   const {
     getTableProps,
     getTableBodyProps,
@@ -200,7 +211,7 @@ export default function InternshipApprovedList() {
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup, i) => (
-              <React.Fragment key={i}>
+              
                 <tr key={i} {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
                     <th
@@ -222,39 +233,50 @@ export default function InternshipApprovedList() {
                       className="text-lg text-center font-medium text-gray-900 px-3 py-4 pb-14 min-w-[150px]"
                       scope="col"
                     >
-                      Status
+                      Letter
                     </th>
                   }
                 </tr>
-              </React.Fragment>
+
             ))}
           </thead>
           <tbody className="divide-y-2 bg-white truncate" {...getTableBodyProps()}>
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr onClick={() => StudentDetails(row)} key={i} {...row.getRowProps()}>
+                <tr onClick={() => StudentDetails(row)} key={i} {...row.getRowProps()} className="hover:bg-slate-100/60 rounded-lg cursor-pointer">
                   {row.cells.map((cell) => {
                     return (
-                      <>
+                      
                         <td
                           key={i}
-                          className="p-4 text-center"
+                          className="p-4 text-center max-w-[300px] overflow-hidden truncate"
                           {...cell.getCellProps()}
                         >
                           {cell.render("Cell")}
                         </td>
-                        {/* {(i === rows.length - 1) && <td className='p-4 text-center'>l</td>} */}
-                      </>
+                      
                     );
                   })}
 
-                  <td className="text-center rounded-lg mx-7 items-center justify-center whitespace-nowrap text-green-700 py-1 px-4">Approved</td>
+                  <td className="text-center rounded-lg mx-7 items-center justify-center whitespace-nowrap text-grey-700 py-1 px-4"><button
+                            onClick={(e) =>
+                              handleInternshipletter(
+                                e,
+                                internships[i]["_id"],
+                                internships[i]["user"]
+                                )}>
+                        
+                      <div className="flex flex-row right-0 bg-slate-300/70 hover:bg-slate-300 px-2 py-1 my-2 rounded-md">
+                        <AiOutlineDownload className="fill-black " size={28} />
+                        <p className="text-sm mx-1 mt-1 ">Letter Template</p>
+                      </div>
+                    </button></td>
                 </tr>
               );
             })}
           </tbody>
-          </table>
+        </table>
         <div className="my-5 mx-5 flex flex-row justify-end">
           <div className="my-auto">
             Page{' '}
@@ -264,11 +286,11 @@ export default function InternshipApprovedList() {
           </div>
           <div className="my-auto">
             <select
-            className="ml-2 inline-flex items-center justify-center whitespace-nowrap px-2 py-1"
-            value={pageSize}
-            onChange={e => setPageSize(Number(e.target.value))}>
+              className="ml-2 inline-flex items-center justify-center whitespace-nowrap px-2 py-1"
+              value={pageSize}
+              onChange={e => setPageSize(Number(e.target.value))}>
               {
-                [5,10,20,50].map(pageSize => (
+                [5, 10, 20, 50].map(pageSize => (
                   <option key={pageSize} value={pageSize}>
                     Show {pageSize}
                   </option>
@@ -278,7 +300,7 @@ export default function InternshipApprovedList() {
           </div>
           <button
             onClick={() => gotoPage(0)}
-              className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
+            className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
             disabled={!canPreviousPage}>
             {'<<'}
           </button>
@@ -286,7 +308,7 @@ export default function InternshipApprovedList() {
             className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
             onClick={() => previousPage()}
             disabled={!canPreviousPage}>
-             Previous
+            Previous
           </button>
           <button
             className="px-2 py-1 bg-slate-500/40 m-2 rounded-lg shadow-lg hover:bg-slate-500/75 cursor-pointer"
@@ -301,14 +323,14 @@ export default function InternshipApprovedList() {
             {'>>'}
           </button>
         </div>
-      </div>:(loading===true?<div className="flex justify-center items-center">
+      </div> : (loading === true ? <div className="flex justify-center items-center">
         <div className="">
-          <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42}/>
+          <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42} />
         </div>
-        </div>:<div className="flex justify-center items-center my-10">
-          <h1 className="text-2xl font-bold">No Pending Internships.</h1>
-        </div>)
-      } 
+      </div> : <div className="flex justify-center items-center my-10">
+        <h1 className="text-2xl font-bold">No Pending Internships.</h1>
+      </div>)
+      }
     </>
   );
 }

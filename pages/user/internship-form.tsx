@@ -25,6 +25,7 @@ function InternshipForm() {
   const [editDetail, setEditDetail] = useState(false);
   const [username, setUserName] = useState([]);
   const [disableSubmit, setDisableSubmit] = useState(false);
+  const [semList,setSemList]=useState([]);
   let user_name
   let date_ob = new Date();
   var year = date_ob.getFullYear()
@@ -91,6 +92,28 @@ function InternshipForm() {
         }
       });
     });
+    const schoolname={
+      school_name:username["school"],
+      course:course,
+      branch:username["branch"]
+    }
+    fetch(`/api/student/showBranch`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf8 ",
+      },
+
+      body: JSON.stringify(schoolname),
+    }).then(async (res) => {
+        const resData = await res.json()
+        if(resData.success){
+          
+          if(resData.branch.length==1){
+          var a=Array.from({ length: resData.branch[0].semester }, (_, i) => i + 1);
+          setSemList(a);
+          }
+        }
+        })
   }, [data]);
   
 
@@ -290,8 +313,7 @@ function InternshipForm() {
                   Gender
                 </label>
                 <div className="relative">
-                  {/* <input className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="gender" id="grid-gender" value={username["gender"]} required readOnly>
-                  </input> */}
+                 
                   {
                     <select className="appearance-none block 
                   w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight 
@@ -326,13 +348,11 @@ function InternshipForm() {
                     <input pattern=".*@am\.students\.amrita\.edu" title="Enter valid Student email-id" required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} />
 
                 }
-                {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="email" id="email" type="email" placeholder="abc@am.students.amrita.edu" defaultValue={username["email"]} readOnly/> */}
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="phone-number">
                   Phone No.
                 </label>
-                {/* <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly/> */}
                 {
                   !editDetail ?
                     <input required className="appearance-none block w-full bg-gray-100 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="phone" id="phone-number" type="text" placeholder="Phone number" defaultValue={username["phone"]} readOnly />
@@ -399,32 +419,13 @@ function InternshipForm() {
                       disabled={!editDetail}
                     >
 
-                      <option disabled>Select Semster</option>
-                      {course === "B.Tech" || course === "M.Tech" ? (
-                        course === "B.Tech" ? (
-                          <React.Fragment>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                            <option>6</option>
-                            <option>7</option>
-                            <option>8</option>
-                          </React.Fragment>
-                        ) : (
-                          <React.Fragment>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                          </React.Fragment>
-                        )
-                      ) : (
-                        <React.Fragment>
-                          <option disabled>Select B.Tech/M.Tech</option>
-                        </React.Fragment>
-                      )}
+                  {semList.length==0?(<>
+                    <React.Fragment> <option disabled >Select Semster</option></React.Fragment> </>):(<>
+                      <React.Fragment> <option disabled>Select Semster</option>
+                    {semList.map((school) => {
+                      return (<>
+                      <option>{school}</option>
+                    </>)})} </React.Fragment> </> )}
                     </select>
                   }
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">

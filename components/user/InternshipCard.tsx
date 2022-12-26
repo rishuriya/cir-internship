@@ -302,7 +302,6 @@ export default function InternshipCard({ id }) {
               </p>
               </div>
               <div className="">
-                {/* <p>Members - <span>{internship["members"]}</span></p> */}
               </div>
             </div>
             <div className="flex justify-between border-t-2 mt-5">
