@@ -178,6 +178,7 @@ export default function TableDashboard() {
           closeModal={setOpenModal}
           info={StudentDetail}
           setIsDone={setIsDone}
+          stateModal={openModal}
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
@@ -238,6 +239,7 @@ export default function TableDashboard() {
                     isApproved={false}
                     setIsDone={setIsDone}
                     showModal={false}
+                    modalState={false}
                   />
                 </tr>
               );

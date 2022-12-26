@@ -7,7 +7,7 @@ import {
 } from "react-icons/ai";
 import cookie from "js-cookie";
 
-export default function InternshipCard({ internship, isApproved ,setIsDone,showModal}) {
+export default function InternshipCard({ internship, isApproved ,setIsDone,showModal,modalState}) {
   // const [student, setStudent] = useState(null);
   // const [loading, setLoading] = useState(true);
   // const [showDetails, setShowDetails] = useState(false);
@@ -43,11 +43,18 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
         "Content-Type": "application/json", 'authorisation': `${token}`
       },
       body: JSON.stringify(userObject),
-    }).then(async (res) => {
+    })
+    .then(async (res) => {
       const resData = await res.json();
       if (resData.success) {
         setIsOpen(false);
         setIsDone(true);
+        if(await confirm("Do you want to download the letter?")==false){
+          if(modalState==true){
+            showModal(false)
+          }
+          return;
+        }
         router.push(
           {
             pathname: "/admin/company-letter",
@@ -82,6 +89,10 @@ export default function InternshipCard({ internship, isApproved ,setIsDone,showM
         setIsDone(true);
       }
     });
+    if(modalState==true){
+      showModal(false)
+
+    }
   };
 
 

@@ -7,7 +7,7 @@ import ApprovalDisapprovalCompletion from "./ApprovalDisapprovalCompletion";
 import internal from "stream";
 import { useRouter } from "next/router";
 
-export default function DetailModal({ closeModal, info, setIsDone }) {
+export default function DetailModal({ closeModal, info, setIsDone,stateModal }) {
   const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const cancelButtonRef = useRef(null);
@@ -296,6 +296,7 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                       isApproved={false}
                       setIsDone={setIsDone}
                       showModal={closeModal}
+                      modalState={stateModal}
                     />
                   </div>
                   ):info.approved==="Pending Verification" && (
@@ -304,6 +305,8 @@ export default function DetailModal({ closeModal, info, setIsDone }) {
                       internship={info}
                       isApproved={false}
                       setIsDone={setIsDone}
+                      showModal={closeModal}
+                      modalState={stateModal}
                     />
                   </div>
                   )
