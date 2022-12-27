@@ -156,17 +156,17 @@ export default function TableDashboard() {
 
   return (
     <>
-    <div className="flex flex-row justify-between">
+    <div className="flex flex-col sm:flex-row justify-between">
 
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       
-      <div className=" px-1 py-2 bg-slate-200/60 rounded-md hover:bg-slate-300/60 cursor-pointer my-2">
+      <div className=" px-1 py-2 bg-slate-200/60 rounded-md hover:bg-slate-300/60 cursor-pointer my-2 max-w-xs">
       <CSVLink
         filename={"InternshipRegistered.csv"}
         data={csvData}
         headers={headers}
-        className="mr-2 flex flex-row">
-      <AiOutlineDownload className="fill-black ml-1 mr-2 " size={26}/>
+        className="mr-2 flex flex-row text-center">
+      <AiOutlineDownload className="fill-black ml-1 mr-2 hidden sm:flex" size={26}/>
            Download Table
       </CSVLink>
       </div>
@@ -181,7 +181,7 @@ export default function TableDashboard() {
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
-        <table {...getTableProps()} className="table-fixed " >
+      <table role={"table"} className="table-fixed">
           <thead className="">
             {headerGroups.map((headerGroup, i) => (
 
@@ -190,7 +190,7 @@ export default function TableDashboard() {
                     <th
                       key={i}
                       scope="col"
-                      className="text-lg text-center font-medium text-gray-900 px-3 py-4"
+                      className="text-lg text-center font-medium text-gray-900 px-2 py-4"
                       {...column.getHeaderProps()}>
                       {column.render("Header")}
                       <div>
@@ -201,7 +201,7 @@ export default function TableDashboard() {
                   {
                     <th
                       id="4"
-                      className="text-lg text-center font-medium text-gray-900 px-3 py-4 pb-14 min-w-[250px]"
+                      className="text-lg text-center font-medium text-gray-900 px-2 py-4 pb-14 min-w-[250px]"
                       scope="col"
                     >
                       Approval
@@ -296,7 +296,7 @@ export default function TableDashboard() {
               <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42}/>
 
           </div>
-        :<div className="flex justify-center items-center my-10">
+        :<div className="flex justify-center items-center my-10 border-2 border-zinc-700 rounded-lg md:py-16 md:my-16">
           <h1 className="text-2xl font-bold">No Pending Internships.</h1>
          </div>)
       }  

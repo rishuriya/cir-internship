@@ -128,6 +128,8 @@ export default function InternshipApprovedList() {
     setPageSize
   } = useTable({ columns, data }, useFilters, useGlobalFilter, usePagination);
 
+  
+
   const { globalFilter, pageIndex, pageSize } = state;
 
   useEffect(() => {
@@ -207,8 +209,8 @@ export default function InternshipApprovedList() {
           stateModal={openModal}
         />
       )}
-      {(!empty && loading === false) ? <div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
-        <table {...getTableProps()}>
+      {(!empty && loading === false) ? <div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-100">
+        <table role={"table"} className="table-fixed">
           <thead>
             {headerGroups.map((headerGroup, i) => (
               
@@ -217,7 +219,7 @@ export default function InternshipApprovedList() {
                     <th
                       key={i}
                       scope="col"
-                      className="text-lg text-center font-medium text-gray-900 px-6 py-4"
+                      className="text-lg text-center font-medium text-gray-900 px-2 py-4"
                       {...column.getHeaderProps()}
                     >
                       {column.render("Header")}
@@ -230,7 +232,7 @@ export default function InternshipApprovedList() {
                   {
                     <th
                       id="4"
-                      className="text-lg text-center font-medium text-gray-900 px-3 py-4 pb-14 min-w-[150px]"
+                      className="text-lg text-center font-medium text-gray-900 px-2 py-4 pb-14 min-w-[150px]"
                       scope="col"
                     >
                       Letter
@@ -327,8 +329,8 @@ export default function InternshipApprovedList() {
         <div className="">
           <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42} />
         </div>
-      </div> : <div className="flex justify-center items-center my-10">
-        <h1 className="text-2xl font-bold">No Pending Internships.</h1>
+      </div> : <div className="flex justify-center items-center my-10 border-2 border-zinc-700 rounded-lg md:py-16 md:my-16">
+        <h1 className="text-2xl font-bold">No Approved Internships.</h1>
       </div>)
       }
     </>
