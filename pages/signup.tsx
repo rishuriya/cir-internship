@@ -89,9 +89,9 @@ function Signup() {
       method="POST"
       onSubmit={handleOnSubmit}
       >
-      <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 z-10 shadow-xl rounded-lg items-center">
+      <div className="max-w-xl min-w-fit mx-auto mt-24 py-10 flex flex-col bg-slate-300/40 backdrop-blur-md z-10 shadow-xl rounded-lg items-center">
 
-          <h1 className="text-3xl my-5 font-bold ">Signup</h1>
+          <h1 className="text-3xl my-5 font-medium ">Signup</h1>
           <div className="my-3 mx-3">
             <div className="mx-2 font-medium">Full Name</div>
             <input

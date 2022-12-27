@@ -192,7 +192,7 @@ export default function TableCompletionApproal() {
         />
       )}
       {(!empty && loading===false)?<div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
-        <table {...getTableProps()} className="table-fixed">
+      <table role={"table"} className="table-fixed">
           <thead>
             {headerGroups.map((headerGroup, i) => (
               <>
@@ -201,7 +201,7 @@ export default function TableCompletionApproal() {
                     <th
                       key={i}
                       scope="col"
-                      className="text-lg text-center font-medium text-gray-900 px-6 py-4"
+                      className="text-lg text-center font-medium text-gray-900 px-2 py-4 min-w-[200px]"
                       {...column.getHeaderProps()}>
                       {column.render("Header")}
                       <div>
@@ -213,7 +213,7 @@ export default function TableCompletionApproal() {
                   {
                     <th
                       id="4"
-                      className="text-lg text-center font-medium text-gray-900 px-6 py-4 pb-14 min-w-[250px]"
+                      className="text-lg text-center font-medium text-gray-900 px-2 py-4 pb-14 min-w-[250px]"
                       scope="col"
                     >
                       Approval
@@ -305,8 +305,8 @@ export default function TableCompletionApproal() {
         <div className="">
           <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42}/>
         </div>
-        </div>:<div className="flex justify-center items-center my-10">
-          <h1 className="text-2xl font-bold">No Pending Internships.</h1>
+        </div>:<div className="flex justify-center items-center my-10 border-2 border-zinc-700 rounded-lg md:py-16 md:my-16">
+          <h1 className="text-2xl font-bold">No Completed Internships.</h1>
         </div>)
       } 
     </>

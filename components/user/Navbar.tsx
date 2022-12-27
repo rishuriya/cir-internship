@@ -74,7 +74,7 @@ export default function Navbar() {
           </Link>
           <Link href="/user/internship-form" >
             <div className="py-2 m-1 px-3 font-medium text-gray-700 hover:text-gray-900 border-2 hover:border-primary shadow-sm rounded-md cursor-pointer">
-              Add Internship
+              Register Internship
             </div>
           </Link>         
           </Popover.Group>

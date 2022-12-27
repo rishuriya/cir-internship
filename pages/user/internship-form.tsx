@@ -71,7 +71,6 @@ function InternshipForm() {
       name = response.user["name"];
       roll = response.user["rollno"];
       setUserToken([response.user]);
-      console.log(user);
       fetch(`../api/student/${id}`, {
         method: "GET",
         headers: {
@@ -194,7 +193,7 @@ function InternshipForm() {
         phone: data.phone,
         year_of_joining: data.year_of_joining,
       };
-      //console.log(bodyObject);
+
       const resUser = await fetch("/api/student/userdetails", {
         method: "POST",
         headers: {
@@ -235,7 +234,6 @@ function InternshipForm() {
       setLoading(false);
     } catch (e) {
       setError(e);
-      // console.log(e);
       setLoading(false);
     }
   };

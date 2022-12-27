@@ -3,14 +3,15 @@ import React from 'react'
 function NoInternship() {
   return (
     <div className='px-2 py-10 text-center text-3xl'>
-        <span className='mx-auto'>
-        No internship added 
-        <br/>
-        <br/>
-        <span className='text-base'>
-            Please add an internship to view this page
-        </span>
-        </span>
+        <div className='mx-auto'>
+        <p>
+          No internship added 
+        </p>
+        
+        <p className='text-base my-4'>
+          Please register an internship 
+        </p>
+        </div>
     </div>
   )
 }

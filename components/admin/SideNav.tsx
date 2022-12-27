@@ -55,12 +55,12 @@ export default function Navbar() {
     Router.push("/login");
   }
 
-  const inActive= "py-2 my-1 px-3 font-medium text-gray-900 hover:text-gray-900 hover:bg-slate-400/70 hover:shadow-sm border-2 border-slate-300/30 rounded-lg cursor-pointer bg-slate-300/40 flex flex-row items-center";
+  const inActive= "py-2 my-1 px-3 font-medium text-gray-900 hover:text-black hover:bg-slate-400/70 hover:shadow-sm border-2 border-slate-300/30 rounded-lg cursor-pointer bg-slate-300/40 flex flex-row items-center";
   const active  = "py-2 my-1 px-3 font-medium text-black hover:text-gray-900 border-2 border-primary shadow-sm rounded-lg cursor-pointer bg-pink-100/70 flex flex-row ";
 
   return (
     <>
-    <nav className="right-auto w-[18vw] hidden lg:block fixed bg-slate-300/80 inset-0 pb-10 px-4 overflow-y-auto shadow-lg">
+    <nav className="right-auto w-[18vw] hidden lg:block fixed bg-slate-300 inset-0 pb-10 px-4 overflow-y-auto shadow-lg">
     <div className='flex md:flex-col'>
      <div className="justify-start md:my-4 md:flex-1 mx-auto">
         <Link href="/admin">
@@ -107,7 +107,7 @@ export default function Navbar() {
       <div className='absolute bottom-0  '>
       {auth?
           <>
-          <div className='truncate w-[15vw] py-1 px-3 text-lg bg-gray-50/90 border-2 border-slate-300 rounded-xl mb-4'>
+          <div className='truncate w-[15vw] py-1 px-3 text-lg bg-gray-50/90 border-2 border-slate-500 rounded-xl mb-4'>
             {auth.name}
           </div>
          <button
@@ -121,11 +121,6 @@ export default function Navbar() {
           href="/login"
           className="inline-flex items-center justify-center whitespace-nowrap text-primary px-4 py-2 text-base font-medium hover:text-pink-900 hover:underline">
            Login
-          </Link>
-         <Link
-          href="/signup"
-          className="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
-            Signup
           </Link>
            </div>
         }
