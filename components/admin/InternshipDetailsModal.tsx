@@ -153,8 +153,6 @@ export default function DetailModal({
                                     className={"fill-slate-700"}
                                   />
                                 )}
-
-                                <p className="ml-1">Edit</p>
                               </div>
                             </>
                           ) : (

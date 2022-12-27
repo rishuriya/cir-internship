@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export const ColumnFilter = ({ column }) => {
 
     const { filterValue, setFilter } = column;
@@ -17,7 +18,7 @@ export const ColumnFilter = ({ column }) => {
 };
 
 export const BranchFilter= ({ column })=>{
-    const { filterValue, setFilter } = column;
+    const { filterValue, setFilter, globalFilter, setGlobalFilter } = column;
     
     return (
         <span>

@@ -201,7 +201,7 @@ export default function TableCompletionApproal() {
                     <th
                       key={i}
                       scope="col"
-                      className="text-lg text-center font-medium text-gray-900 px-2 py-4"
+                      className="text-lg text-center font-medium text-gray-900 px-2 py-4 min-w-[200px]"
                       {...column.getHeaderProps()}>
                       {column.render("Header")}
                       <div>

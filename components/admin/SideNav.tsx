@@ -122,11 +122,6 @@ export default function Navbar() {
           className="inline-flex items-center justify-center whitespace-nowrap text-primary px-4 py-2 text-base font-medium hover:text-pink-900 hover:underline">
            Login
           </Link>
-         <Link
-          href="/signup"
-          className="inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-primary px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-pink-900">
-            Signup
-          </Link>
            </div>
         }
       </div>
