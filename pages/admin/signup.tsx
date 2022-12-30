@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ImSpinner2 } from "react-icons/im";
 import { RootState } from '../../store'
 import { MdReportGmailerrorred } from "react-icons/md";
-import { AiFillEye, AiFillEyeInvisible, AiOutlineArrowLeft } from "react-icons/ai";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import cookie from "js-cookie";
 import SideNav from '../../components/admin/SideNav'
 
