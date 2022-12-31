@@ -26,6 +26,7 @@ function InternshipForm() {
   const [username, setUserName] = useState([]);
   const [disableSubmit, setDisableSubmit] = useState(false);
   const [semList,setSemList]=useState([]);
+  const [whomsoever,setWhomsoever]=useState(false);
   let user_name
   let date_ob = new Date();
   var year = date_ob.getFullYear()
@@ -170,7 +171,7 @@ function InternshipForm() {
         branch: data.branch,
         company_name: data.company_name,
         company_location: data.company_location,
-        company_person_name: data.company_person_name,
+        company_person_name: whomsoever!=true?data.company_person_name:"Whomsoever it may concern",
         company_email: data.company_email,
         company_mobile: data.company_mobile,
         training_type: data.training_type,
@@ -255,6 +256,13 @@ function InternshipForm() {
       setStatus(true)
     } else {
       setStatus(false)
+    }
+  };
+  const whomeseverHandler = () => {
+    if (whomsoever === false) {
+      setWhomsoever(true)
+    } else {
+      setWhomsoever(false)
     }
   };
 
@@ -463,10 +471,19 @@ function InternshipForm() {
             {/* mentor name and email input */}
             <div className="flex flex-wrap -mx-3 mb-2">
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+              <div className="flex justify-between">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-mentor-name">
                   Mentor Name
                 </label>
-                <input pattern="[A-Za-z ,.'-]+" title="Enter Valid Mentor Name" required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" name="company_person_name" id="grid-mentor-name" type="text" placeholder="Mentor Name" />
+                <div className="flex">
+                <input type="checkbox" className="mx-2" id="release" onClick={whomeseverHandler} />
+              <label className="block uppercase tracking-wide text-white my-1 text-xs font-bold" htmlFor="release">
+              whomsoever concerned
+              </label>
+              </div>
+              </div>
+                <input disabled={whomsoever} pattern="[A-Za-z ,.'-]+" title="Enter Valid Mentor Name" required className={whomsoever?"appearance-none block w-full bg-gray-500 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white":"appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"} name="company_person_name" id="grid-mentor-name" type="text" placeholder="Mentor Name" />
+                
               </div>
               <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <label className="block uppercase tracking-wide text-white text-xs font-bold mb-2" htmlFor="grid-mentor-email">
