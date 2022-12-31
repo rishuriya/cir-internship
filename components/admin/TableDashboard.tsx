@@ -9,7 +9,6 @@ import { CSVLink } from "react-csv";
 
 import GlobalFilter from "./GlobalFilter";
 import { ColumnFilter } from "./ColumnFilter";
-import { MdRowing } from "react-icons/md";
 
 const tableColumns = [
   {
@@ -24,7 +23,7 @@ const tableColumns = [
   },
   {
     Header: "Duration",
-    accessor: "internship_start_date",
+    accessor:  d => `${toDDmmm(d.internship_start_date)}  ${toDDmmm(d.internship_end_date)}`,
     Filter: ColumnFilter,
     Cell: ({ row: { original } }) => (
       <div>

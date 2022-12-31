@@ -60,7 +60,11 @@ export default function Settings() {
       }).then(async (res) => {
         const resData = await res.json();
         if (resData.success) {
-          setData(resData.branch);
+          const dat=resData.branch;
+          if(dat){
+            dat.sort((a, b) => (a.school_name < b.school_name ? -1 : 1));
+          }
+          setData(dat);
           setLoading(false);
         }
         else {
