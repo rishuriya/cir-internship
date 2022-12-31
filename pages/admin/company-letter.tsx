@@ -1,29 +1,30 @@
 import Link from 'next/link';
 import cookie from 'js-cookie';
+import Image from "next/image";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import React, { useRef } from 'react';
 import { useRouter } from "next/router";
-import { getUser } from '../../utils/getUser'
 import ReactToPrint from "react-to-print";
-import Image from "next/image";
-import Header from '../../public/img/head.png'
 import { ImSpinner2 } from "react-icons/im";
+import { getUser } from '../../utils/getUser'
+import Header from '../../public/img/head.png'
 import Footer from '../../public/img/Footer.png'
 
 const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter(prop, ref) {
   const [username, setUserName] = useState([]);
   const [role, setRole] = useState();
   const router = useRouter()
+  const [isDataRecieved, setIsDataRecieved] = useState(false);
+  const [data, setData] = useState(false);
+  const [internshipdata, setInternshipData] = useState([]);
+
   let user = router.query.user;
   let internship_id = router.query.id;
   const userid = cookie.get("token");
   let user_name
   let internship_data
-  const [isDataRecieved, setIsDataRecieved] = useState(false);
-  const [data, setData] = useState(false);
 
-  const [internshipdata, setInternshipData] = useState([]);
 
   useEffect(() => {
     try {
@@ -48,6 +49,7 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
         setRole(response.user["role"]);
         
       });
+
       if (username["_id"]) {
         const bodyObject = {
           user: username["_id"],
@@ -70,9 +72,6 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
         });
 
       }
-
-
-  
     } catch (err) {
       console.log(err);
     }
@@ -83,8 +82,10 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
 
   if (isDataRecieved && data) {
     let member = internshipdata["member"] == null ? null : JSON.parse(internshipdata["member"]);
+    console.log("member", internshipdata);
+    
     return (
-      <div className="mx-auto max-w-4xl text-[16px] font-sans relative bg-white" ref={ref} style={{width: 780.7007874, height:1050.519685}}>
+      <div className="mx-auto max-w-4xl text-[15px] font-sans relative bg-white" ref={ref} style={{width: 780.7007874, height:1050.519685}}>
         <div className="mt-0 mb-0 text-center">
           {role!="Admin" ?(<>
           <Image src={Header} />
@@ -100,12 +101,21 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
         <div className='px-4 sm:px-8 mt-10 mb-5' >
         <div className="text-sm text-right mx-8 mb-5">{new Date().toLocaleDateString()}</div>
           <div className='my-5'>
-            <p>{internshipdata["company_person_name"]}</p>
-            <p>{internshipdata["company_name"]}</p>
-            {/* <p>Designation</p> */}
-            <p>{internshipdata["company_location"]}</p>
+            {
+              internshipdata["company_person_name"] == "Whomsoever it may concern"?(
+                <>
+                <p className='text-center font-semibold py-4'>To whomsoever it may concern</p>
+                </>
+              ):(<>
+                 <p>{internshipdata["company_person_name"]}</p>
+                  <p>{internshipdata["company_name"]}</p>
+                  {/* <p>Designation</p> */}
+                  <p>{internshipdata["company_location"]}</p>
+              </>)
+            }
+           
           </div>
-          <div className='my-5 font-medium'>
+          <div className='my-5 font-semibold'>
             <p>Sub: - Request for Internship for {username["course"]} student.</p>
           </div>
           <div className='my-5'>
@@ -115,7 +125,7 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
             {username["school"]} is one of the several professional institutions under Amrita Vishwa
             Vidyapeetham, established under section 3 of the UGC Act, 1956. {username["course"]} students
             studying in  {username["school"] === "Amrita School Of Arts and Science" && (<>ASAS</>)} are advised to do Internship in reputed organizations. This will give them some practical
-            experience which will contribute substantially to their learning process
+            experience which will contribute substantially to their learning process.
           </div>
 
           <div>
@@ -148,7 +158,7 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
           <div className="my-5 mx-2">
             Thanking you,
           </div>
-          <div className='flex flex-row justify-between mx-3 items-end my-6'>
+          <div className='flex flex-row justify-between mx-3 items-end mt-6'>
             <div>
               <p>Br. Vishwanathamrita Chaitanya </p>
               <p>Head - Corporate & Industry Relations</p>
@@ -159,7 +169,7 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
         </div>
        
       {role!="Admin" ?(
-           <div className="flex flex-col justify-between absolute">
+           <div className="flex flex-col justify-between absolute -bottom-16">
              <div className="flex flex-row divide-x text-sm divide-black justify-center mb-2">
               <p className="text-base px-2">Amritapuri</p>
               <p className="text-base px-2">Bengaluru</p>

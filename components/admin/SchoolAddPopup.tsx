@@ -235,6 +235,7 @@ export default function DetailModal({ closeModal,setUpdateTable,updateTable }) {
 
                         {/* Course Addition dropdown */}
                         <div className="flex flex-row">
+                          <label></label>
                           <div className="relative">
                             <select
                               required
@@ -274,8 +275,9 @@ export default function DetailModal({ closeModal,setUpdateTable,updateTable }) {
                           <input onChange={(e) => setBranch(e.target.value)} required className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" name="branch_name" id="grid-branch-name" type="text" placeholder="Branch Name" />
                         </div>
 
+                        <div className="">
+                        {/* <label className="">Total number for semesters</label>   */}
                         <div className="relative w-1/2">
-
                           <select
                             required className="block appearance-none w-full bg-gray-100 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none 
                      focus:bg-white focus:border-gray-500" name="sem" id="grid-sem"
@@ -301,6 +303,7 @@ export default function DetailModal({ closeModal,setUpdateTable,updateTable }) {
                           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                           </div>
+                          </div>       
                         </div>
                       </div>
                     </div>

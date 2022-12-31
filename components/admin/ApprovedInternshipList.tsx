@@ -22,7 +22,7 @@ const tableColumns = [
   },
   {
     Header: "Duration",
-    accessor: "internship_start_date",
+    accessor:  d => `${toDDmmm(d.internship_start_date)}  ${toDDmmm(d.internship_end_date)}`,
     Filter: ColumnFilter,
     Cell: ({ row: { original } }) => (
       <div>
