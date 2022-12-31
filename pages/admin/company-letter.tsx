@@ -82,6 +82,8 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
 
   if (isDataRecieved && data) {
     let member = internshipdata["member"] == null ? null : JSON.parse(internshipdata["member"]);
+    console.log("member", internshipdata);
+    
     return (
       <div className="mx-auto max-w-4xl text-[15px] font-sans relative bg-white" ref={ref} style={{width: 780.7007874, height:1050.519685}}>
         <div className="mt-0 mb-0 text-center">
@@ -99,12 +101,21 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
         <div className='px-4 sm:px-8 mt-10 mb-5' >
         <div className="text-sm text-right mx-8 mb-5">{new Date().toLocaleDateString()}</div>
           <div className='my-5'>
-            <p>{internshipdata["company_person_name"]}</p>
-            <p>{internshipdata["company_name"]}</p>
-            {/* <p>Designation</p> */}
-            <p>{internshipdata["company_location"]}</p>
+            {
+              internshipdata["company_person_name"] == "Whomsoever it may concern"?(
+                <>
+                <p className='text-center font-semibold py-4'>To whomsoever it may concern</p>
+                </>
+              ):(<>
+                 <p>{internshipdata["company_person_name"]}</p>
+                  <p>{internshipdata["company_name"]}</p>
+                  {/* <p>Designation</p> */}
+                  <p>{internshipdata["company_location"]}</p>
+              </>)
+            }
+           
           </div>
-          <div className='my-5 font-medium'>
+          <div className='my-5 font-semibold'>
             <p>Sub: - Request for Internship for {username["course"]} student.</p>
           </div>
           <div className='my-5'>
@@ -114,7 +125,7 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
             {username["school"]} is one of the several professional institutions under Amrita Vishwa
             Vidyapeetham, established under section 3 of the UGC Act, 1956. {username["course"]} students
             studying in  {username["school"] === "Amrita School Of Arts and Science" && (<>ASAS</>)} are advised to do Internship in reputed organizations. This will give them some practical
-            experience which will contribute substantially to their learning process
+            experience which will contribute substantially to their learning process.
           </div>
 
           <div>
