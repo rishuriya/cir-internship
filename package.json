@@ -9,7 +9,6 @@
     "lint": "next lint",
     "server": "sudo systemctl start mongod && next dev",
     "rv1": "brew services start mongodb-community@6.0 && next dev",
-    "rv2": "brew services stop mongodb-community@6.0",
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev"
   },
   "dependencies": {
