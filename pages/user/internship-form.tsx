@@ -148,6 +148,11 @@ function InternshipForm() {
         setLoading(false);
         return;
       }
+      if (formValues.length>4) {
+        setError("Maximum 4 additional members are allowed");
+        setLoading(false);
+        return;
+      }
       if (data.training_type === undefined || data.training_type === "" || data.internship_mode === undefined) {
         if(data.training_type === undefined){
           setError("Please select Nature Of Training");
@@ -610,11 +615,9 @@ function InternshipForm() {
                       placeholder="AM.XX.XX.XXXXX"
                       onChange={e => handleChange(index, e)} />
                   </div>
-                  {
-                    index ?
+                  {index ?
                       <button type="button" className="button remove py-2 px-2 text-white bg-primary rounded-lg font-base" onClick={() => removeFormFields(index)}>Remove</button>
-                      : null
-                  }
+                      : null}
                 </div>
               ))}
               <button className="button add py-2 px-2 text-white bg-primary rounded-lg font-base" type="button" onClick={() => addFormFields()}>Add</button>

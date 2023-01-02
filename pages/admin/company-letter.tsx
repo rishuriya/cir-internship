@@ -82,12 +82,11 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
 
   if (isDataRecieved && data) {
     let member = internshipdata["member"] == null ? null : JSON.parse(internshipdata["member"]);
-    console.log("member", internshipdata);
     
     return (
       <div className="mx-auto max-w-4xl text-[15px] font-sans relative bg-white" ref={ref} style={{width: 780.7007874, height:1050.519685}}>
         <div className="mt-0 mb-0 text-center">
-          {role!="Admin" ?(<>
+          {role=="Admin" ?(<>
           <Image src={Header} />
           </>
           ):(
@@ -168,7 +167,7 @@ const CompanyLetter = React.forwardRef<HTMLDivElement>(function InternshipLetter
           
         </div>
        
-      {role!="Admin" ?(
+      {role=="Admin" ?(
            <div className="flex flex-col justify-between absolute -bottom-16">
              <div className="flex flex-row divide-x text-sm divide-black justify-center mb-2">
               <p className="text-base px-2">Amritapuri</p>
