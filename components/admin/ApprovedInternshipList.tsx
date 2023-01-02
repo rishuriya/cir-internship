@@ -22,7 +22,7 @@ const tableColumns = [
   },
   {
     Header: "Duration",
-    accessor: "internship_start_date",
+    accessor:  d => `${toDDmmm(d.internship_start_date)}  ${toDDmmm(d.internship_end_date)}`,
     Filter: ColumnFilter,
     Cell: ({ row: { original } }) => (
       <div>
@@ -246,11 +246,12 @@ export default function InternshipApprovedList() {
             {page.map((row, i) => {
               prepareRow(row);
               return (
-                <tr onClick={() => StudentDetails(row)} key={i} {...row.getRowProps()} className="hover:bg-slate-100/60 rounded-lg cursor-pointer">
+                <tr  key={i} {...row.getRowProps()} className="hover:bg-slate-100/60 rounded-lg cursor-pointer">
                   {row.cells.map((cell) => {
                     return (
                       
                         <td
+                          onClick={() => StudentDetails(row)}
                           key={i}
                           className="p-4 text-center max-w-[300px] overflow-hidden truncate"
                           {...cell.getCellProps()}

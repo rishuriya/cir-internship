@@ -60,7 +60,11 @@ export default function Settings() {
       }).then(async (res) => {
         const resData = await res.json();
         if (resData.success) {
-          setData(resData.branch);
+          const dat=resData.branch;
+          if(dat){
+            dat.sort((a, b) => (a.school_name < b.school_name ? -1 : 1));
+          }
+          setData(dat);
           setLoading(false);
         }
         else {
@@ -107,12 +111,14 @@ export default function Settings() {
       {openModal && (
         <SchoolAddPopup closeModal={setOpenModal} setUpdateTable={setPageUpdate} updateTable={pageUpdate}/>
       )}
-      <div className="flex flex-row justify-between">
+     
+      {(!empty && loading === false) ? 
+      <div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
+        <div className="flex flex-row justify-between mx-5">
         <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
           <div
             className="flex flex-row justify-start items-center w-28 md:w-40 border-2 border-primary rounded-lg py-1 px-2 hover:bg-slate-100 hover:cursor-pointer"
-            onClick={() => courseAddition()}
-          >
+            onClick={() => courseAddition()}>
             <GrAddCircle
               size={26}
               className="p-2 h-10 w-10 ml-2 cursor-pointer rounded-lg "
@@ -120,9 +126,8 @@ export default function Settings() {
             <span>Add Course</span>
           </div>
       </div>
-      {(!empty && loading === false) ? <div className="table max-w-5xl md:max-w-7xl mx-auto border-2 rounded-xl py-2 my-3 bg-gray-50">
-        
         <table {...getTableProps()}>
+        
           <thead>
             {headerGroups.map((headerGroup, i) => (
               
