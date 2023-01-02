@@ -88,8 +88,10 @@ function StudentForm() {
       body: JSON.stringify(schoolname),
     }).then(async (res) => {
       const resData = await res.json();
+      
       if (resData.success) {
         setCourseList(resData.course);
+        setBranchList(resData.branch);
       }
       //handleCourseChange(e);
     });
