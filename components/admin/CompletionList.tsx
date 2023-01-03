@@ -44,7 +44,7 @@ const tableColumns = [
   },
   {
     Header: "Branch",
-    accessor: "status",
+    accessor: "branch",
     Filter: ColumnFilter,
   }
 ];
@@ -246,7 +246,7 @@ export default function TableCompletionApproal() {
                  
                   <ApprovalDisapprovalCompletion
                     internship={row.original}
-                    // isApproved={false}
+                    isApproved={false}
                     setIsDone={setIsDone}
                     showModal={setOpenModal}
                     modalState={openModal}

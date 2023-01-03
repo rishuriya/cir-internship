@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { AiOutlineLoading3Quarters, AiOutlineDownload } from "react-icons/ai";
+import Link from "next/link";
 import {
   MdCardMembership,
   MdOutlineModeEditOutline,
@@ -20,6 +21,7 @@ export default function DetailModal({
   const [open, setOpen] = useState(true);
   const [loading, setLoading] = useState(true);
   const cancelButtonRef = useRef(null);
+  const [certificate, setCertificate] = useState<any>("");
   const [user, setUser] = useState<any>("");
   const [editDetail, setEditDetail] = useState(false);
   const [companyName, setCompanyName] = useState(info.company_name);
@@ -41,6 +43,19 @@ export default function DetailModal({
         setUser(resData.data);
       }
     });
+if(info.approved=="Pending Verification"){
+    fetch(`/api/admin/${info.user}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(async (res) => {
+      const resData = await res.json();
+      if (resData.success) {
+        setCertificate(resData.data[0]["completion_certificate"]);
+      }
+    });
+  }
   }, []);
   function handleInternshipletter(e, uid) {
     router.push(
@@ -330,48 +345,81 @@ export default function DetailModal({
                                 <span className="text-black w-2/3">
                                   <div className="flex flex-row">
 
-                                  <p className="text-base text-black ">
-                                    Start Dates :{""}
-                                  </p>
-                                  <input
-                                    required
-                                    onChange={(e) => {
-                                      setStartDate(e.target.value);
-                                    }}
-                                    className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    name="internship_start_date"
-                                    id="grid-start-date"
-                                    type="date"
-                                    placeholder="Start Date"
-                                    defaultValue={startDate
-                                      .toString()
-                                      .substring(0, 10)}
-                                  />
+                                    <p className="text-base text-black ">
+                                      Start Dates :{""}
+                                    </p>
+                                    <input
+                                      required
+                                      onChange={(e) => {
+                                        setStartDate(e.target.value);
+                                      }}
+                                      className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                      name="internship_start_date"
+                                      id="grid-start-date"
+                                      type="date"
+                                      placeholder="Start Date"
+                                      defaultValue={startDate
+                                        .toString()
+                                        .substring(0, 10)}
+                                    />
                                   </div>
                                   <div className="flex flex-row">
 
-                                  <p className="text-base text-black ">
-                                    End Dates :{" "}
-                                  </p>
-                                  <input
-                                    required
-                                    onChange={(e) => {
-                                      setEndDate(e.target.value);
-                                    }}
-                                    className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                    name="internship_end_date"
-                                    id="grid-end-date"
-                                    type="date"
-                                    placeholder="End Date"
-                                    defaultValue={endDate
-                                      .toString()
-                                      .substring(0, 10)}
-                                  />
+                                    <p className="text-base text-black ">
+                                      End Dates :{" "}
+                                    </p>
+                                    <input
+                                      required
+                                      onChange={(e) => {
+                                        setEndDate(e.target.value);
+                                      }}
+                                      className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                      name="internship_end_date"
+                                      id="grid-end-date"
+                                      type="date"
+                                      placeholder="End Date"
+                                      defaultValue={endDate
+                                        .toString()
+                                        .substring(0, 10)}
+                                    />
                                   </div>
 
                                 </span>
                               </>
                             )}
+                          </div>
+                          {info.request_letter != null ? (<>
+                            <div className="flex mb-2">
+                              <p className="text-base text-gray-700 ml-2 w-1/3">
+                                Request Letter:{" "}
+                              </p>
+                              <Link href={info.request_letter}>
+                                <a target={"_blank"}>
+                                  <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
+                                    <AiOutlineDownload
+                                      className="fill-black "
+                                      size={28}
+                                    />
+
+                                  </div>
+                                </a>
+                              </Link>
+                            </div>
+                          </>) : <div></div>}
+                          <div className="flex mb-2">
+                            <p className="text-base text-gray-700 ml-2 w-1/3">
+                              Signed Letter:{" "}
+                            </p>
+                            <Link href={info.hod_letter}>
+                              <a target={"_blank"}>
+                                <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
+                                  <AiOutlineDownload
+                                    className="fill-black "
+                                    size={28}
+                                  />
+                                </div>
+                              </a>
+                            </Link>
                           </div>
                           {info.approved == "Approved" && (
                             <div className="flex mb-2">
@@ -395,6 +443,24 @@ export default function DetailModal({
                               </button>
                             </div>
                           )}
+                          {info.approved == "Pending Verification" && certificate!=null ? (<>
+                            <div className="flex mb-2">
+                              <p className="text-base text-gray-700 ml-2 w-1/3">
+                                Request Letter:{" "}
+                              </p>
+                              <Link href={certificate}>
+                                <a target={"_blank"}>
+                                  <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
+                                    <AiOutlineDownload
+                                      className="fill-black "
+                                      size={28}
+                                    />
+
+                                  </div>
+                                </a>
+                              </Link>
+                            </div>
+                          </>) : <div></div>}
                         </div>
                         <div>
                           {member !== null ? (
@@ -491,7 +557,7 @@ export default function DetailModal({
                           <div className="absolute left-0 bottom-1">
                             <ApprovalDisapprovalCompletion
                               internship={info}
-                              // isApproved={false}
+                              isApproved={false}
                               setIsDone={setIsDone}
                               showModal={closeModal}
                               modalState={stateModal}

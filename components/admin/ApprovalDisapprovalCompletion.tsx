@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 
 import cookie from "js-cookie";
 
-export default function InternshipCard({ internship ,setIsDone,showModal,modalState}) {
+export default function InternshipCard({ internship, isApproved,setIsDone,showModal,modalState}) {
 
   //modal
   let [isOpen, setIsOpen] = useState(false);
@@ -40,6 +40,10 @@ export default function InternshipCard({ internship ,setIsDone,showModal,modalSt
       if (resData.success) {
         setIsOpen(false);
         setIsDone(true);
+        if(modalState==true){
+          showModal(false)
+        }
+        return;
       }
     });
   }

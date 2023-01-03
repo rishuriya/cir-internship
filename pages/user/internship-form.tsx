@@ -41,7 +41,7 @@ function InternshipForm() {
   const router = useRouter()
 
   const dispatch = useDispatch();
-  const authUser: any = useSelector((state: RootState) => state.user.value);
+
 
   const uploadToClient = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -184,7 +184,7 @@ function InternshipForm() {
         internship_end_date: data.internship_end_date,
         internship_mode: data.internship_mode,
         company_website: data.company_website,
-        request_letter: image != null ? fileres.url : null,
+        request_letter: image != null ? fileres.url.replace("./public/", "") : null,
         member: member_data
       };
       const userObject = {
