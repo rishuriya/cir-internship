@@ -31,6 +31,10 @@ export default function DetailModal({
   const [endDate, setEndDate] = useState(info.internship_end_date);
   const router = useRouter();
   let token = Cookie.get("token");
+  let hostname=window.location.href;
+  let domain = (new URL(hostname));
+  
+ hostname=hostname.replace(domain.pathname,"/")
   useEffect(() => {
     fetch(`/api/student/${info.user}`, {
       method: "GET",
@@ -393,7 +397,9 @@ if(info.approved=="Pending Verification"){
                               <p className="text-base text-gray-700 ml-2 w-1/3">
                                 Request Letter:{" "}
                               </p>
-                              <Link href={info.request_letter}>
+                              <Link href={{
+                                pathname: hostname + info.request_letter,
+                              }}>
                                 <a target={"_blank"}>
                                   <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
                                     <AiOutlineDownload
@@ -410,16 +416,18 @@ if(info.approved=="Pending Verification"){
                             <p className="text-base text-gray-700 ml-2 w-1/3">
                               Signed Letter:{" "}
                             </p>
-                            <Link href={info.hod_letter}>
-                              <a target={"_blank"}>
+                            <Link href={{
+                                pathname: hostname + info.hod_letter,
+                              }}>
+                                <a target={"_blank"}>
                                 <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
                                   <AiOutlineDownload
                                     className="fill-black "
                                     size={28}
                                   />
                                 </div>
-                              </a>
-                            </Link>
+                             </a>
+                             </Link>
                           </div>
                           {info.approved == "Approved" && (
                             <div className="flex mb-2">
@@ -446,9 +454,11 @@ if(info.approved=="Pending Verification"){
                           {info.approved == "Pending Verification" && certificate!=null ? (<>
                             <div className="flex mb-2">
                               <p className="text-base text-gray-700 ml-2 w-1/3">
-                                Request Letter:{" "}
+                                Certificate:{" "}
                               </p>
-                              <Link href={certificate}>
+                              <Link href={{
+                                pathname:hostname + certificate
+                                }}>
                                 <a target={"_blank"}>
                                   <div className="flex flex-row right-0 bg-slate-300/30 px-2 py-1 my-2 rounded-md">
                                     <AiOutlineDownload

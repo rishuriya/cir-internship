@@ -7,7 +7,6 @@ export default async function handeler(req, res) {
     try{
        
         let query= {user: req.query.completion_certificate}
-        console.log(query)
         let user_data = await User.find(query);
         if (user_data){
             return await res.status(200).json({success:true,message:'data found',data:user_data})
