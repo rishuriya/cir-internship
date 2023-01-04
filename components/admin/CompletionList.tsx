@@ -302,7 +302,7 @@ export default function TableCompletionApproal() {
             {'>>'}
           </button>
         </div>
-      </div>:(loading===true?<div className="flex justify-center items-center">
+      </div>:(loading===true?<div className="flex">
         <div className="">
           <AiOutlineLoading3Quarters className="animate-spin fill-primary" size={42}/>
         </div>

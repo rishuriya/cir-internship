@@ -14,10 +14,6 @@ export default function Navbar() {
 
     const authUser = useSelector((state: RootState) => state.user.value)
     const [auth, setAuth] = useState(null)
-    const [loading, setLoading] = useState(false);
-    const router = useRouter();
-    const [drawerOpen, setDrawerOpen] = useState(false);
-
 
     useEffect(() => {
         console.log(authUser)
