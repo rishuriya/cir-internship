@@ -9,12 +9,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store';
 import SideNav from '../../components/admin/SideNav';
 import InternshipApprovedList from '../../components/admin/ApprovedInternshipList'
+import Navbar from '../../components/admin/Navbar'
 
 
 function ApprovedInternships() {
 
   const dispatch = useDispatch();
-  const authUser:any = useSelector((state: RootState) => state.user.value);
+  const authUser: any = useSelector((state: RootState) => state.user.value);
 
   useEffect(() => {
     if (authUser === null) {
@@ -35,7 +36,7 @@ function ApprovedInternships() {
             token: token,
           }
           dispatch(update(userObj));
-          if(!userObj.isAdmin){
+          if (!userObj.isAdmin) {
             Router.push("/");
             return;
           }
@@ -43,47 +44,45 @@ function ApprovedInternships() {
             Router.push("/admin");
             return;
           }
-        
-        if(token===undefined){
-          Router.push("admin/login");
-        }
-      })
-    } catch (err) {
-      console.log(err);
-      Router.push('/signup');
+
+          if (token === undefined) {
+            Router.push("admin/login");
+          }
+        })
+      } catch (err) {
+        console.log(err);
+        Router.push('/signup');
+      }
     }
-   }
-   else if(authUser!==null && !authUser.isAdmin){
-    Router.push('/');
-    return;
-   }
-  },[]
+    else if (authUser !== null && !authUser.isAdmin) {
+      Router.push('/');
+      return;
+    }
+  }, []
   )
 
 
   return (
     <div>
-       <Head>
+      <Head>
         <title>CIR Admin - Amrita Internship</title>
         <meta name="description" content="Amrita Students can submit their Internship detail and get approval from CIR online" />
         <link rel="icon" href="/favicon.ico" />
-      </Head> 
+      </Head>
 
       <main>
-      {/* <Navbar/> */}
-      <div className='mx-[1px] lg:pl-[18vw]'>
+        <Navbar/>
 
-      <SideNav/>
-        <div className='max-w-8xl px-4 sm:px-6 lg:w-[80vw] lg:mx-auto overflow-scroll'>
+          <SideNav />
+          <div className='max-w-7xl px-4 sm:px-6 lg:w-[80vw] lg:mx-[8vw]'>
             <div className='my-3 mx-2 font-semibold text-2xl text-center'>
-                Administrative Portal
+              Administrative Portal
             </div>
             <div className='font-medium mx-5 my-5 text-xl'>
-            Internships
+              Internships
             </div>
-            <InternshipApprovedList/>
-        </div>
-      </div>
+            <InternshipApprovedList />
+          </div>
       </main>
     </div>
   )
