@@ -80,7 +80,7 @@ const toDDmmm = (date) => {
   return `${d.getDate()} ${month}`;
 } 
 
-export default function TableCompletionApproal() {
+export default function   TableCompletionApproal() {
   const [loading, setLoading] = useState(true);
   const [csvData, setCsvData] = useState([]);
   const [data, setData] = useState([]);

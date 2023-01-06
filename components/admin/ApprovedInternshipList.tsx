@@ -210,7 +210,7 @@ export default function InternshipApprovedList() {
           stateModal={openModal}
         />
       )}
-      {(!empty && loading === false) ? <div className="table max-w-5xl md:max-w-7xl border-2 rounded-xl py-2 my-3 bg-gray-100">
+      {(!empty && loading === false) ? <div className="table max-w-5xl md:max-w-7xl border-2 rounded-xl py-2 my-3 object-right bg-gray-100">
         <table role={"table"} className="">
           <thead>
             {headerGroups.map((headerGroup, i) => (

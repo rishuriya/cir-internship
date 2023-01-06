@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store';
 import SideNav from '../../components/admin/SideNav';
 import Settings from '../../components/admin/Settings'
+import Navbar from '../../components/admin/Navbar';
 
 
 function ApprovedInternships() {
@@ -70,7 +71,7 @@ function ApprovedInternships() {
       </Head> 
 
       <main>
-      {/* <Navbar/> */}
+      <Navbar/>
       <div className='mx-[1px] lg:pl-[18vw]'>
 
       <SideNav/>
