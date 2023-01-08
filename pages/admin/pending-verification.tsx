@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store';
 import SideNav from '../../components/admin/SideNav';
 import CompletionList from '../../components/admin/CompletionList'
+import Navbar from '../../components/admin/Navbar';
 
 
 function ApprovedInternships() {
@@ -69,11 +70,11 @@ function ApprovedInternships() {
       </Head> 
 
       <main>
-      {/* <Navbar/> */}
+      <Navbar/>
       <div className='mx-[1px]'>
       <SideNav/>
-        <div className='max-w-8xl px-4 sm:px-6 lg:w-[80vw] lg:mx-auto overflow-scroll'>
-          <div className='my-3 mx-2 font-semibold text-2xl text-center'>
+      <div className='max-w-7xl px-4 sm:px-6 lg:w-[80vw] lg:mx-auto '>
+        <div className='my-3 mx-2 font-semibold text-2xl text-center'>  
                 Administrative Portal
             </div>
             <div className='font-medium mx-5 my-5 text-xl'>

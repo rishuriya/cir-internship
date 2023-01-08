@@ -33,7 +33,9 @@ export default function Navbar() {
     return (
         <>
             <div className='flex'>
-                <div className='max-w-7xl px-4 sm:px-6 lg:w-[95vw] lg:mx-[8vw]'>
+            {/* <div className='max-w-7xl px-4 sm:px-6 lg:w-[80vw] lg:mx-auto '>
+            <div className='my-3 mx-2 font-semibold text-2xl text-center'> */}
+                <div className='max-w-7xl px-4 sm:px-6 lg:w-[80vw] lg:mx-auto'>
                     <div className='my-3 mx-2 flex justify-end font-semibold text-right'>
                         {
                             auth ?
